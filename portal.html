@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>製造課 ポータル</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --blue:#0078d4;--blue-dk:#005a9e;
+  --white:#fff;--bg:#f4f4f4;--card:#fff;
+  --border:#e0e0e0;--border2:#d0d0d0;
+  --text:#111;--text2:#444;--text3:#888;
+  --shadow:0 2px 8px rgba(0,0,0,.09);
+  --shadow-lg:0 4px 20px rgba(0,0,0,.13);
+  --nav-w:220px;--nav-w-col:52px;--hdr:52px;
+  --sans:'Noto Sans JP',sans-serif;
+  --kito:#e85d04;--sato:#7c3aed;--yamashita:#0369a1;--yamazaki:#15803d;
+  --san:#be185d;--kita:#b45309;--an:#1d4ed8;--tsuda:#0f766e;
+}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15px;min-height:100vh;}
+
+/* HEADER */
+.hdr{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:var(--blue);display:flex;align-items:center;z-index:200;}
+.h-logo{display:flex;align-items:center;gap:10px;padding:0 20px;flex-shrink:0;}
+.h-logo-mark{width:28px;height:28px;background:#fff;border-radius:3px;display:flex;align-items:center;justify-content:center;}
+.h-logo-mark span{font-size:11px;font-weight:900;color:var(--blue);}
+.h-name{color:#fff;font-size:20px;font-weight:700;letter-spacing:.02em;}
+.h-search{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border-radius:3px;padding:7px 16px;margin-left:auto;margin-right:20px;width:300px;}
+.h-search i{font-size:16px;color:rgba(255,255,255,.7);}
+.h-search span{color:rgba(255,255,255,.65);font-size:13px;}
+.h-av{width:34px;height:34px;border-radius:50%;background:#c3e0f5;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--blue);margin-right:16px;flex-shrink:0;}
+
+/* NAV */
+.nav{position:fixed;top:var(--hdr);left:0;bottom:0;width:var(--nav-w);background:#fff;box-shadow:2px 0 8px rgba(0,0,0,.07);display:flex;flex-direction:column;z-index:100;transition:width .2s ease;overflow:hidden;}
+.nav.collapsed{width:var(--nav-w-col);}
+.nav-top{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border);min-height:46px;flex-shrink:0;}
+.nav-site-name{font-size:12px;font-weight:700;color:var(--text2);white-space:nowrap;overflow:hidden;transition:opacity .2s;}
+.nav.collapsed .nav-site-name{opacity:0;width:0;}
+.nav-collapse-btn{background:none;border:none;cursor:pointer;color:var(--text2);padding:4px;border-radius:4px;display:flex;align-items:center;flex-shrink:0;}
+.nav-collapse-btn:hover{background:#f0f0f0;}
+.nav-collapse-btn i{font-size:20px;}
+.nav-body{flex:1;overflow-y:auto;overflow-x:hidden;}
+.nav-section{font-size:10px;font-weight:700;color:var(--text3);padding:10px 14px 3px;text-transform:uppercase;letter-spacing:.07em;white-space:nowrap;}
+.nav.collapsed .nav-section{display:none;}
+.nav-item{display:flex;align-items:center;gap:12px;padding:11px 14px;font-size:14px;color:var(--text2);cursor:pointer;text-decoration:none;border:none;background:none;width:100%;font-family:var(--sans);transition:background .1s;white-space:nowrap;}
+.nav-item:hover{background:#f0f4ff;}
+.nav-item.active{background:#e8f0fe;color:var(--blue);font-weight:600;}
+.nav-item i{font-size:20px;flex-shrink:0;width:22px;}
+.nav.collapsed .nav-item span{display:none;}
+.nav.collapsed .nav-item{padding:12px 16px;justify-content:center;gap:0;}
+.nav-item-label{white-space:nowrap;}
+.nav-divider{height:1px;background:var(--border);margin:5px 0;}
+.nav.collapsed .nav-divider{margin:5px 8px;}
+
+/* MAIN */
+.main{margin-left:var(--nav-w);padding-top:var(--hdr);min-height:100vh;background:var(--bg);transition:margin-left .2s ease;}
+.main.collapsed{margin-left:var(--nav-w-col);}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:1fr 1fr;height:220px;background:var(--blue);overflow:hidden;}
+.hero-img{overflow:hidden;background:#004a99;}
+.hero-img img{width:100%;height:100%;object-fit:cover;opacity:0.85;}
+.hero-body{padding:28px 36px;display:flex;flex-direction:column;justify-content:center;background:var(--blue);}
+.hero h1{font-size:22px;font-weight:700;color:#fff;line-height:1.35;margin-bottom:8px;}
+.hero p{font-size:14px;color:rgba(255,255,255,.88);line-height:1.7;margin-bottom:16px;}
+.hero-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.hero-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;background:rgba(255,255,255,.15);color:#fff;border-radius:4px;font-size:12px;font-weight:500;text-decoration:none;border:1px solid rgba(255,255,255,.25);cursor:pointer;transition:all .15s;}
+.hero-btn:hover{background:rgba(255,255,255,.28);}
+
+/* CONTENT */
+.content{padding:20px 24px;display:grid;grid-template-columns:1fr 300px;gap:20px;}
+
+/* SECTION TITLE */
+.sec-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:12px;letter-spacing:.01em;}
+
+/* TILE BUTTONS */
+.tile-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;}
+.tile{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:18px 16px;background:var(--blue);border-radius:6px;text-decoration:none;cursor:pointer;transition:all .15s;box-shadow:var(--shadow);}
+.tile:hover{background:var(--blue-dk);transform:translateY(-2px);box-shadow:var(--shadow-lg);}
+.tile i{font-size:32px;color:#fff;}
+.tile-name{font-size:14px;font-weight:600;color:#fff;}
+.tile-desc{font-size:12px;color:rgba(255,255,255,.75);}
+
+/* 管理表タイルグリッド */
+.mgmt-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:24px;}
+.mgmt-tile{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--blue);border-radius:6px;text-decoration:none;cursor:pointer;transition:all .15s;box-shadow:var(--shadow);}
+.mgmt-tile:hover{background:var(--blue-dk);transform:translateY(-1px);box-shadow:var(--shadow-lg);}
+.mgmt-tile.disabled{background:#999;pointer-events:none;opacity:.5;}
+.mgmt-tile i{font-size:32px;color:#fff;flex-shrink:0;}
+.mgmt-tile-name{font-size:15px;font-weight:600;color:#fff;}
+.mgmt-tile-desc{font-size:12px;color:rgba(255,255,255,.8);margin-top:2px;}
+.mgmt-tile-arr{margin-left:auto;font-size:20px;color:rgba(255,255,255,.6);}
+
+/* CARD */
+.card{background:var(--card);border-radius:6px;box-shadow:var(--shadow);margin-bottom:20px;}
+.card-hdr{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;border-bottom:1px solid var(--border);}
+.card-title{font-size:14px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;}
+.card-title i{font-size:19px;color:var(--blue);}
+.card-sub{font-size:11px;color:var(--text3);}
+.card-link{font-size:12px;color:var(--blue);text-decoration:none;cursor:pointer;}
+.card-link:hover{text-decoration:underline;}
+
+/* NOTICE */
+.ni{display:flex;gap:10px;padding:11px 18px;border-bottom:1px solid var(--border);font-size:14px;}
+.ni:last-child{border-bottom:none;}
+.nb{font-size:10px;font-weight:700;padding:3px 8px;border-radius:3px;white-space:nowrap;flex-shrink:0;margin-top:1px;}
+.nb-r{background:#fde8e8;color:#c00;}
+.nb-b{background:#e8f0fe;color:#0056b3;}
+.nb-g{background:#e6f4ea;color:#1a7a34;}
+.ntx{color:var(--text);line-height:1.5;}
+.nmt{font-size:11px;color:var(--text3);margin-top:3px;}
+#nlist{max-height:230px;overflow-y:auto;}
+#tlist{max-height:230px;overflow-y:auto;}
+.input-row{display:flex;gap:8px;padding:11px 18px;border-top:1px solid var(--border);background:#fafafa;}
+.input-row select,.input-row input{border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:14px;font-family:var(--sans);background:#fff;color:var(--text);outline:none;}
+.input-row select:focus,.input-row input:focus{border-color:var(--blue);}
+.input-row input{flex:1;}
+.input-row button{background:var(--blue);color:#fff;border:none;border-radius:4px;padding:7px 18px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--sans);}
+.input-row button:hover{background:var(--blue-dk);}
+
+/* TODO */
+.ti-row{display:flex;align-items:center;gap:10px;padding:10px 18px;border-bottom:1px solid var(--border);font-size:14px;}
+.ti-row:last-child{border-bottom:none;}
+.tc{width:18px;height:18px;border:2px solid var(--border2);border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .12s;}
+.tc.dn{background:var(--blue);border-color:var(--blue);}
+.tc i{font-size:11px;color:#fff;display:none;}
+.tc.dn i{display:block;}
+.tt{flex:1;color:var(--text);line-height:1.4;}
+.tt.dn{text-decoration:line-through;color:var(--text3);}
+.assignee-tag{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;color:#fff;white-space:nowrap;flex-shrink:0;}
+.a-kito{background:var(--kito);}
+.a-sato{background:var(--sato);}
+.a-yamashita{background:var(--yamashita);}
+.a-yamazaki{background:var(--yamazaki);}
+.a-san{background:var(--san);}
+.a-kita{background:var(--kita);}
+.a-an{background:var(--an);}
+.a-tsuda{background:var(--tsuda);}
+.task-tag{font-size:10px;font-weight:700;background:#f0f0f0;color:var(--text2);padding:3px 8px;border-radius:20px;white-space:nowrap;}
+.todo-input-row{display:flex;gap:8px;padding:11px 18px;border-top:1px solid var(--border);background:#fafafa;flex-wrap:wrap;}
+.todo-input-row input{flex:1;min-width:120px;border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:14px;font-family:var(--sans);outline:none;}
+.todo-input-row input:focus{border-color:var(--blue);}
+.todo-input-row select{border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:14px;font-family:var(--sans);background:#fff;cursor:pointer;outline:none;}
+.todo-input-row button{background:var(--blue);color:#fff;border:none;border-radius:4px;padding:7px 18px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--sans);}
+.todo-input-row button:hover{background:var(--blue-dk);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;}
+.tc-l{border-right:1px solid var(--border);}
+.done-toggle{padding:9px 18px;font-size:12px;color:var(--blue);cursor:pointer;border-top:1px solid var(--border);background:#fafafa;user-select:none;}
+
+/* STORAGE */
+.sti{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border);}
+.sti:last-child{border-bottom:none;}
+.sti i.folder{font-size:24px;color:#f59e0b;flex-shrink:0;}
+.stn{font-size:14px;font-weight:500;color:var(--text);}
+.stp{font-size:11px;color:var(--text3);font-family:monospace;margin-top:2px;word-break:break-all;}
+.cpb{background:var(--blue);color:#fff;border:none;border-radius:4px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--sans);white-space:nowrap;flex-shrink:0;}
+.cpb:hover{background:var(--blue-dk);}
+.cpb.ok{background:#16a34a;}
+.cpb.link{text-decoration:none;display:inline-block;}
+.wn{padding:10px 18px;font-size:12px;color:#78350f;background:#fffbeb;display:flex;align-items:center;gap:7px;border-top:1px solid #fde68a;border-radius:0 0 6px 6px;}
+.wn i{font-size:15px;color:#d97706;flex-shrink:0;}
+
+/* DOC */
+.doc-row{display:flex;align-items:center;gap:10px;padding:10px 18px;border-bottom:1px solid var(--border);text-decoration:none;transition:background .1s;}
+.doc-row:hover{background:#f0f4ff;}
+.doc-row:last-child{border-bottom:none;}
+.doc-row i{font-size:20px;flex-shrink:0;}
+.doc-name{font-size:13px;color:var(--text);flex:1;}
+.doc-date{font-size:11px;color:var(--text3);white-space:nowrap;}
+
+/* SIDEBAR */
+/* フォームタイル */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:14px;}
+.form-tile{display:flex;flex-direction:column;align-items:center;gap:7px;padding:18px 8px;background:var(--blue);color:#fff;text-decoration:none;border-radius:6px;font-size:13px;font-weight:700;text-align:center;cursor:pointer;transition:all .15s;box-shadow:var(--shadow);}
+.form-tile:hover{background:var(--blue-dk);transform:translateY(-2px);box-shadow:var(--shadow-lg);}
+.form-tile i{font-size:28px;}
+
+/* CALENDAR */
+.cal-nav{display:flex;align-items:center;justify-content:space-between;padding:11px 16px 5px;}
+.cal-title{font-size:13px;font-weight:700;}
+.cal-btn{background:none;border:none;cursor:pointer;color:var(--text2);padding:3px 8px;border-radius:3px;font-size:12px;}
+.cal-btn:hover{background:#f0f0f0;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;padding:0 10px 10px;}
+.cal-dow{text-align:center;font-size:10px;font-weight:700;color:var(--text3);padding:3px 0;}
+.cal-day{position:relative;text-align:center;font-size:12px;padding:5px 2px;border-radius:4px;cursor:pointer;color:var(--text2);}
+.cal-day:hover{background:#f0f0f0;}
+.cal-day.today{background:var(--blue);color:#fff;font-weight:700;border-radius:50%;}
+.cal-day.other{color:#ccc;}
+.cal-day.holiday{color:#dc2626;font-weight:700;}
+.cal-day.holiday.today{background:#dc2626;color:#fff;}
+.cal-event-dot{display:flex;justify-content:center;gap:2px;margin-top:1px;}
+.cal-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.cal-dot.tenj{background:#1d4ed8;}
+.cal-dot.kekki{background:#15803d;}
+.cal-dot.osoji{background:#7c3aed;}
+.cal-legend{display:flex;gap:10px;padding:4px 12px 10px;flex-wrap:wrap;}
+.cal-leg{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text2);}
+.cal-leg-dot{width:8px;height:8px;border-radius:50%;}
+
+/* MEMBERS */
+.members-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:14px;}
+.mi{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;background:#fafafa;border:1px solid var(--border);}
+.mav{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;}
+.mname{font-size:13px;font-weight:600;color:var(--text);}
+.mrole{font-size:11px;color:var(--text3);}
+
+/* FOOTER */
+.ft{padding:14px 24px;font-size:12px;color:var(--text3);border-top:1px solid var(--border);margin-top:4px;}
+
+/* LOADING */
+.loading{padding:14px 18px;font-size:13px;color:var(--text3);display:flex;align-items:center;gap:8px;}
+.loading i{animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:#222;color:#fff;border-radius:6px;padding:11px 20px;font-size:13px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;}
+.toast.show{opacity:1;}
+
+/* SETTINGS */
+.settings-wrap{padding:32px 36px;max-width:700px;}
+.settings-h1{font-size:22px;font-weight:900;margin-bottom:6px;}
+.settings-sub{font-size:13px;color:var(--text2);margin-bottom:28px;}
+.s-sec{background:#fff;border-radius:6px;margin-bottom:20px;box-shadow:var(--shadow);}
+.s-sec-hdr{padding:13px 18px;border-bottom:1px solid var(--border);background:#f7f7f7;border-radius:6px 6px 0 0;}
+.s-sec-title{font-size:14px;font-weight:700;}
+.s-sec-desc{font-size:12px;color:var(--text3);margin-top:2px;}
+.s-row{display:flex;align-items:center;gap:14px;padding:16px 18px;border-bottom:1px solid var(--border);}
+.s-row:last-child{border-bottom:none;}
+.s-row-icon{width:40px;height:40px;background:var(--blue);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.s-row-icon i{font-size:20px;color:#fff;}
+.s-row-body{flex:1;}
+.s-row-title{font-size:14px;font-weight:500;}
+.s-row-desc{font-size:12px;color:var(--text3);margin-top:2px;}
+.s-btn{background:var(--blue);color:#fff;border:none;border-radius:4px;padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);text-decoration:none;display:inline-block;white-space:nowrap;}
+.s-btn:hover{background:var(--blue-dk);}
+.s-btn.danger{background:#dc2626;}
+.s-btn.danger:hover{background:#b91c1c;}
+.step-list{padding:4px 18px 14px;}
+.step{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.step:last-child{border-bottom:none;}
+.step-num{width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.step-body{flex:1;color:var(--text);line-height:1.6;}
+.step-body code{background:#f0f0f0;border:1px solid var(--border);border-radius:3px;padding:1px 6px;font-size:12px;font-family:monospace;}
+
+/* DELETE CONFIRM */
+.confirm-box{background:#fff3f3;border:1px solid #fca5a5;border-radius:6px;padding:14px 18px;margin-top:10px;font-size:13px;color:#dc2626;display:none;}
+.confirm-box.show{display:block;}
+.confirm-btns{display:flex;gap:8px;margin-top:10px;}
+/* SETTINGS LIST */
+.s-list-item{display:flex;align-items:center;gap:10px;padding:9px 18px;border-bottom:1px solid var(--border);font-size:13px;}
+.s-list-item:last-child{border-bottom:none;}
+.s-list-item input[type=checkbox]{width:16px;height:16px;cursor:pointer;flex-shrink:0;}
+.s-list-item-body{flex:1;color:var(--text);}
+.s-list-item-meta{font-size:11px;color:var(--text3);margin-top:2px;}
+.s-list-item-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;white-space:nowrap;flex-shrink:0;}
+/* HIGHLIGHT */
+@keyframes highlight-pulse{
+  0%{box-shadow:0 0 0 0 rgba(0,120,212,.8),inset 0 0 0 3px rgba(0,120,212,.3);}
+  50%{box-shadow:0 0 0 10px rgba(0,120,212,.2),inset 0 0 0 3px rgba(0,120,212,.15);}
+  100%{box-shadow:0 0 0 0 rgba(0,120,212,0),inset 0 0 0 3px rgba(0,120,212,0);}
+}
+.section-highlight{outline:4px solid var(--blue);outline-offset:4px;border-radius:6px;animation:highlight-pulse 2s ease-out;}
+
+/* PAGE */
+.page{display:none;}
+.page.active{display:block;}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="h-logo">
+    <div class="h-logo-mark"><span>JP</span></div>
+    <div class="h-name">製造課 ポータル</div>
+  </div>
+  <div class="h-search"><i class="ti ti-search"></i><span>このサイトを検索</span></div>
+  <div class="h-av">TK</div>
+</header>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-top">
+    <span class="nav-site-name">製造課 ポータル</span>
+    <button class="nav-collapse-btn" onclick="toggleNav()" title="サイドバー開閉">
+      <i class="ti ti-layout-sidebar-left-collapse" id="nav-icon"></i>
+    </button>
+  </div>
+  <div class="nav-body">
+    <div class="nav-section">メニュー</div>
+    <a class="nav-item active" onclick="goHome('top')"><i class="ti ti-home"></i><span class="nav-item-label">ホーム</span></a>
+    <a class="nav-item" onclick="goHome('weblinks')"><i class="ti ti-link"></i><span class="nav-item-label">Webリンク</span></a>
+    <a class="nav-item" onclick="goHome('mgmt')"><i class="ti ti-table"></i><span class="nav-item-label">管理表</span></a>
+    <a class="nav-item" onclick="goHome('notice-section')"><i class="ti ti-speakerphone"></i><span class="nav-item-label">課内連絡 / ToDo</span></a>
+    <a class="nav-item" onclick="goHome('storage')"><i class="ti ti-folder"></i><span class="nav-item-label">共有ファイル</span></a>
+    <a class="nav-item" onclick="goHome('schedule-banner')"><i class="ti ti-chart-gantt"></i><span class="nav-item-label">スケジュール</span></a>
+    <a class="nav-item" onclick="goHome('docs')"><i class="ti ti-book"></i><span class="nav-item-label">手順書・ルール</span></a>
+    <div class="nav-divider"></div>
+    <button class="nav-item" onclick="showPage('settings')"><i class="ti ti-settings-2"></i><span class="nav-item-label">設定</span></button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main" id="main">
+
+  <!-- HOME PAGE -->
+  <div class="page active" id="page-home">
+
+    <div id="top">
+      <!-- HERO -->
+      <div class="hero">
+        <div class="hero-img"><img src="https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&q=80" alt="工場" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div class="hero-body">
+          <h1>製造課　ポータル</h1>
+          <p>日常業務で使うツール・リンク・手順書を一か所に集約しています。</p>
+          <div class="hero-btns">
+            <a class="hero-btn" onclick="goHome('weblinks')"><i class="ti ti-link"></i>Webリンク</a>
+            <a class="hero-btn" onclick="goHome('mgmt')"><i class="ti ti-table"></i>管理表</a>
+            <a class="hero-btn" onclick="goHome('notice-section')"><i class="ti ti-speakerphone"></i>課内連絡</a>
+            <a class="hero-btn" onclick="goHome('storage')"><i class="ti ti-folder"></i>共有ファイル</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div>
+
+        <!-- Webリンク -->
+        <div id="weblinks" style="margin-bottom:24px;">
+          <div class="sec-title">Webリンク</div>
+          <div class="tile-grid">
+            <a class="tile" href="https://jpnext.lightning.force.com/lightning/page/home" target="_blank">
+              <i class="ti ti-speakerphone"></i>
+              <div class="tile-name">Salesforce</div>
+              <div class="tile-desc">顧客・案件・活動管理</div>
+            </a>
+            <a class="tile" href="https://ap.sansan.com/" target="_blank">
+              <i class="ti ti-address-book"></i>
+              <div class="tile-name">Sansan</div>
+              <div class="tile-desc">名刺・連絡先確認</div>
+            </a>
+            <a class="tile" href="https://webjit.jitbox.co.jp/" target="_blank">
+              <i class="ti ti-truck-delivery"></i>
+              <div class="tile-name">ヤマトJIT</div>
+              <div class="tile-desc">JITBOX手配</div>
+            </a>
+            <a class="tile" href="https://bmypage.kuronekoyamato.co.jp/" target="_blank">
+              <i class="ti ti-package"></i>
+              <div class="tile-name">ヤマト宅急便</div>
+              <div class="tile-desc">宅急便・送り状</div>
+            </a>
+          </div>
+        </div>
+
+        <!-- 管理表 -->
+        <div id="mgmt" style="margin-bottom:24px;">
+          <div class="sec-title">管理表</div>
+          <div class="mgmt-grid">
+            <a class="mgmt-tile" href="https://jpnext01-my.sharepoint.com/:x:/g/personal/t-kito_jpnext_co_jp/IQAcZmHi4rUXSokFT4EOsw5_AQJgKZG0mmOa_I_eRN7o2GI?e=yAzr4S" target="_blank">
+              <i class="ti ti-table"></i>
+              <div><div class="mgmt-tile-name">出荷管理表</div><div class="mgmt-tile-desc">SharePoint Excel</div></div>
+              <i class="ti ti-arrow-right mgmt-tile-arr"></i>
+            </a>
+            <a class="mgmt-tile" href="https://takahiro-kit.github.io/seizouka-schedule/" target="_blank">
+              <i class="ti ti-chart-gantt"></i>
+              <div><div class="mgmt-tile-name">工程管理表（スケジュール）</div><div class="mgmt-tile-desc">製造課スケジュールビューア</div></div>
+              <i class="ti ti-arrow-right mgmt-tile-arr"></i>
+            </a>
+            <div class="mgmt-tile disabled">
+              <i class="ti ti-checkbox"></i>
+              <div><div class="mgmt-tile-name">Todo / Planner</div><div class="mgmt-tile-desc">準備中</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- スケジュールバナー -->
+        <a id="schedule-banner" href="https://takahiro-kit.github.io/seizouka-schedule/" target="_blank" style="display:flex;align-items:center;gap:16px;background:var(--blue);border-radius:6px;padding:18px 24px;text-decoration:none;box-shadow:var(--shadow);margin-bottom:20px;transition:background .15s;" onmouseover="this.style.background='#005a9e'" onmouseout="this.style.background='#0078d4'">
+          <i class="ti ti-chart-gantt" style="font-size:36px;color:#fff;flex-shrink:0;"></i>
+          <div>
+            <div style="font-size:15px;font-weight:700;color:#fff;">製造課 スケジュールビューア</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.8);margin-top:4px;">がんすけのスケジュールをブラウザで確認できます</div>
+          </div>
+          <i class="ti ti-arrow-right" style="font-size:22px;color:rgba(255,255,255,.6);margin-left:auto;"></i>
+        </a>
+
+        <!-- 課内連絡 + TODO -->
+        <div class="card" id="notice-section" style="padding:0;margin-bottom:20px;">
+          <div class="two-col">
+            <div class="tc-l">
+              <div class="card-hdr"><div class="card-title"><i class="ti ti-speakerphone"></i>課内連絡</div><span class="card-sub">GS連携</span></div>
+              <div id="nlist"><div class="loading"><i class="ti ti-loader-2"></i>読み込み中...</div></div>
+              <div class="input-row">
+                <select id="ntype"><option>重要</option><option selected>連絡</option><option>完了</option></select>
+                <input id="ntxt" type="text" placeholder="課内連絡を入力…">
+                <button onclick="addN()">投稿</button>
+              </div>
+            </div>
+            <div>
+              <div class="card-hdr"><div class="card-title"><i class="ti ti-checkbox"></i>ToDo</div><span class="card-sub">GS連携</span></div>
+              <div id="tlist"><div class="loading"><i class="ti ti-loader-2"></i>読み込み中...</div></div>
+              <div class="todo-input-row">
+                <input id="tinp" type="text" placeholder="タスクを追加…">
+                <select id="t-assignee">
+                  <option value="">担当者</option>
+                  <option>鬼頭</option><option>佐藤</option><option>山下</option><option>山﨑</option>
+                  <option>サン</option><option>喜多</option><option>アン</option><option>津田</option>
+                </select>
+                <select id="t-tag">
+                  <option value="">タグ</option>
+                  <option>出荷</option><option>在庫</option><option>IT</option>
+                  <option>品質</option><option>安全</option><option>その他</option>
+                </select>
+                <button onclick="addT()">追加</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 共有ファイル -->
+        <div class="card" id="storage" style="padding:0;margin-bottom:20px;">
+          <div class="card-hdr"><div class="card-title"><i class="ti ti-folder"></i>共有ファイル / ストレージ</div></div>
+          <div class="sti">
+            <i class="ti ti-folder-filled folder"></i>
+            <div style="flex:1"><div class="stn">製造課 共有フォルダ</div><div class="stp">SharePoint ドキュメントライブラリ</div></div>
+            <a class="cpb link" href="https://jpnext01-my.sharepoint.com/:f:/g/personal/t-kito_jpnext_co_jp/IgAduuef3YMiSLQODHxjbCfZAb0yyR7ZpbThfL5ItWOX6G4?e=PFavsj" target="_blank">開く</a>
+          </div>
+          <div class="sti">
+            <i class="ti ti-folder-filled folder"></i>
+            <div style="flex:1"><div class="stn">出荷関連書類</div><div class="stp">\\192.168.0.2\jpネクスト\05 製造課\03 出荷関連</div></div>
+            <button class="cpb" onclick="cp('\\\\192.168.0.2\\jpネクスト\\05 製造課\\03 出荷関連',this)">コピー</button>
+          </div>
+          <div class="sti">
+            <i class="ti ti-folder-filled folder"></i>
+            <div style="flex:1"><div class="stn">作業指示書</div><div class="stp">\\192.168.0.2\jpネクスト\05 製造課\18 FA作業指示フォルダー</div></div>
+            <button class="cpb" onclick="cp('\\\\192.168.0.2\\jpネクスト\\05 製造課\\18 FA作業指示フォルダー',this)">コピー</button>
+          </div>
+          <div class="sti">
+            <i class="ti ti-folder-filled folder"></i>
+            <div style="flex:1"><div class="stn">不具合報告書</div><div class="stp">\\192.168.0.2\jpネクスト\05 製造課\07 不具合報告書</div></div>
+            <button class="cpb" onclick="cp('\\\\192.168.0.2\\jpネクスト\\05 製造課\\07 不具合報告書',this)">コピー</button>
+          </div>
+          <div class="wn"><i class="ti ti-info-circle"></i>UNCパスをコピーしてエクスプローラーのアドレス欄に貼り付けてください</div>
+        </div>
+
+        <!-- 製造課ルール -->
+        <div class="card" id="docs" style="padding:0;">
+          <div class="card-hdr">
+            <div class="card-title"><i class="ti ti-book"></i>製造課ルール / 手順書</div>
+            <a class="card-link" href="https://jpnext01-my.sharepoint.com/:f:/g/personal/t-kito_jpnext_co_jp/IgAduuef3YMiSLQODHxjbCfZAb0yyR7ZpbThfL5ItWOX6G4?e=PFavsj" target="_blank">共有フォルダを開く</a>
+          </div>
+          <a class="doc-row" href="#"><i class="ti ti-file-text" style="color:var(--blue);"></i><div class="doc-name">製造課 業務フロー（最新版）</div><div class="doc-date">2026/05/20</div></a>
+          <a class="doc-row" href="#"><i class="ti ti-file-text" style="color:var(--blue);"></i><div class="doc-name">出荷手順書 v3.2</div><div class="doc-date">2026/05/15</div></a>
+          <a class="doc-row" href="#"><i class="ti ti-file-text" style="color:#d97706;"></i><div class="doc-name">安全衛生チェックリスト 2026年度</div><div class="doc-date">2026/04/01</div></a>
+          <a class="doc-row" href="#"><i class="ti ti-file-spreadsheet" style="color:#16a34a;"></i><div class="doc-name">設備点検記録 2026年</div><div class="doc-date">2026/05/10</div></a>
+          <a class="doc-row" href="#"><i class="ti ti-file-text" style="color:var(--blue);"></i><div class="doc-name">新人教育マニュアル</div><div class="doc-date">2026/03/01</div></a>
+        </div>
+
+      </div>
+
+      <!-- SIDEBAR -->
+      <div>
+        <!-- フォーム -->
+        <div class="card" style="padding:0;margin-bottom:20px;">
+          <div class="card-hdr"><div class="card-title"><i class="ti ti-forms"></i>フォーム</div></div>
+          <div class="form-grid">
+            <a class="form-tile" href="https://docs.google.com/forms/d/1Q9DhQZTHoC4xBF5y93m5sGnRkoONNJ-zKje1nQmzEYE/edit" target="_blank">
+              <i class="ti ti-alert-triangle"></i>不具合
+            </a>
+            <a class="form-tile" href="https://jpnext01-my.sharepoint.com/:x:/g/personal/t-kito_jpnext_co_jp/IQD0SRwhewE4Sq09WVjXnCeyAePDl046MNsy6bQ1UAEP8k0?e=kV81R7" target="_blank">
+              <i class="ti ti-file-spreadsheet"></i>案件
+            </a>
+            <a class="form-tile" href="https://docs.google.com/forms/d/e/1FAIpQLSfbyv5Qxxjc2dUoQN5PrxVp9sv6xsGz5y621PzwOFy2dDQZQA/viewform" target="_blank">
+              <i class="ti ti-map-pin"></i>現地報告
+            </a>
+            <a class="form-tile" href="https://takahiro-kit.github.io/seizouka-schedule/generator.html" target="_blank">
+              <i class="ti ti-refresh"></i>ビューア更新
+            </a>
+          </div>
+        </div>
+
+        <!-- カレンダー -->
+        <div class="card" style="padding:0;margin-bottom:20px;">
+          <div class="card-hdr"><div class="card-title"><i class="ti ti-calendar"></i>カレンダー</div></div>
+          <div class="cal-nav">
+            <button class="cal-btn" onclick="calNav(-1)">◀</button>
+            <div class="cal-title" id="cal-title"></div>
+            <button class="cal-btn" onclick="calNav(1)">▶</button>
+          </div>
+          <div class="cal-grid" id="cal-grid"></div>
+          <div class="cal-legend">
+            <div class="cal-leg"><div class="cal-leg-dot" style="background:#dc2626;"></div>休日</div>
+            <div class="cal-leg"><div class="cal-leg-dot" style="background:#1d4ed8;"></div>展示会</div>
+            <div class="cal-leg"><div class="cal-leg-dot" style="background:#15803d;"></div>決起会</div>
+            <div class="cal-leg"><div class="cal-leg-dot" style="background:#7c3aed;"></div>大掃除</div>
+          </div>
+        </div>
+
+        <!-- メンバー -->
+        <div class="card" style="padding:0;">
+          <div class="card-hdr"><div class="card-title"><i class="ti ti-users"></i>メンバー（8名）</div></div>
+          <div class="members-grid">
+            <div class="mi"><div class="mav" style="background:var(--kito)">鬼</div><div><div class="mname">鬼頭</div><div class="mrole">課長</div></div></div>
+            <div class="mi"><div class="mav" style="background:var(--sato)">佐</div><div><div class="mname">佐藤</div><div class="mrole">課員</div></div></div>
+            <div class="mi"><div class="mav" style="background:var(--yamashita)">山</div><div><div class="mname">山下</div><div class="mrole">課員</div></div></div>
+            <div class="mi"><div class="mav" style="background:var(--yamazaki)">山</div><div><div class="mname">山﨑</div><div class="mrole">課員</div></div></div>
+            <div class="mi"><div class="mav" style="background:var(--san)">サ</div><div><div class="mname">サン</div><div class="mrole">課員</div></div></div>
+            <div class="mi"><div class="mav" style="background:var(--kita)">喜</div><div><div class="mname">喜多</div><div class="mrole">課員</div></div></div>
+            <div class="mi"><div class="mav" style="background:var(--an)">ア</div><div><div class="mname">アン</div><div class="mrole">課員</div></div></div>
+            <div class="mi"><div class="mav" style="background:var(--tsuda)">津</div><div><div class="mname">津田</div><div class="mrole">課員</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ft" id="fdate"></div>
+  </div>
+
+  <!-- SETTINGS PAGE -->
+  <div class="page" id="page-settings">
+    <div class="settings-wrap">
+      <button onclick="showPage('home')" style="display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-size:13px;color:var(--blue);font-family:var(--sans);padding:0;margin-bottom:20px;">
+        <i class="ti ti-arrow-left" style="font-size:16px;"></i>ホームに戻る
+      </button>
+      <div class="settings-h1">⚙️ 設定</div>
+      <div class="settings-sub">ポータルサイトの各種設定を管理します。</div>
+
+      <!-- スケジュールビューア更新 -->
+      <div class="s-sec">
+        <div class="s-sec-hdr"><div class="s-sec-title">📅 スケジュールビューア更新</div></div>
+        <div class="s-row">
+          <div class="s-row-icon"><i class="ti ti-refresh"></i></div>
+          <div class="s-row-body"><div class="s-row-title">ビューア生成ツールを開く</div><div class="s-row-desc">XMLをドロップするとindex.htmlが生成されます</div></div>
+          <a class="s-btn" href="https://takahiro-kit.github.io/seizouka-schedule/generator.html" target="_blank">生成ツールを開く</a>
+        </div>
+        <div class="s-row">
+          <div class="s-row-icon"><i class="ti ti-upload"></i></div>
+          <div class="s-row-body"><div class="s-row-title">GitHubにアップロード</div></div>
+          <a class="s-btn" href="https://github.com/Takahiro-kit/seizouka-schedule" target="_blank">GitHubを開く</a>
+        </div>
+      </div>
+
+      <!-- データ管理 -->
+      <div class="s-sec">
+        <div class="s-sec-hdr">
+          <div class="s-sec-title">🗑️ 課内連絡の管理</div>
+          <div class="s-sec-desc">削除したい投稿にチェックを入れて「削除」を押してください。ポータルの表示から消えます。</div>
+        </div>
+        <div id="s-notice-list" style="max-height:280px;overflow-y:auto;">
+          <div class="loading"><i class="ti ti-loader-2"></i>読み込み中...</div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:8px;padding:12px 18px;border-top:1px solid var(--border);background:#fafafa;">
+          <button class="s-btn" style="background:#888;" onclick="checkAllNotices(false)">全解除</button>
+          <button class="s-btn" style="background:#444;" onclick="checkAllNotices(true)">全選択</button>
+          <button class="s-btn danger" onclick="deleteCheckedNotices()">選択した投稿を削除</button>
+        </div>
+      </div>
+
+      <div class="s-sec">
+        <div class="s-sec-hdr">
+          <div class="s-sec-title">🗑️ TODOの管理</div>
+          <div class="s-sec-desc">削除したいタスクにチェックを入れて「削除」を押してください。ポータルの表示から消えます。</div>
+        </div>
+        <div id="s-todo-list" style="max-height:280px;overflow-y:auto;">
+          <div class="loading"><i class="ti ti-loader-2"></i>読み込み中...</div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:8px;padding:12px 18px;border-top:1px solid var(--border);background:#fafafa;">
+          <button class="s-btn" style="background:#888;" onclick="checkAllTodos(false)">全解除</button>
+          <button class="s-btn" style="background:#444;" onclick="checkAllTodos(true)">全選択</button>
+          <button class="s-btn danger" onclick="deleteCheckedTodos()">選択したタスクを削除</button>
+        </div>
+      </div>
+
+      <!-- 休日管理 -->
+      <div class="s-sec">
+        <div class="s-sec-hdr">
+          <div class="s-sec-title">🔴 休日管理</div>
+          <div class="s-sec-desc">休日（赤表示）を追加・削除できます。土日は自動で赤表示されます。</div>
+        </div>
+        <div style="padding:14px 18px;border-bottom:1px solid var(--border);">
+          <div style="display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;">
+            <input type="date" id="hol-date" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;">
+            <button class="s-btn" onclick="addHoliday()">追加</button>
+          </div>
+          <div style="margin-top:10px;font-size:12px;color:var(--text3);">※ HTMLに組み込まれた初期休日データを上書きしたい場合は「初期データをlocalStorageに読み込む」を押してください。</div>
+          <button class="s-btn" style="margin-top:8px;background:#555;" onclick="importDefaultHolidays()">初期データをlocalStorageに読み込む</button>
+        </div>
+        <div id="s-holiday-list" style="max-height:300px;overflow-y:auto;">
+          <div style="padding:12px 18px;font-size:13px;color:#999;">読み込み中...</div>
+        </div>
+      </div>
+
+      <!-- 手順書管理 -->
+      <div class="s-sec">
+        <div class="s-sec-hdr">
+          <div class="s-sec-title">📄 製造課ルール / 手順書の管理</div>
+          <div class="s-sec-desc">ファイル名とSharePointのURLを登録すると手順書一覧に表示されます。</div>
+        </div>
+        <div style="padding:14px 18px;border-bottom:1px solid var(--border);">
+          <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin-bottom:8px;">
+            <input type="text" id="doc-name" placeholder="ファイル名（例：出荷手順書 v3.2）" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;">
+            <input type="url" id="doc-url" placeholder="SharePointのURL" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;">
+            <button class="s-btn" onclick="addDoc()">追加</button>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <select id="doc-type" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);background:#fff;outline:none;">
+              <option value="doc">📄 文書</option>
+              <option value="xls">📊 Excel</option>
+              <option value="pdf">📕 PDF</option>
+              <option value="rule">📋 ルール</option>
+              <option value="manual">📖 マニュアル</option>
+            </select>
+            <input type="text" id="doc-date" placeholder="更新日（例：2026/05/20）" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);width:160px;outline:none;">
+          </div>
+        </div>
+        <div id="s-doc-list" style="max-height:300px;overflow-y:auto;">
+          <div style="padding:12px 18px;font-size:13px;color:#999;">ファイルはありません</div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;padding:12px 18px;border-top:1px solid var(--border);background:#fafafa;">
+          <a class="s-btn" href="https://jpnext01-my.sharepoint.com/:f:/g/personal/t-kito_jpnext_co_jp/IgAduuef3YMiSLQODHxjbCfZAb0yyR7ZpbThfL5ItWOX6G4?e=PFavsj" target="_blank" style="margin-right:auto;">
+            <i class="ti ti-folder-open" style="font-size:14px;margin-right:4px;"></i>SharePointフォルダを開く
+          </a>
+        </div>
+      </div>
+
+      <!-- カレンダーイベント管理 -->
+      <div class="s-sec">
+        <div class="s-sec-hdr">
+          <div class="s-sec-title">📅 カレンダーイベント管理</div>
+          <div class="s-sec-desc">展示会・決起会・大掃除の日程を追加・削除できます。localStorageに保存されます。</div>
+        </div>
+        <div style="padding:14px 18px;border-bottom:1px solid var(--border);">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:center;">
+            <input type="date" id="ev-date" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;">
+            <select id="ev-type" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;background:#fff;">
+              <option value="tenj">展示会</option>
+              <option value="kekki">決起会</option>
+              <option value="osoji">大掃除</option>
+            </select>
+            <input type="text" id="ev-label" placeholder="メモ（任意）" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;">
+            <button class="s-btn" onclick="addCalEvent()">追加</button>
+          </div>
+        </div>
+        <div id="s-cal-event-list" style="max-height:280px;overflow-y:auto;">
+          <div style="padding:12px 18px;font-size:13px;color:#999;">イベントはありません</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<script>
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbzueRIitHcmbZIjfS1iT7qsAY3awEHioinFms0NO6e9ieVtlJY-ekogHjzmwDhZjUfyBA/exec';
+const MEMBER_CLASS = {'鬼頭':'a-kito','佐藤':'a-sato','山下':'a-yamashita','山﨑':'a-yamazaki','サン':'a-san','喜多':'a-kita','アン':'a-an','津田':'a-tsuda'};
+const NOW = new Date();
+const p = n => String(n).padStart(2,'0');
+document.getElementById('fdate').textContent = '© 2026 JP NEXT 製造課ポータル　' + NOW.getFullYear() + '.' + p(NOW.getMonth()+1) + '.' + p(NOW.getDate());
+
+// ── NAV ──
+function toggleNav(){
+  const nav = document.getElementById('nav');
+  const main = document.getElementById('main');
+  const icon = document.getElementById('nav-icon');
+  const collapsed = nav.classList.toggle('collapsed');
+  main.style.marginLeft = collapsed ? 'var(--nav-w-col)' : 'var(--nav-w)';
+  icon.className = collapsed ? 'ti ti-layout-sidebar-left-expand' : 'ti ti-layout-sidebar-left-collapse';
+}
+function goHome(id){
+  // 設定画面など別ページにいる場合はhomeに戻ってからスクロール
+  const homePage = document.getElementById('page-home');
+  if(!homePage.classList.contains('active')){
+    showPage('home');
+    setTimeout(()=>navScroll(id), 100);
+  } else {
+    navScroll(id);
+  }
+}
+
+function navScroll(id){
+  if(id==='top'){
+    window.scrollTo({top:0,behavior:'smooth'});
+    return;
+  }
+  const el = document.getElementById(id);
+  if(!el) return;
+  // 画面中央に表示
+  const rect = el.getBoundingClientRect();
+  const offset = window.pageYOffset + rect.top - (window.innerHeight/2) + (rect.height/2);
+  window.scrollTo({top: Math.max(0, offset), behavior:'smooth'});
+  // ハイライト
+  setTimeout(()=>{
+    el.classList.add('section-highlight');
+    setTimeout(()=>el.classList.remove('section-highlight'), 2000);
+  }, 400);
+}
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  // navのactive更新
+  document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+  if(name==='home'){
+    document.querySelector('.nav-item').classList.add('active');
+  } else if(name==='settings'){
+    const btns = document.querySelectorAll('.nav-item');
+    btns.forEach(b=>{ if(b.textContent.includes('設定')) b.classList.add('active'); });
+    renderSettingsLists();
+  }
+}
+
+// ── TOAST ──
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function esc(s){return(s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function fmtDT(){const n=new Date();return n.getFullYear()+'/'+p(n.getMonth()+1)+'/'+p(n.getDate())+' '+p(n.getHours())+':'+p(n.getMinutes());}
+function cp(path,btn){navigator.clipboard.writeText(path).then(()=>{const o=btn.textContent;btn.textContent='✓ 完了';btn.classList.add('ok');setTimeout(()=>{btn.textContent=o;btn.classList.remove('ok');},2000);});}
+
+// ── DATA ──
+async function loadData(){
+  try{
+    const r=await fetch(GAS_URL+'?t='+Date.now(),{mode:'cors'});
+    const d=await r.json();
+    renderNotices(d.notices||[]);
+    renderTodos(d.todos||[]);
+    renderDocs(d.docs||[]);
+    // カレンダーイベントをキャッシュして描画
+    _calEvents = (d.calEvents||[]).map(ev=>{
+      // Googleスプレッドシートの日付はDate型で返ることがあるので文字列に変換
+      const dateStr = ev.date instanceof Date
+        ? ev.date.getFullYear()+'-'+p(ev.date.getMonth()+1)+'-'+p(ev.date.getDate())
+        : String(ev.date);
+      return {...ev, date: dateStr};
+    });
+    renderCal();
+    renderCalEventList();
+  }catch(e){
+    document.getElementById('nlist').innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">読み込みエラー</div>';
+    document.getElementById('tlist').innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">読み込みエラー</div>';
+  }
+}
+
+// ── 課内連絡 ──
+const BM={'重要':'nb-r','連絡':'nb-b','完了':'nb-g'};
+function renderNotices(notices){
+  _settingsNotices = notices;
+  const el=document.getElementById('nlist');
+  if(!notices.length){el.innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">連絡はありません</div>';return;}
+  const hidden = getHidden('notices');
+  const visible = notices.slice().reverse().filter((_,i)=> !hidden.includes(notices.length-1-i));
+  if(!visible.length){el.innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">連絡はありません</div>';return;}
+  el.innerHTML=visible.map(n=>`<div class="ni"><span class="nb ${BM[n.type]||'nb-b'}">${esc(n.type||'連絡')}</span><div><div class="ntx">${esc(n.text)}</div><div class="nmt">Taka.kit · ${esc(String(n.datetime))}</div></div></div>`).join('');
+}
+async function addN(){
+  const t=document.getElementById('ntype').value;
+  const tx=document.getElementById('ntxt').value.trim();
+  if(!tx)return;
+  try{
+    await fetch(GAS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({sheet:'課内連絡',datetime:fmtDT(),type:t,text:tx,author:'Taka.kit'})});
+    document.getElementById('ntxt').value='';
+    showToast('投稿しました');
+    setTimeout(loadData,1500);
+  }catch(e){showToast('エラー: '+e.message);}
+}
+
+// ── TODO ──
+function renderTodos(todos){
+  _settingsTodos = todos;
+  const hiddenT = getHidden('todos');
+  todos = todos.filter(t=>!hiddenT.includes(String(t.id)));
+  const el=document.getElementById('tlist');
+  if(!todos.length){el.innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">タスクはありません</div>';return;}
+  const now=new Date();
+  const active=[],done_list=[];
+  todos.forEach(t=>{
+    const done=String(t.done)==='true'||t.done===true;
+    if(!done){active.push(t);return;}
+    if(t.doneAt){const d=new Date(t.doneAt);if((now-d)/(1000*60*60*24)<=7)done_list.push(t);}
+    else done_list.push(t);
+  });
+  function rowHtml(t){
+    const done=String(t.done)==='true'||t.done===true;
+    const ac=MEMBER_CLASS[t.assignee]||'';
+    return `<div class="ti-row" data-id="${esc(String(t.id))}">
+      <div class="tc ${done?'dn':''}" onclick="toggleTodo('${esc(String(t.id))}',this)"><i class="ti ti-check"></i></div>
+      <div class="tt ${done?'dn':''}">${esc(t.text)}</div>
+      ${t.assignee?`<span class="assignee-tag ${ac}">${esc(t.assignee)}</span>`:''}
+      ${t.tag?`<span class="task-tag">${esc(t.tag)}</span>`:''}
+    </div>`;
+  }
+  let html=active.map(rowHtml).join('');
+  if(!active.length&&!done_list.length)html='<div style="padding:12px 18px;font-size:13px;color:#999;">タスクはありません</div>';
+  if(done_list.length){
+    html+=`<div class="done-toggle" id="done-toggle" onclick="toggleDone()">▶ 完了済み（${done_list.length}件）</div>
+    <div id="done-list" style="display:none;">${done_list.map(rowHtml).join('')}</div>`;
+  }
+  el.innerHTML=html;
+}
+function toggleDone(){
+  const dl=document.getElementById('done-list');
+  const btn=document.getElementById('done-toggle');
+  if(!dl||!btn)return;
+  const open=dl.style.display==='none';
+  dl.style.display=open?'block':'none';
+  btn.textContent=(open?'▼':'▶')+btn.textContent.slice(1);
+}
+async function addT(){
+  const tx=document.getElementById('tinp').value.trim();
+  const as=document.getElementById('t-assignee').value;
+  const tg=document.getElementById('t-tag').value;
+  if(!tx)return;
+  const id='T'+Date.now();
+  try{
+    await fetch(GAS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({sheet:'TODO',id,datetime:fmtDT(),assignee:as,text:tx,tag:tg,done:false})});
+    document.getElementById('tinp').value='';
+    showToast('タスクを追加しました');
+    setTimeout(loadData,1500);
+  }catch(e){showToast('エラー: '+e.message);}
+}
+async function toggleTodo(id,btn){
+  const done=!btn.classList.contains('dn');
+  btn.classList.toggle('dn',done);
+  const tt=btn.nextElementSibling;
+  if(tt)tt.classList.toggle('dn',done);
+  const doneAt=done?fmtDT():'';
+  try{
+    await fetch(GAS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({sheet:'TODO_UPDATE',id,done,doneAt})});
+    showToast(done?'完了しました':'未完了に戻しました');
+    setTimeout(loadData,1000);
+  }catch(e){}
+}
+
+// ── 非表示リスト（localStorage） ──
+function getHidden(type){ try{ return JSON.parse(localStorage.getItem('hidden_'+type)||'[]'); }catch(e){ return []; } }
+function setHidden(type,list){ localStorage.setItem('hidden_'+type, JSON.stringify(list)); }
+
+// ── 設定画面：一覧表示 ──
+let _settingsNotices = [], _settingsTodos = [];
+
+function renderSettingsLists(){
+  // 課内連絡
+  const nl = document.getElementById('s-notice-list');
+  if(!nl) return;
+  const hidden = getHidden('notices');
+  if(!_settingsNotices.length){
+    nl.innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">データがありません</div>';
+  } else {
+    nl.innerHTML = _settingsNotices.slice().reverse().map((n,i)=>{
+      const idx = _settingsNotices.length - 1 - i;
+      const isHidden = hidden.includes(idx);
+      const bcls = {'重要':'nb-r','連絡':'nb-b','完了':'nb-g'}[n.type]||'nb-b';
+      return `<div class="s-list-item" style="${isHidden?'opacity:.4':''}">
+        <input type="checkbox" class="notice-chk" data-idx="${idx}" ${isHidden?'checked':''}>
+        <div class="s-list-item-body">
+          <span class="s-list-item-badge ${bcls}">${esc(n.type||'連絡')}</span>
+          <span style="margin-left:6px;">${esc(n.text)}</span>
+          <div class="s-list-item-meta">${esc(String(n.datetime))}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // TODO
+  const tl = document.getElementById('s-todo-list');
+  if(!tl) return;
+  const hiddenT = getHidden('todos');
+  if(!_settingsTodos.length){
+    tl.innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">データがありません</div>';
+  } else {
+    tl.innerHTML = _settingsTodos.map((t,idx)=>{
+      const isHidden = hiddenT.includes(String(t.id));
+      const done = String(t.done)==='true'||t.done===true;
+      const ac = MEMBER_CLASS[t.assignee]||'';
+      return `<div class="s-list-item" style="${isHidden?'opacity:.4':''}">
+        <input type="checkbox" class="todo-chk" data-id="${esc(String(t.id))}" ${isHidden?'checked':''}>
+        <div class="s-list-item-body">
+          ${t.assignee?`<span class="assignee-tag ${ac}" style="font-size:10px;padding:2px 7px;">${esc(t.assignee)}</span>`:''}
+          <span style="margin-left:4px;${done?'text-decoration:line-through;color:#999':''}">${esc(t.text)}</span>
+          ${t.tag?`<span class="task-tag" style="margin-left:4px;">${esc(t.tag)}</span>`:''}
+          <div class="s-list-item-meta">${esc(String(t.datetime))}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+}
+
+function checkAllNotices(val){
+  document.querySelectorAll('.notice-chk').forEach(c=>c.checked=val);
+}
+function checkAllTodos(val){
+  document.querySelectorAll('.todo-chk').forEach(c=>c.checked=val);
+}
+
+function deleteCheckedNotices(){
+  const checked = [...document.querySelectorAll('.notice-chk:checked')].map(c=>parseInt(c.dataset.idx));
+  if(!checked.length){ showToast('削除する投稿を選択してください'); return; }
+  setHidden('notices', checked);
+  showToast(checked.length+'件を非表示にしました');
+  renderSettingsLists();
+  renderNotices(_settingsNotices);
+}
+function deleteCheckedTodos(){
+  const checked = [...document.querySelectorAll('.todo-chk:checked')].map(c=>c.dataset.id);
+  if(!checked.length){ showToast('削除するタスクを選択してください'); return; }
+  setHidden('todos', checked);
+  showToast(checked.length+'件を非表示にしました');
+  renderSettingsLists();
+  renderTodos(_settingsTodos);
+}
+
+// ── カレンダー ──
+// ── 休日管理（localStorage） ──
+// デフォルト休日データ
+const DEFAULT_HOLIDAYS = {
+  '2026-1':[1,2,3,10,17,31],
+  '2026-2':[7,14,21,28],
+  '2026-3':[7,14,21],
+  '2026-4':[4,11,21,25],
+  '2026-5':[2,3,4,5,6,9,16],
+  '2026-6':[4,11,18,27,30],
+  '2026-7':[4,11,18,25],
+  '2026-8':[11,12,13,14,15,25],
+  '2026-9':[1,8,15,22,29],
+  '2026-10':[4,11,22,23,24,25],
+  '2026-11':[1,8,12,13,14,15,23],
+  '2026-12':[5,12,19,26,28,29,30,31],
+};
+
+function getCustomHolidays(){
+  try{ return JSON.parse(localStorage.getItem('custom_holidays')||'null'); }catch(e){ return null; }
+}
+function saveCustomHolidays(data){ localStorage.setItem('custom_holidays', JSON.stringify(data)); }
+
+// 有効な休日データを返す（localStorageがあればそちらを優先）
+function getActiveHolidays(){
+  const custom = getCustomHolidays();
+  return custom || DEFAULT_HOLIDAYS;
+}
+
+function importDefaultHolidays(){
+  saveCustomHolidays(JSON.parse(JSON.stringify(DEFAULT_HOLIDAYS)));
+  showToast('初期データを読み込みました');
+  renderHolidayList();
+  renderCal();
+}
+
+function addHoliday(){
+  const dateStr = document.getElementById('hol-date').value;
+  if(!dateStr){ showToast('日付を選択してください'); return; }
+  const d = new Date(dateStr);
+  const key = d.getFullYear()+'-'+(d.getMonth()+1);
+  const day = d.getDate();
+  let data = getCustomHolidays() || JSON.parse(JSON.stringify(getActiveHolidays()));
+  if(!data[key]) data[key] = [];
+  if(!data[key].includes(day)){
+    data[key].push(day);
+    data[key].sort((a,b)=>a-b);
+  }
+  saveCustomHolidays(data);
+  document.getElementById('hol-date').value = '';
+  showToast('休日を追加しました');
+  renderHolidayList();
+  renderCal();
+}
+
+function deleteHoliday(key, day){
+  let data = getCustomHolidays() || JSON.parse(JSON.stringify(getActiveHolidays()));
+  if(data[key]) data[key] = data[key].filter(d=>d!==day);
+  saveCustomHolidays(data);
+  showToast('休日を削除しました');
+  renderHolidayList();
+  renderCal();
+}
+
+function renderHolidayList(){
+  const el = document.getElementById('s-holiday-list');
+  if(!el) return;
+  const data = getActiveHolidays();
+  const MN=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  const isCustom = !!getCustomHolidays();
+  let html = '';
+  Object.keys(data).sort().forEach(key=>{
+    const [y,m] = key.split('-').map(Number);
+    const days = data[key];
+    if(!days.length) return;
+    html += `<div style="padding:6px 18px 2px;font-size:11px;font-weight:700;color:var(--text3);background:#fafafa;border-bottom:1px solid var(--border);">${y}年 ${MN[m-1]}</div>`;
+    days.forEach(day=>{
+      const dateStr = y+'-'+p(m)+'-'+p(day);
+      const dow = ['日','月','火','水','木','金','土'][new Date(y,m-1,day).getDay()];
+      html += `<div class="s-list-item">
+        <div style="width:10px;height:10px;border-radius:50%;background:#dc2626;flex-shrink:0;"></div>
+        <div class="s-list-item-body"><strong>${dateStr}</strong>（${dow}）</div>
+        ${isCustom?`<button onclick="deleteHoliday('${key}',${day})" style="background:none;border:none;cursor:pointer;color:#dc2626;font-size:13px;padding:2px 8px;border-radius:3px;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'"><i class="ti ti-trash"></i></button>`:'<span style="font-size:11px;color:#aaa;">初期データ</span>'}
+      </div>`;
+    });
+  });
+  if(!html) html = '<div style="padding:12px 18px;font-size:13px;color:#999;">休日はありません</div>';
+  el.innerHTML = html;
+}
+
+// ── 製造課ルール/手順書管理（GASスプレッドシート） ──
+const DOC_TYPE_ICON = {doc:'ti-file-text', xls:'ti-file-spreadsheet', pdf:'ti-file-description', rule:'ti-clipboard-list', manual:'ti-book'};
+const DOC_TYPE_COLOR = {doc:'#0078d4', xls:'#16a34a', pdf:'#dc2626', rule:'#7c3aed', manual:'#d97706'};
+let _docs = [];
+
+async function addDoc(){
+  const name = document.getElementById('doc-name').value.trim();
+  const url = document.getElementById('doc-url').value.trim();
+  const type = document.getElementById('doc-type').value;
+  const date = document.getElementById('doc-date').value.trim();
+  if(!name||!url){ showToast('ファイル名とURLを入力してください'); return; }
+  try{
+    await fetch(GAS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},
+      body:JSON.stringify({sheet:'手順書_ADD', name, url, type, date, datetime:fmtDT()})});
+    document.getElementById('doc-name').value='';
+    document.getElementById('doc-url').value='';
+    document.getElementById('doc-date').value='';
+    showToast('ファイルを追加しました');
+    setTimeout(loadData, 1500);
+  }catch(e){ showToast('エラー: '+e.message); }
+}
+
+async function deleteDoc(idx){
+  if(!confirm('このファイルを削除しますか？')) return;
+  try{
+    await fetch(GAS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},
+      body:JSON.stringify({sheet:'手順書_DELETE', idx})});
+    showToast('削除しました');
+    setTimeout(loadData, 1500);
+  }catch(e){ showToast('エラー: '+e.message); }
+}
+
+function renderDocs(docs){
+  _docs = docs;
+  const el = document.getElementById('docs-list');
+  const sel = document.getElementById('s-doc-list');
+  if(!docs.length){
+    const empty = '<div style="padding:14px 18px;font-size:13px;color:#999;">ファイルが登録されていません。設定画面から追加してください。</div>';
+    if(el) el.innerHTML = empty;
+    if(sel) sel.innerHTML = '<div style="padding:12px 18px;font-size:13px;color:#999;">ファイルはありません</div>';
+    return;
+  }
+  // ポータル表示
+  if(el){
+    el.innerHTML = docs.map(d=>{
+      const icon = DOC_TYPE_ICON[d.type]||'ti-file-text';
+      const col = DOC_TYPE_COLOR[d.type]||'#0078d4';
+      return `<a class="doc-row" href="${esc(String(d.url))}" target="_blank">
+        <i class="ti ${icon}" style="color:${col};"></i>
+        <div class="doc-name">${esc(d.name)}</div>
+        <div class="doc-date">${esc(String(d.date||''))}</div>
+      </a>`;
+    }).join('');
+  }
+  // 設定画面表示
+  if(sel){
+    sel.innerHTML = docs.map((d,i)=>{
+      const icon = DOC_TYPE_ICON[d.type]||'ti-file-text';
+      const col = DOC_TYPE_COLOR[d.type]||'#0078d4';
+      return `<div class="s-list-item">
+        <i class="ti ${icon}" style="color:${col};font-size:16px;flex-shrink:0;"></i>
+        <div class="s-list-item-body">
+          <strong>${esc(d.name)}</strong>
+          <div class="s-list-item-meta">${esc(String(d.date||''))}</div>
+        </div>
+        <button onclick="deleteDoc(${i})" style="background:none;border:none;cursor:pointer;color:#dc2626;font-size:13px;padding:2px 8px;border-radius:3px;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'">
+          <i class="ti ti-trash"></i>
+        </button>
+      </div>`;
+    }).join('');
+  }
+}
+
+// ── カレンダーイベント管理（GASスプレッドシート） ──
+const EV_TYPE_LABEL = {tenj:'展示会', kekki:'決起会', osoji:'大掃除'};
+const EV_TYPE_COLOR = {tenj:'#1d4ed8', kekki:'#15803d', osoji:'#7c3aed'};
+
+let _calEvents = []; // GASから取得したイベントをキャッシュ
+
+async function addCalEvent(){
+  const date = document.getElementById('ev-date').value;
+  const type = document.getElementById('ev-type').value;
+  const label = document.getElementById('ev-label').value.trim();
+  if(!date){ showToast('日付を選択してください'); return; }
+  try{
+    await fetch(GAS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},
+      body:JSON.stringify({sheet:'カレンダー_ADD', date, type, label})});
+    document.getElementById('ev-date').value='';
+    document.getElementById('ev-label').value='';
+    showToast('イベントを追加しました');
+    setTimeout(()=>{ loadData(); }, 1500);
+  }catch(e){ showToast('エラー: '+e.message); }
+}
+
+async function deleteCalEvent(date, type){
+  try{
+    await fetch(GAS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},
+      body:JSON.stringify({sheet:'カレンダー_DELETE', date, type})});
+    showToast('イベントを削除しました');
+    setTimeout(()=>{ loadData(); }, 1500);
+  }catch(e){ showToast('エラー: '+e.message); }
+}
+
+function renderCalEventList(){
+  const el = document.getElementById('s-cal-event-list');
+  if(!el) return;
+  const evs = _calEvents;
+  if(!evs.length){
+    el.innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">イベントはありません</div>';
+    return;
+  }
+  el.innerHTML = evs.map(ev=>{
+    const col = EV_TYPE_COLOR[ev.type]||'#888';
+    const lbl = EV_TYPE_LABEL[ev.type]||ev.type;
+    const dateStr = ev.date instanceof Date
+      ? ev.date.getFullYear()+'-'+p(ev.date.getMonth()+1)+'-'+p(ev.date.getDate())
+      : String(ev.date);
+    return `<div class="s-list-item">
+      <div style="width:10px;height:10px;border-radius:50%;background:${col};flex-shrink:0;"></div>
+      <div class="s-list-item-body">
+        <strong>${dateStr}</strong>　<span style="color:${col};font-weight:700;">${lbl}</span>
+        ${ev.label?`<span style="color:#666;margin-left:8px;">${esc(String(ev.label))}</span>`:''}
+      </div>
+      <button onclick="deleteCalEvent('${dateStr}','${ev.type}')" style="background:none;border:none;cursor:pointer;color:#dc2626;font-size:13px;padding:2px 8px;border-radius:3px;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'">
+        <i class="ti ti-trash"></i>
+      </button>
+    </div>`;
+  }).join('');
+}
+
+// JPNEXTの休日・イベントデータ（カレンダー写真より）
+const HOLIDAYS = {
+  '2026-1':[1,2,3,10,17,31],
+  '2026-2':[7,14,21,28],
+  '2026-3':[7,14,21],
+  '2026-4':[4,11,21,25],
+  '2026-5':[2,3,4,5,6,9,16],
+  '2026-6':[4,11,18,27,30],
+  '2026-7':[4,11,18,25],
+  '2026-8':[11,12,13,14,15,25],
+  '2026-9':[1,8,15,22,29],
+  '2026-10':[4,11,22,23,24,25],
+  '2026-11':[1,8,12,13,14,15,23],
+  '2026-12':[5,12,19,26,28,29,30,31],
+};
+// 展示会・決起会・大掃除（後日追加予定）
+const EVENTS = {
+  // '2026-5-20':['tenj'],'2026-5-21':['tenj'],'2026-5-22':['tenj'],
+  // '2026-12-26':['osoji'],
+};
+
+let cy=NOW.getFullYear(),cm=NOW.getMonth();
+function renderCal(){
+  const MN=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  document.getElementById('cal-title').textContent=cy+'年'+MN[cm];
+  const g=document.getElementById('cal-grid');g.innerHTML='';
+  ['日','月','火','水','木','金','土'].forEach(d=>{const e=document.createElement('div');e.className='cal-dow';e.textContent=d;g.appendChild(e);});
+  const first=new Date(cy,cm,1).getDay(),last=new Date(cy,cm+1,0).getDate(),prev=new Date(cy,cm,0).getDate();
+  const key=cy+'-'+(cm+1);
+  const holidays=(getActiveHolidays()[key])||[];
+  for(let i=0;i<first;i++){const e=document.createElement('div');e.className='cal-day other';e.textContent=prev-first+i+1;g.appendChild(e);}
+  for(let d=1;d<=last;d++){
+    const wrap=document.createElement('div');
+    const isT=d===NOW.getDate()&&cm===NOW.getMonth()&&cy===NOW.getFullYear();
+    const isH=holidays.includes(d);
+    const isWE=new Date(cy,cm,d).getDay()===0||new Date(cy,cm,d).getDay()===6;
+    let cls='cal-day';
+    if(isT)cls+=' today';
+    if(isH)cls+=' holiday';
+    if(isWE&&!isH&&!isT)cls+=' holiday';
+    wrap.className=cls;
+    wrap.innerHTML=String(d);
+    // 固定イベント
+    const evKey=cy+'-'+(cm+1)+'-'+d;
+    const evs=EVENTS[evKey]||[];
+    // GASイベント
+    const dateStr=cy+'-'+p(cm+1)+'-'+p(d);
+    const gasEvs=_calEvents.filter(e=>e.date===dateStr).map(e=>e.type);
+    const allEvs=[...new Set([...evs,...gasEvs])];
+    if(allEvs.length){
+      const dots=document.createElement('div');dots.className='cal-event-dot';
+      allEvs.forEach(ev=>{const dot=document.createElement('div');dot.className='cal-dot '+ev;dots.appendChild(dot);});
+      wrap.appendChild(dots);
+    }
+    g.appendChild(wrap);
+  }
+  const rem=(7-((first+last)%7))%7;
+  for(let i=1;i<=rem&&rem<7;i++){const e=document.createElement('div');e.className='cal-day other';e.textContent=i;g.appendChild(e);}
+}
+function calNav(d){cm+=d;if(cm>11){cm=0;cy++;}else if(cm<0){cm=11;cy--;}renderCal();}
+renderCal();
+loadData();
+</script>
+</body>
+</html>
