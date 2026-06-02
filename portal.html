@@ -261,6 +261,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
   position:relative;
   display:flex;
   flex-direction:column;
+  cursor:pointer;
   gap:10px;
   padding:12px;
   border-radius:4px;
@@ -281,6 +282,93 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
 .mav{width:44px;height:44px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;overflow:hidden;border:1px solid rgba(255,255,255,.75);box-shadow:0 1px 2px rgba(0,0,0,.08);}
 .mav img{width:100%;height:100%;object-fit:cover;}
 .mname{font-size:14px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.m-open{margin-left:auto;color:color-mix(in srgb, var(--member-color) 60%, #1f2937 40%);font-size:18px;opacity:.75;}
+
+/* MEMBER PAGE */
+#page-member{
+  position:absolute;
+  inset:0;
+  overflow:auto;
+  background:#eef4fb;
+  z-index:255;
+}
+.member-wrap{max-width:1000px;margin:0 auto;padding:28px 28px 36px;}
+.member-back{display:inline-flex;align-items:center;gap:6px;background:none;border:none;cursor:pointer;color:var(--blue);font-size:13px;font-family:var(--sans);padding:0;margin-bottom:16px;}
+.member-hero{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:center;padding:18px;background:#fff;border-radius:4px;box-shadow:var(--shadow);border-top:4px solid var(--blue);}
+.member-avatar{width:96px;height:96px;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:800;overflow:hidden;}
+.member-avatar img{width:100%;height:100%;object-fit:cover;}
+.member-name{font-size:28px;font-weight:900;line-height:1.2;color:#0f172a;}
+.member-headline{margin-top:4px;font-size:14px;font-weight:700;color:var(--blue);}
+.member-mission{margin-top:8px;font-size:13px;color:#334155;line-height:1.65;white-space:pre-wrap;}
+.member-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+.member-panel{background:#fff;border-radius:4px;box-shadow:var(--shadow);padding:14px 16px;}
+.member-panel-title{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:800;color:#0f172a;margin-bottom:8px;}
+.member-panel-title i{color:var(--blue);}
+.member-panel-body{font-size:13px;line-height:1.7;color:#334155;white-space:pre-wrap;min-height:36px;}
+.member-panel-body.empty{color:#94a3b8;}
+.member-full{margin-top:12px;background:#fff;border-radius:4px;box-shadow:var(--shadow);padding:16px;}
+.member-lock-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;background:#e8f0fe;color:var(--blue);margin-left:8px;}
+.member-form{margin-top:12px;background:#fff;border-radius:4px;box-shadow:var(--shadow);padding:16px;}
+.member-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.member-form-grid .member-field{display:flex;flex-direction:column;gap:4px;}
+.member-form-grid .member-field.full{grid-column:1 / span 2;}
+.member-form-grid label{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.04em;text-transform:uppercase;}
+.member-input{border:1px solid var(--border2);border-radius:4px;padding:8px 10px;font-size:13px;font-family:var(--sans);outline:none;}
+.member-input:focus{border-color:var(--blue);}
+.member-form-actions{margin-top:12px;display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;}
+.member-top-actions{margin-top:10px;display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;}
+#member-editor-screen{
+  position:fixed;
+  inset:0;
+  z-index:420;
+  background:#eef4fb;
+  overflow:auto;
+  display:none;
+}
+#member-editor-screen.show{display:block;}
+.admin-wrap{max-width:1160px;margin:0 auto;padding:24px 28px 32px;}
+.admin-hero{background:linear-gradient(135deg,#6d28d9 0%, #7c3aed 45%, #8b5cf6 100%);border-radius:4px;padding:20px 22px;color:#fff;box-shadow:var(--shadow-lg);margin-bottom:16px;}
+.admin-hero h1{font-size:28px;line-height:1.2;margin-bottom:6px;}
+.admin-hero p{font-size:13px;opacity:.92;}
+.admin-sec{background:#fff;border-radius:4px;box-shadow:var(--shadow);margin-bottom:16px;overflow:hidden;}
+.admin-sec-hdr{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;background:#f5f3ff;}
+.admin-sec-title{font-size:14px;font-weight:800;color:#4c1d95;display:flex;align-items:center;gap:8px;}
+.admin-sec-title i{font-size:18px;color:#6d28d9;}
+.admin-sec-desc{font-size:12px;color:#6b21a8;}
+.admin-row{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;padding:14px 18px;}
+.admin-row:last-child{border-bottom:none;}
+.admin-col{min-width:240px;flex:1;}
+.admin-label{font-size:12px;font-weight:700;color:#4c1d95;margin-bottom:5px;}
+.admin-input{width:100%;max-width:360px;border:1px solid #c4b5fd;border-radius:4px;padding:8px 12px;font-size:13px;font-family:var(--sans);outline:none;}
+.admin-input:focus{border-color:#7c3aed;box-shadow:0 0 0 2px #ede9fe;}
+.admin-lock-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:6px 10px;border-radius:4px;background:#f5f3ff;color:#6d28d9;}
+.admin-links{padding:14px 18px;}
+.admin-tile-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
+.admin-tile-wrap{background:#fff;border-radius:4px;padding:10px;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.admin-tile{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  width:100%;
+  text-decoration:none;
+  border-radius:4px;
+  padding:16px;
+  background:#a78bfa;
+  color:#fff;
+  box-shadow:var(--shadow);
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.admin-tile:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-lg);
+  background:#7c3aed;
+}
+.admin-tile-icon{font-size:72px;line-height:1;flex-shrink:0;color:#fff;opacity:.98;}
+.admin-tile-title{font-size:22px;font-weight:900;line-height:1.3;color:#fff;letter-spacing:.01em;word-break:keep-all;}
+.admin-surface .s-btn{background:#7c3aed;}
+.admin-surface .s-btn:hover{background:#6d28d9;}
+.admin-surface .s-btn.alt{background:#64748b;}
+.admin-surface .s-btn.alt:hover{background:#475569;}
 
 
 
@@ -359,6 +447,14 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
   z-index:260;
 }
 #page-settings .settings-wrap{max-width:1160px;margin:0 auto;}
+#page-admin{
+  position:absolute;
+  inset:0;
+  overflow:auto;
+  background:#f5f3ff;
+  z-index:260;
+}
+#page-admin .settings-wrap{max-width:1160px;margin:0 auto;}
 /* HIGHLIGHT */
 @keyframes highlight-pulse{
   0%{box-shadow:0 0 0 0 rgba(0,120,212,.8),inset 0 0 0 3px rgba(0,120,212,.3);}
@@ -401,6 +497,8 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
     <a class="nav-item" onclick="goHome('members-section')"><i class="ti ti-users"></i><span class="nav-item-label">メンバー</span></a>
   </div>
   <div class="nav-bottom">
+    <button class="nav-item" onclick="showPage('admin')"><i class="ti ti-shield-lock"></i><span class="nav-item-label">管理者ページ</span></button>
+    <div class="nav-divider"></div>
     <button class="nav-item" onclick="showPage('settings')"><i class="ti ti-settings-2"></i><span class="nav-item-label">設定</span></button>
   </div>
 </nav>
@@ -430,6 +528,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
             <a class="hero-btn" onclick="goHome('forms-section')"><i class="ti ti-forms"></i>フォーム</a>
             <a class="hero-btn" onclick="goHome('calendar-section')"><i class="ti ti-calendar"></i>カレンダー</a>
             <a class="hero-btn" onclick="goHome('members-section')"><i class="ti ti-users"></i>メンバー</a>
+            <a class="hero-btn" onclick="showPage('admin')"><i class="ti ti-shield-lock"></i>管理者ページ</a>
           </div>
         </div>
       </div>
@@ -631,6 +730,25 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
           </div>
           <button class="s-btn" style="background:#0f766e;" onclick="setGlobalSettingsPassword()">全ユーザーへ保存</button>
           <button class="s-btn" style="background:#666;" onclick="clearGlobalSettingsPassword()">全ユーザー設定を解除</button>
+        </div>
+      </div>
+
+      <div class="s-sec">
+        <div class="s-sec-hdr">
+          <div class="s-sec-title">🛡️ 管理者ページロック設定</div>
+          <div class="s-sec-desc">管理者ページのパスワードはここで設定します（入力画面は管理者ページ側に表示）。</div>
+        </div>
+        <div class="s-row" style="flex-wrap:wrap;align-items:flex-end;">
+          <div class="s-row-body" style="min-width:280px;">
+            <div class="s-row-title">現在の状態</div>
+            <div id="admin-lock-status" style="margin-top:6px;font-size:12px;color:var(--text3);">状態を読み込み中...</div>
+          </div>
+          <div class="s-row-body" style="min-width:260px;">
+            <div class="s-row-title">パスワード設定（4文字以上）</div>
+            <input id="admin-pass-input" type="password" placeholder="管理者ページのパスワード" style="margin-top:6px;width:100%;max-width:320px;border:1px solid var(--border2);border-radius:4px;padding:8px 12px;font-size:13px;font-family:var(--sans);outline:none;">
+          </div>
+          <button class="s-btn" style="background:#0f766e;" onclick="setAdminPagePassword(this)">保存</button>
+          <button class="s-btn" style="background:#666;" onclick="clearAdminPagePassword(this)">解除</button>
         </div>
       </div>
 
@@ -871,6 +989,17 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
         <div id="s-member-list" style="max-height:600px;overflow-y:auto;"></div>
       </div>
 
+      <!-- メンバー専用ページ設定 -->
+      <div class="s-sec">
+        <div class="s-sec-hdr">
+          <div class="s-sec-title">🔐 メンバー専用ページ設定</div>
+          <div class="s-sec-desc">入力は各メンバー専用ページで行います。ここでは設定状況を確認できます（全ユーザー共通）。</div>
+        </div>
+        <div id="s-member-profile-list" style="max-height:700px;overflow-y:auto;">
+          <div class="loading"><i class="ti ti-loader-2"></i>読み込み中...</div>
+        </div>
+      </div>
+
       <!-- カレンダーイベント管理 -->
       <div class="s-sec">
         <div class="s-sec-hdr">
@@ -900,7 +1029,83 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
     </div>
   </div>
 
+  <!-- ADMIN PAGE -->
+  <div class="page" id="page-admin">
+    <div class="admin-wrap admin-surface">
+      <button onclick="showPage('home')" style="display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-size:13px;color:#6d28d9;font-family:var(--sans);padding:0;margin-bottom:14px;">
+        <i class="ti ti-arrow-left" style="font-size:16px;"></i>ホームに戻る
+      </button>
+
+      <div class="admin-hero">
+        <h1>管理者ページ</h1>
+      </div>
+
+      <div class="admin-sec" id="admin-unlock-panel" style="display:none;">
+        <div class="admin-sec-hdr">
+          <div class="admin-sec-title"><i class="ti ti-key"></i>管理者認証</div>
+          <div class="admin-sec-desc">設定ページで設定したパスワードを入力</div>
+        </div>
+        <div class="admin-row">
+          <div class="admin-col">
+            <div class="admin-label">パスワード入力</div>
+            <input id="admin-unlock-input" class="admin-input" type="password" placeholder="パスワードを入力">
+          </div>
+          <button class="s-btn" onclick="unlockAdminPage(this)">解除</button>
+        </div>
+      </div>
+
+      <div id="admin-content-wrap" style="display:none;">
+        <div class="admin-sec">
+          <div class="admin-sec-hdr">
+            <div class="admin-sec-title"><i class="ti ti-database"></i>管理データベース</div>
+            <div class="admin-sec-desc">フォーム回答の管理用リンク</div>
+          </div>
+          <div class="admin-links">
+            <div class="admin-tile-grid">
+              <div class="admin-tile-wrap">
+                <a class="admin-tile" href="https://docs.google.com/spreadsheets/d/1uJH96KnYYyKvPT16kktzSohwlGavpYlaWmrBBBXRQLw/edit?gid=1019885821#gid=1019885821" target="_blank">
+                  <i class="ti ti-file-spreadsheet admin-tile-icon"></i>
+                  <div>
+                    <div class="admin-tile-title">不具合報告・要望<br>管理データベース</div>
+                  </div>
+                </a>
+              </div>
+              <div class="admin-tile-wrap">
+                <a class="admin-tile" href="https://docs.google.com/spreadsheets/d/1Vi2i18Cvby7CItYu55-_Xnh2PxIrILORhzdIWZY0z20/edit?gid=1521661673#gid=1521661673" target="_blank">
+                  <i class="ti ti-file-spreadsheet admin-tile-icon"></i>
+                  <div>
+                    <div class="admin-tile-title">JPNEXT<br>キャンペーン提案報告フォーム</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEMBER DETAIL PAGE -->
+  <div class="page" id="page-member">
+    <div class="member-wrap">
+      <button class="member-back" onclick="closeMemberPage()"><i class="ti ti-arrow-left"></i>ホームに戻る</button>
+      <div id="member-detail-root">
+        <div class="loading"><i class="ti ti-loader-2"></i>メンバー情報を読み込み中...</div>
+      </div>
+    </div>
+  </div>
+
 </main>
+
+<!-- MEMBER EDITOR SCREEN -->
+<div id="member-editor-screen">
+  <div class="member-wrap">
+    <button class="member-back" onclick="closeMemberEditPage()"><i class="ti ti-arrow-left"></i>メンバーページに戻る</button>
+    <div id="member-edit-root">
+      <div class="loading"><i class="ti ti-loader-2"></i>編集ページを読み込み中...</div>
+    </div>
+  </div>
+</div>
 
 <script>
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbzueRIitHcmbZIjfS1iT7qsAY3awEHioinFms0NO6e9ieVtlJY-ekogHjzmwDhZjUfyBA/exec';
@@ -1005,7 +1210,10 @@ function navScroll(id){
   }, 400);
 }
 const SETTINGS_PASS_GLOBAL_KEY='settings_page_password';
+const ADMIN_PAGE_PASSWORD_KEY='admin_page_password';
 let _globalSettingsPassword='';
+let _adminPagePassword='';
+let _adminUnlocked=false;
 function refreshSettingsLockStatus(){
   const s = document.getElementById('settings-lock-status');
   if(!s) return;
@@ -1014,6 +1222,107 @@ function refreshSettingsLockStatus(){
   }else{
     s.textContent = '状態: 未設定（ロックなし）';
   }
+}
+function refreshAdminLockStatus(){
+  const s = document.getElementById('admin-lock-status');
+  if(!s) return;
+  if(_adminPagePassword){
+    s.textContent = _adminUnlocked
+      ? '状態: パスワード有効（現在は解除済み）'
+      : '状態: パスワード有効（未解除）';
+  }else{
+    s.textContent = '状態: 未設定（ロックなし）';
+  }
+}
+function renderAdminVisibility(){
+  const unlockPanel = document.getElementById('admin-unlock-panel');
+  const content = document.getElementById('admin-content-wrap');
+  const needUnlock = !!_adminPagePassword && !_adminUnlocked;
+  if(unlockPanel) unlockPanel.style.display = needUnlock ? 'block' : 'none';
+  if(content) content.style.display = needUnlock ? 'none' : 'block';
+  refreshAdminLockStatus();
+}
+function setAdminActionLoading(btn, loading, text){
+  if(!btn) return;
+  if(loading){
+    btn.disabled = true;
+    btn.dataset.prevHtml = btn.innerHTML;
+    btn.innerHTML = `<span class="btn-spinner"></span>${text || '処理中...'}`;
+  }else{
+    btn.disabled = false;
+    if(btn.dataset.prevHtml) btn.innerHTML = btn.dataset.prevHtml;
+    delete btn.dataset.prevHtml;
+  }
+}
+async function setAdminPagePassword(btnEl){
+  if(btnEl && btnEl.disabled) return;
+  const inp = document.getElementById('admin-pass-input');
+  if(!inp) return;
+  const pw = inp.value.trim();
+  if(pw.length < 4){
+    showToast('4文字以上で設定してください');
+    return;
+  }
+  setAdminActionLoading(btnEl, true, '保存中...');
+  try{
+    await gasPost({sheet:'設定_UPDATE', key:ADMIN_PAGE_PASSWORD_KEY, value:pw});
+    _adminPagePassword = pw;
+    _adminUnlocked = true;
+    inp.value = '';
+    renderAdminVisibility();
+    showToast('管理者ページパスワードを保存しました');
+  }catch(e){
+    showToast('エラー: '+e.message);
+  }finally{
+    setAdminActionLoading(btnEl, false);
+  }
+}
+async function clearAdminPagePassword(btnEl){
+  if(btnEl && btnEl.disabled) return;
+  if(!_adminPagePassword){
+    showToast('管理者ページパスワードは未設定です');
+    return;
+  }
+  if(!confirm('管理者ページのパスワードを解除しますか？')) return;
+  setAdminActionLoading(btnEl, true, '解除中...');
+  try{
+    await gasPost({sheet:'設定_UPDATE', key:ADMIN_PAGE_PASSWORD_KEY, value:''});
+    _adminPagePassword = '';
+    _adminUnlocked = true;
+    renderAdminVisibility();
+    showToast('管理者ページパスワードを解除しました');
+  }catch(e){
+    showToast('エラー: '+e.message);
+  }finally{
+    setAdminActionLoading(btnEl, false);
+  }
+}
+function unlockAdminPage(btnEl){
+  if(btnEl && btnEl.disabled) return;
+  setAdminActionLoading(btnEl, true, '解除中...');
+  if(!_adminPagePassword){
+    _adminUnlocked = true;
+    renderAdminVisibility();
+    setAdminActionLoading(btnEl, false);
+    return;
+  }
+  const inp = document.getElementById('admin-unlock-input');
+  const entered = inp ? inp.value.trim() : '';
+  if(!entered){
+    showToast('パスワードを入力してください');
+    setAdminActionLoading(btnEl, false);
+    return;
+  }
+  if(entered !== _adminPagePassword){
+    showToast('パスワードが違います');
+    setAdminActionLoading(btnEl, false);
+    return;
+  }
+  _adminUnlocked = true;
+  if(inp) inp.value = '';
+  renderAdminVisibility();
+  showToast('管理者ページのロックを解除しました');
+  setAdminActionLoading(btnEl, false);
 }
 function requestSettingsAccess(){
   const saved = _globalSettingsPassword || '';
@@ -1074,15 +1383,26 @@ function showPage(name){
     const btns = document.querySelectorAll('.nav-item');
     btns.forEach(b=>{ if(b.textContent.includes('設定')) b.classList.add('active'); });
     refreshSettingsLockStatus();
+    refreshAdminLockStatus();
     renderSettingsLists();
     renderCalEventList();
     renderHolidayList();
     renderDocs(_docs);
     renderStorageSettings();
     renderMemberSettings();
+    renderMemberProfileSettings();
     renderNoticeTypeSettings();
     const _heroUrl = document.querySelector('.hero-img img')?.src || '';
     updateHeroPreview(_heroUrl);
+  } else if(name==='admin'){
+    window.scrollTo({top:0,left:0,behavior:'auto'});
+    const ap = document.getElementById('page-admin');
+    if(ap) ap.scrollTop = 0;
+    const btns = document.querySelectorAll('.nav-item');
+    btns.forEach(b=>{ if(b.textContent.includes('管理者ページ')) b.classList.add('active'); });
+    renderAdminVisibility();
+  } else if(name==='member'){
+    // メンバーページ中はサイドナビのactiveを付けない
   }
 }
 
@@ -1417,13 +1737,81 @@ async function loadData(){
 function applyPortalConfig(d){
   const settings = (d && d.settings) || {};
   _globalSettingsPassword = String(settings[SETTINGS_PASS_GLOBAL_KEY] || '').trim();
+  const nextAdminPassword = String(settings[ADMIN_PAGE_PASSWORD_KEY] || '').trim();
+  if(nextAdminPassword !== _adminPagePassword){
+    _adminUnlocked = false;
+  }
+  _adminPagePassword = nextAdminPassword;
+  if(!_adminPagePassword) _adminUnlocked = true;
   applyStorageLinksFromData(d || {});
+  applyMemberProfilesFromData(d || {});
   if(d && d.members && d.members.length) _membersCache = d.members;
   applyNoticeTypesFromData(d || {});
   renderStorageLinks();
   renderMembers(null);
   refreshNoticeTypeSelect();
   updateMembersCount();
+}
+
+// ── メンバー専用ページプロフィール（GAS設定） ──
+const MEMBER_PROFILE_KEY = 'member_profiles_json';
+let _memberProfileCache = {};
+let _activeMemberName = '';
+
+function normalizeMemberProfile(x){
+  const p = x || {};
+  return {
+    headline: String(p.headline || '').trim(),
+    mission: String(p.mission || '').trim(),
+    strengths: String(p.strengths || '').trim(),
+    contact: String(p.contact || '').trim(),
+    note: String(p.note || '').trim(),
+    password: String(p.password || '').trim(),
+    fullName: String(p.fullName || '').trim(),
+    address: String(p.address || '').trim(),
+    phone: String(p.phone || '').trim(),
+    birthDate: String(p.birthDate || '').trim(),
+    clothSize: String(p.clothSize || '').trim(),
+    shoeSize: String(p.shoeSize || '').trim(),
+    workwearTop: String(p.workwearTop || '').trim(),
+    workwearBottom: String(p.workwearBottom || '').trim(),
+    licenses: String(p.licenses || '').trim()
+  };
+}
+function applyMemberProfilesFromData(d){
+  const raw = d.settings && (d.settings[MEMBER_PROFILE_KEY] || d.settings.member_profiles_json);
+  if(raw){
+    try{
+      const o = typeof raw === 'string' ? JSON.parse(raw) : raw;
+      if(o && typeof o === 'object'){
+        const next = {};
+        Object.keys(o).forEach(name => {
+          const key = String(name || '').trim();
+          if(key) next[key] = normalizeMemberProfile(o[name]);
+        });
+        _memberProfileCache = next;
+        return;
+      }
+    }catch(e){}
+  }
+  _memberProfileCache = {};
+}
+function getMemberProfile(name){
+  const key = String(name || '').trim();
+  return normalizeMemberProfile((_memberProfileCache && _memberProfileCache[key]) || {});
+}
+function setMemberProfile(name, profile){
+  const key = String(name || '').trim();
+  if(!key) return;
+  _memberProfileCache[key] = normalizeMemberProfile(profile || {});
+}
+async function persistMemberProfiles(){
+  try{
+    await gasPost({sheet:'設定_UPDATE', key:MEMBER_PROFILE_KEY, value:JSON.stringify(_memberProfileCache || {})});
+  }catch(e){}
+}
+function profileHasContent(p){
+  return !!(p.headline || p.mission || p.strengths || p.contact || p.note || p.password || p.fullName || p.address || p.phone || p.birthDate || p.clothSize || p.shoeSize || p.workwearTop || p.workwearBottom || p.licenses);
 }
 
 // ── 課内連絡種別タグ（GAS / 設定画面で管理） ──
@@ -2233,18 +2621,27 @@ function renderMembers(members){
   const el = document.getElementById('members-grid-wrap');
   if(!el) return;
   el.innerHTML = list.map(m => {
+    const prof = getMemberProfile(m.name);
+    const locked = !!prof.password;
     const avatar = m.photoUrl
       ? `<div class="mav"><img src="${esc(m.photoUrl)}" alt="${esc(m.name)}"></div>`
       : `<div class="mav" style="background:${esc(m.color)}">${esc(m.initial||m.name.charAt(0))}</div>`;
-    return `<div class="mi" style="--member-color:${esc(m.color)};">
+    return `<div class="mi" style="--member-color:${esc(m.color)};" onclick="openMemberPage('${escAttr(m.name)}')" title="${escAttr(m.name)}のページを開く">
       <div class="m-head">
         ${avatar}
         <div class="m-meta">
-          <div class="mname">${esc(m.name)}</div>
+          <div class="mname">${esc(m.name)}${locked ? '<span class="member-lock-badge"><i class="ti ti-lock"></i>LOCK</span>' : ''}</div>
         </div>
+        <i class="ti ti-chevron-right m-open"></i>
       </div>
     </div>`;
   }).join('');
+  if(document.getElementById('page-member')?.classList.contains('active') && _activeMemberName){
+    renderMemberPage(_activeMemberName);
+  }
+  if(document.getElementById('member-editor-screen')?.classList.contains('show') && _activeMemberName){
+    renderMemberEditPage(_activeMemberName);
+  }
 }
 
 // ── メンバー管理 ──
@@ -2304,6 +2701,217 @@ function renderMemberSettings(){
   }).join('');
 }
 
+function renderMemberProfileSettings(){
+  const el = document.getElementById('s-member-profile-list');
+  if(!el) return;
+  const list = (_membersCache && _membersCache.length)
+    ? _membersCache.map(m => ({...m, color: resolveMemberColor(m.name, m.color)}))
+    : DEFAULT_MEMBERS;
+  if(!list.length){
+    el.innerHTML = '<div style="padding:12px 18px;font-size:13px;color:#999;">メンバーがありません</div>';
+    return;
+  }
+  el.innerHTML = list.map((m, i) => {
+    const p = getMemberProfile(m.name);
+    const lockLabel = p.password ? '有効' : '未設定';
+    return `<div class="m-edit-row" id="mpf-row-${i}">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;">
+        <div style="display:flex;align-items:center;gap:8px;font-weight:700;color:var(--text);font-size:14px;">
+          <span class="assignee-tag" style="background:${esc(m.color)}">${esc(m.name)}</span>
+          <span style="font-size:12px;color:var(--text3);">専用ページ設定（本人ページで入力）</span>
+        </div>
+        <span class="member-lock-badge"><i class="ti ti-lock"></i>${lockLabel}</span>
+      </div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.7;">
+        氏名: ${esc(p.fullName || m.name)} / 電話: ${esc(p.phone || '未設定')} / 住所: ${esc(p.address || '未設定')}
+      </div>
+      <div style="font-size:12px;color:var(--text3);margin-top:4px;line-height:1.7;">
+        服サイズ: ${esc(p.clothSize || '未設定')} / 靴サイズ: ${esc(p.shoeSize || '未設定')} / 作業服: 上 ${esc(p.workwearTop || '未設定')}・下 ${esc(p.workwearBottom || '未設定')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openMemberPage(name){
+  const list = (_membersCache && _membersCache.length) ? _membersCache : DEFAULT_MEMBERS;
+  const m = list.find(x => x.name === name);
+  if(!m){ showToast('メンバー情報が見つかりません'); return; }
+  const profile = getMemberProfile(m.name);
+  if(profile.password){
+    const entered = prompt(`${m.name}ページのパスワードを入力してください`);
+    if(entered == null) return;
+    if(entered !== profile.password){
+      showToast('パスワードが違います');
+      return;
+    }
+  }
+  _activeMemberName = m.name;
+  renderMemberPage(m.name);
+  showPage('member');
+}
+
+function closeMemberPage(){
+  _activeMemberName = '';
+  showPage('home');
+}
+
+function closeMemberEditPage(){
+  const screen = document.getElementById('member-editor-screen');
+  if(screen) screen.classList.remove('show');
+  if(_activeMemberName) renderMemberPage(_activeMemberName);
+}
+
+function openMemberEditPage(){
+  if(!_activeMemberName){
+    showToast('対象メンバーが選択されていません');
+    return;
+  }
+  const screen = document.getElementById('member-editor-screen');
+  if(!screen){
+    showToast('編集画面の読み込みに失敗しました');
+    return;
+  }
+  renderMemberEditPage(_activeMemberName);
+  screen.classList.add('show');
+}
+
+function renderMemberPage(name){
+  const root = document.getElementById('member-detail-root');
+  if(!root) return;
+  const list = (_membersCache && _membersCache.length) ? _membersCache : DEFAULT_MEMBERS;
+  const m = list.find(x => x.name === name);
+  if(!m){
+    root.innerHTML = '<div class="member-full"><div class="member-panel-body empty">メンバー情報が見つかりません。</div></div>';
+    return;
+  }
+  const p = getMemberProfile(m.name);
+  const avatar = m.photoUrl
+    ? `<div class="member-avatar" style="background:${esc(m.color)};"><img src="${esc(m.photoUrl)}" alt="${esc(m.name)}"></div>`
+    : `<div class="member-avatar" style="background:${esc(m.color)};">${esc(m.initial||m.name.charAt(0))}</div>`;
+  const row = (title, icon, value) => `<div class="member-panel"><div class="member-panel-title"><i class="ti ${icon}"></i>${title}</div><div class="member-panel-body ${value ? '' : 'empty'}">${esc(value || '未設定')}</div></div>`;
+  root.innerHTML = `
+    <div class="member-hero" style="border-top-color:${esc(m.color)};">
+      ${avatar}
+      <div>
+        <div class="member-name">${esc(m.name)}${p.password ? '<span class="member-lock-badge"><i class="ti ti-lock"></i>LOCK</span>' : ''}</div>
+        <div class="member-headline">${esc(p.headline || 'プロフィール')}</div>
+        <div class="member-mission">${esc(p.mission || '担当ミッションは未設定です')}</div>
+      </div>
+    </div>
+    <div class="member-grid">
+      ${row('氏名', 'ti-id', p.fullName || m.name)}
+      ${row('生年月日', 'ti-cake', p.birthDate)}
+      ${row('住所', 'ti-map-pin', p.address)}
+      ${row('電話番号', 'ti-phone', p.phone)}
+      ${row('服のサイズ', 'ti-shirt', p.clothSize)}
+      ${row('靴のサイズ', 'ti-shoe', p.shoeSize)}
+      ${row('作業服サイズ（上）', 'ti-shirt-sport', p.workwearTop)}
+      ${row('作業服サイズ（下）', 'ti-shirt', p.workwearBottom)}
+    </div>
+    <div class="member-full">
+      <div class="member-panel-title"><i class="ti ti-award"></i>所持している資格</div>
+      <div class="member-panel-body ${p.licenses ? '' : 'empty'}">${esc(p.licenses || '未設定')}</div>
+    </div>
+    <div class="member-full">
+      <div class="member-panel-title"><i class="ti ti-notes"></i>得意領域・自由メモ</div>
+      <div class="member-panel-body ${(p.strengths || p.note) ? '' : 'empty'}">${esc([p.strengths, p.note].filter(Boolean).join('\n\n') || '未設定')}</div>
+    </div>
+    <div class="member-top-actions">
+      <button class="s-btn" type="button" onclick="openMemberEditPage()"><i class="ti ti-edit" style="margin-right:4px;"></i>プロフィール編集</button>
+    </div>
+  `;
+}
+
+function renderMemberEditPage(name){
+  const root = document.getElementById('member-edit-root');
+  if(!root) return;
+  const list = (_membersCache && _membersCache.length) ? _membersCache : DEFAULT_MEMBERS;
+  const m = list.find(x => x.name === name);
+  if(!m){
+    root.innerHTML = '<div class="member-full"><div class="member-panel-body empty">メンバー情報が見つかりません。</div></div>';
+    return;
+  }
+  const p = getMemberProfile(m.name);
+  root.innerHTML = `
+    <div class="member-hero" style="border-top-color:${esc(m.color)};">
+      <div class="member-avatar" style="background:${esc(m.color)};">${esc(m.initial||m.name.charAt(0))}</div>
+      <div>
+        <div class="member-name">${esc(m.name)}</div>
+        <div class="member-headline">プロフィール編集ページ</div>
+      </div>
+    </div>
+    <div class="member-form">
+      <div class="member-panel-title"><i class="ti ti-edit"></i>プロフィール情報を編集</div>
+      <div class="member-form-grid">
+        <div class="member-field"><label>氏名</label><input id="mpv-fullName" class="member-input" value="${escAttr(p.fullName || m.name)}"></div>
+        <div class="member-field"><label>生年月日</label><input id="mpv-birthDate" class="member-input" type="date" value="${escAttr(p.birthDate)}"></div>
+        <div class="member-field full"><label>住所</label><input id="mpv-address" class="member-input" value="${escAttr(p.address)}"></div>
+        <div class="member-field"><label>電話番号</label><input id="mpv-phone" class="member-input" value="${escAttr(p.phone)}"></div>
+        <div class="member-field"><label>肩書き・役割（見出し）</label><input id="mpv-headline" class="member-input" value="${escAttr(p.headline)}"></div>
+        <div class="member-field full"><label>担当ミッション</label><textarea id="mpv-mission" class="member-input" style="min-height:70px;resize:vertical;">${esc(p.mission)}</textarea></div>
+        <div class="member-field full"><label>得意領域・スキル</label><textarea id="mpv-strengths" class="member-input" style="min-height:70px;resize:vertical;">${esc(p.strengths)}</textarea></div>
+        <div class="member-field"><label>服のサイズ</label><input id="mpv-clothSize" class="member-input" value="${escAttr(p.clothSize)}" placeholder="例: L"></div>
+        <div class="member-field"><label>靴のサイズ</label><input id="mpv-shoeSize" class="member-input" value="${escAttr(p.shoeSize)}" placeholder="例: 27.0cm"></div>
+        <div class="member-field"><label>作業服サイズ（上）</label><input id="mpv-workwearTop" class="member-input" value="${escAttr(p.workwearTop)}" placeholder="例: LL"></div>
+        <div class="member-field"><label>作業服サイズ（下）</label><input id="mpv-workwearBottom" class="member-input" value="${escAttr(p.workwearBottom)}" placeholder="例: L"></div>
+        <div class="member-field full"><label>所持している資格</label><textarea id="mpv-licenses" class="member-input" style="min-height:70px;resize:vertical;">${esc(p.licenses)}</textarea></div>
+        <div class="member-field"><label>連絡先（補足）</label><input id="mpv-contact" class="member-input" value="${escAttr(p.contact)}" placeholder="任意"></div>
+        <div class="member-field"><label>ページロック用パスワード</label><input id="mpv-password" type="password" class="member-input" value="${escAttr(p.password)}" placeholder="未入力でロック解除"></div>
+        <div class="member-field full"><label>自由メモ</label><textarea id="mpv-note" class="member-input" style="min-height:80px;resize:vertical;">${esc(p.note)}</textarea></div>
+      </div>
+      <div class="member-form-actions">
+        <button class="s-btn" id="mpv-save-btn" onclick="saveActiveMemberProfile()">保存</button>
+      </div>
+    </div>
+  `;
+}
+
+async function saveActiveMemberProfile(){
+  if(!_activeMemberName){
+    showToast('対象メンバーが選択されていません');
+    return;
+  }
+  const saveBtn = document.getElementById('mpv-save-btn');
+  const current = getMemberProfile(_activeMemberName);
+  const v = id => {
+    const el = document.getElementById(id);
+    return el ? el.value : '';
+  };
+  const profile = normalizeMemberProfile({
+    ...current,
+    fullName: v('mpv-fullName'),
+    birthDate: v('mpv-birthDate'),
+    address: v('mpv-address'),
+    phone: v('mpv-phone'),
+    headline: v('mpv-headline'),
+    mission: v('mpv-mission'),
+    strengths: v('mpv-strengths'),
+    clothSize: v('mpv-clothSize'),
+    shoeSize: v('mpv-shoeSize'),
+    workwearTop: v('mpv-workwearTop'),
+    workwearBottom: v('mpv-workwearBottom'),
+    licenses: v('mpv-licenses'),
+    contact: v('mpv-contact'),
+    password: v('mpv-password'),
+    note: v('mpv-note')
+  });
+  if(saveBtn){ saveBtn.disabled = true; saveBtn.innerHTML = '<span class="btn-spinner"></span>保存中...'; }
+  setMemberProfile(_activeMemberName, profile);
+  try{
+    await persistMemberProfiles();
+    renderMembers(_membersCache);
+    renderMemberProfileSettings();
+    renderMemberPage(_activeMemberName);
+    const screen = document.getElementById('member-editor-screen');
+    if(screen) screen.classList.remove('show');
+    showToast(_activeMemberName + 'のプロフィールを保存しました');
+  }catch(e){
+    showToast('エラー: ' + e.message);
+  }finally{
+    if(saveBtn){ saveBtn.disabled = false; saveBtn.innerHTML = '保存'; }
+  }
+}
+
 function setMemberColor(i, color){
   const list = (_membersCache && _membersCache.length) ? _membersCache : DEFAULT_MEMBERS;
   const memberName = list[i] ? list[i].name : '';
@@ -2334,14 +2942,17 @@ async function addMember(){
   const initial = name.charAt(0);
   list.push({name, color, initial, photoUrl:''});
   _membersCache = list;
+  setMemberProfile(name, getMemberProfile(name));
   const addBtn = document.querySelector('[onclick="addMember()"]');
   if(addBtn){ addBtn.disabled=true; addBtn.innerHTML='<span class="btn-spinner"></span>追加中...'; }
   try{
     await gasPost({sheet:'メンバー_UPDATE', name, color, initial, photoUrl:''});
+    await persistMemberProfiles();
     document.getElementById('new-member-name').value='';
 
     showToast(name+'を追加しました');
     renderMemberSettings();
+    renderMemberProfileSettings();
     renderMembers(_membersCache);
     refreshMemberSelects();
   }catch(e){ showToast('エラー: '+e.message); }
@@ -2356,12 +2967,16 @@ async function deleteMember(i){
   if(!confirm(m.name+'を削除しますか？')) return;
   setIconDeleteLoading(delBtn, true);
   _membersCache = list.filter((_,idx)=>idx!==i);
+  if(_memberProfileCache && _memberProfileCache[m.name]) delete _memberProfileCache[m.name];
   try{
     await gasPost({sheet:'メンバー_DELETE', name:m.name});
+    await persistMemberProfiles();
     showToast(m.name+'を削除しました');
     renderMemberSettings();
+    renderMemberProfileSettings();
     renderMembers(_membersCache);
     refreshMemberSelects();
+    if(_activeMemberName === m.name) closeMemberPage();
   }catch(e){
     showToast('エラー: '+e.message);
     setIconDeleteLoading(delBtn, false);
@@ -2377,6 +2992,12 @@ async function saveMember(i){
   const initial  = document.getElementById('mp-initial-'+i).value.trim() || m.name.charAt(0);
   const color    = resolveMemberColor(name, m.color);
   const photoUrl = document.getElementById('mp-photo-'+i).value.trim();
+  const oldName = m.name;
+  if(name !== oldName && _memberProfileCache && _memberProfileCache[oldName]){
+    _memberProfileCache[name] = normalizeMemberProfile(_memberProfileCache[oldName]);
+    delete _memberProfileCache[oldName];
+  }
+  if(!_memberProfileCache[name]) setMemberProfile(name, {});
   // キャッシュ更新
   list[i] = {...m, name, initial, color, photoUrl};
   _membersCache = list;
@@ -2387,9 +3008,12 @@ async function saveMember(i){
       sheet:'メンバー_UPDATE',
       oldName:m.name, name, color, initial, photoUrl
     });
+    await persistMemberProfiles();
     showToast(name+'の情報を保存しました');
     renderMembers(_membersCache);
     renderMemberSettings();
+    renderMemberProfileSettings();
+    if(_activeMemberName === oldName) _activeMemberName = name;
   }catch(e){ showToast('エラー: '+e.message); }
   finally{ if(saveBtn){ saveBtn.disabled=false; saveBtn.innerHTML='保存'; } }
 }
