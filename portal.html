@@ -298,6 +298,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
 .s-row-desc{font-size:12px;color:var(--text3);margin-top:2px;}
 .s-btn{background:var(--blue);color:#fff;border:none;border-radius:4px;padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);text-decoration:none;display:inline-block;white-space:nowrap;}
 .s-btn:hover{background:var(--blue-dk);}
+.s-btn:disabled{opacity:.5;cursor:not-allowed;pointer-events:none;filter:saturate(.5);}
 .s-btn.danger{background:#dc2626;}
 .s-btn.danger:hover{background:#b91c1c;}
 .step-list{padding:4px 18px 14px;}
@@ -688,12 +689,12 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
       <div class="s-sec">
         <div class="s-sec-hdr">
           <div class="s-sec-title">🔴 休日管理</div>
-          <div class="s-sec-desc">休日（赤表示）を追加・削除できます。土日は自動で赤表示されます。</div>
+          <div class="s-sec-desc">休日（赤表示）を追加・削除できます。土日祝の初期データもGASに登録済み（削除可能）です。</div>
         </div>
         <div style="padding:14px 18px;border-bottom:1px solid var(--border);">
           <div style="display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;">
             <input type="date" id="hol-date" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;">
-            <button class="s-btn" onclick="addHoliday()">追加</button>
+            <button class="s-btn" onclick="addHoliday(this)">追加</button>
           </div>
           <div style="margin-top:10px;font-size:12px;color:var(--text3);">※ 休日の追加・削除はGAS経由で全ユーザーに反映されます。</div>
         </div>
@@ -825,19 +826,21 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
       <div class="s-sec">
         <div class="s-sec-hdr">
           <div class="s-sec-title">📅 カレンダーイベント管理</div>
-          <div class="s-sec-desc">展示会・決起会・大掃除・休日を追加・削除できます（GASで全ユーザー共通）。</div>
+          <div class="s-sec-desc">展示会・決起会・大掃除を追加・削除できます（休日は上の休日管理で操作）。</div>
         </div>
         <div style="padding:14px 18px;border-bottom:1px solid var(--border);">
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:center;">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:8px;align-items:center;">
             <input type="date" id="ev-date" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;">
+            <input type="date" id="ev-date-end" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;" title="期間登録する場合の終了日（任意）">
             <select id="ev-type" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;background:#fff;">
               <option value="tenj">展示会</option>
               <option value="kekki">決起会</option>
               <option value="osoji">大掃除</option>
             </select>
             <input type="text" id="ev-label" placeholder="メモ（任意）" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;">
-            <button class="s-btn" onclick="addCalEvent()">追加</button>
+            <button class="s-btn" onclick="addCalEvent(this)">追加</button>
           </div>
+          <div style="margin-top:8px;font-size:12px;color:var(--text3);">※ 開始日〜終了日を指定すると期間一括登録できます（終了日省略可）。</div>
         </div>
         <div id="s-cal-event-list" style="max-height:280px;overflow-y:auto;">
           <div style="padding:12px 18px;font-size:13px;color:#999;">イベントはありません</div>
@@ -953,7 +956,7 @@ function navScroll(id){
 }
 const SETTINGS_PASS_GLOBAL_KEY='settings_page_password';
 const HOLIDAY_SEED_VERSION_KEY='holiday_seed_version';
-const HOLIDAY_SEED_VERSION='v1_2026_weekend_holiday';
+const HOLIDAY_SEED_VERSION='v2_jp_weekend_national_holidays';
 let _globalSettingsPassword='';
 let _holidaySeedVersion='';
 let _holidaySeedAttempted=false;
@@ -1583,9 +1586,16 @@ async function deleteCheckedTodos(){
 }
 
 // ── カレンダー（GAS共通管理） ──
-async function addHoliday(){
+async function addHoliday(btnEl){
+  const btn = btnEl || document.querySelector('[onclick="addHoliday(this)"]');
+  if(btn && btn.disabled) return;
+  if(btn){ btn.disabled=true; btn.innerHTML='<span class="btn-spinner"></span>追加中...'; }
   const dateStr = document.getElementById('hol-date').value;
-  if(!dateStr){ showToast('日付を選択してください'); return; }
+  if(!dateStr){
+    showToast('日付を選択してください');
+    if(btn){ btn.disabled=false; btn.innerHTML='追加'; }
+    return;
+  }
   try{
     await gasPost({sheet:'カレンダー_ADD', date:dateStr, type:'holiday', label:'休日'});
     _calEvents = [...(_calEvents||[]), {date:dateStr, type:'holiday', label:'休日'}];
@@ -1597,10 +1607,15 @@ async function addHoliday(){
     loadData().catch(()=>{});
   }catch(e){
     showToast('エラー: '+e.message);
+  }finally{
+    if(btn){ btn.disabled=false; btn.innerHTML='追加'; }
   }
 }
 
-async function deleteHoliday(dateStr){
+async function deleteHoliday(dateStr, btnEl){
+  const delBtn = btnEl || (typeof event !== 'undefined' && event.currentTarget) || null;
+  if(delBtn && delBtn.disabled) return;
+  setIconDeleteLoading(delBtn, true);
   try{
     await gasPost({sheet:'カレンダー_DELETE', date:dateStr, type:'holiday'});
     _calEvents = (_calEvents||[]).filter(ev=>!(String(ev.date)===String(dateStr) && String(ev.type)==='holiday'));
@@ -1611,6 +1626,7 @@ async function deleteHoliday(dateStr){
     loadData().catch(()=>{});
   }catch(e){
     showToast('エラー: '+e.message);
+    setIconDeleteLoading(delBtn, false);
   }
 }
 
@@ -1632,7 +1648,7 @@ function renderHolidayList(){
     return `<div class="s-list-item">
       <div style="width:10px;height:10px;border-radius:50%;background:#dc2626;flex-shrink:0;"></div>
       <div class="s-list-item-body"><strong>${esc(dateStr)}</strong>${dow ? `（${dow}）` : ''}</div>
-      <button onclick="deleteHoliday('${escAttr(dateStr)}')" style="background:none;border:none;cursor:pointer;color:#dc2626;font-size:13px;padding:2px 8px;border-radius:4px;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'"><i class="ti ti-trash"></i></button>
+      <button class="icon-del-btn" onclick="deleteHoliday('${escAttr(dateStr)}', this)" style="background:none;border:none;cursor:pointer;color:#dc2626;font-size:13px;padding:2px 8px;border-radius:4px;min-width:28px;min-height:28px;display:inline-flex;align-items:center;justify-content:center;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'"><i class="ti ti-trash"></i></button>
     </div>`;
   }).join('');
 }
@@ -2002,40 +2018,89 @@ const EV_TYPE_COLOR = {tenj:'#1d4ed8', kekki:'#15803d', osoji:'#7c3aed'};
 
 let _calEvents = []; // GASから取得したイベントをキャッシュ
 
-// 初期投入用の休日ベース（祝日+会社既定日）。実運用はGASデータを編集して使う。
-const DEFAULT_SEED_HOLIDAYS = {
-  '2026-1':[1,2,3,10,17,31],
-  '2026-2':[7,14,21,28],
-  '2026-3':[7,14,21],
-  '2026-4':[4,11,21,25],
-  '2026-5':[2,3,4,5,6,9,16],
-  '2026-6':[4,11,18,27,30],
-  '2026-7':[4,11,18,25],
-  '2026-8':[11,12,13,14,15,25],
-  '2026-9':[1,8,15,22,29],
-  '2026-10':[4,11,22,23,24,25],
-  '2026-11':[1,8,12,13,14,15,23],
-  '2026-12':[5,12,19,26,28,29,30,31],
-};
+// 初期投入用（土日 + 日本の一般的な祝日）をGASへ1回投入
+function nthWeekdayOfMonth(year, month, weekday, nth){
+  const firstDow = new Date(year, month-1, 1).getDay();
+  const day = 1 + ((7 + weekday - firstDow) % 7) + (nth-1)*7;
+  return day;
+}
+function vernalEquinoxDay(year){
+  return Math.floor(20.8431 + 0.242194*(year-1980) - Math.floor((year-1980)/4));
+}
+function autumnEquinoxDay(year){
+  return Math.floor(23.2488 + 0.242194*(year-1980) - Math.floor((year-1980)/4));
+}
+function buildJapanHolidaySet(year){
+  const set = new Set();
+  const add = (m,d)=>set.add(`${year}-${p(m)}-${p(d)}`);
+  // 固定祝日
+  add(1,1);   // 元日
+  add(2,11);  // 建国記念の日
+  add(2,23);  // 天皇誕生日
+  add(4,29);  // 昭和の日
+  add(5,3);   // 憲法記念日
+  add(5,4);   // みどりの日
+  add(5,5);   // こどもの日
+  add(8,11);  // 山の日
+  add(11,3);  // 文化の日
+  add(11,23); // 勤労感謝の日
+  // ハッピーマンデー
+  add(1, nthWeekdayOfMonth(year,1,1,2));   // 成人の日（1月第2月曜）
+  add(7, nthWeekdayOfMonth(year,7,1,3));   // 海の日（7月第3月曜）
+  add(9, nthWeekdayOfMonth(year,9,1,3));   // 敬老の日（9月第3月曜）
+  add(10, nthWeekdayOfMonth(year,10,1,2)); // スポーツの日（10月第2月曜）
+  // 春分・秋分
+  add(3, vernalEquinoxDay(year));
+  add(9, autumnEquinoxDay(year));
 
-function buildDefaultHolidaySeedDates(){
-  const dates = [];
-  const years = [...new Set(Object.keys(DEFAULT_SEED_HOLIDAYS).map(k=>Number(String(k).split('-')[0])))]
-    .filter(y=>!isNaN(y));
-  years.forEach(y=>{
-    for(let m=1;m<=12;m++){
-      const lastDay = new Date(y, m, 0).getDate();
-      for(let d=1; d<=lastDay; d++){
-        const dow = new Date(y, m-1, d).getDay();
-        if(dow===0 || dow===6) dates.push(`${y}-${p(m)}-${p(d)}`);
+  // 振替休日（祝日が日曜のとき、直後の平日）
+  const sorted = Array.from(set).sort();
+  sorted.forEach(ds=>{
+    const d = new Date(ds+'T00:00:00');
+    if(d.getDay() !== 0) return;
+    let n = new Date(d);
+    while(true){
+      n.setDate(n.getDate()+1);
+      const nds = `${n.getFullYear()}-${p(n.getMonth()+1)}-${p(n.getDate())}`;
+      if(!set.has(nds)){
+        set.add(nds);
+        break;
       }
     }
   });
-  Object.entries(DEFAULT_SEED_HOLIDAYS).forEach(([ym, ds])=>{
-    const [y,m] = String(ym).split('-').map(Number);
-    (ds||[]).forEach(d=>dates.push(`${y}-${p(m)}-${p(Number(d))}`));
+
+  // 国民の休日（祝日に挟まれた平日）
+  for(let m=1; m<=12; m++){
+    const last = new Date(year, m, 0).getDate();
+    for(let d=2; d<last; d++){
+      const ds = `${year}-${p(m)}-${p(d)}`;
+      const prev = `${year}-${p(m)}-${p(d-1)}`;
+      const next = `${year}-${p(m)}-${p(d+1)}`;
+      const dow = new Date(year, m-1, d).getDay();
+      if(dow!==0 && set.has(prev) && set.has(next) && !set.has(ds)) set.add(ds);
+    }
+  }
+  return set;
+}
+function getHolidaySeedYears(){
+  const y = new Date().getFullYear();
+  return [y-1, y, y+1, y+2];
+}
+function buildDefaultHolidaySeedDates(){
+  const set = new Set();
+  getHolidaySeedYears().forEach(year=>{
+    // 土日
+    for(let m=1; m<=12; m++){
+      const lastDay = new Date(year, m, 0).getDate();
+      for(let d=1; d<=lastDay; d++){
+        const dow = new Date(year, m-1, d).getDay();
+        if(dow===0 || dow===6) set.add(`${year}-${p(m)}-${p(d)}`);
+      }
+    }
+    // 日本の一般的祝日
+    buildJapanHolidaySet(year).forEach(ds=>set.add(ds));
   });
-  return Array.from(new Set(dates)).sort();
+  return Array.from(set).sort();
 }
 
 async function seedDefaultHolidayData(){
@@ -2047,25 +2112,59 @@ async function seedDefaultHolidayData(){
   _holidaySeedVersion = HOLIDAY_SEED_VERSION;
 }
 
-async function addCalEvent(){
+function buildDateRange(startDate, endDate){
+  const out = [];
+  let cur = new Date(startDate+'T00:00:00');
+  const end = new Date(endDate+'T00:00:00');
+  while(cur <= end){
+    out.push(`${cur.getFullYear()}-${p(cur.getMonth()+1)}-${p(cur.getDate())}`);
+    cur.setDate(cur.getDate()+1);
+  }
+  return out;
+}
+
+async function addCalEvent(btnEl){
+  const btn = btnEl || document.querySelector('[onclick="addCalEvent(this)"]');
+  if(btn && btn.disabled) return;
+  if(btn){ btn.disabled=true; btn.innerHTML='<span class="btn-spinner"></span>追加中...'; }
   const date = document.getElementById('ev-date').value;
+  const endDate = document.getElementById('ev-date-end').value;
   const type = document.getElementById('ev-type').value;
   const label = document.getElementById('ev-label').value.trim();
-  if(!date){ showToast('日付を選択してください'); return; }
+  if(!date){
+    showToast('開始日を選択してください');
+    if(btn){ btn.disabled=false; btn.innerHTML='追加'; }
+    return;
+  }
+  if(endDate && endDate < date){
+    showToast('終了日は開始日以降を指定してください');
+    if(btn){ btn.disabled=false; btn.innerHTML='追加'; }
+    return;
+  }
   try{
-    await gasPost({sheet:'カレンダー_ADD', date, type, label});
-    _calEvents = [...(_calEvents||[]), {date, type, label}];
+    const dates = endDate ? buildDateRange(date, endDate) : [date];
+    if(dates.length > 1) await gasPost({sheet:'カレンダー_ADD', dates, type, label});
+    else await gasPost({sheet:'カレンダー_ADD', date, type, label});
+    _calEvents = [...(_calEvents||[]), ...dates.map(ds=>({date:ds, type, label}))];
     renderCal();
     renderHolidayList();
     renderCalEventList();
     document.getElementById('ev-date').value='';
+    document.getElementById('ev-date-end').value='';
     document.getElementById('ev-label').value='';
-    showToast('イベントを追加しました');
+    showToast(dates.length>1 ? `イベントを${dates.length}日分追加しました` : 'イベントを追加しました');
     loadData().catch(()=>{});
-  }catch(e){ showToast('エラー: '+e.message); }
+  }catch(e){
+    showToast('エラー: '+e.message);
+  }finally{
+    if(btn){ btn.disabled=false; btn.innerHTML='追加'; }
+  }
 }
 
-async function deleteCalEvent(date, type){
+async function deleteCalEvent(date, type, btnEl){
+  const delBtn = btnEl || (typeof event !== 'undefined' && event.currentTarget) || null;
+  if(delBtn && delBtn.disabled) return;
+  setIconDeleteLoading(delBtn, true);
   try{
     await gasPost({sheet:'カレンダー_DELETE', date, type});
     _calEvents = (_calEvents||[]).filter(ev=>!(String(ev.date)===String(date) && String(ev.type)===String(type)));
@@ -2074,13 +2173,16 @@ async function deleteCalEvent(date, type){
     renderCalEventList();
     showToast('イベントを削除しました');
     loadData().catch(()=>{});
-  }catch(e){ showToast('エラー: '+e.message); }
+  }catch(e){
+    showToast('エラー: '+e.message);
+    setIconDeleteLoading(delBtn, false);
+  }
 }
 
 function renderCalEventList(){
   const el = document.getElementById('s-cal-event-list');
   if(!el) return;
-  const evs = _calEvents;
+  const evs = (_calEvents||[]).filter(ev => String(ev.type) !== 'holiday');
   if(!evs.length){
     el.innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">イベントはありません</div>';
     return;
@@ -2097,7 +2199,7 @@ function renderCalEventList(){
         <strong>${dateStr}</strong>　<span style="color:${col};font-weight:700;">${lbl}</span>
         ${ev.label?`<span style="color:#666;margin-left:8px;">${esc(String(ev.label))}</span>`:''}
       </div>
-      <button onclick="deleteCalEvent('${dateStr}','${ev.type}')" style="background:none;border:none;cursor:pointer;color:#dc2626;font-size:13px;padding:2px 8px;border-radius:4px;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'">
+      <button class="icon-del-btn" onclick="deleteCalEvent('${dateStr}','${ev.type}', this)" style="background:none;border:none;cursor:pointer;color:#dc2626;font-size:13px;padding:2px 8px;border-radius:4px;min-width:28px;min-height:28px;display:inline-flex;align-items:center;justify-content:center;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'">
         <i class="ti ti-trash"></i>
       </button>
     </div>`;
