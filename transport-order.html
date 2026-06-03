@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>運送手配表</title>
+  <style>
+    :root{
+      --bg:#eef4fb;
+      --card:#fff;
+      --line:#d6dde8;
+      --text:#0f172a;
+      --muted:#475569;
+      --blue:#0a5ec2;
+      --blue-dk:#084892;
+      --red:#111;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;color:var(--text)}
+    .wrap{max-width:1760px;margin:0 auto;padding:22px}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+    .back{font-size:15px;font-weight:800;color:var(--blue);text-decoration:none}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{border:none;border-radius:6px;padding:11px 16px;font-size:14px;font-weight:800;color:#fff;background:var(--blue);cursor:pointer}
+    .btn.alt{background:#64748b}
+    .btn:hover{background:var(--blue-dk)}
+    .btn.alt:hover{background:#475569}
+    .btn:disabled{opacity:.6;cursor:not-allowed}
+    .btn-spinner{width:13px;height:13px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;display:inline-block;vertical-align:-2px;margin-right:6px;animation:spin 1s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .grid{display:grid;grid-template-columns:minmax(520px,1fr) minmax(900px,1.2fr);gap:14px}
+    .card{background:var(--card);border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(15,23,42,.08)}
+    .hdr{padding:13px 16px;background:#f7f9fc;border-bottom:1px solid var(--line);font-size:18px;font-weight:900}
+    .form{padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .field{display:flex;flex-direction:column;gap:5px}
+    .field.full{grid-column:1/span 2}
+    .field label{font-size:13px;font-weight:800;color:var(--muted);white-space:nowrap}
+    .inp{border:1px solid #cbd5e1;border-radius:6px;padding:9px 11px;font-size:15px;font-family:inherit;background:#fff;outline:none}
+    .inp:focus{border-color:var(--blue)}
+    .paper-wrap{padding:18px;background:#e2e8f0;overflow:auto}
+    .paper{width:100%;max-width:198mm;min-height:277mm;background:#fff;margin:0 auto;border:1px solid #cbd5e1;box-shadow:0 4px 24px rgba(15,23,42,.12);padding:5mm;box-sizing:border-box}
+    .sheet-title{
+      font-size:22px;font-weight:900;text-align:center;letter-spacing:.06em;margin:0 0 3mm;
+      color:#0f172a;padding:0 0 2mm;border-bottom:1px solid #0f172a;
+    }
+    .table{width:100%;border-collapse:collapse;font-size:13.8px;line-height:1.6;table-layout:fixed}
+    .table td{border:1px solid #111;padding:2.1mm 2.2mm;vertical-align:middle;word-break:break-word}
+    .table .label{background:#dbe4f1;font-weight:800;color:#1e293b;font-size:12.8px;letter-spacing:.01em;white-space:nowrap}
+    .table .value{font-weight:800;font-size:14.2px;color:#0f172a}
+    .multiline-person{white-space:pre-line;display:inline-block}
+    .vehicle-strong{font-size:28px;line-height:1.05;font-weight:900;letter-spacing:.02em;display:inline-block;}
+    .line{border-bottom:1px solid #111;display:inline-block;min-width:22mm;padding:0 1mm}
+    .line.wide{min-width:64mm}
+    .line.mid{min-width:42mm}
+    .line.narrow{min-width:14mm}
+    .red{color:var(--red);font-weight:700}
+    .body-note{margin-top:2.5mm;font-size:13.4px;line-height:1.72}
+    .section-card{border:1px solid #111;margin-top:3mm;border-radius:2px;overflow:hidden;}
+    .section-head{background:#d6dfeb;border-bottom:1px solid #111;padding:2.1mm 2.5mm;font-size:14px;font-weight:900;letter-spacing:.04em;color:#0f172a;}
+    .section-body{padding:0;}
+    .info-table{width:100%;border-collapse:collapse;font-size:13.2px;line-height:1.68;table-layout:fixed;}
+    .info-table td{border-top:1px solid #111;padding:2.1mm 2.2mm;vertical-align:top;word-break:break-word;}
+    .info-table tr:first-child td{border-top:none;}
+    .info-label{width:24mm;background:#e6edf7;font-weight:800;color:#1e293b;white-space:nowrap}
+    .info-value{font-weight:800;}
+    .driver-callout{
+      margin-top:3mm;
+      border:2.4px solid #111;
+      background:#e6edf7;
+      border-radius:2px;
+      padding:2.2mm 2.4mm;
+    }
+    .driver-callout-title{
+      font-size:14px;
+      font-weight:900;
+      letter-spacing:.02em;
+      margin-bottom:1.2mm;
+    }
+    .driver-callout-body{
+      font-size:13.6px;
+      line-height:1.72;
+      font-weight:800;
+      color:#111827;
+    }
+    .small{font-size:11.8px;color:#1f2937;line-height:1.64}
+    .generated{margin-top:1.8mm;font-size:11.2px;text-align:right;color:#475569}
+    .footer-bar{
+      margin-top:2.6mm;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:4mm;
+    }
+    .brand-logo img{display:block;width:38mm;max-width:100%;height:auto}
+    .company{font-size:11.2px;line-height:1.58;color:#1f2937;text-align:right}
+    @media (max-width:1200px){.grid{grid-template-columns:1fr}}
+    @media print{
+      @page{size:A4;margin:6mm}
+      html,body{width:210mm;height:297mm}
+      *{
+        -webkit-print-color-adjust:exact !important;
+        print-color-adjust:exact !important;
+      }
+      .top,.grid>.card:first-child,.grid>.card:last-child>.hdr{display:none !important}
+      .wrap,.grid,.grid>.card:last-child,.paper-wrap{margin:0 !important;padding:0 !important;background:transparent !important;box-shadow:none !important;border:none !important}
+      .paper{
+        width:198mm;
+        min-height:277mm;
+        box-shadow:none !important;
+        border:1px solid #111 !important;
+        padding:5mm;
+        zoom:0.97;
+      }
+      .sheet-title{font-size:22px}
+      .table{font-size:13.6px}
+      .table .label{font-size:12.6px}
+      .table .value{font-size:14px}
+      .vehicle-strong{font-size:28px}
+      .section-head{font-size:13.6px}
+      .info-table{font-size:13px}
+      .body-note{font-size:13.2px}
+      .driver-callout-title{font-size:13.8px}
+      .driver-callout-body{font-size:13.2px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a class="back" href="portal.html">← ホームに戻る</a>
+      <div class="actions">
+        <button class="btn alt" onclick="loadTransportOrder(this)">案件呼び出し</button>
+        <button class="btn alt" onclick="updateTransportOrder(this)">更新保存</button>
+        <button class="btn" onclick="printPdf(this)">PDF出力</button>
+        <button class="btn alt" onclick="resetForm()">リセット</button>
+      </div>
+    </div>
+    <div id="db-status" style="margin:-2px 0 10px;font-size:12px;color:#475569;">DB状態: 未接続</div>
+    <div class="grid">
+      <div class="card">
+        <div class="hdr">運送手配依頼書 入力</div>
+        <div class="form">
+          <div class="field"><label>発信日</label><input id="sendDate" class="inp" type="date" oninput="renderPreview()"></div>
+          <div class="field"><label>送付枚数</label><input id="pages" class="inp" type="text" value="1" oninput="renderPreview()"></div>
+          <div class="field"><label>連絡先TEL</label><input id="contactNo" class="inp" type="text" value="052-383-4622" oninput="renderPreview()"></div>
+          <div class="field"><label>要件</label><input id="subject" class="inp" type="text" value="配車依頼" oninput="renderPreview()"></div>
+          <div class="field"><label>案件番号</label><input id="caseNo" class="inp" type="text" placeholder="FK****" oninput="onCaseNoInput();renderPreview()"></div>
+          <div class="field"><label>依頼元担当</label><input id="sender" class="inp" type="text" placeholder="発送担当者名" oninput="renderPreview()"></div>
+          <div class="field"><label>手配先</label><input id="toCompany" class="inp" type="text" value="上組陸運株式会社 名古屋支店" oninput="renderPreview()"></div>
+          <div class="field">
+            <label>先方ご担当者（複数可）</label>
+            <textarea id="toPerson" class="inp" rows="2" placeholder="遠山 様&#10;田中 様" oninput="renderPreview()"></textarea>
+          </div>
+          <div class="field">
+            <label>手配車両</label>
+            <select id="vehicle" class="inp" onchange="renderPreview()">
+              <option value="4ｔ平車" selected>4ｔ平車</option>
+              <option value="10ｔ平車">10ｔ平車</option>
+              <option value="4ｔユニック">4ｔユニック</option>
+              <option value="4ｔパワーゲート車">4ｔパワーゲート車</option>
+            </select>
+          </div>
+          <div class="field"><label>積み込み日時</label><input id="loadAt" class="inp" type="datetime-local" oninput="renderPreview()"></div>
+          <div class="field full"><label>積み込み場所</label><textarea id="loadPlace" class="inp" rows="3" oninput="renderPreview()">〒454-0872 名古屋市中川区上高畑１丁目１番地 ジェイピーネクスト㈱ テックセンタ</textarea></div>
+          <div class="field"><label>積み込み担当者</label><input id="loadPerson" class="inp" type="text" value="鬼頭 貴広" oninput="renderPreview()"></div>
+          <div class="field"><label>積み込みTEL</label><input id="loadTel" class="inp" type="text" value="090-7863-5701" oninput="renderPreview()"></div>
+          <div class="field"><label>積み下ろし日時</label><input id="unloadAt" class="inp" type="text" placeholder="2026/06/05(金) AM9:00頃" oninput="renderPreview()"></div>
+          <div class="field"><label>積み下ろしTEL</label><input id="unloadTel" class="inp" type="text" placeholder="000-000-0000" oninput="renderPreview()"></div>
+          <div class="field full"><label>積み下ろし場所</label><textarea id="unloadPlace" class="inp" rows="3" placeholder="〒000-0000 住所 発送先名" oninput="renderPreview()"></textarea></div>
+          <div class="field"><label>積み下ろし担当者</label><input id="unloadPerson" class="inp" type="text" placeholder="ご担当者様名 様宛" oninput="renderPreview()"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="hdr">帳票プレビュー（A4）</div>
+        <div class="paper-wrap">
+          <div class="paper" id="paper">
+            <div class="sheet-title">運送手配依頼書</div>
+            <table class="table">
+              <tr>
+                <td class="label" style="width:19%;">発信日</td>
+                <td class="value" style="width:31%;"><span class="red" id="pSendDate"></span></td>
+                <td class="label" style="width:19%;">案件番号</td>
+                <td class="value" style="width:31%;"><span class="red" id="pCaseNoTop"></span></td>
+              </tr>
+              <tr>
+                <td class="label">手配先</td>
+                <td class="value" colspan="3"><span class="red" id="pToCompany"></span></td>
+              </tr>
+              <tr>
+                <td class="label">先方ご担当者</td>
+                <td class="value"><span class="red multiline-person" id="pToPersonTop"></span></td>
+                <td class="label">送付枚数</td>
+                <td class="value"><span class="red" id="pPages"></span> 枚（本頁含）</td>
+              </tr>
+              <tr>
+                <td class="label">連絡先TEL</td>
+                <td class="value"><span class="red" id="pContactNo"></span></td>
+                <td class="label">依頼元担当</td>
+                <td class="value"><span class="red" id="pSender"></span></td>
+              </tr>
+            </table>
+
+            <div class="body-note">
+              平素は格別のご高配を賜り、厚く御礼申し上げます。<br>
+              いつも御世話になっております。<br>
+              下記内容にて運送手配をお願いいたします。
+            </div>
+
+            <div class="section-card">
+              <div class="section-head">ご依頼内容</div>
+              <div class="section-body">
+                <table class="info-table">
+                  <tr>
+                    <td class="info-label">要件</td>
+                    <td class="info-value"><span class="red" id="pSubject"></span></td>
+                  </tr>
+                  <tr>
+                    <td class="info-label">手配車両</td>
+                    <td class="info-value"><span class="red vehicle-strong" id="pVehicle"></span></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="section-card">
+              <div class="section-head">積込情報</div>
+              <div class="section-body">
+                <table class="info-table">
+                  <tr><td class="info-label">日時</td><td class="info-value"><span class="red" id="pLoadAt"></span></td></tr>
+                  <tr><td class="info-label">場所</td><td class="info-value"><span class="red" id="pLoadPlace"></span></td></tr>
+                  <tr><td class="info-label">担当</td><td class="info-value"><span class="red" id="pLoadPerson"></span></td></tr>
+                  <tr><td class="info-label">TEL</td><td class="info-value"><span class="red" id="pLoadTel"></span></td></tr>
+                </table>
+              </div>
+            </div>
+            <div class="small">※入り口の黄色いシートシャッターが目印です。ご不明な場合は下記までご連絡ください。</div>
+
+            <div class="section-card">
+              <div class="section-head">積下情報</div>
+              <div class="section-body">
+                <table class="info-table">
+                  <tr><td class="info-label">日時</td><td class="info-value"><span class="red" id="pUnloadAt"></span></td></tr>
+                  <tr><td class="info-label">場所</td><td class="info-value"><span class="red" id="pUnloadPlace"></span></td></tr>
+                  <tr><td class="info-label">担当</td><td class="info-value"><span class="red" id="pUnloadPerson"></span></td></tr>
+                  <tr><td class="info-label">TEL</td><td class="info-value"><span class="red" id="pUnloadTel"></span></td></tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="driver-callout">
+              <div class="driver-callout-title">【ドライバー情報のご連絡のお願い】</div>
+              <div class="driver-callout-body">
+                当日のドライバー氏名・車番・連絡先は、別途ご連絡いただけますと幸いです。<br>
+                お手数をおかけしますが、何卒よろしくお願い申し上げます。
+              </div>
+            </div>
+            <div class="generated" id="pGeneratedAt"></div>
+            <div class="footer-bar">
+              <div class="brand-logo">
+                <img src="https://www.jpnext.co.jp/wp-content/uploads/footer_logo01.png" alt="JP NEXT ロゴ">
+              </div>
+              <div class="company">
+                ジェイピーネクスト株式会社<br>
+                〒454-0872 名古屋市中川区万町302番地<br>
+                TEL : 052-353-3146　FAX : 052-353-4568
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbzueRIitHcmbZIjfS1iT7qsAY3awEHioinFms0NO6e9ieVtlJY-ekogHjzmwDhZjUfyBA/exec";
+    const TRANSPORT_DB_SPREADSHEET_KEY = "transport_db_spreadsheet_id";
+    const TRANSPORT_DB_GAS_URL_KEY = "transport_db_gas_url";
+    const WORKORDER_DB_SPREADSHEET_KEY = "workorder_db_spreadsheet_id";
+    const WORKORDER_DB_GAS_URL_KEY = "workorder_db_gas_url";
+    let _transportDbSpreadsheetId = "";
+    let _transportDbGasUrl = "";
+    let _transportRecordId = "";
+    let _loadedCaseNo = "";
+    const $ = id => document.getElementById(id);
+    function gasPost(url, payload){
+      return fetch(url,{
+        method:"POST",
+        mode:"no-cors",
+        headers:{"Content-Type":"application/x-www-form-urlencoded"},
+        body:"data="+encodeURIComponent(JSON.stringify(payload))
+      });
+    }
+    function fmtDate(v){
+      const s = String(v||"").trim();
+      const m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      return m ? `${m[1]}/${m[2]}/${m[3]}` : s;
+    }
+    function nowStr(){
+      const d = new Date();
+      const p = n => String(n).padStart(2,"0");
+      return `${d.getFullYear()}/${p(d.getMonth()+1)}/${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+    }
+    function fmtDateTime(v){
+      const s = String(v||"").trim();
+      const m = s.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/);
+      return m ? `${m[1]}/${m[2]}/${m[3]} ${m[4]}:${m[5]}` : s;
+    }
+    function safeTitleToken(v){
+      const s = String(v||"").trim();
+      if(!s) return "";
+      return s.replace(/[\\/:*?"<>|]/g,"_");
+    }
+    function extractSpreadsheetId(raw){
+      const s = String(raw || "").trim();
+      if(!s) return "";
+      const m = s.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+      if(m && m[1]) return m[1];
+      return s;
+    }
+    function setDbStatus(text, isError){
+      const el = $("db-status");
+      if(!el) return;
+      el.textContent = text;
+      el.style.color = isError ? "#b91c1c" : "#475569";
+    }
+    function toDateInputValue(v){
+      const s = String(v || "").trim();
+      const m = s.match(/^(\d{4})[\/-](\d{2})[\/-](\d{2})$/);
+      return m ? `${m[1]}-${m[2]}-${m[3]}` : s;
+    }
+    function toDateTimeLocalValue(v){
+      const s = String(v || "").trim();
+      const m1 = s.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/);
+      if(m1) return s;
+      const m2 = s.match(/^(\d{4})[\/-](\d{2})[\/-](\d{2})\s+(\d{1,2}):(\d{2})/);
+      if(m2) return `${m2[1]}-${m2[2]}-${m2[3]}T${String(m2[4]).padStart(2,"0")}:${m2[5]}`;
+      return "";
+    }
+    function setVal(id, value){
+      const el = $(id);
+      if(!el) return;
+      el.value = value == null ? "" : String(value);
+    }
+    function onCaseNoInput(){
+      const current = val("caseNo");
+      if(_loadedCaseNo && current !== _loadedCaseNo){
+        _transportRecordId = "";
+      }
+    }
+    function val(id){ const el=$(id); return el ? String(el.value||"").trim() : ""; }
+    function out(id, text){ const el=$(id); if(el) el.textContent = text || " "; }
+    function renderPreview(){
+      out("pSendDate", fmtDate(val("sendDate")));
+      out("pPages", val("pages") || "1");
+      out("pContactNo", val("contactNo"));
+      out("pSubject", val("subject"));
+      out("pCaseNoTop", val("caseNo"));
+      out("pSender", val("sender"));
+      out("pVehicle", val("vehicle"));
+      out("pLoadAt", fmtDateTime(val("loadAt")));
+      out("pLoadPlace", val("loadPlace"));
+      out("pLoadPerson", val("loadPerson"));
+      out("pLoadTel", val("loadTel"));
+      out("pUnloadAt", val("unloadAt"));
+      out("pUnloadPlace", val("unloadPlace"));
+      out("pUnloadPerson", val("unloadPerson"));
+      out("pUnloadTel", val("unloadTel"));
+      out("pToCompany", val("toCompany"));
+      out("pToPersonTop", val("toPerson"));
+      out("pGeneratedAt", nowStr());
+    }
+    function resetForm(){
+      $("sendDate").value = new Date().toISOString().slice(0,10);
+      ["caseNo","sender","toPerson","unloadAt","unloadPlace","unloadPerson","unloadTel"].forEach(id => { if($(id)) $(id).value = ""; });
+      if($("pages")) $("pages").value = "1";
+      if($("contactNo")) $("contactNo").value = "052-383-4622";
+      if($("subject")) $("subject").value = "配車依頼";
+      if($("vehicle")) $("vehicle").value = "4ｔ平車";
+      if($("toCompany")) $("toCompany").value = "上組陸運株式会社 名古屋支店";
+      if($("loadAt")) $("loadAt").value = "";
+      if($("loadPlace")) $("loadPlace").value = "〒454-0872 名古屋市中川区上高畑１丁目１番地 ジェイピーネクスト㈱ テックセンタ";
+      if($("loadPerson")) $("loadPerson").value = "鬼頭 貴広";
+      if($("loadTel")) $("loadTel").value = "090-7863-5701";
+      _transportRecordId = "";
+      _loadedCaseNo = "";
+      setDbStatus("DB状態: 新規入力モード", false);
+      renderPreview();
+    }
+    function setActionLoading(btn, loading){
+      if(!btn) return;
+      if(loading){
+        btn.disabled = true;
+        btn.dataset.prevHtml = btn.innerHTML;
+        btn.innerHTML = `<span class="btn-spinner"></span>出力中...`;
+      }else{
+        btn.disabled = false;
+        btn.innerHTML = btn.dataset.prevHtml || "PDF出力";
+        delete btn.dataset.prevHtml;
+      }
+    }
+    async function loadTransportDbSettings(){
+      try{
+        const r = await fetch(GAS_URL + "?t=" + Date.now(), {mode:"cors"});
+        const d = await r.json();
+        const settings = (d && d.settings) || {};
+        const ownSheet = settings[TRANSPORT_DB_SPREADSHEET_KEY] || settings.transport_db_spreadsheet_id;
+        const ownGas = settings[TRANSPORT_DB_GAS_URL_KEY] || settings.transport_db_gas_url;
+        const fallbackSheet = settings[WORKORDER_DB_SPREADSHEET_KEY] || settings.workorder_db_spreadsheet_id;
+        const fallbackGas = settings[WORKORDER_DB_GAS_URL_KEY] || settings.workorder_db_gas_url;
+        _transportDbSpreadsheetId = extractSpreadsheetId(ownSheet || fallbackSheet);
+        _transportDbGasUrl = String(ownGas || fallbackGas || "").trim();
+        if(_transportDbSpreadsheetId && _transportDbGasUrl){
+          setDbStatus("DB状態: 接続設定OK", false);
+        }else{
+          setDbStatus("DB状態: 連携設定が未完了", true);
+        }
+      }catch(e){
+        _transportDbSpreadsheetId = "";
+        _transportDbGasUrl = "";
+        setDbStatus("DB状態: 設定取得エラー", true);
+      }
+    }
+    function fillFormFromRow(row){
+      setVal("sendDate", toDateInputValue(row.sendDate || row.requestDate || row["発信日"] || ""));
+      setVal("pages", row.pages || row["送付枚数"] || "1");
+      setVal("contactNo", row.contactNo || row["連絡先TEL"] || "");
+      setVal("subject", row.subject || row["要件"] || "");
+      setVal("caseNo", row.caseNo || row["案件番号"] || "");
+      setVal("sender", row.sender || row["依頼元担当"] || "");
+      setVal("toCompany", row.toCompany || row["手配先"] || "");
+      setVal("toPerson", row.toPerson || row["先方ご担当者"] || "");
+      setVal("vehicle", row.vehicle || row["手配車両"] || "4ｔ平車");
+      setVal("loadAt", toDateTimeLocalValue(row.loadAt || row["積み込み日時"] || row["積込日時"] || ""));
+      setVal("loadPlace", row.loadPlace || row["積み込み場所"] || row["積込場所"] || "");
+      setVal("loadPerson", row.loadPerson || row["積み込み担当者"] || row["積込担当者"] || "");
+      setVal("loadTel", row.loadTel || row["積み込みTEL"] || row["積込TEL"] || "");
+      setVal("unloadAt", row.unloadAt || row["積み下ろし日時"] || row["積下日時"] || "");
+      setVal("unloadPlace", row.unloadPlace || row["積み下ろし場所"] || row["積下場所"] || "");
+      setVal("unloadPerson", row.unloadPerson || row["積み下ろし担当者"] || row["積下担当者"] || "");
+      setVal("unloadTel", row.unloadTel || row["積み下ろしTEL"] || row["積下TEL"] || "");
+    }
+    async function loadTransportOrder(btn){
+      const caseNo = val("caseNo");
+      if(!caseNo){
+        alert("案件番号を入力してから呼び出してください。");
+        return;
+      }
+      if(!_transportDbSpreadsheetId || !_transportDbGasUrl){
+        alert("運送手配表DBの連携設定が未完了です。portal.html の設定画面で保存してください。");
+        return;
+      }
+      setActionLoading(btn, true);
+      try{
+        const url = `${_transportDbGasUrl}?mode=transport_get&targetSpreadsheetId=${encodeURIComponent(_transportDbSpreadsheetId)}&caseNo=${encodeURIComponent(caseNo)}&_=${Date.now()}`;
+        const r = await fetch(url, {mode:"cors"});
+        const j = await r.json();
+        const row = (j && (j.row || j.data)) || null;
+        if(!row){
+          alert("該当する案件番号のデータが見つかりませんでした。");
+          setDbStatus(`DB状態: 該当データなし（${caseNo}）`, true);
+          return;
+        }
+        fillFormFromRow(row);
+        _transportRecordId = String(row.recordId || row.id || row.rowId || row.savedAt || "").trim();
+        _loadedCaseNo = val("caseNo");
+        renderPreview();
+        setDbStatus(`DB状態: 呼び出し済み（${_loadedCaseNo}）`, false);
+      }catch(e){
+        alert("呼び出しに失敗しました。GAS側に取得API(mode=transport_get)を実装してください。");
+        setDbStatus("DB状態: 呼び出しエラー", true);
+      }finally{
+        setActionLoading(btn, false);
+      }
+    }
+    async function saveTransportOrderToGas(opts){
+      const options = opts || {};
+      const forceUpdate = !!options.forceUpdate;
+      if(!_transportDbSpreadsheetId){
+        alert("運送手配表の保存先スプレッドシートが未設定です。設定画面で連携先を登録してください。");
+        return false;
+      }
+      if(!_transportDbGasUrl){
+        alert("運送手配表の保存用GAS URLが未設定です。設定画面で連携先を登録してください。");
+        return false;
+      }
+      const caseNo = val("caseNo");
+      if(!caseNo){
+        alert("案件番号を入力してください。");
+        return false;
+      }
+      const isUpdate = forceUpdate || !!_transportRecordId;
+      const payload = {
+        sheet: isUpdate ? "運送手配表_DB_UPDATE" : "運送手配表_DB_ADD",
+        mode: isUpdate ? "transport_update" : "transport_add",
+        targetSpreadsheetId: _transportDbSpreadsheetId,
+        recordId: _transportRecordId || "",
+        savedAt: nowStr(),
+        caseNo,
+        sendDate: val("sendDate"),
+        pages: val("pages"),
+        contactNo: val("contactNo"),
+        subject: val("subject"),
+        sender: val("sender"),
+        toCompany: val("toCompany"),
+        toPerson: val("toPerson"),
+        vehicle: val("vehicle"),
+        loadAt: val("loadAt"),
+        loadPlace: val("loadPlace"),
+        loadPerson: val("loadPerson"),
+        loadTel: val("loadTel"),
+        unloadAt: val("unloadAt"),
+        unloadPlace: val("unloadPlace"),
+        unloadPerson: val("unloadPerson"),
+        unloadTel: val("unloadTel"),
+        outputFileName: safeTitleToken(caseNo) || "案件番号未入力"
+      };
+      try{
+        await gasPost(_transportDbGasUrl, payload);
+        _loadedCaseNo = caseNo;
+        if(!_transportRecordId) _transportRecordId = payload.savedAt;
+        setDbStatus(`DB状態: ${isUpdate ? "更新保存済み" : "新規保存済み"}（${caseNo}）`, false);
+        return true;
+      }catch(e){
+        alert("スプレッドシート保存でエラーが発生しました: " + e.message);
+        setDbStatus("DB状態: 保存エラー", true);
+        return false;
+      }
+    }
+    async function updateTransportOrder(btn){
+      const caseNo = val("caseNo");
+      if(!caseNo){
+        alert("案件番号を入力してください。");
+        return;
+      }
+      if(!_transportRecordId){
+        alert("先に「案件呼び出し」で既存データを読み込んでから更新してください。");
+        return;
+      }
+      setActionLoading(btn, true);
+      try{
+        const ok = await saveTransportOrderToGas({forceUpdate:true});
+        if(ok) alert("更新保存しました。");
+      }finally{
+        setActionLoading(btn, false);
+      }
+    }
+    async function printPdf(btn){
+      renderPreview();
+      setActionLoading(btn,true);
+      const prevTitle = document.title;
+      const caseNo = safeTitleToken(val("caseNo")) || "案件番号未入力";
+      const saved = await saveTransportOrderToGas();
+      if(!saved){
+        setActionLoading(btn,false);
+        return;
+      }
+      document.title = caseNo;
+      window.print();
+      setTimeout(()=>{
+        document.title = prevTitle;
+        setActionLoading(btn,false);
+      }, 1500);
+    }
+    loadTransportDbSettings();
+    resetForm();
+  </script>
+</body>
+</html>
