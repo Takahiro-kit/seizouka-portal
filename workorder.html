@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>作業指示書</title>
+  <style>
+    :root{
+      --bg:#eef4fb;
+      --card:#fff;
+      --line:#d6dde8;
+      --text:#0f172a;
+      --muted:#475569;
+      --blue:#0a5ec2;
+      --blue-dk:#084892;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    .wrap{max-width:1860px;margin:0 auto;padding:24px;}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+    .back{
+      border:none;background:none;cursor:pointer;color:var(--blue);
+      font-size:15px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+    }
+    .actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+    .name-input{
+      border:1px solid #cbd5e1;border-radius:6px;padding:8px 10px;
+      font-size:14px;font-family:inherit;min-width:180px;background:#fff;
+    }
+    .template-select{
+      border:1px solid #cbd5e1;border-radius:6px;padding:8px 10px;
+      font-size:14px;font-family:inherit;min-width:240px;background:#fff;
+    }
+    .btn{
+      border:none;border-radius:6px;padding:10px 16px;cursor:pointer;
+      background:var(--blue);color:#fff;font-size:14px;font-weight:700;
+    }
+    .btn:disabled{opacity:.6;cursor:not-allowed;pointer-events:none;filter:saturate(.5);}
+    .btn:hover{background:var(--blue-dk)}
+    .btn.alt{background:#64748b}
+    .btn.alt:hover{background:#475569}
+    .btn-spinner{
+      width:13px;height:13px;border:2px solid rgba(255,255,255,.45);
+      border-top-color:#fff;border-radius:50%;display:inline-block;vertical-align:-2px;
+      margin-right:6px;animation:woSpin 1s linear infinite;
+    }
+    @keyframes woSpin{to{transform:rotate(360deg)}}
+    .grid{display:grid;grid-template-columns:minmax(520px,1fr) minmax(900px,1.2fr);gap:16px;align-items:start}
+    .card{background:var(--card);border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(15,23,42,.08)}
+    .hdr{padding:12px 16px;background:#f7f9fc;border-bottom:1px solid var(--line);font-size:16px;font-weight:800}
+    .form{padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .field{display:flex;flex-direction:column;gap:5px}
+    .field.full{grid-column:1 / span 2}
+    .field label{font-size:13px;font-weight:700;color:var(--muted)}
+    .inp{
+      border:1px solid #cbd5e1;border-radius:6px;padding:9px 10px;
+      font-size:14px;font-family:inherit;outline:none;background:#fff;
+    }
+    .inp:focus{border-color:var(--blue)}
+    .paper-wrap{padding:18px;background:#e2e8f0;overflow:auto}
+    .paper{
+      width:100%;max-width:198mm;min-height:297mm;background:#fff;margin:0 auto;
+      border:1px solid #cbd5e1;box-shadow:0 4px 24px rgba(15,23,42,.12);padding:5mm 6mm;box-sizing:border-box;
+    }
+    .title{font-size:28px;font-weight:900;letter-spacing:.1em;text-align:center;margin:2mm 0 5mm}
+    .meta{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #0f172a;border-left:1px solid #0f172a;margin-bottom:5mm}
+    .meta-row{display:grid;grid-template-columns:28mm 1fr;border-right:1px solid #0f172a;border-bottom:1px solid #0f172a;min-height:10mm}
+    .meta-label{background:#f8fafc;border-right:1px solid #0f172a;padding:2.5mm 2mm;font-size:13px;font-weight:700}
+    .meta-value{padding:2.5mm 2mm;font-size:14px;font-weight:600;word-break:break-word}
+    .sec{border-top:1px solid #0f172a;border-left:1px solid #0f172a;margin-bottom:4mm}
+    .sec-row{display:grid;grid-template-columns:28mm 1fr;border-right:1px solid #0f172a;border-bottom:1px solid #0f172a}
+    .sec-label{background:#f8fafc;border-right:1px solid #0f172a;padding:2.5mm 2mm;font-size:13px;font-weight:700}
+    .sec-body{padding:2.5mm 3mm;font-size:14px;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+    .sec-body.req{min-height:6mm}
+    .sec-body.mid{min-height:17mm}
+    .sec-body.long{min-height:108mm}
+    .foot{margin-top:6mm;display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+    .sign{border:1px solid #0f172a;min-height:16mm;padding:2.5mm 3mm;font-size:13px}
+    .sign-gap{min-height:10mm}
+    .meta-extra{border-top:1px solid #0f172a;border-left:1px solid #0f172a;margin-bottom:5mm}
+    .meta-extra-row{display:grid;grid-template-columns:28mm 1fr;border-right:1px solid #0f172a;border-bottom:1px solid #0f172a;min-height:10mm}
+    .meta-extra-label{background:#f8fafc;border-right:1px solid #0f172a;padding:2.5mm 2mm;font-size:13px;font-weight:700}
+    .meta-extra-value{padding:2.5mm 2mm;font-size:14px;font-weight:600;word-break:break-word}
+    .issue-row{margin-top:4mm;display:flex;justify-content:space-between;align-items:flex-end;gap:8mm}
+    .issue-left{font-size:12px;color:#334155}
+    .issue{font-size:12px;color:#334155;text-align:right}
+    .logo-foot{margin-top:5mm;display:flex;justify-content:flex-end;align-items:center;}
+    .logo-foot img{max-width:86mm;max-height:13mm;object-fit:contain;}
+    @media (max-width:1200px){
+      .grid{grid-template-columns:1fr}
+      .paper{width:min(210mm,100%)}
+    }
+    @media print{
+      @page{size:A4;margin:6mm;}
+      html,body{margin:0;padding:0;background:#fff !important;}
+      .top,
+      .grid > .card:first-child,
+      .grid > .card:last-child > .hdr{
+        display:none !important;
+      }
+      .wrap,
+      .grid,
+      .grid > .card:last-child,
+      .paper-wrap{
+        margin:0 !important;
+        padding:0 !important;
+        max-width:none !important;
+        width:auto !important;
+        background:transparent !important;
+        border:none !important;
+        box-shadow:none !important;
+        overflow:visible !important;
+      }
+      #paper{
+        position:static;
+        width:198mm;
+        min-height:0;
+        margin:0;
+        box-shadow:none !important;
+        border:1px solid #0f172a !important;
+        padding:5mm 6mm;
+        box-sizing:border-box;
+      }
+      .name-input{display:none !important;}
+      .title{font-size:28px;margin:1mm 0 3mm}
+      .meta{margin-bottom:3mm}
+      .meta-row{min-height:8mm}
+      .meta-label,.meta-value,.sec-label,.sec-body,.meta-extra-label,.meta-extra-value{font-size:14px}
+      .sec{margin-bottom:2mm}
+      .sec-body.req{min-height:3mm}
+      .sec-body.mid{min-height:12mm}
+      .sec-body.long{min-height:87mm}
+      .foot{margin-top:3mm}
+      .sign{min-height:11mm;font-size:13px}
+      .sign-gap{min-height:4mm}
+      .meta-extra{margin-bottom:3mm}
+      .meta-extra-row{min-height:8mm}
+      .issue-row{margin-top:2mm}
+      .issue-left,.issue{font-size:12px}
+      .logo-foot{margin-top:2mm}
+      .logo-foot img{max-width:62mm;max-height:8mm}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a class="back" href="portal.html">← ホームに戻る</a>
+      <div class="actions">
+        <input id="fileDate" class="name-input" type="date" title="出力日付（ファイル名用）">
+        <input id="caseNo" class="name-input" type="text" placeholder="案件番号（例: FK00000）">
+        <button class="btn" onclick="printPdf(this)">PDF出力</button>
+        <button class="btn alt" onclick="resetForm()">次の指示書を作成</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="hdr">作業指示書 入力</div>
+        <div class="form">
+          <div class="field full">
+            <label>テンプレート</label>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <select id="templateSelect" class="template-select" onchange="applyTemplateFromSelect()" style="flex:1;min-width:220px;">
+                <option value="">テンプレートを選択</option>
+              </select>
+              <button type="button" class="btn alt" onclick="saveCurrentAsTemplate(this)">テンプレートとして保存</button>
+              <button type="button" class="btn alt" onclick="deleteSelectedTemplate(this)">テンプレート削除</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="requester">作業依頼者</label>
+            <select id="requester" class="inp" onchange="renderPreview()">
+              <option value="">選択してください</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="contractor">作業請負者</label>
+            <select id="contractor" class="inp" onchange="renderPreview()">
+              <option value="">選択してください</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="requestDate">依頼日</label>
+            <input id="requestDate" class="inp" type="date" oninput="renderPreview()">
+          </div>
+          <div class="field">
+            <label for="deadline">作業期限</label>
+            <input id="deadline" class="inp" type="date" oninput="renderPreview()">
+          </div>
+          <div class="field">
+            <label for="docCaseNo">案件番号</label>
+            <input id="docCaseNo" class="inp" type="text" placeholder="例: FA000000" oninput="syncCaseNoFromDoc();renderPreview()">
+          </div>
+          <div class="field">
+            <label for="customerName">顧客名</label>
+            <input id="customerName" class="inp" type="text" placeholder="例: 〇〇ファーマ様" oninput="renderPreview()">
+          </div>
+          <div class="field">
+            <label for="workDept">作業部署</label>
+            <select id="workDept" class="inp" onchange="renderPreview()">
+              <option value="">選択してください</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="workPlace">作業場所</label>
+            <select id="workPlace" class="inp" onchange="renderPreview()">
+              <option value="">選択してください</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="request">依頼事項</label>
+            <textarea id="request" class="inp" rows="4" oninput="renderPreview()"></textarea>
+          </div>
+          <div class="field full">
+            <label for="work">作業内容</label>
+            <textarea id="work" class="inp" rows="16" oninput="renderPreview()"></textarea>
+          </div>
+          <div class="field">
+            <label for="note">備考</label>
+            <textarea id="note" class="inp" rows="2" oninput="renderPreview()"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="hdr">帳票プレビュー（A4）</div>
+        <div class="paper-wrap">
+          <div class="paper" id="paper">
+            <div class="title">作業指示書</div>
+            <div class="meta">
+              <div class="meta-row"><div class="meta-label">作業依頼者</div><div class="meta-value" id="pRequester">　</div></div>
+              <div class="meta-row"><div class="meta-label">作業請負者</div><div class="meta-value" id="pContractor">　</div></div>
+              <div class="meta-row"><div class="meta-label">依頼日</div><div class="meta-value" id="pRequestDate">　</div></div>
+              <div class="meta-row"><div class="meta-label">作業期限</div><div class="meta-value" id="pDeadline">　</div></div>
+              <div class="meta-row"><div class="meta-label">案件番号</div><div class="meta-value" id="pDocCaseNo">　</div></div>
+              <div class="meta-row"><div class="meta-label">顧客名</div><div class="meta-value" id="pCustomerName">　</div></div>
+            </div>
+            <div class="sec">
+              <div class="sec-row"><div class="sec-label">依頼事項</div><div class="sec-body req" id="pRequest">　</div></div>
+            </div>
+            <div class="sec">
+              <div class="sec-row"><div class="sec-label">作業内容</div><div class="sec-body long" id="pWork">　</div></div>
+            </div>
+            <div class="sec">
+              <div class="sec-row"><div class="sec-label">備考</div><div class="sec-body mid" id="pNote">　</div></div>
+            </div>
+            <div class="foot">
+              <div class="sign">依頼者 署名：</div>
+              <div class="sign">請負者 署名：</div>
+            </div>
+            <div class="sign-gap"></div>
+            <div class="meta-extra">
+              <div class="meta-extra-row"><div class="meta-extra-label">作業部署</div><div class="meta-extra-value" id="pWorkDept">　</div></div>
+              <div class="meta-extra-row"><div class="meta-extra-label">作業場所</div><div class="meta-extra-value" id="pWorkPlace">　</div></div>
+            </div>
+            <div class="issue-row">
+              <div class="issue-left">指示書_単数件A様式</div>
+              <div class="issue" id="issued"></div>
+            </div>
+            <div class="logo-foot"><img src="https://www.jpnext.co.jp/wp-content/uploads/footer_logo01.png" alt="JP NEXT ロゴ"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbzueRIitHcmbZIjfS1iT7qsAY3awEHioinFms0NO6e9ieVtlJY-ekogHjzmwDhZjUfyBA/exec";
+    const DEFAULT_MEMBER_OPTIONS = ["佐藤","山下","山﨑","喜多","サン","アン","津田","鬼頭(貴)"];
+    const DEFAULT_WORK_DEPARTMENTS = ["ジェイピーネクスト株式会社　製造部　製造課"];
+    const DEFAULT_WORK_PLACES = ["テックセンタ"];
+    const WORKORDER_DEPARTMENTS_KEY = "workorder_departments_json";
+    const WORKORDER_PLACES_KEY = "workorder_places_json";
+    const WORKORDER_DB_SPREADSHEET_KEY = "workorder_db_spreadsheet_id";
+    const WORKORDER_DB_GAS_URL_KEY = "workorder_db_gas_url";
+    const WORKORDER_TEMPLATES_KEY = "workorder_templates_json";
+    let _workorderDbSpreadsheetId = "";
+    let _workorderDbGasUrl = "";
+    let _workorderTemplates = [];
+    const $ = id => document.getElementById(id);
+    const textOrSpace = v => (String(v || "").trim() || "　");
+    function gasPost(url, payload){
+      return fetch(url,{
+        method:"POST",
+        mode:"no-cors",
+        headers:{"Content-Type":"application/x-www-form-urlencoded"},
+        body:"data="+encodeURIComponent(JSON.stringify(payload))
+      });
+    }
+    function fmtDate(v){
+      const s = String(v || "").trim();
+      const m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      return m ? `${m[1]}/${m[2]}/${m[3]}` : "";
+    }
+    function nowStr(){
+      const d = new Date();
+      const p = n => String(n).padStart(2, "0");
+      return `${d.getFullYear()}/${p(d.getMonth()+1)}/${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+    }
+    function renderPreview(){
+      $("pRequester").textContent = textOrSpace($("requester").value);
+      $("pContractor").textContent = textOrSpace($("contractor").value);
+      $("pRequestDate").textContent = textOrSpace(fmtDate($("requestDate").value));
+      $("pDeadline").textContent = textOrSpace(fmtDate($("deadline").value));
+      $("pDocCaseNo").textContent = textOrSpace($("docCaseNo").value);
+      $("pCustomerName").textContent = textOrSpace($("customerName").value);
+      $("pRequest").textContent = textOrSpace($("request").value);
+      $("pWork").textContent = textOrSpace($("work").value);
+      $("pNote").textContent = textOrSpace($("note").value);
+      $("pWorkDept").textContent = textOrSpace($("workDept").value);
+      $("pWorkPlace").textContent = textOrSpace($("workPlace").value);
+      $("issued").textContent = `作成日時: ${nowStr()}`;
+    }
+    function resetForm(){
+      ["request","work","note","docCaseNo","customerName"].forEach(id => $(id).value = "");
+      if($("requester")) $("requester").value = "";
+      if($("contractor")) $("contractor").value = "";
+      $("requestDate").value = new Date().toISOString().slice(0,10);
+      $("deadline").value = "";
+      if($("workDept")) $("workDept").value = DEFAULT_WORK_DEPARTMENTS[0] || "";
+      if($("workPlace")) $("workPlace").value = DEFAULT_WORK_PLACES[0] || "";
+      $("fileDate").value = new Date().toISOString().slice(0,10);
+      $("caseNo").value = "";
+      renderPreview();
+    }
+    function syncCaseNoFromDoc(){
+      if(!$("docCaseNo") || !$("caseNo")) return;
+      $("caseNo").value = $("docCaseNo").value;
+    }
+    function uniqList(list){
+      const out = [];
+      (Array.isArray(list) ? list : []).forEach(v => {
+        const s = String(v || "").trim();
+        if(s && !out.includes(s)) out.push(s);
+      });
+      return out;
+    }
+    function renderSelectOptions(selectId, list, selected){
+      const sel = $(selectId);
+      if(!sel) return;
+      const current = selected || sel.value;
+      sel.innerHTML = `<option value="">選択してください</option>` + list.map(name =>
+        `<option value="${String(name).replace(/"/g, "&quot;")}">${name}</option>`
+      ).join("");
+      if(current && list.includes(current)) sel.value = current;
+    }
+    function parseSettingList(raw, fallback){
+      if(!raw) return [...fallback];
+      try{
+        const parsed = typeof raw === "string" ? JSON.parse(raw) : raw;
+        const uniq = uniqList(parsed);
+        return uniq.length ? uniq : [...fallback];
+      }catch(e){
+        return [...fallback];
+      }
+    }
+    function getFormData(){
+      return {
+        requester: $("requester") ? $("requester").value : "",
+        contractor: $("contractor") ? $("contractor").value : "",
+        requestDate: $("requestDate") ? $("requestDate").value : "",
+        deadline: $("deadline") ? $("deadline").value : "",
+        docCaseNo: $("docCaseNo") ? $("docCaseNo").value : "",
+        customerName: $("customerName") ? $("customerName").value : "",
+        request: $("request") ? $("request").value : "",
+        work: $("work") ? $("work").value : "",
+        note: $("note") ? $("note").value : "",
+        workDept: $("workDept") ? $("workDept").value : "",
+        workPlace: $("workPlace") ? $("workPlace").value : "",
+        fileDate: $("fileDate") ? $("fileDate").value : "",
+        caseNo: $("caseNo") ? $("caseNo").value : ""
+      };
+    }
+    function applyFormData(data){
+      const d = data || {};
+      ["requester","contractor","requestDate","deadline","docCaseNo","customerName","request","work","note","workDept","workPlace","fileDate","caseNo"].forEach(id => {
+        const el = $(id);
+        if(!el) return;
+        el.value = String(d[id] != null ? d[id] : "");
+      });
+      renderPreview();
+    }
+    function renderTemplateSelect(){
+      const sel = $("templateSelect");
+      if(!sel) return;
+      const cur = sel.value;
+      sel.innerHTML = `<option value="">テンプレートを選択</option>` + _workorderTemplates.map(t =>
+        `<option value="${String(t.name).replace(/"/g, "&quot;")}">${t.name}</option>`
+      ).join("");
+      if(cur && _workorderTemplates.some(t => t.name === cur)) sel.value = cur;
+    }
+    async function persistTemplates(){
+      await gasPost(GAS_URL, {
+        sheet: "設定_UPDATE",
+        key: WORKORDER_TEMPLATES_KEY,
+        value: JSON.stringify(_workorderTemplates)
+      });
+    }
+    async function saveCurrentAsTemplate(btn){
+      const nameRaw = prompt("テンプレート名を入力してください");
+      if(nameRaw == null) return;
+      const name = String(nameRaw || "").trim();
+      if(!name){
+        alert("テンプレート名を入力してください。");
+        return;
+      }
+      if(btn){
+        btn.disabled = true;
+        btn.dataset.prevHtml = btn.innerHTML;
+        btn.innerHTML = `<span class="btn-spinner"></span>保存中...`;
+      }
+      const data = getFormData();
+      const idx = _workorderTemplates.findIndex(t => t.name === name);
+      if(idx >= 0){
+        if(!confirm(`「${name}」は既に存在します。上書きしますか？`)){
+          if(btn){
+            btn.disabled = false;
+            btn.innerHTML = btn.dataset.prevHtml || "テンプレートとして保存";
+            delete btn.dataset.prevHtml;
+          }
+          return;
+        }
+        _workorderTemplates[idx] = {name, data, updatedAt: nowStr()};
+      }else{
+        _workorderTemplates.push({name, data, updatedAt: nowStr()});
+      }
+      try{
+        await persistTemplates();
+        renderTemplateSelect();
+        if($("templateSelect")) $("templateSelect").value = name;
+        alert("テンプレートを保存しました。");
+      }catch(e){
+        alert("テンプレート保存でエラーが発生しました: " + e.message);
+      }finally{
+        if(btn){
+          btn.disabled = false;
+          btn.innerHTML = btn.dataset.prevHtml || "テンプレートとして保存";
+          delete btn.dataset.prevHtml;
+        }
+      }
+    }
+    async function deleteSelectedTemplate(btn){
+      const sel = $("templateSelect");
+      const name = String(sel && sel.value || "").trim();
+      if(!name){
+        alert("削除するテンプレートを選択してください。");
+        return;
+      }
+      if(!confirm(`テンプレート「${name}」を削除しますか？`)) return;
+      if(btn){
+        btn.disabled = true;
+        btn.dataset.prevHtml = btn.innerHTML;
+        btn.innerHTML = `<span class="btn-spinner"></span>削除中...`;
+      }
+      _workorderTemplates = _workorderTemplates.filter(t => t.name !== name);
+      try{
+        await persistTemplates();
+        renderTemplateSelect();
+        if($("templateSelect")) $("templateSelect").value = "";
+        alert("テンプレートを削除しました。");
+      }catch(e){
+        alert("テンプレート削除でエラーが発生しました: " + e.message);
+      }finally{
+        if(btn){
+          btn.disabled = false;
+          btn.innerHTML = btn.dataset.prevHtml || "テンプレート削除";
+          delete btn.dataset.prevHtml;
+        }
+      }
+    }
+    function applyTemplateFromSelect(){
+      const sel = $("templateSelect");
+      const name = String(sel && sel.value || "").trim();
+      if(!name) return;
+      const t = _workorderTemplates.find(x => x.name === name);
+      if(!t || !t.data) return;
+      applyFormData(t.data);
+    }
+    function extractSpreadsheetId(raw){
+      const s = String(raw || "").trim();
+      if(!s) return "";
+      const m = s.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+      if(m && m[1]) return m[1];
+      return s;
+    }
+    async function loadMasterOptions(){
+      try{
+        const r = await fetch(GAS_URL + "?t=" + Date.now(), {mode:"cors"});
+        const d = await r.json();
+        const members = Array.isArray(d.members) ? uniqList(d.members.map(m => (m && m.name) || "")) : [];
+        const memberOptions = members.length ? members : [...DEFAULT_MEMBER_OPTIONS];
+        renderSelectOptions("requester", memberOptions);
+        renderSelectOptions("contractor", memberOptions);
+
+        const settings = (d && d.settings) || {};
+        const deptOptions = parseSettingList(settings[WORKORDER_DEPARTMENTS_KEY] || settings.workorder_departments_json, DEFAULT_WORK_DEPARTMENTS);
+        const placeOptions = parseSettingList(settings[WORKORDER_PLACES_KEY] || settings.workorder_places_json, DEFAULT_WORK_PLACES);
+        const templatesRaw = settings[WORKORDER_TEMPLATES_KEY] || settings.workorder_templates_json;
+        _workorderDbSpreadsheetId = extractSpreadsheetId(settings[WORKORDER_DB_SPREADSHEET_KEY] || settings.workorder_db_spreadsheet_id);
+        _workorderDbGasUrl = String(settings[WORKORDER_DB_GAS_URL_KEY] || settings.workorder_db_gas_url || "").trim();
+        try{
+          const parsed = typeof templatesRaw === "string" ? JSON.parse(templatesRaw) : templatesRaw;
+          _workorderTemplates = Array.isArray(parsed) ? parsed
+            .map(t => ({name: String((t && t.name) || "").trim(), data: (t && t.data) || {}, updatedAt: String((t && t.updatedAt) || "")}))
+            .filter(t => t.name) : [];
+        }catch(e){
+          _workorderTemplates = [];
+        }
+        renderSelectOptions("workDept", deptOptions, deptOptions[0] || "");
+        renderSelectOptions("workPlace", placeOptions, placeOptions[0] || "");
+        renderTemplateSelect();
+        renderPreview();
+        return;
+      }catch(e){}
+      _workorderDbSpreadsheetId = "";
+      _workorderDbGasUrl = "";
+      _workorderTemplates = [];
+      renderSelectOptions("requester", DEFAULT_MEMBER_OPTIONS);
+      renderSelectOptions("contractor", DEFAULT_MEMBER_OPTIONS);
+      renderSelectOptions("workDept", DEFAULT_WORK_DEPARTMENTS, DEFAULT_WORK_DEPARTMENTS[0]);
+      renderSelectOptions("workPlace", DEFAULT_WORK_PLACES, DEFAULT_WORK_PLACES[0]);
+      renderTemplateSelect();
+      renderPreview();
+    }
+    function fileDateToken(v){
+      const s = String(v || "").trim();
+      const m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      return m ? `${m[1]}${m[2]}${m[3]}` : "";
+    }
+    function safeFileName(name){
+      const cleaned = String(name || "")
+        .trim()
+        .replace(/[\\/:*?"<>|]/g, "_")
+        .replace(/\s+/g, " ")
+        .replace(/\.+$/g, "");
+      return cleaned || "作業指示書";
+    }
+    function setActionLoading(btn, loading, text){
+      if(!btn) return;
+      if(loading){
+        if(btn.disabled) return;
+        btn.disabled = true;
+        btn.dataset.prevHtml = btn.innerHTML;
+        btn.innerHTML = `<span class="btn-spinner"></span>${text || "処理中..."}`;
+      }else{
+        btn.disabled = false;
+        btn.innerHTML = btn.dataset.prevHtml || "PDF出力";
+        delete btn.dataset.prevHtml;
+      }
+    }
+    async function saveWorkorderToGas(btn, opts){
+      const silent = !!(opts && opts.silent);
+      const caseNo = String(($("docCaseNo") && $("docCaseNo").value) || "").trim();
+      if(!caseNo){
+        if(!silent) alert("案件番号を入力してください。");
+        return false;
+      }
+      if(!_workorderDbSpreadsheetId.trim()){
+        if(!silent) alert("作業指示専用のスプレッドシート連携先が未設定です。portal.html の設定画面で連携先を保存してください。");
+        return false;
+      }
+      if(!_workorderDbGasUrl.trim()){
+        if(!silent) alert("作業指示専用のGAS URLが未設定です。portal.html の設定画面で連携先を保存してください。");
+        return false;
+      }
+      if(btn){
+        btn.disabled = true;
+        btn.dataset.prevHtml = btn.innerHTML;
+        btn.innerHTML = "保存中...";
+      }
+      const payload = {
+        sheet:"作業指示書_DB_ADD",
+        targetSpreadsheetId: _workorderDbSpreadsheetId.trim(),
+        savedAt: nowStr(),
+        requester: $("requester") ? $("requester").value : "",
+        contractor: $("contractor") ? $("contractor").value : "",
+        requestDate: $("requestDate") ? $("requestDate").value : "",
+        deadline: $("deadline") ? $("deadline").value : "",
+        caseNo,
+        customerName: $("customerName") ? $("customerName").value : "",
+        request: $("request") ? $("request").value : "",
+        work: $("work") ? $("work").value : "",
+        note: $("note") ? $("note").value : "",
+        workDept: $("workDept") ? $("workDept").value : "",
+        workPlace: $("workPlace") ? $("workPlace").value : "",
+        outputFileDate: $("fileDate") ? $("fileDate").value : "",
+        outputFileName: `${fileDateToken($("fileDate") ? $("fileDate").value : "")}_${safeFileName(caseNo)}_作業指示書`
+      };
+      try{
+        await gasPost(_workorderDbGasUrl, payload);
+        if(!silent) alert("作業指示書データを送信しました。");
+        return true;
+      }catch(e){
+        if(!silent) alert("保存でエラーが発生しました: " + e.message);
+        return false;
+      }finally{
+        if(btn){
+          btn.disabled = false;
+          btn.innerHTML = btn.dataset.prevHtml || "作業指示書をGAS保存";
+          delete btn.dataset.prevHtml;
+        }
+      }
+    }
+    async function printPdf(btn){
+      renderPreview();
+      setActionLoading(btn, true, "保存・出力中...");
+      const prevTitle = document.title;
+      const datePart = fileDateToken($("fileDate") ? $("fileDate").value : "");
+      const caseRaw = $("caseNo") ? $("caseNo").value : "";
+      const casePart = safeFileName(caseRaw);
+      if(!datePart){
+        alert("ファイル名用の日付を入力してください。");
+        setActionLoading(btn, false);
+        return;
+      }
+      if(!String(caseRaw || "").trim()){
+        alert("案件番号を入力してください。");
+        setActionLoading(btn, false);
+        return;
+      }
+      const saved = await saveWorkorderToGas(null, {silent:true});
+      if(!saved){
+        alert("作業指示書DBへの保存に失敗したため、PDF出力を中止しました。設定画面の連携先を確認してください。");
+        setActionLoading(btn, false);
+        return;
+      }
+      document.title = `${datePart}_${casePart}_作業指示書`;
+      const restore = () => {
+        document.title = prevTitle;
+        window.removeEventListener("afterprint", restore);
+        setActionLoading(btn, false);
+      };
+      window.addEventListener("afterprint", restore);
+      window.print();
+      setTimeout(() => setActionLoading(btn, false), 3000);
+    }
+    $("requestDate").value = new Date().toISOString().slice(0,10);
+    $("fileDate").value = new Date().toISOString().slice(0,10);
+    loadMasterOptions();
+    renderPreview();
+  </script>
+</body>
+</html>
