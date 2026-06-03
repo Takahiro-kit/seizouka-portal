@@ -879,6 +879,9 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
             <a class="form-tile" href="workorder.html">
               <i class="ti ti-file-description"></i><span class="form-tile-label">作業指示書</span>
             </a>
+            <a class="form-tile" href="transport-order.html">
+              <i class="ti ti-truck-delivery"></i><span class="form-tile-label">運送手配表</span>
+            </a>
             <a class="form-tile" href="https://docs.google.com/forms/d/1Q9DhQZTHoC4xBF5y93m5sGnRkoONNJ-zKje1nQmzEYE/edit" target="_blank" rel="noopener noreferrer">
               <i class="ti ti-alert-triangle"></i><span class="form-tile-label">不具合</span>
             </a>
@@ -1232,6 +1235,17 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
             <button class="s-btn" onclick="saveWorkorderDbSpreadsheet(this)">保存</button>
           </div>
           <div id="workorder-db-sheet-status" style="margin-top:8px;font-size:12px;color:var(--text3);">連携先: 未設定</div>
+        </div>
+        <div style="padding:14px 18px;border-bottom:1px solid var(--border);background:#ffffff;">
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;">運送手配表DBの連携先（専用スプレッドシート）</div>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px;">
+            <input type="text" id="transport-db-sheet" placeholder="スプレッドシートID または URL" style="flex:1;min-width:320px;border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;">
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <input type="url" id="transport-db-gas-url" placeholder="運送手配表専用 GAS WebアプリURL" style="flex:1;min-width:320px;border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;">
+            <button class="s-btn" onclick="saveTransportDbSpreadsheet(this)">保存</button>
+          </div>
+          <div id="transport-db-sheet-status" style="margin-top:8px;font-size:12px;color:var(--text3);">連携先: 未設定</div>
         </div>
         <div style="padding:14px 18px;border-bottom:1px solid var(--border);background:#ffffff;">
           <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;">＋ 作業部署を追加</div>
@@ -2357,12 +2371,16 @@ const WORKORDER_DEPARTMENTS_KEY = 'workorder_departments_json';
 const WORKORDER_PLACES_KEY = 'workorder_places_json';
 const WORKORDER_DB_SPREADSHEET_KEY = 'workorder_db_spreadsheet_id';
 const WORKORDER_DB_GAS_URL_KEY = 'workorder_db_gas_url';
+const TRANSPORT_DB_SPREADSHEET_KEY = 'transport_db_spreadsheet_id';
+const TRANSPORT_DB_GAS_URL_KEY = 'transport_db_gas_url';
 const DEFAULT_WORKORDER_DEPARTMENTS = ['ジェイピーネクスト株式会社　製造部　製造課'];
 const DEFAULT_WORKORDER_PLACES = ['テックセンタ'];
 let _workorderDepartments = [...DEFAULT_WORKORDER_DEPARTMENTS];
 let _workorderPlaces = [...DEFAULT_WORKORDER_PLACES];
 let _workorderDbSpreadsheetId = '';
 let _workorderDbGasUrl = '';
+let _transportDbSpreadsheetId = '';
+let _transportDbGasUrl = '';
 
 function normalizeWorkorderList(arr, fallback){
   const src = Array.isArray(arr) ? arr : fallback;
@@ -2386,6 +2404,8 @@ function applyWorkorderOptionsFromData(d){
   const placeRaw = settings[WORKORDER_PLACES_KEY] || settings.workorder_places_json;
   const sheetRaw = settings[WORKORDER_DB_SPREADSHEET_KEY] || settings.workorder_db_spreadsheet_id;
   const gasRaw = settings[WORKORDER_DB_GAS_URL_KEY] || settings.workorder_db_gas_url;
+  const transportSheetRaw = settings[TRANSPORT_DB_SPREADSHEET_KEY] || settings.transport_db_spreadsheet_id;
+  const transportGasRaw = settings[TRANSPORT_DB_GAS_URL_KEY] || settings.transport_db_gas_url;
   let depts = null;
   let places = null;
   if(deptRaw){
@@ -2404,6 +2424,8 @@ function applyWorkorderOptionsFromData(d){
   _workorderPlaces = normalizeWorkorderList(places, DEFAULT_WORKORDER_PLACES);
   _workorderDbSpreadsheetId = extractSpreadsheetId(sheetRaw);
   _workorderDbGasUrl = String(gasRaw || '').trim();
+  _transportDbSpreadsheetId = extractSpreadsheetId(transportSheetRaw);
+  _transportDbGasUrl = String(transportGasRaw || '').trim();
 }
 async function persistWorkorderOptions(){
   await gasPost({sheet:'設定_UPDATE', key:WORKORDER_DEPARTMENTS_KEY, value:JSON.stringify(_workorderDepartments)});
@@ -2415,12 +2437,22 @@ function renderWorkorderOptionsSettings(){
   const dbInp = document.getElementById('workorder-db-sheet');
   const gasInp = document.getElementById('workorder-db-gas-url');
   const dbSt = document.getElementById('workorder-db-sheet-status');
+  const transportDbInp = document.getElementById('transport-db-sheet');
+  const transportGasInp = document.getElementById('transport-db-gas-url');
+  const transportDbSt = document.getElementById('transport-db-sheet-status');
   if(dbInp) dbInp.value = _workorderDbSpreadsheetId || '';
   if(gasInp) gasInp.value = _workorderDbGasUrl || '';
+  if(transportDbInp) transportDbInp.value = _transportDbSpreadsheetId || '';
+  if(transportGasInp) transportGasInp.value = _transportDbGasUrl || '';
   if(dbSt){
     const idText = _workorderDbSpreadsheetId ? `ID: ${_workorderDbSpreadsheetId}` : 'ID: 未設定';
     const urlText = _workorderDbGasUrl ? 'GAS URL: 設定済み' : 'GAS URL: 未設定';
     dbSt.textContent = `連携状態 / ${idText} / ${urlText}`;
+  }
+  if(transportDbSt){
+    const idText = _transportDbSpreadsheetId ? `ID: ${_transportDbSpreadsheetId}` : 'ID: 未設定';
+    const urlText = _transportDbGasUrl ? 'GAS URL: 設定済み' : 'GAS URL: 未設定';
+    transportDbSt.textContent = `連携状態 / ${idText} / ${urlText}`;
   }
   if(deptEl){
     deptEl.innerHTML = _workorderDepartments.map((v, i) => `<div class="s-list-item" style="padding:8px 10px;">
@@ -2458,6 +2490,35 @@ async function saveWorkorderDbSpreadsheet(btnEl){
     _workorderDbGasUrl = gasUrl;
     renderWorkorderOptionsSettings();
     showToast('作業指示書DBの連携設定を保存しました');
+  }catch(e){
+    showToast('エラー: ' + e.message);
+  }finally{
+    if(btnEl){ btnEl.disabled = false; btnEl.innerHTML = '保存'; }
+  }
+}
+async function saveTransportDbSpreadsheet(btnEl){
+  if(btnEl && btnEl.disabled) return;
+  const inp = document.getElementById('transport-db-sheet');
+  const gasInp = document.getElementById('transport-db-gas-url');
+  const raw = String(inp && inp.value || '').trim();
+  const gasUrl = String(gasInp && gasInp.value || '').trim();
+  const id = extractSpreadsheetId(raw);
+  if(!id){
+    showToast('スプレッドシートIDまたはURLを入力してください');
+    return;
+  }
+  if(!gasUrl){
+    showToast('GAS WebアプリURLを入力してください');
+    return;
+  }
+  if(btnEl){ btnEl.disabled = true; btnEl.innerHTML = '<span class="btn-spinner"></span>保存中...'; }
+  try{
+    await gasPost({sheet:'設定_UPDATE', key:TRANSPORT_DB_SPREADSHEET_KEY, value:id});
+    await gasPost({sheet:'設定_UPDATE', key:TRANSPORT_DB_GAS_URL_KEY, value:gasUrl});
+    _transportDbSpreadsheetId = id;
+    _transportDbGasUrl = gasUrl;
+    renderWorkorderOptionsSettings();
+    showToast('運送手配表DBの連携設定を保存しました');
   }catch(e){
     showToast('エラー: ' + e.message);
   }finally{
