@@ -234,11 +234,29 @@
               <option value="10ｔユニック車">10ｔユニック車</option>
             </select>
           </div>
-          <div class="field"><label>集荷日時</label><input id="loadAt" class="inp" type="datetime-local" oninput="renderPreview()"></div>
+          <div class="field">
+            <label>集荷日時</label>
+            <div class="inline-group">
+              <input id="loadAt" class="inp" type="datetime-local" step="900" oninput="onDateTimeInput('loadAt')">
+              <span style="font-size:12px;color:#64748b;">〜</span>
+              <select id="loadAtEnd" class="inp pick" onchange="renderPreview()">
+                <option value="">終了時刻</option>
+              </select>
+            </div>
+          </div>
           <div class="field full"><label>出荷元場所</label><textarea id="loadPlace" class="inp" rows="3" oninput="renderPreview()">〒454-0872 名古屋市中川区上高畑１丁目１番地 ジェイピーネクスト㈱ テックセンタ</textarea></div>
           <div class="field"><label>出荷元担当者</label><input id="loadPerson" class="inp" type="text" value="鬼頭 貴広" oninput="renderPreview()"></div>
           <div class="field"><label>出荷元TEL</label><input id="loadTel" class="inp" type="text" value="090-7863-5701" oninput="renderPreview()"></div>
-          <div class="field"><label>配送日時</label><input id="unloadAt" class="inp" type="datetime-local" oninput="renderPreview()"></div>
+          <div class="field">
+            <label>配送日時</label>
+            <div class="inline-group">
+              <input id="unloadAt" class="inp" type="datetime-local" step="900" oninput="onDateTimeInput('unloadAt')">
+              <span style="font-size:12px;color:#64748b;">〜</span>
+              <select id="unloadAtEnd" class="inp pick" onchange="renderPreview()">
+                <option value="">終了時刻</option>
+              </select>
+            </div>
+          </div>
           <div class="field"><label>配送先TEL</label><input id="unloadTel" class="inp" type="text" placeholder="000-000-0000" oninput="renderPreview()"></div>
           <div class="field full"><label>配送先場所</label><textarea id="unloadPlace" class="inp" rows="3" placeholder="〒000-0000 住所 発送先名" oninput="renderPreview()"></textarea></div>
           <div class="field"><label>配送先担当者</label><input id="unloadPerson" class="inp" type="text" placeholder="ご担当者名（敬称不要）" oninput="renderPreview()"></div>
@@ -379,6 +397,71 @@
       const m = s.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/);
       return m ? `${m[1]}/${m[2]}/${m[3]} ${m[4]}:${m[5]}` : s;
     }
+    function normalizeDateTimeValue(v){
+      const s = String(v || "").trim();
+      const m = s.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/);
+      if(!m) return s;
+      const y = Number(m[1]);
+      const mo = Number(m[2]);
+      const d = Number(m[3]);
+      const hh = Number(m[4]);
+      const mm = Number(m[5]);
+      const date = new Date(y, mo - 1, d, hh, mm, 0, 0);
+      const dayStart = new Date(y, mo - 1, d, 7, 0, 0, 0);
+      const dayEnd = new Date(y, mo - 1, d, 19, 0, 0, 0);
+      const quarterMs = 15 * 60 * 1000;
+      let t = date.getTime();
+      t = Math.round(t / quarterMs) * quarterMs;
+      if(t < dayStart.getTime()) t = dayStart.getTime();
+      if(t > dayEnd.getTime()) t = dayEnd.getTime();
+      const nd = new Date(t);
+      const p = n => String(n).padStart(2, "0");
+      return `${nd.getFullYear()}-${p(nd.getMonth()+1)}-${p(nd.getDate())}T${p(nd.getHours())}:${p(nd.getMinutes())}`;
+    }
+    function populateTimeRangeSelects(){
+      const targets = ["loadAtEnd", "unloadAtEnd"];
+      const options = [];
+      for(let h = 7; h <= 19; h++){
+        [0, 15, 30, 45].forEach(m => {
+          if(h === 19 && m > 0) return;
+          options.push(`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}`);
+        });
+      }
+      targets.forEach(id => {
+        const sel = $(id);
+        if(!sel) return;
+        const cur = sel.value;
+        sel.innerHTML = `<option value="">終了時刻</option>` + options.map(t => `<option value="${t}">${t}</option>`).join("");
+        if(cur && options.includes(cur)) sel.value = cur;
+      });
+    }
+    function buildDateTimeRange(startId, endId){
+      const start = val(startId);
+      if(!start) return "";
+      const startFormatted = fmtDateTime(start);
+      const end = val(endId);
+      if(!end) return startFormatted;
+      return `${startFormatted}〜${end}`;
+    }
+    function parseDateTimeRange(raw){
+      const s = String(raw || "").trim();
+      if(!s) return { start: "", end: "" };
+      const m = s.match(/^(\d{4})[\/-](\d{2})[\/-](\d{2})\s+(\d{2}):(\d{2})(?:\s*[〜~\-]\s*(\d{1,2}):(\d{2}))?$/);
+      if(m){
+        const start = `${m[1]}-${m[2]}-${m[3]}T${m[4]}:${m[5]}`;
+        const end = (m[6] && m[7]) ? `${String(m[6]).padStart(2,"0")}:${m[7]}` : "";
+        return { start: normalizeDateTimeValue(start), end };
+      }
+      const iso = normalizeDateTimeValue(toDateTimeLocalValue(s));
+      return { start: iso, end: "" };
+    }
+    function onDateTimeInput(id){
+      const el = $(id);
+      if(!el) return;
+      const normalized = normalizeDateTimeValue(el.value);
+      if(normalized && normalized !== el.value) el.value = normalized;
+      renderPreview();
+    }
     function safeTitleToken(v){
       const s = String(v||"").trim();
       if(!s) return "";
@@ -467,11 +550,11 @@
       out("pCaseNoTop", caseNoFull);
       out("pSender", val("sender"));
       out("pVehicle", val("vehicle"));
-      out("pLoadAt", fmtDateTime(val("loadAt")));
+      out("pLoadAt", buildDateTimeRange("loadAt", "loadAtEnd"));
       out("pLoadPlace", val("loadPlace"));
       out("pLoadPerson", val("loadPerson"));
       out("pLoadTel", val("loadTel"));
-      out("pUnloadAt", val("unloadAt"));
+      out("pUnloadAt", buildDateTimeRange("unloadAt", "unloadAtEnd"));
       out("pUnloadPlace", val("unloadPlace"));
       out("pUnloadPerson", honorific(val("unloadPerson")));
       out("pUnloadTel", val("unloadTel"));
@@ -481,7 +564,7 @@
     }
     function resetForm(){
       $("sendDate").value = new Date().toISOString().slice(0,10);
-      ["caseNo","sender","toPerson1","toPerson2","toPerson3","unloadAt","unloadPlace","unloadPerson","unloadTel"].forEach(id => { if($(id)) $(id).value = ""; });
+      ["caseNo","sender","toPerson1","toPerson2","toPerson3","unloadAt","unloadPlace","unloadPerson","unloadTel","loadAtEnd","unloadAtEnd"].forEach(id => { if($(id)) $(id).value = ""; });
       if($("casePrefix")) $("casePrefix").value = "FK";
       if($("pages")) $("pages").value = "1";
       if($("contactNo")) $("contactNo").value = "052-383-4622";
@@ -557,11 +640,15 @@
       setVal("toPerson2", row.toPerson2 || personList[1] || "");
       setVal("toPerson3", row.toPerson3 || personList[2] || "");
       setVal("vehicle", row.vehicle || row["手配車両"] || "4ｔ平車");
-      setVal("loadAt", toDateTimeLocalValue(row.loadAt || row["積み込み日時"] || row["積込日時"] || ""));
+      const loadAtRange = parseDateTimeRange(row.loadAt || row["積み込み日時"] || row["積込日時"] || "");
+      setVal("loadAt", loadAtRange.start);
+      setVal("loadAtEnd", loadAtRange.end);
       setVal("loadPlace", row.loadPlace || row["積み込み場所"] || row["積込場所"] || "");
       setVal("loadPerson", row.loadPerson || row["積み込み担当者"] || row["積込担当者"] || "");
       setVal("loadTel", row.loadTel || row["積み込みTEL"] || row["積込TEL"] || "");
-      setVal("unloadAt", row.unloadAt || row["積み下ろし日時"] || row["積下日時"] || "");
+      const unloadAtRange = parseDateTimeRange(row.unloadAt || row["積み下ろし日時"] || row["積下日時"] || "");
+      setVal("unloadAt", unloadAtRange.start);
+      setVal("unloadAtEnd", unloadAtRange.end);
       setVal("unloadPlace", row.unloadPlace || row["積み下ろし場所"] || row["積下場所"] || "");
       setVal("unloadPerson", stripHonorific(row.unloadPerson || row["積み下ろし担当者"] || row["積下担当者"] || ""));
       setVal("unloadTel", row.unloadTel || row["積み下ろしTEL"] || row["積下TEL"] || "");
@@ -636,11 +723,11 @@
         toPerson2: toPersons[1] || "",
         toPerson3: toPersons[2] || "",
         vehicle: val("vehicle"),
-        loadAt: val("loadAt"),
+        loadAt: buildDateTimeRange("loadAt", "loadAtEnd"),
         loadPlace: val("loadPlace"),
         loadPerson: val("loadPerson"),
         loadTel: val("loadTel"),
-        unloadAt: val("unloadAt"),
+        unloadAt: buildDateTimeRange("unloadAt", "unloadAtEnd"),
         unloadPlace: val("unloadPlace"),
         unloadPerson: stripHonorific(val("unloadPerson")),
         unloadTel: val("unloadTel"),
@@ -699,6 +786,7 @@
         setActionLoading(btn,false);
       }, 1500);
     }
+    populateTimeRangeSelects();
     loadTransportDbSettings();
     resetForm();
   </script>

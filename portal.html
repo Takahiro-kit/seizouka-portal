@@ -85,18 +85,116 @@ body.settings-mode .nav-settings-links{display:block;}
 .sec-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:12px;letter-spacing:.01em;}
 
 /* TILE BUTTONS */
-.tile-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px;}
+.tile-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px;}
 .tile{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:18px 16px;background:var(--blue);border-radius:4px;text-decoration:none;cursor:pointer;transition:all .15s;box-shadow:var(--shadow);}
+.tile-grid > .tile{
+  width:100%;
+  min-width:0;
+  box-sizing:border-box;
+}
 .tile:hover{background:var(--blue-dk);transform:translateY(-2px);box-shadow:var(--shadow-lg);}
 .tile i{font-size:32px;color:#fff;}
 .tile-name{font-size:14px;font-weight:600;color:#fff;}
 .tile-desc{font-size:12px;color:rgba(255,255,255,.75);}
 .tile-logo{height:32px;max-width:100%;object-fit:contain;filter:brightness(0) invert(1);margin-bottom:4px;}
 .tile-logo.color{filter:none;height:40px;border-radius:4px;}
+.tile-logo.mitoco-logo{
+  filter:
+    drop-shadow(0 0 1px rgba(255,255,255,.98))
+    drop-shadow(1px 0 0 #fff)
+    drop-shadow(-1px 0 0 #fff)
+    drop-shadow(0 1px 0 #fff)
+    drop-shadow(0 -1px 0 #fff);
+}
 .tile-logo.yamato{height:28px;filter:brightness(0) invert(1);}
 .notta-brand-row{display:flex;align-items:center;gap:10px;}
 .notta-logo-icon{width:42px;height:42px;border-radius:10px;object-fit:cover;display:block;}
 .notta-logo-text{font-size:26px;line-height:1;font-weight:800;color:#fff;letter-spacing:.01em;}
+#weblinks .tile-logo,
+#weblinks .notta-brand-row{
+  width:124px;
+  min-width:124px;
+  height:44px;
+  box-sizing:border-box;
+  padding:6px 8px;
+  margin-bottom:4px;
+  margin-left:0;
+  margin-right:auto;
+}
+#weblinks .tile-logo{
+  display:block;
+  object-fit:contain;
+}
+#weblinks .tile-logo:not(.color):not(.yamato){
+  filter:
+    brightness(0) invert(1)
+    drop-shadow(0 0 1px rgba(255,255,255,.98))
+    drop-shadow(1px 0 0 #fff)
+    drop-shadow(-1px 0 0 #fff)
+    drop-shadow(0 1px 0 #fff)
+    drop-shadow(0 -1px 0 #fff);
+}
+#weblinks .tile-logo.color,
+#weblinks .tile-logo.yamato{
+  height:44px;
+  filter:
+    drop-shadow(0 0 1px rgba(255,255,255,.98))
+    drop-shadow(1px 0 0 #fff)
+    drop-shadow(-1px 0 0 #fff)
+    drop-shadow(0 1px 0 #fff)
+    drop-shadow(0 -1px 0 #fff);
+}
+#weblinks .tile-logo.yamato{
+  filter:
+    brightness(0) invert(1)
+    drop-shadow(0 0 1px rgba(255,255,255,.98))
+    drop-shadow(1px 0 0 #fff)
+    drop-shadow(-1px 0 0 #fff)
+    drop-shadow(0 1px 0 #fff)
+    drop-shadow(0 -1px 0 #fff);
+}
+#weblinks .notta-brand-row{
+  justify-content:flex-start;
+  align-items:center;
+  gap:8px;
+}
+#weblinks .notta-logo-icon{
+  width:24px;
+  height:24px;
+  border-radius:6px;
+}
+#weblinks .notta-logo-text{
+  font-size:20px;
+  text-shadow:none;
+}
+#weblinks .tile-grid > .sf-tile:first-child .tile-logo,
+#weblinks .tile[href*="webjit.jitbox.co.jp"] .tile-logo,
+#weblinks .tile[href*="bmypage.kuronekoyamato.co.jp"] .tile-logo{
+  width:140px;
+  min-width:140px;
+  height:48px;
+  padding:0;
+  margin-left:-8px;
+  object-position:left center;
+}
+#weblinks .tile[href*="ap.sansan.com"] .tile-logo{
+  object-position:left center;
+}
+#weblinks .tile[href*="app.notta.ai"] .notta-brand-row{
+  width:136px;
+  min-width:136px;
+  height:48px;
+  padding:4px 6px;
+  margin-left:-8px;
+  justify-content:flex-start;
+}
+#weblinks .tile[href*="app.notta.ai"] .notta-logo-icon{
+  width:28px;
+  height:28px;
+}
+#weblinks .tile[href*="app.notta.ai"] .notta-logo-text{
+  font-size:22px;
+}
 .sf-tile{cursor:default;}
 .sf-shortcut-row{margin-top:6px;display:flex;gap:6px;width:100%;align-items:center;}
 .sf-shortcut-select{flex:1;min-width:0;border:1px solid rgba(255,255,255,.5);border-radius:4px;padding:6px 8px;font-size:12px;font-family:var(--sans);background:rgba(255,255,255,.95);color:#0f172a;outline:none;}
@@ -116,6 +214,9 @@ body.settings-mode .nav-settings-links{display:block;}
 /* CARD */
 .card{background:var(--card);border-radius:4px;box-shadow:var(--shadow);margin-bottom:20px;}
 .card-hdr{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;border-bottom:1px solid var(--border);}
+.card-hdr-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.card-title.clickable{cursor:pointer;}
+.card-title.clickable:hover{text-decoration:underline;}
 .card-hdr.yellow{background:#fbbf24;border-bottom:1px solid #f59e0b;}
 .card-hdr.yellow .card-title{color:#1a1a1a;}
 .card-hdr.yellow .card-title i{color:#92400e;}
@@ -562,6 +663,14 @@ body.settings-mode .nav-settings-links{display:block;}
 /* TOAST */
 .toast{position:fixed;bottom:24px;right:24px;background:#222;color:#fff;border-radius:4px;padding:11px 20px;font-size:13px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;}
 .toast.show{opacity:1;}
+.pw-modal{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:center;justify-content:center;z-index:1200;}
+.pw-modal.active{display:flex;}
+.pw-dialog{width:min(420px,92vw);background:#fff;border-radius:8px;box-shadow:0 20px 40px rgba(15,23,42,.28);padding:16px 16px 14px;}
+.pw-title{font-size:16px;font-weight:800;color:#0f172a;margin-bottom:8px;}
+.pw-desc{font-size:12px;color:#64748b;margin-bottom:10px;}
+.pw-input{width:100%;border:1px solid #cbd5e1;border-radius:6px;padding:9px 10px;font-size:14px;font-family:var(--sans);outline:none;}
+.pw-input:focus{border-color:#3b82f6;box-shadow:0 0 0 2px rgba(59,130,246,.15);}
+.pw-actions{margin-top:12px;display:flex;justify-content:flex-end;gap:8px;}
 
 /* SETTINGS */
 .settings-wrap{padding:32px 40px;max-width:1100px;}
@@ -642,6 +751,15 @@ body.settings-mode .nav-settings-links{display:block;}
 }
 .section-highlight{outline:4px solid var(--blue);outline-offset:4px;border-radius:4px;animation:highlight-pulse 2s ease-out;}
 #notice-only.section-highlight{outline:3px solid var(--blue);outline-offset:-2px;border-radius:4px;}
+body.single-view-mode .nav,
+body.single-view-mode .nav-toggle,
+body.single-view-mode .hero,
+body.single-view-mode .hero-spacer{display:none !important;}
+body.single-view-mode .main{margin-left:0 !important;}
+body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin:0 auto;}
+.single-view-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;}
+.single-view-title{font-size:20px;font-weight:900;color:#0f172a;}
+.single-view-actions{display:flex;gap:8px;align-items:center;}
 
 /* PAGE */
 .page{display:none;}
@@ -651,6 +769,28 @@ body.settings-mode .nav-settings-links{display:block;}
 <body>
 
 <div class="toast" id="toast"></div>
+<div class="pw-modal" id="settings-pw-modal" aria-hidden="true">
+  <div class="pw-dialog" role="dialog" aria-modal="true" aria-labelledby="settings-pw-title">
+    <div class="pw-title" id="settings-pw-title">設定画面のパスワード</div>
+    <div class="pw-desc">設定画面へ進むにはパスワード入力が必要です。</div>
+    <input id="settings-pw-entry" class="pw-input" type="password" placeholder="パスワードを入力" autocomplete="current-password">
+    <div class="pw-actions">
+      <button class="s-btn" style="background:#64748b;" type="button" onclick="closeSettingsPasswordDialog(null)">キャンセル</button>
+      <button class="s-btn" type="button" onclick="submitSettingsPasswordDialog()">確認</button>
+    </div>
+  </div>
+</div>
+<div class="pw-modal" id="admin-pw-modal" aria-hidden="true">
+  <div class="pw-dialog" role="dialog" aria-modal="true" aria-labelledby="admin-pw-title">
+    <div class="pw-title" id="admin-pw-title">管理画面のパスワード</div>
+    <div class="pw-desc">管理者ページへ進むにはパスワード入力が必要です。</div>
+    <input id="admin-pw-entry" class="pw-input" type="password" placeholder="パスワードを入力" autocomplete="current-password">
+    <div class="pw-actions">
+      <button class="s-btn" style="background:#64748b;" type="button" onclick="closeAdminPasswordDialog(null)">キャンセル</button>
+      <button class="s-btn" type="button" onclick="submitAdminPasswordDialog()">確認</button>
+    </div>
+  </div>
+</div>
 
 
 <!-- NAV -->
@@ -692,6 +832,7 @@ body.settings-mode .nav-settings-links{display:block;}
       <button class="nav-item" data-settings-target="sec-hero-image" onclick="goSettingsSection('sec-hero-image')"><i class="ti ti-photo"></i><span class="nav-item-label">ヒーロー画像</span></button>
       <button class="nav-item" data-settings-target="sec-docs" onclick="goSettingsSection('sec-docs')"><i class="ti ti-book"></i><span class="nav-item-label">手順書管理</span></button>
       <button class="nav-item" data-settings-target="sec-notice-tags" onclick="goSettingsSection('sec-notice-tags')"><i class="ti ti-tags"></i><span class="nav-item-label">連絡タグ管理</span></button>
+      <button class="nav-item" data-settings-target="sec-todo-tags" onclick="goSettingsSection('sec-todo-tags')"><i class="ti ti-tag"></i><span class="nav-item-label">TODOタグ管理</span></button>
       <button class="nav-item" data-settings-target="sec-members" onclick="goSettingsSection('sec-members')"><i class="ti ti-users"></i><span class="nav-item-label">メンバータグ</span></button>
       <button class="nav-item" data-settings-target="sec-workorder-options" onclick="goSettingsSection('sec-workorder-options')"><i class="ti ti-file-description"></i><span class="nav-item-label">作業指示設定</span></button>
       <button class="nav-item" data-settings-target="sec-member-pages" onclick="goSettingsSection('sec-member-pages')"><i class="ti ti-user-cog"></i><span class="nav-item-label">専用ページ設定</span></button>
@@ -753,13 +894,28 @@ body.settings-mode .nav-settings-links{display:block;}
               <div class="sf-shortcut-row">
                 <select id="sf-quick-link" class="sf-shortcut-select" onchange="openSalesforceQuickLink()">
                   <option value="" selected>Salesforceリンクを選択</option>
-                  <option value="https://jpnext.lightning.force.com/lightning/n/TSMNTBS__mitocoLEX">mitoco</option>
                   <option value="https://jpnext.lightning.force.com/lightning/page/home">Salesforce ホーム</option>
                   <option value="https://jpnext.lightning.force.com/lightning/o/Specification__c/list?filterName=All">仕様確認書 全て</option>
                   <option value="https://jpnext.lightning.force.com/lightning/r/Report/00OIi000000FMvoMAG/view">FK案件一覧</option>
                   <option value="https://jpnext.lightning.force.com/lightning/r/Report/00OIi000000FMwrMAG/view">FX案件一覧</option>
                   <option value="https://jpnext.lightning.force.com/lightning/o/Sales__c/list?filterName=FA">FAの受注案件</option>
                   <option value="https://jpnext.lightning.force.com/lightning/o/InsideCompanyMaintenance__c/list?filterName=TEST">FS案件 社内メンテナンス(TEST以外)</option>
+                </select>
+              </div>
+            </div>
+                        <div class="tile sf-tile">
+              <img src="s-120x20_903866ed-d493-43b6-ae44-93bf6ab76271.svg" class="tile-logo color mitoco-logo" alt="mitoco ロゴ">
+              <div class="tile-name">mitoco</div>
+              <div class="tile-desc">社内コミュニケーション</div>
+              <div class="sf-shortcut-row">
+                <select id="mitoco-quick-link" class="sf-shortcut-select" onchange="openMitocoQuickLink()">
+                  <option value="" selected>mitocoリンクを選択</option>
+                  <option value="https://jpnext.lightning.force.com/lightning/n/TSMNTBS__mitocoLEX">mitocoホーム</option>
+                  <option value="https://jpnext.lightning.force.com/TSMNTBS/portalLEX.app#app=cal">カレンダー</option>
+                  <option value="https://jpnext.lightning.force.com/TSMNTBS/portalLEX.app#app=com">トーク</option>
+                  <option value="https://jpnext.lightning.force.com/TSMNTBS/portalLEX.app#app=todo">ToDo</option>
+                  <option value="https://jpnext.lightning.force.com/TSMNTBS/portalLEX.app#app=bbs">掲示版</option>
+                  <option value="https://jpnext.lightning.force.com/TSMNTBS/portalLEX.app#app=doc">文書管理</option>
                 </select>
               </div>
             </div>
@@ -807,8 +963,13 @@ body.settings-mode .nav-settings-links{display:block;}
         </div><!-- 課内連絡 + TODO -->
         <div class="card" id="notice-section" style="padding:0;margin-bottom:20px;">
           <div class="two-col">
-            <div class="tc-l" id="notice-only">
-              <div class="card-hdr yellow"><div class="card-title"><i class="ti ti-speakerphone"></i>課内連絡</div><span class="card-sub">GS連携</span></div>
+            <div class="tc-l" id="notice-only" data-focusable="true">
+              <div class="card-hdr yellow">
+                <div class="card-title clickable" onclick="openHomeSectionWindow('notice-only','課内連絡')"><i class="ti ti-speakerphone"></i>課内連絡</div>
+                <div class="card-hdr-actions">
+                  <span class="card-sub">GS連携</span>
+                </div>
+              </div>
               <div id="nlist"><div class="loading"><i class="ti ti-loader-2"></i>読み込み中...</div></div>
               <div class="notice-input-row">
                 <select id="ntype"><option value="">種別</option></select>
@@ -818,8 +979,13 @@ body.settings-mode .nav-settings-links{display:block;}
                 <button id="add-notice-btn" onclick="addN()">投稿</button>
               </div>
             </div>
-            <div id="todo-section">
-              <div class="card-hdr yellow"><div class="card-title"><i class="ti ti-checkbox"></i>ToDo</div><span class="card-sub">GS連携</span></div>
+            <div id="todo-section" data-focusable="true">
+              <div class="card-hdr yellow">
+                <div class="card-title clickable" onclick="openHomeSectionWindow('todo-section','ToDo')"><i class="ti ti-checkbox"></i>ToDo</div>
+                <div class="card-hdr-actions">
+                  <span class="card-sub">GS連携</span>
+                </div>
+              </div>
               <div id="tlist"><div class="loading"><i class="ti ti-loader-2"></i>読み込み中...</div></div>
               <div class="todo-input-row">
                 <input id="tinp" type="text" placeholder="タスクを追加…">
@@ -829,8 +995,6 @@ body.settings-mode .nav-settings-links{display:block;}
                 </div>
                 <select id="t-tag">
                   <option value="">タグ</option>
-                  <option>出荷</option><option>在庫</option><option>IT</option>
-                  <option>品質</option><option>安全</option><option>その他</option>
                 </select>
                 <div class="todo-due-wrap">
                   <span class="todo-due-label">完了希望日</span>
@@ -844,17 +1008,23 @@ body.settings-mode .nav-settings-links{display:block;}
         </div>
 
         <!-- 製造課ルール -->
-        <div class="card" id="docs" style="padding:0;margin-bottom:20px;">
+        <div class="card" id="docs" style="padding:0;margin-bottom:20px;" data-focusable="true">
           <div class="card-hdr yellow">
-            <div class="card-title"><i class="ti ti-book"></i>製造課ルール / 手順書</div>
-            <a class="card-link" href="https://jpnext01-my.sharepoint.com/:f:/g/personal/t-kito_jpnext_co_jp/IgAduuef3YMiSLQODHxjbCfZAb0yyR7ZpbThfL5ItWOX6G4?e=PFavsj" target="_blank">共有フォルダを開く</a>
+            <div class="card-title clickable" onclick="openHomeSectionWindow('docs','製造課ルール / 手順書')"><i class="ti ti-book"></i>製造課ルール / 手順書</div>
+            <div class="card-hdr-actions">
+              <a class="card-link" href="https://jpnext01-my.sharepoint.com/:f:/g/personal/t-kito_jpnext_co_jp/IgAduuef3YMiSLQODHxjbCfZAb0yyR7ZpbThfL5ItWOX6G4?e=PFavsj" target="_blank">共有フォルダを開く</a>
+            </div>
           </div>
           <div id="docs-list"><div class="loading"><i class="ti ti-loader-2"></i>読み込み中...</div></div>
         </div>
 
         <!-- 共有ファイル -->
-        <div class="card" id="storage" style="padding:0;margin-bottom:20px;">
-          <div class="card-hdr yellow"><div class="card-title"><i class="ti ti-folder"></i>共有ファイル / ストレージ</div></div>
+        <div class="card" id="storage" style="padding:0;margin-bottom:20px;" data-focusable="true">
+          <div class="card-hdr yellow">
+            <div class="card-title clickable" onclick="openHomeSectionWindow('storage','共有ファイル / ストレージ')"><i class="ti ti-folder"></i>共有ファイル / ストレージ</div>
+            <div class="card-hdr-actions">
+            </div>
+          </div>
           <div id="storage-list"></div>
           <div class="wn"><i class="ti ti-info-circle"></i>UNCパスをコピーしてエクスプローラーのアドレス欄に貼り付けてください</div>
         </div>
@@ -999,8 +1169,8 @@ body.settings-mode .nav-settings-links{display:block;}
             <input id="settings-pass-input" type="password" placeholder="設定画面のパスワード" style="margin-top:6px;width:100%;max-width:360px;border:1px solid var(--border2);border-radius:4px;padding:8px 12px;font-size:13px;font-family:var(--sans);outline:none;">
             <div id="settings-lock-status" style="margin-top:8px;font-size:12px;color:var(--text3);">状態: 未設定（ロックなし）</div>
           </div>
-          <button class="s-btn" style="background:#0f766e;" onclick="setGlobalSettingsPassword()">全ユーザーへ保存</button>
-          <button class="s-btn" style="background:#666;" onclick="clearGlobalSettingsPassword()">全ユーザー設定を解除</button>
+          <button class="s-btn" style="background:#0f766e;" onclick="setGlobalSettingsPassword(this)">全ユーザーへ保存</button>
+          <button class="s-btn" style="background:#666;" onclick="clearGlobalSettingsPassword(this)">全ユーザー設定を解除</button>
         </div>
       </div>
 
@@ -1153,7 +1323,7 @@ body.settings-mode .nav-settings-links{display:block;}
             <div class="s-row-title">課内連絡・TODO・カレンダー・手順書を再取得</div>
             <div class="s-row-desc">表示期間：課内連絡は直近2ヶ月、TODOは完了から7日間</div>
           </div>
-          <button class="s-btn" onclick="reloadData()" id="reload-btn">再読み込み</button>
+          <button class="s-btn" onclick="reloadData(this)" id="reload-btn">再読み込み</button>
         </div>
         <div style="padding:10px 18px;background:#ffffff;border-top:1px solid var(--border);font-size:12px;color:var(--text3);display:flex;align-items:center;gap:6px;">
           <i class="ti ti-info-circle" style="font-size:14px;"></i>
@@ -1170,8 +1340,8 @@ body.settings-mode .nav-settings-links{display:block;}
         <div style="padding:16px 18px;border-bottom:1px solid var(--border);">
           <div style="display:flex;gap:8px;margin-bottom:10px;">
             <input type="url" id="hero-url-input" placeholder="https://images.unsplash.com/photo-..." style="flex:1;border:1px solid var(--border2);border-radius:4px;padding:8px 12px;font-size:13px;font-family:var(--sans);outline:none;">
-            <button class="s-btn" onclick="saveHeroUrl()">適用</button>
-            <button class="s-btn" style="background:#888;" onclick="resetHeroUrl()">リセット</button>
+            <button class="s-btn" onclick="saveHeroUrl(this)">適用</button>
+            <button class="s-btn" style="background:#888;" onclick="resetHeroUrl(this)">リセット</button>
           </div>
           <div id="hero-preview" style="height:120px;border-radius:4px;overflow:hidden;background:#004a99;border:1px solid var(--border2);">
             <img id="hero-preview-img" src="" style="width:100%;height:100%;object-fit:cover;display:none;">
@@ -1192,18 +1362,17 @@ body.settings-mode .nav-settings-links{display:block;}
           <div style="display:flex;flex-direction:column;gap:8px;">
             <div style="display:flex;gap:8px;">
               <input type="text" id="doc-name" placeholder="ファイル名（例：出荷手順書 v3.2）" style="flex:1;border:1px solid var(--border2);border-radius:4px;padding:8px 12px;font-size:13px;font-family:var(--sans);outline:none;">
-              <select id="doc-type" style="width:130px;border:1px solid var(--border2);border-radius:4px;padding:8px 10px;font-size:13px;font-family:var(--sans);background:#fff;outline:none;cursor:pointer;">
-                <option value="doc">📄 文書</option>
-                <option value="xls">📊 Excel</option>
-                <option value="pdf">📕 PDF</option>
-                <option value="rule">📋 ルール</option>
-                <option value="manual">📖 マニュアル</option>
-              </select>
+              <select id="doc-type" style="width:160px;border:1px solid var(--border2);border-radius:4px;padding:8px 10px;font-size:13px;font-family:var(--sans);background:#fff;outline:none;cursor:pointer;"></select>
               <input type="date" id="doc-date" style="width:200px;border:1px solid var(--border2);border-radius:4px;padding:8px 12px;font-size:13px;font-family:var(--sans);outline:none;">
             </div>
             <div style="display:flex;gap:8px;">
               <input type="url" id="doc-url" placeholder="SharePointのURL（ファイルを右クリック→リンクのコピー）" style="flex:1;border:1px solid var(--border2);border-radius:4px;padding:8px 12px;font-size:13px;font-family:var(--sans);outline:none;">
               <button class="s-btn" onclick="addDoc()" style="white-space:nowrap;padding:8px 24px;">追加</button>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <input type="text" id="new-doc-category" placeholder="カテゴリを追加（例：安全）" style="width:220px;border:1px solid var(--border2);border-radius:4px;padding:8px 12px;font-size:13px;font-family:var(--sans);outline:none;">
+              <button class="s-btn" onclick="addDocCategory(this)">カテゴリ追加</button>
+              <div id="doc-category-list" style="font-size:12px;color:var(--text3);"></div>
             </div>
           </div>
         </div>
@@ -1239,6 +1408,21 @@ body.settings-mode .nav-settings-links{display:block;}
           </div>
         </div>
         <div id="s-notice-type-list" style="max-height:420px;overflow-y:auto;"></div>
+      </div>
+
+      <div class="s-sec" id="sec-todo-tags">
+        <div class="s-sec-hdr">
+          <div class="s-sec-title">🏷️ TODOタグ管理</div>
+          <div class="s-sec-desc">TODO作成時に選択するタグを追加・削除できます。</div>
+        </div>
+        <div style="padding:14px 18px;border-bottom:1px solid var(--border);background:#ffffff;">
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;">＋ TODOタグを追加</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+            <input type="text" id="new-todo-tag" placeholder="タグ名（例：出荷）" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;width:140px;">
+            <button class="s-btn" onclick="addTodoTag(this)">追加</button>
+          </div>
+        </div>
+        <div id="s-todo-tag-list" style="max-height:260px;overflow-y:auto;"></div>
       </div>
 
       <!-- メンバー管理（課内連絡・ToDoのメンバータグ） -->
@@ -1643,6 +1827,188 @@ function navScroll(id){
     setTimeout(()=>el.classList.remove('section-highlight'), 2000);
   }, 400);
 }
+function openHomeSectionWindow(targetId, title){
+  const src = document.getElementById(targetId);
+  if(!src){
+    showToast('対象セクションが見つかりません');
+    return false;
+  }
+  const safeTitle = String(title || '').trim() || '単独表示';
+  const popupFeatures = [
+    'popup=yes',
+    `width=${Math.max(900, window.screen?.availWidth || 1400)}`,
+    `height=${Math.max(700, window.screen?.availHeight || 900)}`,
+    'left=0',
+    'top=0',
+    'resizable=yes',
+    'scrollbars=yes'
+  ].join(',');
+  const w = window.open('about:blank', '_blank', popupFeatures);
+  if(!w){
+    showToast('ポップアップがブロックされています');
+    return false;
+  }
+  if(!w.document){
+    showToast('新規ウィンドウに描画できませんでした');
+    return false;
+  }
+  try{
+    w.moveTo?.(0,0);
+    w.resizeTo?.(window.screen?.availWidth || 1400, window.screen?.availHeight || 900);
+  }catch(_){}
+  const styleText = Array.from(document.querySelectorAll('style')).map(s=>s.textContent || '').join('\n');
+  const styleLinks = Array.from(document.querySelectorAll('link[rel="stylesheet"]')).map(l=>l.outerHTML).join('\n');
+  const clone = src.cloneNode(true);
+  clone.classList.remove('home-focus-target');
+  clone.classList.remove('section-highlight');
+  clone.querySelectorAll('.card-title.clickable').forEach(el => {
+    el.classList.remove('clickable');
+    el.removeAttribute('onclick');
+  });
+  clone.querySelectorAll('*').forEach(el => {
+    Array.from(el.attributes).forEach(attr => {
+      if(attr.name.toLowerCase().startsWith('on')) el.removeAttribute(attr.name);
+    });
+  });
+  const singleCss = `
+body{
+  margin:0;
+  background:#f3f6fb;
+  min-height:100vh;
+  overflow-y:auto;
+}
+.single-wrap{
+  min-height:100vh;
+  height:auto;
+  display:flex;
+  flex-direction:column;
+}
+.single-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 18px;
+  border-bottom:1px solid #d9e1ef;
+  background:#fff;
+  box-shadow:0 4px 14px rgba(15,23,42,.06);
+}
+.single-title{
+  font-size:20px;
+  font-weight:900;
+  color:#0f172a;
+}
+.single-main{
+  flex:none;
+  min-height:auto;
+  overflow:visible;
+  padding:18px;
+}
+.single-main #single-content{
+  height:auto;
+}
+.single-main .card{
+  margin:0;
+}
+#single-content > .tc-l{
+  background:#fff;
+  border:1px solid #e2e8f0;
+  border-radius:4px;
+  padding:12px;
+}
+#single-content #nlist,
+#single-content #tlist{
+  max-height:none !important;
+  overflow:visible !important;
+}
+.single-btn{
+  border:1px solid #cbd5e1;
+  border-radius:4px;
+  background:#f8fafc;
+  color:#0f172a;
+  font-weight:700;
+  padding:8px 12px;
+  cursor:pointer;
+}
+.single-btn:hover{
+  background:#eef2f7;
+}
+`;
+  const esc = (s)=>String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const doc = w.document;
+  doc.open();
+  doc.write(`<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>${esc(safeTitle)}</title>
+  <base href="${esc(window.location.href)}">
+  ${styleLinks}
+  <style>${styleText}</style>
+  <style>${singleCss}</style>
+</head>
+<body>
+  <div class="single-wrap">
+    <div class="single-head">
+      <div class="single-title">${esc(safeTitle)}</div>
+      <button class="single-btn" type="button" onclick="window.close()">閉じる</button>
+    </div>
+    <div class="single-main"><div id="single-content"></div></div>
+  </div>
+</body>
+</html>`);
+  doc.close();
+  const mount = doc.getElementById('single-content');
+  if(mount) mount.innerHTML = clone.outerHTML;
+  try{
+    w.focus();
+  }catch(_){}
+  return true;
+}
+function applySingleViewFromQuery(){
+  const params = new URLSearchParams(window.location.search);
+  const targetId = String(params.get('single') || '').trim();
+  if(!targetId) return;
+  const src = document.getElementById(targetId);
+  const home = document.getElementById('page-home');
+  if(!src || !home) return;
+  const title = String(params.get('singleTitle') || '').trim() || (src.querySelector('.card-title')?.textContent || '単独表示').trim();
+  const clone = src.cloneNode(true);
+  clone.classList.remove('home-focus-target');
+  clone.classList.add('section-highlight');
+  clone.querySelectorAll('.card-title.clickable').forEach(el => {
+    el.classList.remove('clickable');
+    el.removeAttribute('onclick');
+  });
+  document.body.classList.add('single-view-mode');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  home.classList.add('active');
+  home.innerHTML = '';
+  const head = document.createElement('div');
+  head.className = 'single-view-head';
+  const hTitle = document.createElement('div');
+  hTitle.className = 'single-view-title';
+  hTitle.textContent = title;
+  const actions = document.createElement('div');
+  actions.className = 'single-view-actions';
+  const backBtn = document.createElement('button');
+  backBtn.className = 's-btn';
+  backBtn.type = 'button';
+  backBtn.textContent = '通常表示に戻る';
+  backBtn.onclick = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('single');
+    url.searchParams.delete('singleTitle');
+    window.location.href = url.toString();
+  };
+  actions.appendChild(backBtn);
+  head.appendChild(hTitle);
+  head.appendChild(actions);
+  home.appendChild(head);
+  home.appendChild(clone);
+  document.title = `${title} - 単独表示`;
+}
 function pulseSettingsNavItem(targetId){
   const links = document.querySelectorAll('#settings-nav-links .nav-item[data-settings-target]');
   links.forEach(b => b.classList.remove('nav-temp-active'));
@@ -1656,8 +2022,9 @@ function goSettingsSection(targetId){
   const settingsPage = document.getElementById('page-settings');
   if(!settingsPage || !targetId) return;
   if(!settingsPage.classList.contains('active')){
-    showPage('settings');
-    setTimeout(()=>goSettingsSection(targetId), 120);
+    Promise.resolve(showPage('settings')).then(() => {
+      if(settingsPage.classList.contains('active')) goSettingsSection(targetId);
+    });
     return;
   }
   const el = document.getElementById(targetId);
@@ -1701,7 +2068,7 @@ function renderAdminVisibility(){
   const unlockPanel = document.getElementById('admin-unlock-panel');
   const content = document.getElementById('admin-content-wrap');
   const needUnlock = !!_adminPagePassword && !_adminUnlocked;
-  if(unlockPanel) unlockPanel.style.display = needUnlock ? 'block' : 'none';
+  if(unlockPanel) unlockPanel.style.display = 'none';
   if(content) content.style.display = needUnlock ? 'none' : 'block';
   refreshAdminLockStatus();
 }
@@ -1787,15 +2154,112 @@ function unlockAdminPage(btnEl){
   showToast('管理者ページのロックを解除しました');
   setAdminActionLoading(btnEl, false);
 }
-function requestSettingsAccess(){
+let _settingsPwResolver = null;
+let _adminPwResolver = null;
+function openSettingsPasswordDialog(){
+  const modal = document.getElementById('settings-pw-modal');
+  const input = document.getElementById('settings-pw-entry');
+  if(!modal || !input) return Promise.resolve(null);
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden','false');
+  input.value = '';
+  setTimeout(()=>input.focus(), 0);
+  return new Promise(resolve => { _settingsPwResolver = resolve; });
+}
+function closeSettingsPasswordDialog(value){
+  const modal = document.getElementById('settings-pw-modal');
+  const input = document.getElementById('settings-pw-entry');
+  if(modal){
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden','true');
+  }
+  if(input) input.value = '';
+  if(_settingsPwResolver){
+    const done = _settingsPwResolver;
+    _settingsPwResolver = null;
+    done(value);
+  }
+}
+function submitSettingsPasswordDialog(){
+  const input = document.getElementById('settings-pw-entry');
+  closeSettingsPasswordDialog(input ? input.value : '');
+}
+function openAdminPasswordDialog(){
+  const modal = document.getElementById('admin-pw-modal');
+  const input = document.getElementById('admin-pw-entry');
+  if(!modal || !input) return Promise.resolve(null);
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden','false');
+  input.value = '';
+  setTimeout(()=>input.focus(), 0);
+  return new Promise(resolve => { _adminPwResolver = resolve; });
+}
+function closeAdminPasswordDialog(value){
+  const modal = document.getElementById('admin-pw-modal');
+  const input = document.getElementById('admin-pw-entry');
+  if(modal){
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden','true');
+  }
+  if(input) input.value = '';
+  if(_adminPwResolver){
+    const done = _adminPwResolver;
+    _adminPwResolver = null;
+    done(value);
+  }
+}
+function submitAdminPasswordDialog(){
+  const input = document.getElementById('admin-pw-entry');
+  closeAdminPasswordDialog(input ? input.value : '');
+}
+document.addEventListener('click', (ev) => {
+  const settingsModal = document.getElementById('settings-pw-modal');
+  const adminModal = document.getElementById('admin-pw-modal');
+  if(settingsModal && settingsModal.classList.contains('active') && ev.target === settingsModal){
+    closeSettingsPasswordDialog(null);
+    return;
+  }
+  if(adminModal && adminModal.classList.contains('active') && ev.target === adminModal){
+    closeAdminPasswordDialog(null);
+  }
+});
+document.addEventListener('keydown', (ev) => {
+  const settingsModal = document.getElementById('settings-pw-modal');
+  const adminModal = document.getElementById('admin-pw-modal');
+  const settingsOpen = settingsModal && settingsModal.classList.contains('active');
+  const adminOpen = adminModal && adminModal.classList.contains('active');
+  if(!settingsOpen && !adminOpen) return;
+  if(ev.key === 'Escape'){
+    ev.preventDefault();
+    if(settingsOpen) closeSettingsPasswordDialog(null);
+    if(adminOpen) closeAdminPasswordDialog(null);
+  }else if(ev.key === 'Enter'){
+    ev.preventDefault();
+    if(settingsOpen) submitSettingsPasswordDialog();
+    if(adminOpen) submitAdminPasswordDialog();
+  }
+});
+async function requestSettingsAccess(){
   const saved = _globalSettingsPassword || '';
   if(!saved) return true;
-  const entered = prompt('設定画面のパスワードを入力してください');
+  const entered = await openSettingsPasswordDialog();
   if(entered == null) return false;
   if(entered !== saved){
     showToast('パスワードが違います');
     return false;
   }
+  return true;
+}
+async function requestAdminAccess(){
+  const saved = _adminPagePassword || '';
+  if(!saved) return true;
+  const entered = await openAdminPasswordDialog();
+  if(entered == null) return false;
+  if(entered !== saved){
+    showToast('パスワードが違います');
+    return false;
+  }
+  _adminUnlocked = true;
   return true;
 }
 function formatWorkOrderDate(v){
@@ -1896,7 +2360,8 @@ function printWorkOrderPdf(){
   w.focus();
   setTimeout(() => w.print(), 250);
 }
-async function setGlobalSettingsPassword(){
+async function setGlobalSettingsPassword(btnEl){
+  if(btnEl && btnEl.disabled) return;
   const inp = document.getElementById('settings-pass-input');
   if(!inp) return;
   const pw = inp.value.trim();
@@ -1904,6 +2369,7 @@ async function setGlobalSettingsPassword(){
     showToast('4文字以上で設定してください');
     return;
   }
+  setAdminActionLoading(btnEl, true, '保存中...');
   try{
     await gasPost({sheet:'設定_UPDATE', key:SETTINGS_PASS_GLOBAL_KEY, value:pw});
     _globalSettingsPassword = pw;
@@ -1912,14 +2378,18 @@ async function setGlobalSettingsPassword(){
     showToast('全ユーザー共通パスワードを保存しました');
   }catch(e){
     showToast('エラー: '+e.message);
+  }finally{
+    setAdminActionLoading(btnEl, false);
   }
 }
-async function clearGlobalSettingsPassword(){
+async function clearGlobalSettingsPassword(btnEl){
+  if(btnEl && btnEl.disabled) return;
   if(!_globalSettingsPassword){
     showToast('全ユーザー共通パスワードは未設定です');
     return;
   }
   if(!confirm('全ユーザー共通パスワードを解除しますか？')) return;
+  setAdminActionLoading(btnEl, true, '解除中...');
   try{
     await gasPost({sheet:'設定_UPDATE', key:SETTINGS_PASS_GLOBAL_KEY, value:''});
     _globalSettingsPassword = '';
@@ -1927,10 +2397,13 @@ async function clearGlobalSettingsPassword(){
     showToast('全ユーザー共通パスワードを解除しました');
   }catch(e){
     showToast('エラー: '+e.message);
+  }finally{
+    setAdminActionLoading(btnEl, false);
   }
 }
-function showPage(name){
-  if(name==='settings' && !requestSettingsAccess()) return;
+async function showPage(name){
+  if(name==='settings' && !(await requestSettingsAccess())) return;
+  if(name==='admin' && _adminPagePassword && !_adminUnlocked && !(await requestAdminAccess())) return;
   document.body.classList.toggle('settings-mode', name==='settings');
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
@@ -1955,6 +2428,7 @@ function showPage(name){
     renderWorkorderOptionsSettings();
     renderMemberProfileSettings();
     renderNoticeTypeSettings();
+    renderTodoTagSettings();
     const _heroUrl = document.querySelector('.hero-img img')?.src || '';
     updateHeroPreview(_heroUrl);
   } else if(name==='admin'){
@@ -2052,6 +2526,22 @@ function openSalesforceQuickLink(){
   window.open(url, '_blank', 'noopener');
   sel.value = '';
 }
+function sanitizeSalesforceQuickLinkOptions(){
+  const sel = document.getElementById('sf-quick-link');
+  if(!sel) return;
+  Array.from(sel.options).forEach(opt => {
+    const key = `${opt.textContent || ''} ${opt.value || ''}`.toLowerCase();
+    if(key.includes('mitoco')) opt.remove();
+  });
+}
+function openMitocoQuickLink(){
+  const sel = document.getElementById('mitoco-quick-link');
+  if(!sel) return;
+  const url = String(sel.value || '').trim();
+  if(!url) return;
+  window.open(url, '_blank', 'noopener');
+  sel.value = '';
+}
 function openAdminQuickLink(){
   const sel = document.getElementById('admin-quick-link');
   if(!sel) return;
@@ -2085,12 +2575,17 @@ function renameDownload(input){
   showToast('"' + newName + '"としてダウンロードしました');
 }
 
-async function reloadData(){
-  const btn = document.getElementById('reload-btn');
-  if(btn){ btn.textContent = '読み込み中...'; btn.disabled = true; }
-  await loadData();
-  if(btn){ btn.textContent = '再読み込み'; btn.disabled = false; }
-  showToast('データを再読み込みしました');
+async function reloadData(btnEl){
+  const btn = btnEl || document.getElementById('reload-btn');
+  setAdminActionLoading(btn, true, '読み込み中...');
+  try{
+    await loadData();
+    showToast('データを再読み込みしました');
+  }catch(e){
+    showToast('エラー: '+e.message);
+  }finally{
+    setAdminActionLoading(btn, false);
+  }
 }
 
 const IMAGE_TOOL_PRESET = { maxEdge: 1920, quality: 0.86, mime: 'image/jpeg', ext: 'jpg' };
@@ -2409,6 +2904,8 @@ async function loadData(){
     const r=await fetch(GAS_URL+'?t='+Date.now(),{mode:'cors'});
     const d=await r.json();
     d.notices = (d.notices || []).map(normalizeNoticeItem);
+    parseDocCategoriesFromSettings(d);
+    renderDocCategoryControls();
     applyPortalConfig(d);
     renderNotices(d.notices);
     renderTodos(d.todos||[]);
@@ -2432,6 +2929,8 @@ async function loadData(){
     document.getElementById('nlist').innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">読み込みエラー（設定画面で再読み込みしてください）</div>';
     document.getElementById('tlist').innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">読み込みエラー（設定画面で再読み込みしてください）</div>';
     applyPortalConfig({});
+    _docCategories = [...DEFAULT_DOC_CATEGORIES];
+    renderDocCategoryControls();
     initHeroImage({});
     renderCal();
     renderCalEventList();
@@ -2684,10 +3183,12 @@ function applyPortalConfig(d){
   applyWorkorderOptionsFromData(d || {});
   if(d && d.members && d.members.length) _membersCache = d.members;
   applyNoticeTypesFromData(d || {});
+  applyTodoTagsFromData(d || {});
   renderStorageLinks();
   renderMembers(null);
   renderWorkorderOptionsSettings();
   refreshNoticeTypeSelect();
+  refreshTodoTagSelect();
   updateMembersCount();
 }
 
@@ -2767,6 +3268,9 @@ const NOTICE_TYPE_ICONS = [
   {v:'ti-flag', n:'フラグ'}
 ];
 let _noticeTypesCache = null;
+const TODO_TAGS_KEY = 'todo_tags_json';
+const DEFAULT_TODO_TAGS = ['出荷','在庫','IT','品質','安全','その他'];
+let _todoTagsCache = [...DEFAULT_TODO_TAGS];
 
 function normalizeNoticeType(t){
   return {
@@ -2818,6 +3322,86 @@ function refreshNoticeTypeSelect(){
     getLabel: t => t.label,
     defaultValue: def
   });
+}
+function normalizeTodoTags(list){
+  const src = Array.isArray(list) ? list : DEFAULT_TODO_TAGS;
+  const out = [];
+  src.forEach(v => {
+    const s = String(v || '').trim();
+    if(s && !out.includes(s)) out.push(s);
+  });
+  return out.length ? out : [...DEFAULT_TODO_TAGS];
+}
+function applyTodoTagsFromData(d){
+  const raw = d.settings && (d.settings[TODO_TAGS_KEY] || d.settings.todo_tags_json);
+  if(raw){
+    try{
+      const arr = typeof raw === 'string' ? JSON.parse(raw) : raw;
+      if(Array.isArray(arr) && arr.length){
+        _todoTagsCache = normalizeTodoTags(arr);
+        return;
+      }
+    }catch(e){}
+  }
+  _todoTagsCache = [...DEFAULT_TODO_TAGS];
+}
+function refreshTodoTagSelect(selected){
+  const sel = document.getElementById('t-tag');
+  if(!sel) return;
+  const list = normalizeTodoTags(_todoTagsCache);
+  const cur = selected || sel.value;
+  sel.innerHTML = `<option value="">タグ</option>` + list.map(t => `<option value="${escAttr(t)}">${esc(t)}</option>`).join('');
+  if(cur && list.includes(cur)) sel.value = cur;
+}
+function renderTodoTagSettings(){
+  const el = document.getElementById('s-todo-tag-list');
+  if(!el) return;
+  const list = normalizeTodoTags(_todoTagsCache);
+  el.innerHTML = list.map((tag, i) => `<div class="s-list-item" style="padding:8px 10px;">
+    <div class="s-list-item-body"><strong>${esc(tag)}</strong></div>
+    <button type="button" class="icon-del-btn" onclick="deleteTodoTag(${i}, this)" style="background:none;border:none;cursor:pointer;color:#dc2626;font-size:13px;padding:2px 8px;border-radius:4px;min-width:28px;min-height:28px;display:inline-flex;align-items:center;justify-content:center;" title="削除"><i class="ti ti-trash"></i></button>
+  </div>`).join('');
+}
+async function persistTodoTags(){
+  await gasPost({sheet:'設定_UPDATE', key:TODO_TAGS_KEY, value: JSON.stringify(normalizeTodoTags(_todoTagsCache))});
+}
+async function addTodoTag(btnEl){
+  const inp = document.getElementById('new-todo-tag');
+  const name = String(inp && inp.value || '').trim();
+  if(!name){ showToast('タグ名を入力してください'); return; }
+  const list = normalizeTodoTags(_todoTagsCache);
+  if(list.includes(name)){ showToast('同じタグがあります'); return; }
+  if(btnEl){ btnEl.disabled = true; btnEl.innerHTML = '<span class="btn-spinner"></span>追加中...'; }
+  _todoTagsCache = [...list, name];
+  try{
+    await persistTodoTags();
+    if(inp) inp.value = '';
+    refreshTodoTagSelect();
+    renderTodoTagSettings();
+    showToast(`TODOタグ「${name}」を追加しました`);
+  }catch(e){
+    showToast('エラー: '+e.message);
+  }finally{
+    if(btnEl){ btnEl.disabled = false; btnEl.innerHTML = '追加'; }
+  }
+}
+async function deleteTodoTag(i, btnEl){
+  const list = normalizeTodoTags(_todoTagsCache);
+  if(list.length <= 1){ showToast('タグは最低1つ必要です'); return; }
+  const target = list[i];
+  if(!target) return;
+  if(!confirm(`TODOタグ「${target}」を削除しますか？`)) return;
+  setIconDeleteLoading(btnEl, true);
+  _todoTagsCache = list.filter((_, idx) => idx !== i);
+  try{
+    await persistTodoTags();
+    refreshTodoTagSelect();
+    renderTodoTagSettings();
+    showToast(`TODOタグ「${target}」を削除しました`);
+  }catch(e){
+    showToast('エラー: '+e.message);
+    setIconDeleteLoading(btnEl, false);
+  }
 }
 function updateMembersCount(){
   const el = document.getElementById('members-section-title');
@@ -3988,9 +4572,81 @@ async function saveMember(i){
 }
 
 // ── 製造課ルール/手順書管理（GASスプレッドシート） ──
-const DOC_TYPE_ICON = {doc:'ti-file-text', xls:'ti-file-spreadsheet', pdf:'ti-file-description', rule:'ti-clipboard-list', manual:'ti-book'};
-const DOC_TYPE_COLOR = {doc:'#0078d4', xls:'#16a34a', pdf:'#dc2626', rule:'#7c3aed', manual:'#d97706'};
+const DOC_CATEGORIES_KEY = 'doc_categories_json';
+const DEFAULT_DOC_CATEGORIES = ['文書','Excel','PDF','ルール','マニュアル'];
+const LEGACY_DOC_TYPE_LABEL = {doc:'文書', xls:'Excel', pdf:'PDF', rule:'ルール', manual:'マニュアル'};
 let _docs = [];
+let _docCategories = [...DEFAULT_DOC_CATEGORIES];
+
+function normalizeDocCategories(list){
+  const src = Array.isArray(list) ? list : DEFAULT_DOC_CATEGORIES;
+  const out = [];
+  src.forEach(v => {
+    const s = String(v || '').trim();
+    if(s && !out.includes(s)) out.push(s);
+  });
+  return out.length ? out : [...DEFAULT_DOC_CATEGORIES];
+}
+function parseDocCategoriesFromSettings(d){
+  const settings = (d && d.settings) || {};
+  const raw = settings[DOC_CATEGORIES_KEY] || settings.doc_categories_json;
+  if(!raw){
+    _docCategories = [...DEFAULT_DOC_CATEGORIES];
+    return;
+  }
+  try{
+    const parsed = typeof raw === 'string' ? JSON.parse(raw) : raw;
+    _docCategories = normalizeDocCategories(parsed);
+  }catch(e){
+    _docCategories = [...DEFAULT_DOC_CATEGORIES];
+  }
+}
+function resolveDocCategoryLabel(type){
+  const key = String(type || '').trim();
+  return LEGACY_DOC_TYPE_LABEL[key] || key || '文書';
+}
+function docCategoryVisual(label){
+  const s = String(label || '').toLowerCase();
+  if(s.includes('excel') || s.includes('表')) return {icon:'ti-file-spreadsheet', color:'#16a34a'};
+  if(s.includes('pdf')) return {icon:'ti-file-description', color:'#dc2626'};
+  if(s.includes('ルール') || s.includes('rule')) return {icon:'ti-clipboard-list', color:'#7c3aed'};
+  if(s.includes('手順') || s.includes('manual')) return {icon:'ti-book', color:'#d97706'};
+  return {icon:'ti-file-text', color:'#0078d4'};
+}
+function renderDocCategoryControls(){
+  const sel = document.getElementById('doc-type');
+  const listEl = document.getElementById('doc-category-list');
+  if(sel){
+    const cur = sel.value;
+    sel.innerHTML = _docCategories.map(c => `<option value="${escAttr(c)}">${esc(c)}</option>`).join('');
+    if(cur && _docCategories.includes(cur)) sel.value = cur;
+    else if(_docCategories.length) sel.value = _docCategories[0];
+  }
+  if(listEl){
+    listEl.textContent = _docCategories.length ? `カテゴリ: ${_docCategories.join(' / ')}` : 'カテゴリ未設定';
+  }
+}
+async function persistDocCategories(){
+  await gasPost({sheet:'設定_UPDATE', key:DOC_CATEGORIES_KEY, value: JSON.stringify(_docCategories)});
+}
+async function addDocCategory(btnEl){
+  const inp = document.getElementById('new-doc-category');
+  const name = String(inp && inp.value || '').trim();
+  if(!name){ showToast('カテゴリ名を入力してください'); return; }
+  if(_docCategories.includes(name)){ showToast('同じカテゴリがあります'); return; }
+  if(btnEl){ btnEl.disabled = true; btnEl.innerHTML = '<span class="btn-spinner"></span>追加中...'; }
+  _docCategories.push(name);
+  try{
+    await persistDocCategories();
+    if(inp) inp.value = '';
+    renderDocCategoryControls();
+    showToast(`カテゴリ「${name}」を追加しました`);
+  }catch(e){
+    showToast('エラー: '+e.message);
+  }finally{
+    if(btnEl){ btnEl.disabled = false; btnEl.innerHTML = 'カテゴリ追加'; }
+  }
+}
 
 async function addDoc(){
   const btn = document.querySelector('[onclick="addDoc()"]');
@@ -3998,7 +4654,7 @@ async function addDoc(){
   if(btn){ btn.disabled=true; btn.innerHTML='<span class="btn-spinner"></span>追加中...'; }
   const name = document.getElementById('doc-name').value.trim();
   const url = document.getElementById('doc-url').value.trim();
-  const type = document.getElementById('doc-type').value;
+  const type = resolveDocCategoryLabel(document.getElementById('doc-type').value);
   const date = document.getElementById('doc-date').value.trim();
   if(!name||!url){
     showToast('ファイル名とURLを入力してください');
@@ -4055,25 +4711,25 @@ function renderDocs(docs){
   // ポータル表示
   if(el){
     el.innerHTML = visibleDocs.map(d=>{
-      const icon = DOC_TYPE_ICON[d.type]||'ti-file-text';
-      const col = DOC_TYPE_COLOR[d.type]||'#0078d4';
+      const typeLabel = resolveDocCategoryLabel(d.type);
+      const vis = docCategoryVisual(typeLabel);
       return `<a class="doc-row" href="${esc(String(d.url))}" target="_blank">
-        <i class="ti ${icon}" style="color:${col};"></i>
+        <i class="ti ${vis.icon}" style="color:${vis.color};"></i>
         <div class="doc-name">${esc(d.name)}</div>
-        <div class="doc-date">${esc(String(d.date||''))}</div>
+        <div class="doc-date">${esc(typeLabel)}${d.date ? ` / ${esc(String(d.date))}` : ''}</div>
       </a>`;
     }).join('');
   }
   // 設定画面表示
   if(sel){
     sel.innerHTML = visibleDocs.map((d)=>{
-      const icon = DOC_TYPE_ICON[d.type]||'ti-file-text';
-      const col = DOC_TYPE_COLOR[d.type]||'#0078d4';
+      const typeLabel = resolveDocCategoryLabel(d.type);
+      const vis = docCategoryVisual(typeLabel);
       return `<div class="s-list-item">
-        <i class="ti ${icon}" style="color:${col};font-size:16px;flex-shrink:0;"></i>
+        <i class="ti ${vis.icon}" style="color:${vis.color};font-size:16px;flex-shrink:0;"></i>
         <div class="s-list-item-body">
           <strong>${esc(d.name)}</strong>
-          <div class="s-list-item-meta">${esc(String(d.date||''))}</div>
+          <div class="s-list-item-meta">${esc(typeLabel)}${d.date ? ` / ${esc(String(d.date))}` : ''}</div>
         </div>
         <button type="button" class="icon-del-btn" onclick="deleteDoc(${d._idx}, this)" style="background:none;border:none;cursor:pointer;color:#dc2626;font-size:13px;padding:2px 8px;border-radius:4px;min-width:28px;min-height:28px;display:inline-flex;align-items:center;justify-content:center;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'" title="削除">
           <i class="ti ti-trash"></i>
@@ -4114,14 +4770,14 @@ function updateHeroPreview(url){
   if(inp) inp.value = url || '';
 }
 
-async function saveHeroUrl(){
-  const btn = document.querySelector('[onclick="saveHeroUrl()"]');
+async function saveHeroUrl(btnEl){
+  const btn = btnEl || document.querySelector('[onclick="saveHeroUrl(this)"]');
   if(btn && btn.disabled) return;
-  if(btn){ btn.disabled=true; btn.innerHTML='<span class="btn-spinner"></span>保存中...'; }
+  setAdminActionLoading(btn, true, '保存中...');
   const url = document.getElementById('hero-url-input').value.trim();
   if(!url){
     showToast('URLを入力してください');
-    if(btn){ btn.disabled=false; btn.innerHTML='適用'; }
+    setAdminActionLoading(btn, false);
     return;
   }
   try{
@@ -4130,16 +4786,19 @@ async function saveHeroUrl(){
     updateHeroPreview(url);
     showToast('ヒーロー画像を変更しました（全員に反映されます）');
   }catch(e){ showToast('エラー: '+e.message); }
-  finally{ if(btn){ btn.disabled=false; btn.innerHTML='適用'; } }
+  finally{ setAdminActionLoading(btn, false); }
 }
 
-async function resetHeroUrl(){
+async function resetHeroUrl(btnEl){
+  if(btnEl && btnEl.disabled) return;
+  setAdminActionLoading(btnEl, true, 'リセット中...');
   try{
     await gasPost({sheet:'設定_UPDATE', key:'hero_img_url', value:DEFAULT_HERO});
     applyHeroImage(DEFAULT_HERO);
     updateHeroPreview(DEFAULT_HERO);
     showToast('デフォルト画像に戻しました');
   }catch(e){ showToast('エラー: '+e.message); }
+  finally{ setAdminActionLoading(btnEl, false); }
 }
 
 // ── カレンダーイベント管理（GASスプレッドシート） ──
@@ -4421,8 +5080,13 @@ onImageToolRuleChange();
 onImageToolFilesChange();
 renderCal();
 refreshNoticeTypeSelect();
+refreshTodoTagSelect();
 refreshMemberSelects();
-loadData();
+renderDocCategoryControls();
+sanitizeSalesforceQuickLinkOptions();
+loadData().finally(() => {
+  // ホーム単独表示は新規ウィンドウ注入方式へ切替済み
+});
 </script>
 </body>
 </html>
