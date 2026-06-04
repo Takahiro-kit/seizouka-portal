@@ -42,6 +42,12 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
 .nav.collapsed .nav-item span{display:none;}
 .nav.collapsed .nav-item{padding:12px 16px;justify-content:center;gap:0;}
 .nav-item-label{white-space:nowrap;}
+.nav-settings-links{display:none;}
+body.settings-mode .nav-home-links{display:none;}
+body.settings-mode .nav-settings-links{display:block;}
+.nav-settings-head{padding:10px 14px 6px;font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.05em;}
+.nav-settings-links .nav-item{font-size:13px;padding:9px 14px;}
+.nav-item.nav-temp-active{background:#e8f0fe;color:var(--blue);font-weight:600;}
 .nav-divider{height:1px;background:var(--border);margin:5px 0;}
 .nav.collapsed .nav-divider{margin:5px 8px;}
 
@@ -657,22 +663,45 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
     </button>
   </div>
   <div class="nav-body">
-    <a class="nav-item active" onclick="goHome('top')"><i class="ti ti-home"></i><span class="nav-item-label">ホーム</span></a>
-    <a class="nav-item" onclick="goHome('weblinks')"><i class="ti ti-link"></i><span class="nav-item-label">Webリンク</span></a>
-    <a class="nav-item" onclick="goHome('mgmt')"><i class="ti ti-table"></i><span class="nav-item-label">管理表</span></a>
-    <a class="nav-item" onclick="goHome('notice-only')"><i class="ti ti-speakerphone"></i><span class="nav-item-label">課内連絡</span></a>
-    <a class="nav-item" onclick="goHome('todo-section')"><i class="ti ti-checkbox"></i><span class="nav-item-label">ToDo</span></a>
-    <a class="nav-item" onclick="goHome('docs')"><i class="ti ti-book"></i><span class="nav-item-label">手順書・ルール</span></a>
-    <a class="nav-item" onclick="goHome('storage')"><i class="ti ti-folder"></i><span class="nav-item-label">共有ファイル</span></a>
-    <a class="nav-item" onclick="goHome('img-tools')"><i class="ti ti-photo-edit"></i><span class="nav-item-label">画像圧縮</span></a>
-    <a class="nav-item" onclick="goHome('forms-section')"><i class="ti ti-forms"></i><span class="nav-item-label">フォーム</span></a>
-    <a class="nav-item" onclick="goHome('calendar-section')"><i class="ti ti-calendar"></i><span class="nav-item-label">カレンダー</span></a>
-    <a class="nav-item" onclick="goHome('members-section')"><i class="ti ti-users"></i><span class="nav-item-label">メンバー</span></a>
+    <div class="nav-home-links">
+      <a class="nav-item active" onclick="goHome('top')"><i class="ti ti-home"></i><span class="nav-item-label">ホーム</span></a>
+      <a class="nav-item" onclick="goHome('weblinks')"><i class="ti ti-link"></i><span class="nav-item-label">Webリンク</span></a>
+      <a class="nav-item" onclick="goHome('mgmt')"><i class="ti ti-table"></i><span class="nav-item-label">管理表</span></a>
+      <a class="nav-item" onclick="goHome('notice-only')"><i class="ti ti-speakerphone"></i><span class="nav-item-label">課内連絡</span></a>
+      <a class="nav-item" onclick="goHome('todo-section')"><i class="ti ti-checkbox"></i><span class="nav-item-label">ToDo</span></a>
+      <a class="nav-item" onclick="goHome('docs')"><i class="ti ti-book"></i><span class="nav-item-label">手順書・ルール</span></a>
+      <a class="nav-item" onclick="goHome('storage')"><i class="ti ti-folder"></i><span class="nav-item-label">共有ファイル</span></a>
+      <a class="nav-item" onclick="goHome('img-tools')"><i class="ti ti-photo-edit"></i><span class="nav-item-label">画像圧縮</span></a>
+      <a class="nav-item" onclick="goHome('forms-section')"><i class="ti ti-forms"></i><span class="nav-item-label">フォーム</span></a>
+      <a class="nav-item" onclick="goHome('data-section')"><i class="ti ti-database"></i><span class="nav-item-label">データ</span></a>
+      <a class="nav-item" onclick="goHome('calendar-section')"><i class="ti ti-calendar"></i><span class="nav-item-label">カレンダー</span></a>
+      <a class="nav-item" onclick="goHome('members-section')"><i class="ti ti-users"></i><span class="nav-item-label">メンバー</span></a>
+    </div>
+    <div class="nav-settings-links" id="settings-nav-links">
+      <button class="nav-item" onclick="goHome('top')"><i class="ti ti-home"></i><span class="nav-item-label">ホームへ戻る</span></button>
+      <div class="nav-settings-head">設定カテゴリ</div>
+      <button class="nav-item" data-settings-target="sec-settings-lock" onclick="goSettingsSection('sec-settings-lock')"><i class="ti ti-lock"></i><span class="nav-item-label">設定画面ロック</span></button>
+      <button class="nav-item" data-settings-target="sec-admin-lock" onclick="goSettingsSection('sec-admin-lock')"><i class="ti ti-shield-lock"></i><span class="nav-item-label">管理者ロック</span></button>
+      <button class="nav-item" data-settings-target="sec-shukka-update" onclick="goSettingsSection('sec-shukka-update')"><i class="ti ti-file-upload"></i><span class="nav-item-label">出荷連絡表更新</span></button>
+      <button class="nav-item" data-settings-target="sec-schedule-update" onclick="goSettingsSection('sec-schedule-update')"><i class="ti ti-calendar-up"></i><span class="nav-item-label">スケジュール更新</span></button>
+      <button class="nav-item" data-settings-target="sec-notice-manage" onclick="goSettingsSection('sec-notice-manage')"><i class="ti ti-speakerphone"></i><span class="nav-item-label">課内連絡管理</span></button>
+      <button class="nav-item" data-settings-target="sec-todo-manage" onclick="goSettingsSection('sec-todo-manage')"><i class="ti ti-checkbox"></i><span class="nav-item-label">TODO管理</span></button>
+      <button class="nav-item" data-settings-target="sec-holiday" onclick="goSettingsSection('sec-holiday')"><i class="ti ti-calendar-off"></i><span class="nav-item-label">休日管理</span></button>
+      <button class="nav-item" data-settings-target="sec-storage" onclick="goSettingsSection('sec-storage')"><i class="ti ti-folder"></i><span class="nav-item-label">共有ファイル管理</span></button>
+      <button class="nav-item" data-settings-target="sec-data-reload" onclick="goSettingsSection('sec-data-reload')"><i class="ti ti-refresh"></i><span class="nav-item-label">データ再読み込み</span></button>
+      <button class="nav-item" data-settings-target="sec-hero-image" onclick="goSettingsSection('sec-hero-image')"><i class="ti ti-photo"></i><span class="nav-item-label">ヒーロー画像</span></button>
+      <button class="nav-item" data-settings-target="sec-docs" onclick="goSettingsSection('sec-docs')"><i class="ti ti-book"></i><span class="nav-item-label">手順書管理</span></button>
+      <button class="nav-item" data-settings-target="sec-notice-tags" onclick="goSettingsSection('sec-notice-tags')"><i class="ti ti-tags"></i><span class="nav-item-label">連絡タグ管理</span></button>
+      <button class="nav-item" data-settings-target="sec-members" onclick="goSettingsSection('sec-members')"><i class="ti ti-users"></i><span class="nav-item-label">メンバータグ</span></button>
+      <button class="nav-item" data-settings-target="sec-workorder-options" onclick="goSettingsSection('sec-workorder-options')"><i class="ti ti-file-description"></i><span class="nav-item-label">作業指示設定</span></button>
+      <button class="nav-item" data-settings-target="sec-member-pages" onclick="goSettingsSection('sec-member-pages')"><i class="ti ti-user-cog"></i><span class="nav-item-label">専用ページ設定</span></button>
+      <button class="nav-item" data-settings-target="sec-calendar-events" onclick="goSettingsSection('sec-calendar-events')"><i class="ti ti-calendar-event"></i><span class="nav-item-label">イベント管理</span></button>
+    </div>
   </div>
   <div class="nav-bottom">
-    <button class="nav-item" onclick="showPage('admin')"><i class="ti ti-shield-lock"></i><span class="nav-item-label">管理者ページ</span></button>
+    <button class="nav-item" id="nav-open-admin" onclick="showPage('admin')"><i class="ti ti-shield-lock"></i><span class="nav-item-label">管理者ページ</span></button>
     <div class="nav-divider"></div>
-    <button class="nav-item" onclick="showPage('settings')"><i class="ti ti-settings-2"></i><span class="nav-item-label">設定</span></button>
+    <button class="nav-item" id="nav-open-settings" onclick="showPage('settings')"><i class="ti ti-settings-2"></i><span class="nav-item-label">設定</span></button>
   </div>
 </nav>
 
@@ -699,6 +728,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
             <a class="hero-btn" onclick="goHome('storage')"><i class="ti ti-folder"></i>共有ファイル</a>
             <a class="hero-btn" onclick="goHome('img-tools')"><i class="ti ti-photo-edit"></i>画像圧縮</a>
             <a class="hero-btn" onclick="goHome('forms-section')"><i class="ti ti-forms"></i>フォーム</a>
+            <a class="hero-btn" onclick="goHome('data-section')"><i class="ti ti-database"></i>データ</a>
             <a class="hero-btn" onclick="goHome('calendar-section')"><i class="ti ti-calendar"></i>カレンダー</a>
             <a class="hero-btn" onclick="goHome('members-section')"><i class="ti ti-users"></i>メンバー</a>
             <a class="hero-btn" onclick="showPage('admin')"><i class="ti ti-shield-lock"></i>管理者ページ</a>
@@ -891,10 +921,20 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
             <a class="form-tile" href="https://docs.google.com/forms/d/e/1FAIpQLSfbyv5Qxxjc2dUoQN5PrxVp9sv6xsGz5y621PzwOFy2dDQZQA/viewform" target="_blank" rel="noopener noreferrer">
               <i class="ti ti-map-pin"></i><span class="form-tile-label">現地報告</span>
             </a>
-            <a class="form-tile" href="https://docs.google.com/spreadsheets/d/1GkeEID98CWGPz_h2UtXP7yzdSi_X9jzJ9ofoZtbZuXQ/edit?gid=1570059078#gid=1570059078" target="_blank" rel="noopener noreferrer">
-              <i class="ti ti-file-spreadsheet"></i><span class="form-tile-label">製造課_作業指示書データ</span>
-            </a>
 
+          </div>
+        </div>
+
+        <!-- データ -->
+        <div class="card" id="data-section" style="padding:0;margin-bottom:20px;">
+          <div class="card-hdr"><div class="card-title"><i class="ti ti-database"></i>データ</div></div>
+          <div class="form-grid">
+            <a class="form-tile" href="https://docs.google.com/spreadsheets/d/1GkeEID98CWGPz_h2UtXP7yzdSi_X9jzJ9ofoZtbZuXQ/edit?gid=1570059078#gid=1570059078" target="_blank" rel="noopener noreferrer">
+              <i class="ti ti-file-spreadsheet"></i><span class="form-tile-label">作業指示データ</span>
+            </a>
+            <a class="form-tile" href="https://docs.google.com/spreadsheets/d/1NpPRRbv5rFVYGQWZzAuuM5urJpZkUL3QBa2e8-nQwBA/edit?gid=1258037297#gid=1258037297" target="_blank" rel="noopener noreferrer">
+              <i class="ti ti-file-spreadsheet"></i><span class="form-tile-label">運送手配データ</span>
+            </a>
           </div>
         </div>
 
@@ -948,7 +988,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
       <div class="settings-h1">⚙️ 設定</div>
       <div class="settings-sub">ポータルサイトの各種設定を管理します。</div>
 
-      <div class="s-sec">
+      <div class="s-sec" id="sec-settings-lock">
         <div class="s-sec-hdr">
           <div class="s-sec-title">🔐 設定画面のロック</div>
           <div class="s-sec-desc">GASで全ユーザー共通管理します。未設定ならロックなし。</div>
@@ -964,7 +1004,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
         </div>
       </div>
 
-      <div class="s-sec">
+      <div class="s-sec" id="sec-admin-lock">
         <div class="s-sec-hdr">
           <div class="s-sec-title">🛡️ 管理者ページロック設定</div>
           <div class="s-sec-desc">管理者ページのパスワードはここで設定します（入力画面は管理者ページ側に表示）。</div>
@@ -984,7 +1024,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
       </div>
 
       <!-- 出荷連絡表アップロード -->
-      <div class="s-sec">
+      <div class="s-sec" id="sec-shukka-update">
         <div class="s-sec-hdr">
           <div class="s-sec-title">📊 出荷連絡表の更新</div>
           <div class="s-sec-desc">ファイルを選択すると「出荷連絡表.xlsx」に自動リネームしてダウンロードします。SharePointに上書きアップしてください。</div>
@@ -1009,7 +1049,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
       </div>
 
       <!-- スケジュールビューア更新 -->
-      <div class="s-sec">
+      <div class="s-sec" id="sec-schedule-update">
         <div class="s-sec-hdr"><div class="s-sec-title">📅 スケジュールビューア更新</div></div>
         <div class="s-row">
           <div class="s-row-icon"><i class="ti ti-refresh"></i></div>
@@ -1024,7 +1064,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
       </div>
 
       <!-- データ管理 -->
-      <div class="s-sec">
+      <div class="s-sec" id="sec-notice-manage">
         <div class="s-sec-hdr">
           <div class="s-sec-title">🗑️ 課内連絡の管理</div>
           <div class="s-sec-desc">削除したい投稿にチェックを入れて「削除」を押してください。スプレッドシートからも完全に削除されます（取り消せません）。</div>
@@ -1039,7 +1079,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
         </div>
       </div>
 
-      <div class="s-sec">
+      <div class="s-sec" id="sec-todo-manage">
         <div class="s-sec-hdr">
           <div class="s-sec-title">🗑️ TODOの管理</div>
           <div class="s-sec-desc">削除したいタスクにチェックを入れて「削除」を押してください。スプレッドシートからも完全に削除されます（取り消せません）。</div>
@@ -1055,7 +1095,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
       </div>
 
       <!-- 休日管理 -->
-      <div class="s-sec">
+      <div class="s-sec" id="sec-holiday">
         <div class="s-sec-hdr">
           <div class="s-sec-title">🔴 休日管理</div>
           <div class="s-sec-desc">休日（赤表示）を追加・削除できます。必要時は標準の土日祝データにリセットできます。</div>
@@ -1076,7 +1116,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
       </div>
 
       <!-- 共有ファイル管理 -->
-      <div class="s-sec">
+      <div class="s-sec" id="sec-storage">
         <div class="s-sec-hdr">
           <div class="s-sec-title">🗂️ 共有ファイル管理</div>
           <div class="s-sec-desc">ホームの「共有ファイル / ストレージ」を追加・編集・削除できます（全ユーザー共通）。</div>
@@ -1102,7 +1142,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
       </div>
 
       <!-- データ再読み込み -->
-      <div class="s-sec">
+      <div class="s-sec" id="sec-data-reload">
         <div class="s-sec-hdr">
           <div class="s-sec-title">🔄 データ再読み込み</div>
           <div class="s-sec-desc">portal.htmlを更新した際に押してください。スプレッドシートから最新データを取得します。</div>
@@ -1122,7 +1162,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
       </div>
 
       <!-- ヒーロー画像設定 -->
-      <div class="s-sec">
+      <div class="s-sec" id="sec-hero-image">
         <div class="s-sec-hdr">
           <div class="s-sec-title">🖼️ ヒーロー画像の変更</div>
           <div class="s-sec-desc">ヒーローエリアの画像URLを入力してください。Unsplashの画像URLが使えます。</div>
@@ -1143,7 +1183,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
       </div>
 
       <!-- 手順書管理 -->
-      <div class="s-sec">
+      <div class="s-sec" id="sec-docs">
         <div class="s-sec-hdr">
           <div class="s-sec-title">📄 製造課ルール / 手順書の管理</div>
           <div class="s-sec-desc">ファイル名とSharePointのURLを登録すると手順書一覧に表示されます。</div>
@@ -1178,7 +1218,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
       </div>
 
       <!-- 課内連絡種別（重要・連絡・完了など） -->
-      <div class="s-sec">
+      <div class="s-sec" id="sec-notice-tags">
         <div class="s-sec-hdr">
           <div class="s-sec-title">🏷️ 課内連絡の種別タグ</div>
           <div class="s-sec-desc">「重要」「連絡」「完了」などの種別を追加・編集できます。GASに保存され、HTMLを更新すると全員に反映されます。</div>
@@ -1202,7 +1242,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
       </div>
 
       <!-- メンバー管理（課内連絡・ToDoのメンバータグ） -->
-      <div class="s-sec">
+      <div class="s-sec" id="sec-members">
         <div class="s-sec-hdr">
           <div class="s-sec-title">👥 メンバータグ管理</div>
           <div class="s-sec-desc">投稿者・担当者タグの名前と色を編集できます。GASに保存され、portal.htmlを更新すると自動で読み込まれます。</div>
@@ -1220,7 +1260,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
         <div id="s-member-list" style="max-height:600px;overflow-y:auto;"></div>
       </div>
 
-      <div class="s-sec">
+      <div class="s-sec" id="sec-workorder-options">
         <div class="s-sec-hdr">
           <div class="s-sec-title">🧾 作業指示書の選択肢設定</div>
           <div class="s-sec-desc">作業部署・作業場所のプルダウン候補を追加/削除できます（作業指示書ページに反映）。</div>
@@ -1266,7 +1306,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
       </div>
 
       <!-- メンバー専用ページ設定 -->
-      <div class="s-sec">
+      <div class="s-sec" id="sec-member-pages">
         <div class="s-sec-hdr">
           <div class="s-sec-title">🔐 メンバー専用ページ設定</div>
           <div class="s-sec-desc">入力は各メンバー専用ページで行います。ここでは設定状況を確認できます（全ユーザー共通）。</div>
@@ -1277,7 +1317,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
       </div>
 
       <!-- カレンダーイベント管理 -->
-      <div class="s-sec">
+      <div class="s-sec" id="sec-calendar-events">
         <div class="s-sec-hdr">
           <div class="s-sec-title">📅 カレンダーイベント管理</div>
           <div class="s-sec-desc">展示会・決起会・大掃除・全体会議を追加・削除できます（休日は上の休日管理で操作）。</div>
@@ -1382,6 +1422,7 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
                   <option value="https://signin.autodesk.com/?flowId=DqTWWTAqND">Autodesk</option>
                   <option value="https://adminconsole.adobe.com/CEA421CF6940FB960A495FFD@AdobeOrg/overview">Adobe admin console</option>
                   <option value="https://qst05-ism.cloud-one.net/ismc-user/#/">ismCloudOne</option>
+                  <option value="https://activemail.kagoyamail.jp/">kagoya Active! mail</option>
                 </select>
               </div>
             </div>
@@ -1558,6 +1599,7 @@ function toggleNav(){
   icon.className = collapsed ? 'ti ti-layout-sidebar-left-expand' : 'ti ti-layout-sidebar-left-collapse';
 }
 function goHome(id){
+  document.body.classList.remove('settings-mode');
   // 設定画面など別ページにいる場合はhomeに戻ってからスクロール
   const homePage = document.getElementById('page-home');
   if(!homePage.classList.contains('active')){
@@ -1600,6 +1642,35 @@ function navScroll(id){
     el.classList.add('section-highlight');
     setTimeout(()=>el.classList.remove('section-highlight'), 2000);
   }, 400);
+}
+function pulseSettingsNavItem(targetId){
+  const links = document.querySelectorAll('#settings-nav-links .nav-item[data-settings-target]');
+  links.forEach(b => b.classList.remove('nav-temp-active'));
+  if(!targetId) return;
+  const cur = document.querySelector(`#settings-nav-links .nav-item[data-settings-target="${targetId}"]`);
+  if(!cur) return;
+  cur.classList.add('nav-temp-active');
+  setTimeout(()=>cur.classList.remove('nav-temp-active'), 800);
+}
+function goSettingsSection(targetId){
+  const settingsPage = document.getElementById('page-settings');
+  if(!settingsPage || !targetId) return;
+  if(!settingsPage.classList.contains('active')){
+    showPage('settings');
+    setTimeout(()=>goSettingsSection(targetId), 120);
+    return;
+  }
+  const el = document.getElementById(targetId);
+  if(!el) return;
+  const paneRect = settingsPage.getBoundingClientRect();
+  const targetRect = el.getBoundingClientRect();
+  const offset = settingsPage.scrollTop + (targetRect.top - paneRect.top) - 24;
+  settingsPage.scrollTo({top: Math.max(0, offset), behavior:'smooth'});
+  pulseSettingsNavItem(targetId);
+  setTimeout(()=>{
+    el.classList.add('section-highlight');
+    setTimeout(()=>el.classList.remove('section-highlight'), 2000);
+  }, 200);
 }
 const SETTINGS_PASS_GLOBAL_KEY='settings_page_password';
 const ADMIN_PAGE_PASSWORD_KEY='admin_page_password';
@@ -1860,6 +1931,7 @@ async function clearGlobalSettingsPassword(){
 }
 function showPage(name){
   if(name==='settings' && !requestSettingsAccess()) return;
+  document.body.classList.toggle('settings-mode', name==='settings');
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   // navのactive更新
@@ -1870,8 +1942,8 @@ function showPage(name){
     window.scrollTo({top:0,left:0,behavior:'auto'});
     const sp = document.getElementById('page-settings');
     if(sp) sp.scrollTop = 0;
-    const btns = document.querySelectorAll('.nav-item');
-    btns.forEach(b=>{ if(b.textContent.includes('設定')) b.classList.add('active'); });
+    const settingsNavBtn = document.getElementById('nav-open-settings');
+    if(settingsNavBtn) settingsNavBtn.classList.add('active');
     refreshSettingsLockStatus();
     refreshAdminLockStatus();
     renderSettingsLists();
@@ -1889,8 +1961,8 @@ function showPage(name){
     window.scrollTo({top:0,left:0,behavior:'auto'});
     const ap = document.getElementById('page-admin');
     if(ap) ap.scrollTop = 0;
-    const btns = document.querySelectorAll('.nav-item');
-    btns.forEach(b=>{ if(b.textContent.includes('管理者ページ')) b.classList.add('active'); });
+    const adminNavBtn = document.getElementById('nav-open-admin');
+    if(adminNavBtn) adminNavBtn.classList.add('active');
     renderAdminVisibility();
   } else if(name==='member'){
     // メンバーページ中はサイドナビのactiveを付けない

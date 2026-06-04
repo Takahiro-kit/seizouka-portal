@@ -37,6 +37,9 @@
     .field label{font-size:13px;font-weight:800;color:var(--muted);white-space:nowrap}
     .inp{border:1px solid #cbd5e1;border-radius:6px;padding:9px 11px;font-size:15px;font-family:inherit;background:#fff;outline:none}
     .inp:focus{border-color:var(--blue)}
+    .inline-group{display:flex;gap:8px;align-items:center}
+    .inline-group .short{max-width:120px}
+    .inline-group .pick{max-width:210px}
     .paper-wrap{padding:18px;background:#e2e8f0;overflow:auto;max-height:calc(100vh - 190px)}
     .paper{width:100%;max-width:198mm;min-height:277mm;background:#fff;margin:0 auto;border:1px solid #cbd5e1;box-shadow:0 4px 24px rgba(15,23,42,.12);padding:5mm;box-sizing:border-box}
     .sheet-title{
@@ -156,30 +159,89 @@
           <div class="field"><label>送付枚数</label><input id="pages" class="inp" type="text" value="1" oninput="renderPreview()"></div>
           <div class="field"><label>連絡先TEL</label><input id="contactNo" class="inp" type="text" value="052-383-4622" oninput="renderPreview()"></div>
           <div class="field"><label>要件</label><input id="subject" class="inp" type="text" value="配車依頼" oninput="renderPreview()"></div>
-          <div class="field"><label>案件番号</label><input id="caseNo" class="inp" type="text" placeholder="FK****" oninput="onCaseNoInput();renderPreview()"></div>
-          <div class="field"><label>依頼元担当</label><input id="sender" class="inp" type="text" placeholder="発送担当者名" oninput="renderPreview()"></div>
-          <div class="field"><label>手配先</label><input id="toCompany" class="inp" type="text" value="上組陸運株式会社 名古屋支店" oninput="renderPreview()"></div>
           <div class="field">
-            <label>先方ご担当者（複数可）</label>
-            <textarea id="toPerson" class="inp" rows="2" placeholder="遠山 様&#10;田中 様" oninput="renderPreview()"></textarea>
+            <label>案件番号</label>
+            <div class="inline-group">
+              <select id="casePrefix" class="inp short" onchange="onCaseNoInput();renderPreview()">
+                <option value="FK">FK</option>
+                <option value="FX">FX</option>
+                <option value="FS">FS</option>
+                <option value="FA">FA</option>
+              </select>
+              <input id="caseNo" class="inp" type="text" placeholder="0000" oninput="onCaseNoInput();renderPreview()">
+            </div>
+          </div>
+          <div class="field">
+            <label>依頼元担当</label>
+            <select id="sender" class="inp" onchange="renderPreview()">
+              <option value="">選択してください</option>
+              <option value="鬼頭 貴広">鬼頭 貴広</option>
+              <option value="佐藤 慎祐">佐藤 慎祐</option>
+              <option value="喜多 健二">喜多 健二</option>
+              <option value="山下 英則">山下 英則</option>
+              <option value="山﨑 裕真">山﨑 裕真</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>手配先</label>
+            <div style="display:grid;grid-template-columns:1fr;gap:6px;">
+              <select id="toCompanyPick" class="inp pick" onchange="applyPresetValue(this,'toCompany')">
+                <option value="">候補から選択</option>
+                <option value="上組陸運株式会社 名古屋支店">上組陸運株式会社 名古屋支店</option>
+              </select>
+              <input id="toCompany" class="inp" type="text" value="上組陸運株式会社 名古屋支店" oninput="renderPreview()">
+            </div>
+          </div>
+          <div class="field">
+            <label>担当者（最大3名）</label>
+            <div style="display:grid;grid-template-columns:1fr;gap:6px;">
+              <div class="inline-group">
+                <select id="toPerson1Pick" class="inp pick" onchange="applyPresetValue(this,'toPerson1')">
+                  <option value="">候補から選択</option>
+                  <option value="和田">和田</option>
+                  <option value="遠山">遠山</option>
+                  <option value="福本">福本</option>
+                </select>
+                <input id="toPerson1" class="inp" type="text" placeholder="担当者1（敬称不要）" oninput="renderPreview()">
+              </div>
+              <div class="inline-group">
+                <select id="toPerson2Pick" class="inp pick" onchange="applyPresetValue(this,'toPerson2')">
+                  <option value="">候補から選択</option>
+                  <option value="和田">和田</option>
+                  <option value="遠山">遠山</option>
+                  <option value="福本">福本</option>
+                </select>
+                <input id="toPerson2" class="inp" type="text" placeholder="担当者2（敬称不要）" oninput="renderPreview()">
+              </div>
+              <div class="inline-group">
+                <select id="toPerson3Pick" class="inp pick" onchange="applyPresetValue(this,'toPerson3')">
+                  <option value="">候補から選択</option>
+                  <option value="和田">和田</option>
+                  <option value="遠山">遠山</option>
+                  <option value="福本">福本</option>
+                </select>
+                <input id="toPerson3" class="inp" type="text" placeholder="担当者3（敬称不要）" oninput="renderPreview()">
+              </div>
+            </div>
           </div>
           <div class="field">
             <label>手配車両</label>
             <select id="vehicle" class="inp" onchange="renderPreview()">
               <option value="4ｔ平車" selected>4ｔ平車</option>
-              <option value="10ｔ平車">10ｔ平車</option>
-              <option value="4ｔユニック">4ｔユニック</option>
+              <option value="4ｔユニック車">4ｔユニック車</option>
               <option value="4ｔパワーゲート車">4ｔパワーゲート車</option>
+              <option value="10ｔ平車">10ｔ平車</option>
+              <option value="10ｔユニック車">10ｔユニック車</option>
             </select>
           </div>
-          <div class="field"><label>出荷元日時</label><input id="loadAt" class="inp" type="datetime-local" oninput="renderPreview()"></div>
+          <div class="field"><label>集荷日時</label><input id="loadAt" class="inp" type="datetime-local" oninput="renderPreview()"></div>
           <div class="field full"><label>出荷元場所</label><textarea id="loadPlace" class="inp" rows="3" oninput="renderPreview()">〒454-0872 名古屋市中川区上高畑１丁目１番地 ジェイピーネクスト㈱ テックセンタ</textarea></div>
           <div class="field"><label>出荷元担当者</label><input id="loadPerson" class="inp" type="text" value="鬼頭 貴広" oninput="renderPreview()"></div>
           <div class="field"><label>出荷元TEL</label><input id="loadTel" class="inp" type="text" value="090-7863-5701" oninput="renderPreview()"></div>
-          <div class="field"><label>配送先日時</label><input id="unloadAt" class="inp" type="text" placeholder="2026/06/05(金) AM9:00頃" oninput="renderPreview()"></div>
+          <div class="field"><label>配送日時</label><input id="unloadAt" class="inp" type="datetime-local" oninput="renderPreview()"></div>
           <div class="field"><label>配送先TEL</label><input id="unloadTel" class="inp" type="text" placeholder="000-000-0000" oninput="renderPreview()"></div>
           <div class="field full"><label>配送先場所</label><textarea id="unloadPlace" class="inp" rows="3" placeholder="〒000-0000 住所 発送先名" oninput="renderPreview()"></textarea></div>
-          <div class="field"><label>配送先担当者</label><input id="unloadPerson" class="inp" type="text" placeholder="ご担当者様名 様宛" oninput="renderPreview()"></div>
+          <div class="field"><label>配送先担当者</label><input id="unloadPerson" class="inp" type="text" placeholder="ご担当者名（敬称不要）" oninput="renderPreview()"></div>
         </div>
       </div>
       <div class="card">
@@ -199,7 +261,7 @@
                 <td class="value" colspan="3"><span class="red" id="pToCompany"></span></td>
               </tr>
               <tr>
-                <td class="label">先方ご担当者</td>
+                <td class="label">担当者</td>
                 <td class="value"><span class="red multiline-person" id="pToPersonTop"></span></td>
                 <td class="label">送付枚数</td>
                 <td class="value"><span class="red" id="pPages"></span> 枚（本頁含）</td>
@@ -219,7 +281,7 @@
             </div>
 
             <div class="section-card">
-              <div class="section-head">ご依頼内容</div>
+              <div class="section-head">依頼内容</div>
               <div class="section-body">
                 <table class="info-table">
                   <tr>
@@ -348,13 +410,47 @@
       if(m2) return `${m2[1]}-${m2[2]}-${m2[3]}T${String(m2[4]).padStart(2,"0")}:${m2[5]}`;
       return "";
     }
+    function honorific(name){
+      const s = String(name || "").trim();
+      if(!s) return "";
+      return s.endsWith("様") ? s : `${s} 様`;
+    }
+    function stripHonorific(name){
+      return String(name || "").replace(/\s*様$/, "").trim();
+    }
+    function getToPersons(){
+      return [val("toPerson1"), val("toPerson2"), val("toPerson3")].filter(Boolean);
+    }
+    function getCaseNoCombined(){
+      const prefix = val("casePrefix") || "FK";
+      const number = val("caseNo");
+      if(!number) return "";
+      return `${prefix}${number}`;
+    }
+    function splitCaseNo(caseNo){
+      const s = String(caseNo || "").trim();
+      const m = s.match(/^(FK|FX|FS|FA)(.*)$/i);
+      if(m){
+        return { prefix: m[1].toUpperCase(), number: String(m[2] || "").trim() };
+      }
+      return { prefix: "FK", number: s };
+    }
     function setVal(id, value){
       const el = $(id);
       if(!el) return;
       el.value = value == null ? "" : String(value);
     }
+    function applyPresetValue(selectEl, targetId){
+      if(!selectEl) return;
+      const v = String(selectEl.value || "").trim();
+      if(!v) return;
+      setVal(targetId, v);
+      selectEl.value = "";
+      if(targetId === "caseNo" || targetId === "casePrefix") onCaseNoInput();
+      renderPreview();
+    }
     function onCaseNoInput(){
-      const current = val("caseNo");
+      const current = getCaseNoCombined();
       if(_loadedCaseNo && current !== _loadedCaseNo){
         _transportRecordId = "";
       }
@@ -362,11 +458,13 @@
     function val(id){ const el=$(id); return el ? String(el.value||"").trim() : ""; }
     function out(id, text){ const el=$(id); if(el) el.textContent = text || " "; }
     function renderPreview(){
+      const caseNoFull = getCaseNoCombined();
+      const toPersons = getToPersons().map(honorific).join("\n");
       out("pSendDate", fmtDate(val("sendDate")));
       out("pPages", val("pages") || "1");
       out("pContactNo", val("contactNo"));
       out("pSubject", val("subject"));
-      out("pCaseNoTop", val("caseNo"));
+      out("pCaseNoTop", caseNoFull);
       out("pSender", val("sender"));
       out("pVehicle", val("vehicle"));
       out("pLoadAt", fmtDateTime(val("loadAt")));
@@ -375,15 +473,16 @@
       out("pLoadTel", val("loadTel"));
       out("pUnloadAt", val("unloadAt"));
       out("pUnloadPlace", val("unloadPlace"));
-      out("pUnloadPerson", val("unloadPerson"));
+      out("pUnloadPerson", honorific(val("unloadPerson")));
       out("pUnloadTel", val("unloadTel"));
       out("pToCompany", val("toCompany"));
-      out("pToPersonTop", val("toPerson"));
+      out("pToPersonTop", toPersons);
       out("pGeneratedAt", nowStr());
     }
     function resetForm(){
       $("sendDate").value = new Date().toISOString().slice(0,10);
-      ["caseNo","sender","toPerson","unloadAt","unloadPlace","unloadPerson","unloadTel"].forEach(id => { if($(id)) $(id).value = ""; });
+      ["caseNo","sender","toPerson1","toPerson2","toPerson3","unloadAt","unloadPlace","unloadPerson","unloadTel"].forEach(id => { if($(id)) $(id).value = ""; });
+      if($("casePrefix")) $("casePrefix").value = "FK";
       if($("pages")) $("pages").value = "1";
       if($("contactNo")) $("contactNo").value = "052-383-4622";
       if($("subject")) $("subject").value = "配車依頼";
@@ -417,10 +516,8 @@
         const settings = (d && d.settings) || {};
         const ownSheet = settings[TRANSPORT_DB_SPREADSHEET_KEY] || settings.transport_db_spreadsheet_id;
         const ownGas = settings[TRANSPORT_DB_GAS_URL_KEY] || settings.transport_db_gas_url;
-        const fallbackSheet = settings[WORKORDER_DB_SPREADSHEET_KEY] || settings.workorder_db_spreadsheet_id;
-        const fallbackGas = settings[WORKORDER_DB_GAS_URL_KEY] || settings.workorder_db_gas_url;
-        _transportDbSpreadsheetId = extractSpreadsheetId(ownSheet || fallbackSheet);
-        _transportDbGasUrl = String(ownGas || fallbackGas || "").trim();
+        _transportDbSpreadsheetId = extractSpreadsheetId(ownSheet);
+        _transportDbGasUrl = String(ownGas || "").trim();
         if(_transportDbSpreadsheetId && _transportDbGasUrl){
           setDbStatus("DB状態: 接続設定OK", false);
         }else{
@@ -432,15 +529,33 @@
         setDbStatus("DB状態: 設定取得エラー", true);
       }
     }
+    async function verifyTransportSaved(caseNo){
+      try{
+        const url = `${_transportDbGasUrl}?mode=transport_get&targetSpreadsheetId=${encodeURIComponent(_transportDbSpreadsheetId)}&caseNo=${encodeURIComponent(caseNo)}&_=${Date.now()}`;
+        const r = await fetch(url, {mode:"cors"});
+        const j = await r.json();
+        return !!(j && (j.row || j.data));
+      }catch(e){
+        return false;
+      }
+    }
     function fillFormFromRow(row){
       setVal("sendDate", toDateInputValue(row.sendDate || row.requestDate || row["発信日"] || ""));
       setVal("pages", row.pages || row["送付枚数"] || "1");
       setVal("contactNo", row.contactNo || row["連絡先TEL"] || "");
       setVal("subject", row.subject || row["要件"] || "");
-      setVal("caseNo", row.caseNo || row["案件番号"] || "");
+      const caseInfo = splitCaseNo(row.caseNo || row["案件番号"] || "");
+      setVal("casePrefix", caseInfo.prefix);
+      setVal("caseNo", caseInfo.number);
       setVal("sender", row.sender || row["依頼元担当"] || "");
       setVal("toCompany", row.toCompany || row["手配先"] || "");
-      setVal("toPerson", row.toPerson || row["先方ご担当者"] || "");
+      const personRaw = String(row.toPerson || row["先方ご担当者"] || "").trim();
+      const personList = personRaw
+        ? personRaw.split(/\r?\n|、|,/).map(stripHonorific).filter(Boolean).slice(0,3)
+        : [];
+      setVal("toPerson1", row.toPerson1 || personList[0] || "");
+      setVal("toPerson2", row.toPerson2 || personList[1] || "");
+      setVal("toPerson3", row.toPerson3 || personList[2] || "");
       setVal("vehicle", row.vehicle || row["手配車両"] || "4ｔ平車");
       setVal("loadAt", toDateTimeLocalValue(row.loadAt || row["積み込み日時"] || row["積込日時"] || ""));
       setVal("loadPlace", row.loadPlace || row["積み込み場所"] || row["積込場所"] || "");
@@ -448,11 +563,11 @@
       setVal("loadTel", row.loadTel || row["積み込みTEL"] || row["積込TEL"] || "");
       setVal("unloadAt", row.unloadAt || row["積み下ろし日時"] || row["積下日時"] || "");
       setVal("unloadPlace", row.unloadPlace || row["積み下ろし場所"] || row["積下場所"] || "");
-      setVal("unloadPerson", row.unloadPerson || row["積み下ろし担当者"] || row["積下担当者"] || "");
+      setVal("unloadPerson", stripHonorific(row.unloadPerson || row["積み下ろし担当者"] || row["積下担当者"] || ""));
       setVal("unloadTel", row.unloadTel || row["積み下ろしTEL"] || row["積下TEL"] || "");
     }
     async function loadTransportOrder(btn){
-      const caseNo = val("caseNo");
+      const caseNo = getCaseNoCombined();
       if(!caseNo){
         alert("案件番号を入力してから呼び出してください。");
         return;
@@ -474,7 +589,7 @@
         }
         fillFormFromRow(row);
         _transportRecordId = String(row.recordId || row.id || row.rowId || row.savedAt || "").trim();
-        _loadedCaseNo = val("caseNo");
+        _loadedCaseNo = getCaseNoCombined();
         renderPreview();
         setDbStatus(`DB状態: 呼び出し済み（${_loadedCaseNo}）`, false);
       }catch(e){
@@ -495,11 +610,13 @@
         alert("運送手配表の保存用GAS URLが未設定です。設定画面で連携先を登録してください。");
         return false;
       }
-      const caseNo = val("caseNo");
+      const caseNo = getCaseNoCombined();
       if(!caseNo){
         alert("案件番号を入力してください。");
         return false;
       }
+      const toPersons = getToPersons();
+      const toPersonCombined = toPersons.map(honorific).join("\n");
       const isUpdate = forceUpdate || !!_transportRecordId;
       const payload = {
         sheet: isUpdate ? "運送手配表_DB_UPDATE" : "運送手配表_DB_ADD",
@@ -514,7 +631,10 @@
         subject: val("subject"),
         sender: val("sender"),
         toCompany: val("toCompany"),
-        toPerson: val("toPerson"),
+        toPerson: toPersonCombined,
+        toPerson1: toPersons[0] || "",
+        toPerson2: toPersons[1] || "",
+        toPerson3: toPersons[2] || "",
         vehicle: val("vehicle"),
         loadAt: val("loadAt"),
         loadPlace: val("loadPlace"),
@@ -522,12 +642,18 @@
         loadTel: val("loadTel"),
         unloadAt: val("unloadAt"),
         unloadPlace: val("unloadPlace"),
-        unloadPerson: val("unloadPerson"),
+        unloadPerson: stripHonorific(val("unloadPerson")),
         unloadTel: val("unloadTel"),
         outputFileName: safeTitleToken(caseNo) || "案件番号未入力"
       };
       try{
         await gasPost(_transportDbGasUrl, payload);
+        const verified = await verifyTransportSaved(caseNo);
+        if(!verified){
+          alert("保存確認ができませんでした。運送手配表専用のGAS URL/スプレッドシートID、またはWebアプリ再デプロイ状態を確認してください。");
+          setDbStatus("DB状態: 保存未確認（設定要確認）", true);
+          return false;
+        }
         _loadedCaseNo = caseNo;
         if(!_transportRecordId) _transportRecordId = payload.savedAt;
         setDbStatus(`DB状態: ${isUpdate ? "更新保存済み" : "新規保存済み"}（${caseNo}）`, false);
@@ -539,7 +665,7 @@
       }
     }
     async function updateTransportOrder(btn){
-      const caseNo = val("caseNo");
+      const caseNo = getCaseNoCombined();
       if(!caseNo){
         alert("案件番号を入力してください。");
         return;
@@ -560,7 +686,7 @@
       renderPreview();
       setActionLoading(btn,true);
       const prevTitle = document.title;
-      const caseNo = safeTitleToken(val("caseNo")) || "案件番号未入力";
+      const caseNo = safeTitleToken(getCaseNoCombined()) || "案件番号未入力";
       const saved = await saveTransportOrderToGas();
       if(!saved){
         setActionLoading(btn,false);
