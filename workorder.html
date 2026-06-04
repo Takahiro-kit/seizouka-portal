@@ -589,7 +589,7 @@
         workDept: $("workDept") ? $("workDept").value : "",
         workPlace: $("workPlace") ? $("workPlace").value : "",
         outputFileDate: $("fileDate") ? $("fileDate").value : "",
-        outputFileName: `${fileDateToken($("fileDate") ? $("fileDate").value : "")}_${safeFileName(caseNo)}_作業指示書`
+        outputFileName: `${safeFileName(caseNo)}_${fileDateToken($("fileDate") ? $("fileDate").value : "")}_作業指示書`
       };
       try{
         await gasPost(_workorderDbGasUrl, payload);
@@ -629,7 +629,7 @@
         setActionLoading(btn, false);
         return;
       }
-      document.title = `${datePart}_${casePart}_作業指示書`;
+      document.title = `${casePart}_${datePart}_作業指示書`;
       const restore = () => {
         document.title = prevTitle;
         window.removeEventListener("afterprint", restore);
