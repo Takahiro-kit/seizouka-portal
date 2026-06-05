@@ -40,6 +40,18 @@
     .inline-group{display:flex;gap:8px;align-items:center}
     .inline-group .short{max-width:120px}
     .inline-group .pick{max-width:210px}
+    .honorific-toggle{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:#475569;white-space:nowrap}
+    .honorific-toggle input{width:14px;height:14px;margin:0}
+    .inline-group .date-inp{
+      flex:0 0 172px;
+      min-width:172px;
+      max-width:172px;
+    }
+    .inline-group .time-inp{
+      flex:0 0 120px;
+      min-width:120px;
+      max-width:120px;
+    }
     .paper-wrap{padding:18px;background:#e2e8f0;overflow:auto;max-height:calc(100vh - 190px)}
     .paper{width:100%;max-width:198mm;min-height:277mm;background:#fff;margin:0 auto;border:1px solid #cbd5e1;box-shadow:0 4px 24px rgba(15,23,42,.12);padding:5mm;box-sizing:border-box}
     .sheet-title{
@@ -47,25 +59,33 @@
       color:#0f172a;padding:0 0 2mm;border-bottom:1px solid #0f172a;
     }
     .table{width:100%;border-collapse:collapse;font-size:13.8px;line-height:1.6;table-layout:fixed}
-    .table td{border:1px solid #111;padding:2.1mm 2.2mm;vertical-align:middle;word-break:break-word}
+    .table td{border:1px solid #111;padding:2.1mm 2.2mm;vertical-align:middle}
     .table .label{background:#dbe4f1;font-weight:800;color:#1e293b;font-size:12.8px;letter-spacing:.01em;white-space:nowrap}
     .table .value{font-weight:800;font-size:14.2px;color:#0f172a}
-    .multiline-person{white-space:pre-line;display:inline-block}
+    .multiline-person{white-space:pre-wrap;display:inline-block}
     .vehicle-strong{font-size:28px;line-height:1.05;font-weight:900;letter-spacing:.02em;display:inline-block;}
     .line{border-bottom:1px solid #111;display:inline-block;min-width:22mm;padding:0 1mm}
     .line.wide{min-width:64mm}
     .line.mid{min-width:42mm}
     .line.narrow{min-width:14mm}
     .red{color:var(--red);font-weight:700}
+    .header-balance-gap{height:3.2mm}
     .body-note{margin-top:2.5mm;font-size:13.4px;line-height:1.72}
     .section-card{border:1px solid #111;margin-top:3mm;border-radius:2px;overflow:hidden;}
     .section-head{background:#d6dfeb;border-bottom:1px solid #111;padding:2.1mm 2.5mm;font-size:14px;font-weight:900;letter-spacing:.04em;color:#0f172a;}
     .section-body{padding:0;}
     .info-table{width:100%;border-collapse:collapse;font-size:13.2px;line-height:1.68;table-layout:fixed;}
-    .info-table td{border-top:1px solid #111;padding:2.1mm 2.2mm;vertical-align:top;word-break:break-word;}
+    .info-table td{border-top:1px solid #111;padding:2.1mm 2.2mm;vertical-align:top;}
     .info-table tr:first-child td{border-top:none;}
     .info-label{width:24mm;background:#e6edf7;font-weight:800;color:#1e293b;white-space:nowrap}
     .info-value{font-weight:800;}
+    .table td:not(.label),
+    .info-table td:not(.info-label),
+    .multiline-person{
+      white-space:pre-wrap;
+      word-break:keep-all;
+      overflow-wrap:normal;
+    }
     .driver-callout{
       margin-top:3mm;
       border:2.4px solid #111;
@@ -203,6 +223,7 @@
                   <option value="福本">福本</option>
                 </select>
                 <input id="toPerson1" class="inp" type="text" placeholder="担当者1（敬称不要）" oninput="renderPreview()">
+                <label class="honorific-toggle"><input id="toPerson1NoHonorific" type="checkbox" onchange="renderPreview()">敬称なし</label>
               </div>
               <div class="inline-group">
                 <select id="toPerson2Pick" class="inp pick" onchange="applyPresetValue(this,'toPerson2')">
@@ -212,6 +233,7 @@
                   <option value="福本">福本</option>
                 </select>
                 <input id="toPerson2" class="inp" type="text" placeholder="担当者2（敬称不要）" oninput="renderPreview()">
+                <label class="honorific-toggle"><input id="toPerson2NoHonorific" type="checkbox" onchange="renderPreview()">敬称なし</label>
               </div>
               <div class="inline-group">
                 <select id="toPerson3Pick" class="inp pick" onchange="applyPresetValue(this,'toPerson3')">
@@ -221,6 +243,7 @@
                   <option value="福本">福本</option>
                 </select>
                 <input id="toPerson3" class="inp" type="text" placeholder="担当者3（敬称不要）" oninput="renderPreview()">
+                <label class="honorific-toggle"><input id="toPerson3NoHonorific" type="checkbox" onchange="renderPreview()">敬称なし</label>
               </div>
             </div>
           </div>
@@ -237,10 +260,13 @@
           <div class="field">
             <label>集荷日時</label>
             <div class="inline-group">
-              <input id="loadAt" class="inp" type="datetime-local" step="900" oninput="onDateTimeInput('loadAt')">
+              <input id="loadDate" class="inp date-inp" type="date" onchange="onTimeRangeInput('load')">
+              <select id="loadStartTime" class="inp time-inp" onchange="onTimeRangeInput('load')">
+                <option value="">時刻</option>
+              </select>
               <span style="font-size:12px;color:#64748b;">〜</span>
-              <select id="loadAtEnd" class="inp pick" onchange="renderPreview()">
-                <option value="">終了時刻</option>
+              <select id="loadEndTime" class="inp time-inp" onchange="onTimeRangeInput('load')">
+                <option value="">時刻</option>
               </select>
             </div>
           </div>
@@ -250,16 +276,26 @@
           <div class="field">
             <label>配送日時</label>
             <div class="inline-group">
-              <input id="unloadAt" class="inp" type="datetime-local" step="900" oninput="onDateTimeInput('unloadAt')">
+              <input id="unloadDate" class="inp date-inp" type="date" onchange="onTimeRangeInput('unload')">
+              <select id="unloadStartTime" class="inp time-inp" onchange="onTimeRangeInput('unload')">
+                <option value="">時刻</option>
+              </select>
               <span style="font-size:12px;color:#64748b;">〜</span>
-              <select id="unloadAtEnd" class="inp pick" onchange="renderPreview()">
-                <option value="">終了時刻</option>
+              <select id="unloadEndTime" class="inp time-inp" onchange="onTimeRangeInput('unload')">
+                <option value="">時刻</option>
               </select>
             </div>
           </div>
           <div class="field"><label>配送先TEL</label><input id="unloadTel" class="inp" type="text" placeholder="000-000-0000" oninput="renderPreview()"></div>
-          <div class="field full"><label>配送先場所</label><textarea id="unloadPlace" class="inp" rows="3" placeholder="〒000-0000 住所 発送先名" oninput="renderPreview()"></textarea></div>
-          <div class="field"><label>配送先担当者</label><input id="unloadPerson" class="inp" type="text" placeholder="ご担当者名（敬称不要）" oninput="renderPreview()"></div>
+          <div class="field"><label>配送先名</label><input id="unloadName" class="inp" type="text" placeholder="配送先名" oninput="renderPreview()"></div>
+          <div class="field full"><label>配送先場所</label><textarea id="unloadAddress" class="inp" rows="3" placeholder="〒000-0000 住所" oninput="renderPreview()"></textarea></div>
+          <div class="field">
+            <label>配送先担当者</label>
+            <div class="inline-group">
+              <input id="unloadPerson" class="inp" type="text" placeholder="ご担当者名（敬称不要）" oninput="renderPreview()">
+              <label class="honorific-toggle"><input id="unloadPersonNoHonorific" type="checkbox" onchange="renderPreview()">敬称なし</label>
+            </div>
+          </div>
         </div>
       </div>
       <div class="card">
@@ -284,14 +320,9 @@
                 <td class="label">送付枚数</td>
                 <td class="value"><span class="red" id="pPages"></span> 枚（本頁含）</td>
               </tr>
-              <tr>
-                <td class="label">連絡先TEL</td>
-                <td class="value"><span class="red" id="pContactNo"></span></td>
-                <td class="label">依頼元担当</td>
-                <td class="value"><span class="red" id="pSender"></span></td>
-              </tr>
             </table>
 
+            <div class="header-balance-gap"></div>
             <div class="body-note">
               平素は格別のご高配を賜り、厚く御礼申し上げます。<br>
               いつも御世話になっております。<br>
@@ -373,6 +404,8 @@
     let _transportDbGasUrl = "";
     let _transportRecordId = "";
     let _loadedCaseNo = "";
+    let _loadedRawLoadAt = "";
+    let _loadedRawUnloadAt = "";
     const $ = id => document.getElementById(id);
     function gasPost(url, payload){
       return fetch(url,{
@@ -418,49 +451,145 @@
       const p = n => String(n).padStart(2, "0");
       return `${nd.getFullYear()}-${p(nd.getMonth()+1)}-${p(nd.getDate())}T${p(nd.getHours())}:${p(nd.getMinutes())}`;
     }
-    function populateTimeRangeSelects(){
-      const targets = ["loadAtEnd", "unloadAtEnd"];
-      const options = [];
-      for(let h = 7; h <= 19; h++){
-        [0, 15, 30, 45].forEach(m => {
-          if(h === 19 && m > 0) return;
-          options.push(`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}`);
+    function getAllowedTimes(){
+      const out = [];
+      for(let h=7; h<=19; h++){
+        ["00","15","30","45"].forEach(mm=>{
+          if(h===19 && mm!=="00") return;
+          out.push(`${String(h).padStart(2,"0")}:${mm}`);
         });
       }
-      targets.forEach(id => {
-        const sel = $(id);
-        if(!sel) return;
-        const cur = sel.value;
-        sel.innerHTML = `<option value="">終了時刻</option>` + options.map(t => `<option value="${t}">${t}</option>`).join("");
-        if(cur && options.includes(cur)) sel.value = cur;
+      return out;
+    }
+    function populateTimeRangeSelects(){
+      const options = getAllowedTimes();
+      const targets = [
+        ["loadStartTime","時刻"],
+        ["loadEndTime","時刻"],
+        ["unloadStartTime","時刻"],
+        ["unloadEndTime","時刻"]
+      ];
+      targets.forEach(([id,label])=>{
+        const el = $(id);
+        if(!el) return;
+        const cur = String(el.value || "").trim();
+        el.innerHTML = `<option value="">${label}</option>` + options.map(t=>`<option value="${t}">${t}</option>`).join("");
+        if(cur && options.includes(cur)) el.value = cur;
       });
     }
-    function buildDateTimeRange(startId, endId){
-      const start = val(startId);
-      if(!start) return "";
-      const startFormatted = fmtDateTime(start);
-      const end = val(endId);
-      if(!end) return startFormatted;
-      return `${startFormatted}〜${end}`;
+    function splitIsoDateTime(iso){
+      const m = String(iso || "").trim().match(/^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})$/);
+      return m ? { date:m[1], time:m[2] } : { date:"", time:"" };
+    }
+    function onTimeRangeInput(prefix, keepRaw){
+      const date = val(`${prefix}Date`);
+      const start = val(`${prefix}StartTime`);
+      const end = val(`${prefix}EndTime`);
+      if(!keepRaw){
+        if(prefix === "load") _loadedRawLoadAt = "";
+        if(prefix === "unload") _loadedRawUnloadAt = "";
+      }
+      if(date && start){
+        const fixedStart = splitIsoDateTime(normalizeDateTimeValue(`${date}T${start}`)).time;
+        if(fixedStart && fixedStart !== start) setVal(`${prefix}StartTime`, fixedStart);
+      }
+      if(date && end){
+        const fixedEnd = splitIsoDateTime(normalizeDateTimeValue(`${date}T${end}`)).time;
+        if(fixedEnd && fixedEnd !== end) setVal(`${prefix}EndTime`, fixedEnd);
+      }
+      const s = val(`${prefix}StartTime`);
+      const e = val(`${prefix}EndTime`);
+      if(s && e && e < s) setVal(`${prefix}EndTime`, s);
+    }
+    function buildDateTimeRange(prefix){
+      const date = val(`${prefix}Date`);
+      const startTime = val(`${prefix}StartTime`);
+      if(!date || !startTime) return "";
+      const startIso = normalizeDateTimeValue(`${date}T${startTime}`);
+      const startFormatted = fmtDateTime(startIso);
+      const endTimeRaw = val(`${prefix}EndTime`);
+      if(!endTimeRaw) return startFormatted;
+      const endIso = normalizeDateTimeValue(`${date}T${endTimeRaw}`);
+      const endPart = splitIsoDateTime(endIso).time || endTimeRaw;
+      return `${startFormatted}〜${endPart}`;
     }
     function parseDateTimeRange(raw){
       const s = String(raw || "").trim();
       if(!s) return { start: "", end: "" };
-      const m = s.match(/^(\d{4})[\/-](\d{2})[\/-](\d{2})\s+(\d{2}):(\d{2})(?:\s*[〜~\-]\s*(\d{1,2}):(\d{2}))?$/);
-      if(m){
-        const start = `${m[1]}-${m[2]}-${m[3]}T${m[4]}:${m[5]}`;
-        const end = (m[6] && m[7]) ? `${String(m[6]).padStart(2,"0")}:${m[7]}` : "";
-        return { start: normalizeDateTimeValue(start), end };
+      const toHalf = txt => String(txt || "")
+        .replace(/[０-９]/g, ch => String.fromCharCode(ch.charCodeAt(0) - 0xFEE0))
+        .replace(/：/g, ":")
+        .replace(/／/g, "/")
+        .replace(/－/g, "-")
+        .replace(/～/g, "〜");
+      const cleaned = toHalf(s)
+        .replace(/[　\t]+/g, " ")
+        .replace(/年|月/g, "/")
+        .replace(/日/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+      let parts = [cleaned];
+      const rangeMatch = cleaned.match(/^(.*?)(?:\s*[〜～~]\s*|\s+-\s+)(.+)$/);
+      if(rangeMatch){
+        parts = [String(rangeMatch[1] || "").trim(), String(rangeMatch[2] || "").trim()].filter(Boolean);
       }
-      const iso = normalizeDateTimeValue(toDateTimeLocalValue(s));
-      return { start: iso, end: "" };
-    }
-    function onDateTimeInput(id){
-      const el = $(id);
-      if(!el) return;
-      const normalized = normalizeDateTimeValue(el.value);
-      if(normalized && normalized !== el.value) el.value = normalized;
-      renderPreview();
+      const p2 = n => String(Number(n || 0)).padStart(2, "0");
+      const parseOne = (txt, baseDate) => {
+        const t = String(txt || "").trim();
+        if(!t) return "";
+        const mdt = t.match(/^(\d{4})[\/-](\d{1,2})[\/-](\d{1,2})\s+(\d{1,2}):(\d{2})(?::\d{2})?$/);
+        if(mdt){
+          return `${mdt[1]}-${p2(mdt[2])}-${p2(mdt[3])}T${p2(mdt[4])}:${mdt[5]}`;
+        }
+        const mt = t.match(/^(\d{1,2}):(\d{2})(?::\d{2})?$/);
+        if(mt && baseDate){
+          return `${baseDate}T${p2(mt[1])}:${mt[2]}`;
+        }
+        return toDateTimeLocalValue(t);
+      };
+      let startRaw = parseOne(parts[0], "");
+      let start = normalizeDateTimeValue(startRaw);
+      let end = "";
+      if(start){
+        const startDate = splitIsoDateTime(start).date;
+        const endRaw = parts[1] ? parseOne(parts[1], startDate) : "";
+        end = normalizeDateTimeValue(endRaw);
+      }
+      // 最終フォールバック: 文字列から日時/時刻を総当たり抽出
+      if(!start){
+        const dts = Array.from(cleaned.matchAll(/(\d{4})[\/\-\.](\d{1,2})[\/\-\.](\d{1,2})\s*(\d{1,2}):(\d{2})/g));
+        if(dts.length){
+          const d = dts[0];
+          start = normalizeDateTimeValue(`${d[1]}-${p2(d[2])}-${p2(d[3])}T${p2(d[4])}:${d[5]}`);
+          if(dts.length >= 2){
+            const e = dts[1];
+            end = normalizeDateTimeValue(`${e[1]}-${p2(e[2])}-${p2(e[3])}T${p2(e[4])}:${e[5]}`);
+          }else{
+            const times = Array.from(cleaned.matchAll(/(\d{1,2}):(\d{2})/g));
+            if(times.length >= 2){
+              const sd = splitIsoDateTime(start).date;
+              const t = times[1];
+              end = normalizeDateTimeValue(`${sd}T${p2(t[1])}:${t[2]}`);
+            }
+          }
+        }
+      }
+      // さらにフォールバック: 曜日や括弧など混在文字列から日付1つ+時刻群を抽出
+      if(!start){
+        const rough = cleaned.replace(/\([^)]*\)|（[^）]*）/g, " ");
+        const d = rough.match(/(\d{4})[\/\-\.](\d{1,2})[\/\-\.](\d{1,2})/);
+        const times = Array.from(rough.matchAll(/(\d{1,2})\s*[:時]\s*(\d{2})/g));
+        if(d && times.length){
+          const baseDate = `${d[1]}-${p2(d[2])}-${p2(d[3])}`;
+          const t0 = times[0];
+          start = normalizeDateTimeValue(`${baseDate}T${p2(t0[1])}:${t0[2]}`);
+          if(times.length >= 2){
+            const t1 = times[1];
+            end = normalizeDateTimeValue(`${baseDate}T${p2(t1[1])}:${t1[2]}`);
+          }
+        }
+      }
+      return { start: start || "", end: end || "" };
     }
     function safeTitleToken(v){
       const s = String(v||"").trim();
@@ -481,16 +610,105 @@
       el.style.color = isError ? "#b91c1c" : "#475569";
     }
     function toDateInputValue(v){
-      const s = String(v || "").trim();
-      const m = s.match(/^(\d{4})[\/-](\d{2})[\/-](\d{2})$/);
-      return m ? `${m[1]}-${m[2]}-${m[3]}` : s;
+      const raw = String(v || "").trim();
+      if(!raw) return "";
+      const p2 = n => String(Number(n || 0)).padStart(2, "0");
+      const half = raw
+        .replace(/[０-９]/g, ch => String.fromCharCode(ch.charCodeAt(0) - 0xFEE0))
+        .replace(/／/g, "/")
+        .replace(/－/g, "-")
+        .replace(/．/g, ".")
+        .replace(/[　\t]+/g, " ")
+        .trim();
+      const mIso = half.match(/^(\d{4})-(\d{1,2})-(\d{1,2})(?:[T\s].*)?$/);
+      if(mIso) return `${mIso[1]}-${p2(mIso[2])}-${p2(mIso[3])}`;
+      const mSep = half.match(/^(\d{4})[\/\.\-](\d{1,2})[\/\.\-](\d{1,2})(?:\D.*)?$/);
+      if(mSep) return `${mSep[1]}-${p2(mSep[2])}-${p2(mSep[3])}`;
+      const mJp = half.match(/(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日/);
+      if(mJp) return `${mJp[1]}-${p2(mJp[2])}-${p2(mJp[3])}`;
+      const mLoose = half.match(/(\d{4})[\/\.\-](\d{1,2})[\/\.\-](\d{1,2})/);
+      if(mLoose) return `${mLoose[1]}-${p2(mLoose[2])}-${p2(mLoose[3])}`;
+      const parsed = new Date(half);
+      if(!Number.isNaN(parsed.getTime())){
+        return `${parsed.getFullYear()}-${p2(parsed.getMonth()+1)}-${p2(parsed.getDate())}`;
+      }
+      return "";
+    }
+    function toTimeInputValue(v, baseDate){
+      const raw = String(v || "").trim();
+      if(!raw) return "";
+      const half = raw
+        .replace(/[０-９]/g, ch => String.fromCharCode(ch.charCodeAt(0) - 0xFEE0))
+        .replace(/：/g, ":")
+        .replace(/[　\t]+/g, " ")
+        .trim();
+      const p2 = n => String(Number(n || 0)).padStart(2, "0");
+      let hhmm = "";
+      const mHm = half.match(/(\d{1,2})\s*:\s*(\d{2})/);
+      if(mHm){
+        hhmm = `${p2(mHm[1])}:${mHm[2]}`;
+      }else{
+        const mJp = half.match(/(\d{1,2})\s*時\s*(\d{1,2})\s*分?/);
+        if(mJp) hhmm = `${p2(mJp[1])}:${p2(mJp[2])}`;
+      }
+      if(!hhmm){
+        const local = toDateTimeLocalValue(half);
+        if(local) hhmm = splitIsoDateTime(local).time || "";
+      }
+      if(!hhmm) return "";
+      const date = toDateInputValue(baseDate) || new Date().toISOString().slice(0,10);
+      const norm = splitIsoDateTime(normalizeDateTimeValue(`${date}T${hhmm}`)).time;
+      return norm || hhmm;
+    }
+    function pickFirstRowValue(row, keys){
+      for(const key of keys){
+        const v = row && row[key];
+        if(v == null) continue;
+        const s = String(v).trim();
+        if(s) return s;
+      }
+      return "";
+    }
+    function normalizeRangeFromRow(row, cfg){
+      const rangeRaw = pickFirstRowValue(row, cfg.rangeKeys || []);
+      const dateRaw = pickFirstRowValue(row, cfg.dateKeys || []);
+      const startRaw = pickFirstRowValue(row, cfg.startKeys || []);
+      const endRaw = pickFirstRowValue(row, cfg.endKeys || []);
+      const seedDate = toDateInputValue(dateRaw);
+      const hasDateInRange = /(\d{4})[\/\.\-](\d{1,2})[\/\.\-](\d{1,2})/.test(rangeRaw);
+      const parseTarget = (seedDate && rangeRaw && !hasDateInRange) ? `${seedDate} ${rangeRaw}` : rangeRaw;
+      const parsed = parseDateTimeRange(parseTarget);
+      const parsedStart = splitIsoDateTime(parsed.start);
+      const parsedEnd = splitIsoDateTime(parsed.end);
+      let date = toDateInputValue(parsedStart.date || parsedEnd.date || seedDate || "");
+      let start = parsedStart.time || "";
+      let end = parsedEnd.time || "";
+      if(!start) start = toTimeInputValue(startRaw, date);
+      if(!end) end = toTimeInputValue(endRaw, date);
+      if(!date){
+        date = toDateInputValue(cfg.fallbackDate || "");
+      }
+      if(date){
+        if(start) start = toTimeInputValue(start, date);
+        if(end) end = toTimeInputValue(end, date);
+      }
+      if(start && end && end < start) end = start;
+      return { date, start, end, raw: rangeRaw };
     }
     function toDateTimeLocalValue(v){
       const s = String(v || "").trim();
       const m1 = s.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/);
       if(m1) return s;
-      const m2 = s.match(/^(\d{4})[\/-](\d{2})[\/-](\d{2})\s+(\d{1,2}):(\d{2})/);
-      if(m2) return `${m2[1]}-${m2[2]}-${m2[3]}T${String(m2[4]).padStart(2,"0")}:${m2[5]}`;
+      const m2 = s.match(/^(\d{4})[\/-](\d{1,2})[\/-](\d{1,2})\s+(\d{1,2}):(\d{2})(?::\d{2})?/);
+      if(m2){
+        const p2 = n => String(Number(n || 0)).padStart(2,"0");
+        return `${m2[1]}-${p2(m2[2])}-${p2(m2[3])}T${p2(m2[4])}:${m2[5]}`;
+      }
+      const parsed = new Date(s);
+      if(!Number.isNaN(parsed.getTime())){
+        const p2 = n => String(Number(n || 0)).padStart(2, "0");
+        return `${parsed.getFullYear()}-${p2(parsed.getMonth()+1)}-${p2(parsed.getDate())}T${p2(parsed.getHours())}:${p2(parsed.getMinutes())}`;
+      }
       return "";
     }
     function honorific(name){
@@ -501,8 +719,31 @@
     function stripHonorific(name){
       return String(name || "").replace(/\s*様$/, "").trim();
     }
-    function getToPersons(){
-      return [val("toPerson1"), val("toPerson2"), val("toPerson3")].filter(Boolean);
+    function setChecked(id, checked){
+      const el = $(id);
+      if(!el) return;
+      el.checked = !!checked;
+    }
+    function isChecked(id){
+      const el = $(id);
+      return !!(el && el.checked);
+    }
+    function parseBoolean(v){
+      const s = String(v == null ? "" : v).trim().toLowerCase();
+      return s === "1" || s === "true" || s === "yes" || s === "on";
+    }
+    function formatDisplayName(name, noHonorific){
+      const raw = stripHonorific(name);
+      if(!raw) return "";
+      return noHonorific ? raw : honorific(raw);
+    }
+    function getToPersonEntries(){
+      return [1,2,3]
+        .map(i => ({
+          name: val(`toPerson${i}`),
+          noHonorific: isChecked(`toPerson${i}NoHonorific`)
+        }))
+        .filter(x => x.name);
     }
     function getCaseNoCombined(){
       const prefix = val("casePrefix") || "FK";
@@ -540,23 +781,27 @@
     }
     function val(id){ const el=$(id); return el ? String(el.value||"").trim() : ""; }
     function out(id, text){ const el=$(id); if(el) el.textContent = text || " "; }
+    function buildUnloadPlaceText(){
+      const addr = val("unloadAddress");
+      const name = val("unloadName");
+      if(addr && name) return `${addr}\n${name}`;
+      return addr || name;
+    }
     function renderPreview(){
       const caseNoFull = getCaseNoCombined();
-      const toPersons = getToPersons().map(honorific).join("\n");
+      const toPersons = getToPersonEntries().map(x => formatDisplayName(x.name, x.noHonorific)).join("\n");
       out("pSendDate", fmtDate(val("sendDate")));
       out("pPages", val("pages") || "1");
-      out("pContactNo", val("contactNo"));
       out("pSubject", val("subject"));
       out("pCaseNoTop", caseNoFull);
-      out("pSender", val("sender"));
       out("pVehicle", val("vehicle"));
-      out("pLoadAt", buildDateTimeRange("loadAt", "loadAtEnd"));
+      out("pLoadAt", buildDateTimeRange("load") || _loadedRawLoadAt);
       out("pLoadPlace", val("loadPlace"));
       out("pLoadPerson", val("loadPerson"));
       out("pLoadTel", val("loadTel"));
-      out("pUnloadAt", buildDateTimeRange("unloadAt", "unloadAtEnd"));
-      out("pUnloadPlace", val("unloadPlace"));
-      out("pUnloadPerson", honorific(val("unloadPerson")));
+      out("pUnloadAt", buildDateTimeRange("unload") || _loadedRawUnloadAt);
+      out("pUnloadPlace", buildUnloadPlaceText());
+      out("pUnloadPerson", formatDisplayName(val("unloadPerson"), isChecked("unloadPersonNoHonorific")));
       out("pUnloadTel", val("unloadTel"));
       out("pToCompany", val("toCompany"));
       out("pToPersonTop", toPersons);
@@ -564,28 +809,31 @@
     }
     function resetForm(){
       $("sendDate").value = new Date().toISOString().slice(0,10);
-      ["caseNo","sender","toPerson1","toPerson2","toPerson3","unloadAt","unloadPlace","unloadPerson","unloadTel","loadAtEnd","unloadAtEnd"].forEach(id => { if($(id)) $(id).value = ""; });
+      ["caseNo","sender","toPerson1","toPerson2","toPerson3","unloadName","unloadAddress","unloadPerson","unloadTel","loadDate","loadStartTime","loadEndTime","unloadDate","unloadStartTime","unloadEndTime"].forEach(id => { if($(id)) $(id).value = ""; });
+      ["toPerson1NoHonorific","toPerson2NoHonorific","toPerson3NoHonorific","unloadPersonNoHonorific"].forEach(id => setChecked(id, false));
       if($("casePrefix")) $("casePrefix").value = "FK";
       if($("pages")) $("pages").value = "1";
       if($("contactNo")) $("contactNo").value = "052-383-4622";
       if($("subject")) $("subject").value = "配車依頼";
       if($("vehicle")) $("vehicle").value = "4ｔ平車";
       if($("toCompany")) $("toCompany").value = "上組陸運株式会社 名古屋支店";
-      if($("loadAt")) $("loadAt").value = "";
       if($("loadPlace")) $("loadPlace").value = "〒454-0872 名古屋市中川区上高畑１丁目１番地 ジェイピーネクスト㈱ テックセンタ";
       if($("loadPerson")) $("loadPerson").value = "鬼頭 貴広";
       if($("loadTel")) $("loadTel").value = "090-7863-5701";
       _transportRecordId = "";
       _loadedCaseNo = "";
+      _loadedRawLoadAt = "";
+      _loadedRawUnloadAt = "";
       setDbStatus("DB状態: 新規入力モード", false);
+      populateTimeRangeSelects();
       renderPreview();
     }
-    function setActionLoading(btn, loading){
+    function setActionLoading(btn, loading, loadingText){
       if(!btn) return;
       if(loading){
         btn.disabled = true;
         btn.dataset.prevHtml = btn.innerHTML;
-        btn.innerHTML = `<span class="btn-spinner"></span>出力中...`;
+        btn.innerHTML = `<span class="btn-spinner"></span>${loadingText || "出力中..."}...`;
       }else{
         btn.disabled = false;
         btn.innerHTML = btn.dataset.prevHtml || "PDF出力";
@@ -623,7 +871,11 @@
       }
     }
     function fillFormFromRow(row){
-      setVal("sendDate", toDateInputValue(row.sendDate || row.requestDate || row["発信日"] || ""));
+      // 先に時刻候補を構築しておかないと、setValした時刻が消える
+      populateTimeRangeSelects();
+      const today = new Date().toISOString().slice(0,10);
+      // 発信日はDB値ではなく当日を採用
+      setVal("sendDate", today);
       setVal("pages", row.pages || row["送付枚数"] || "1");
       setVal("contactNo", row.contactNo || row["連絡先TEL"] || "");
       setVal("subject", row.subject || row["要件"] || "");
@@ -636,22 +888,49 @@
       const personList = personRaw
         ? personRaw.split(/\r?\n|、|,/).map(stripHonorific).filter(Boolean).slice(0,3)
         : [];
+      const personRawList = personRaw
+        ? personRaw.split(/\r?\n|、|,/).map(x => String(x || "").trim()).slice(0,3)
+        : [];
       setVal("toPerson1", row.toPerson1 || personList[0] || "");
       setVal("toPerson2", row.toPerson2 || personList[1] || "");
       setVal("toPerson3", row.toPerson3 || personList[2] || "");
+      setChecked("toPerson1NoHonorific", parseBoolean(row.toPerson1NoHonorific || row["担当者1敬称なし"] || (personRawList[0] && !/様\s*$/.test(personRawList[0]) ? "1" : "")));
+      setChecked("toPerson2NoHonorific", parseBoolean(row.toPerson2NoHonorific || row["担当者2敬称なし"] || (personRawList[1] && !/様\s*$/.test(personRawList[1]) ? "1" : "")));
+      setChecked("toPerson3NoHonorific", parseBoolean(row.toPerson3NoHonorific || row["担当者3敬称なし"] || (personRawList[2] && !/様\s*$/.test(personRawList[2]) ? "1" : "")));
       setVal("vehicle", row.vehicle || row["手配車両"] || "4ｔ平車");
-      const loadAtRange = parseDateTimeRange(row.loadAt || row["積み込み日時"] || row["積込日時"] || "");
-      setVal("loadAt", loadAtRange.start);
-      setVal("loadAtEnd", loadAtRange.end);
+      const loadNorm = normalizeRangeFromRow(row, {
+        rangeKeys: ["loadAt","積み込み日時","積込日時","集荷日時","集荷時間"],
+        dateKeys: ["loadDate","集荷日","積み込み日","積込日"],
+        startKeys: ["loadStartTime","集荷開始時刻","積み込み開始時刻","積込開始時刻"],
+        endKeys: ["loadEndTime","集荷終了時刻","積み込み終了時刻","積込終了時刻"],
+        fallbackDate: row.sendDate || row.requestDate || row["発信日"] || ""
+      });
+      setVal("loadDate", loadNorm.date);
+      setVal("loadStartTime", loadNorm.start);
+      setVal("loadEndTime", loadNorm.end);
+      _loadedRawLoadAt = (loadNorm.date && loadNorm.start) ? "" : String(loadNorm.raw || "").trim();
       setVal("loadPlace", row.loadPlace || row["積み込み場所"] || row["積込場所"] || "");
       setVal("loadPerson", row.loadPerson || row["積み込み担当者"] || row["積込担当者"] || "");
       setVal("loadTel", row.loadTel || row["積み込みTEL"] || row["積込TEL"] || "");
-      const unloadAtRange = parseDateTimeRange(row.unloadAt || row["積み下ろし日時"] || row["積下日時"] || "");
-      setVal("unloadAt", unloadAtRange.start);
-      setVal("unloadAtEnd", unloadAtRange.end);
-      setVal("unloadPlace", row.unloadPlace || row["積み下ろし場所"] || row["積下場所"] || "");
-      setVal("unloadPerson", stripHonorific(row.unloadPerson || row["積み下ろし担当者"] || row["積下担当者"] || ""));
+      const unloadNorm = normalizeRangeFromRow(row, {
+        rangeKeys: ["unloadAt","積み下ろし日時","積下日時","配送日時","配送時間"],
+        dateKeys: ["unloadDate","配送日","積み下ろし日","積下日"],
+        startKeys: ["unloadStartTime","配送開始時刻","積み下ろし開始時刻","積下開始時刻"],
+        endKeys: ["unloadEndTime","配送終了時刻","積み下ろし終了時刻","積下終了時刻"],
+        fallbackDate: row.sendDate || row.requestDate || row["発信日"] || ""
+      });
+      setVal("unloadDate", unloadNorm.date);
+      setVal("unloadStartTime", unloadNorm.start);
+      setVal("unloadEndTime", unloadNorm.end);
+      _loadedRawUnloadAt = (unloadNorm.date && unloadNorm.start) ? "" : String(unloadNorm.raw || "").trim();
+      setVal("unloadName", row.unloadName || row["配送先名"] || "");
+      setVal("unloadAddress", row.unloadAddress || row["配送先住所"] || row.unloadPlace || row["積み下ろし場所"] || row["積下場所"] || "");
+      const unloadPersonRaw = String(row.unloadPerson || row["積み下ろし担当者"] || row["積下担当者"] || "").trim();
+      setVal("unloadPerson", stripHonorific(unloadPersonRaw));
+      setChecked("unloadPersonNoHonorific", parseBoolean(row.unloadPersonNoHonorific || row["配送先担当者敬称なし"] || ""));
       setVal("unloadTel", row.unloadTel || row["積み下ろしTEL"] || row["積下TEL"] || "");
+      onTimeRangeInput("load", true);
+      onTimeRangeInput("unload", true);
     }
     async function loadTransportOrder(btn){
       const caseNo = getCaseNoCombined();
@@ -702,8 +981,8 @@
         alert("案件番号を入力してください。");
         return false;
       }
-      const toPersons = getToPersons();
-      const toPersonCombined = toPersons.map(honorific).join("\n");
+      const toPersons = getToPersonEntries();
+      const toPersonCombined = toPersons.map(x => formatDisplayName(x.name, x.noHonorific)).join("\n");
       const isUpdate = forceUpdate || !!_transportRecordId;
       const payload = {
         sheet: isUpdate ? "運送手配表_DB_UPDATE" : "運送手配表_DB_ADD",
@@ -719,17 +998,23 @@
         sender: val("sender"),
         toCompany: val("toCompany"),
         toPerson: toPersonCombined,
-        toPerson1: toPersons[0] || "",
-        toPerson2: toPersons[1] || "",
-        toPerson3: toPersons[2] || "",
+        toPerson1: stripHonorific((toPersons[0] && toPersons[0].name) || ""),
+        toPerson2: stripHonorific((toPersons[1] && toPersons[1].name) || ""),
+        toPerson3: stripHonorific((toPersons[2] && toPersons[2].name) || ""),
+        toPerson1NoHonorific: (toPersons[0] && toPersons[0].noHonorific) ? "1" : "",
+        toPerson2NoHonorific: (toPersons[1] && toPersons[1].noHonorific) ? "1" : "",
+        toPerson3NoHonorific: (toPersons[2] && toPersons[2].noHonorific) ? "1" : "",
         vehicle: val("vehicle"),
-        loadAt: buildDateTimeRange("loadAt", "loadAtEnd"),
+        loadAt: buildDateTimeRange("load") || _loadedRawLoadAt,
         loadPlace: val("loadPlace"),
         loadPerson: val("loadPerson"),
         loadTel: val("loadTel"),
-        unloadAt: buildDateTimeRange("unloadAt", "unloadAtEnd"),
-        unloadPlace: val("unloadPlace"),
+        unloadAt: buildDateTimeRange("unload") || _loadedRawUnloadAt,
+        unloadPlace: buildUnloadPlaceText(),
+        unloadName: val("unloadName"),
+        unloadAddress: val("unloadAddress"),
         unloadPerson: stripHonorific(val("unloadPerson")),
+        unloadPersonNoHonorific: isChecked("unloadPersonNoHonorific") ? "1" : "",
         unloadTel: val("unloadTel"),
         outputFileName: safeTitleToken(caseNo) || "案件番号未入力"
       };
@@ -761,7 +1046,7 @@
         alert("先に「案件呼び出し」で既存データを読み込んでから更新してください。");
         return;
       }
-      setActionLoading(btn, true);
+      setActionLoading(btn, true, "保存中");
       try{
         const ok = await saveTransportOrderToGas({forceUpdate:true});
         if(ok) alert("更新保存しました。");
