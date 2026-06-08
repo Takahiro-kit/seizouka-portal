@@ -134,7 +134,7 @@ body.settings-mode .nav-settings-links{display:block;}
     drop-shadow(0 1px 0 #fff)
     drop-shadow(0 -1px 0 #fff);
 }
-#weblinks .tile-logo.color,
+#weblinks .tile-logo.color:not(.mitoco-logo),
 #weblinks .tile-logo.yamato{
   height:44px;
   filter:
@@ -145,13 +145,8 @@ body.settings-mode .nav-settings-links{display:block;}
     drop-shadow(0 -1px 0 #fff);
 }
 #weblinks .tile-logo.mitoco-logo{
-  filter:
-    brightness(0) invert(1)
-    drop-shadow(0 0 1px rgba(255,255,255,.98))
-    drop-shadow(1px 0 0 #fff)
-    drop-shadow(-1px 0 0 #fff)
-    drop-shadow(0 1px 0 #fff)
-    drop-shadow(0 -1px 0 #fff) !important;
+  filter:none !important;
+  object-position:left center;
 }
 #weblinks .tile-logo.yamato{
   filter:
@@ -913,7 +908,7 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
               </div>
             </div>
                         <div class="tile sf-tile">
-              <img src="s-120x20_903866ed-d493-43b6-ae44-93bf6ab76271.svg" class="tile-logo color mitoco-logo" alt="mitoco ロゴ">
+              <img src="seizouka-schedule/mitoco_logo.svg" class="tile-logo color mitoco-logo" alt="mitoco ロゴ">
               <div class="tile-name">mitoco</div>
               <div class="tile-desc">社内コミュニケーション</div>
               <div class="sf-shortcut-row">
