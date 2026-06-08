@@ -2404,6 +2404,7 @@ async function clearGlobalSettingsPassword(btnEl){
 async function showPage(name){
   if(name==='settings' && !(await requestSettingsAccess())) return;
   if(name==='admin' && _adminPagePassword && !_adminUnlocked && !(await requestAdminAccess())) return;
+  const fromHistory = !!(arguments[1] && arguments[1].fromHistory);
   document.body.classList.toggle('settings-mode', name==='settings');
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
@@ -2441,7 +2442,59 @@ async function showPage(name){
   } else if(name==='member'){
     // メンバーページ中はサイドナビのactiveを付けない
   }
+  if(!fromHistory){
+    syncPortalHistory(false, name);
+  }
 }
+
+function resolveCurrentPortalPageName(){
+  const active = document.querySelector('.page.active');
+  if(!active || !active.id) return 'home';
+  return active.id.replace(/^page-/, '') || 'home';
+}
+function buildPortalHistoryState(pageName){
+  const page = pageName || resolveCurrentPortalPageName();
+  const state = { portalPage: page };
+  if(page === 'member' && _activeMemberName){
+    state.memberName = _activeMemberName;
+  }
+  return state;
+}
+function isSamePortalState(a, b){
+  const pa = (a && a.portalPage) || '';
+  const pb = (b && b.portalPage) || '';
+  if(pa !== pb) return false;
+  const ma = (a && a.memberName) || '';
+  const mb = (b && b.memberName) || '';
+  return ma === mb;
+}
+function syncPortalHistory(replace, pageName){
+  const nextState = buildPortalHistoryState(pageName);
+  const currentState = history.state || {};
+  if(isSamePortalState(currentState, nextState)) return;
+  if(replace) history.replaceState(nextState, '');
+  else history.pushState(nextState, '');
+}
+async function applyPortalHistoryState(state){
+  const page = (state && state.portalPage) ? state.portalPage : 'home';
+  const memberName = (state && state.memberName) ? String(state.memberName) : '';
+  if(page === 'member'){
+    if(memberName){
+      _activeMemberName = memberName;
+      renderMemberPage(memberName);
+    }
+  }else{
+    _activeMemberName = '';
+    const screen = document.getElementById('member-editor-screen');
+    if(screen) screen.classList.remove('show');
+  }
+  await showPage(page, { fromHistory: true });
+}
+window.addEventListener('popstate', (ev) => {
+  applyPortalHistoryState(ev.state || {}).catch(() => {
+    showPage('home', { fromHistory: true });
+  });
+});
 
 // ── TOAST ──
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
@@ -5084,6 +5137,7 @@ refreshTodoTagSelect();
 refreshMemberSelects();
 renderDocCategoryControls();
 sanitizeSalesforceQuickLinkOptions();
+syncPortalHistory(true);
 loadData().finally(() => {
   // ホーム単独表示は新規ウィンドウ注入方式へ切替済み
 });
