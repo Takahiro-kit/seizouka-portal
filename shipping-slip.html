@@ -1,0 +1,951 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>送状作成</title>
+  <style>
+    :root{
+      --bg:#eef4fb;
+      --card:#fff;
+      --line:#d6dde8;
+      --text:#0f172a;
+      --muted:#475569;
+      --blue:#0a5ec2;
+      --blue-dk:#084892;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;color:var(--text)}
+    .wrap{max-width:1780px;margin:0 auto;padding:22px;overflow-x:auto}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+    .back{font-size:15px;font-weight:800;color:var(--blue);text-decoration:none}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{border:none;border-radius:6px;padding:11px 16px;font-size:14px;font-weight:800;color:#fff;background:var(--blue);cursor:pointer}
+    .btn.alt{background:#64748b}
+    .btn:hover{background:var(--blue-dk)}
+    .btn.alt:hover{background:#475569}
+    .btn:disabled{opacity:.6;cursor:not-allowed}
+    .actions .search-inline{
+      display:flex;align-items:center;gap:6px;
+      padding:7px 8px;
+      border:1px solid #cbd5e1;
+      border-radius:8px;
+      background:#f8fafc;
+    }
+    .actions .search-inline label{
+      font-size:12px;font-weight:800;color:#334155;white-space:nowrap;
+    }
+    .actions .search-inline .inp{
+      width:170px;min-width:120px;height:34px;padding:6px 8px;font-size:13px;
+    }
+    .search-modal{
+      position:fixed;inset:0;z-index:9999;
+      display:none;align-items:center;justify-content:center;
+      background:rgba(15,23,42,.38);
+    }
+    .search-modal.open{display:flex}
+    .search-modal-card{
+      width:min(860px,92vw);max-height:78vh;overflow:auto;
+      background:#fff;border-radius:10px;
+      border:1px solid #cbd5e1;box-shadow:0 16px 42px rgba(15,23,42,.28);
+      padding:14px;
+    }
+    .search-modal-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+    .search-result-table{width:100%;border-collapse:collapse;font-size:13px}
+    .search-result-table th,.search-result-table td{border:1px solid #dbe3ef;padding:7px 8px;text-align:left}
+    .search-result-table th{background:#f1f5fb;color:#334155;font-weight:900}
+    .search-result-table tr:hover{background:#f8fbff}
+    .grid{display:grid;grid-template-columns:minmax(520px,1fr) minmax(860px,1.2fr);gap:14px;min-width:1320px}
+    .card{background:var(--card);border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(15,23,42,.08)}
+    .hdr{padding:13px 16px;background:#f7f9fc;border-bottom:1px solid var(--line);font-size:18px;font-weight:900}
+    .form{padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:10px;max-height:calc(100vh - 190px);overflow:auto}
+    .field{display:flex;flex-direction:column;gap:5px}
+    .field.full{grid-column:1/span 2}
+    .field label{font-size:13px;font-weight:800;color:var(--muted);white-space:nowrap}
+    .field.checkline{flex-direction:row;align-items:center;gap:8px}
+    .field.checkline label{font-size:13px;font-weight:800;color:#1f2937}
+    .chk{width:16px;height:16px;accent-color:var(--blue)}
+    .inp{border:1px solid #cbd5e1;border-radius:6px;padding:9px 11px;font-size:14px;font-family:inherit;background:#fff;outline:none}
+    .inp:focus{border-color:var(--blue)}
+    .items-grid{display:grid;grid-template-columns:1fr 170px;gap:6px}
+    .items-head{font-size:12px;font-weight:900;color:#475569}
+    .qty-with-unit{display:grid;grid-template-columns:1fr 58px;gap:6px}
+    .qty-unit{height:100%}
+
+    .paper-wrap{padding:18px;background:#e2e8f0;overflow:auto;max-height:calc(100vh - 190px)}
+    .sheet{
+      width:198mm;max-width:198mm;min-height:273mm;background:#fff;margin:0 auto 7mm;
+      border:1px solid #cbd5e1;box-shadow:0 4px 24px rgba(15,23,42,.12);padding:5mm;box-sizing:border-box;
+      page-break-after:always;
+    }
+    .title-row{
+      display:flex;
+      align-items:baseline;
+      justify-content:center;
+      gap:10px;
+      margin:0 0 1.5mm;
+    }
+    .title{font-size:25px;font-weight:900;text-align:center;letter-spacing:.08em;margin:0}
+    .copy-inline{font-size:15px;font-weight:900;color:#0f172a;line-height:1}
+    table{width:100%;border-collapse:collapse;table-layout:fixed}
+    td,th{border:1px solid #111;padding:1.55mm 1.9mm;vertical-align:middle;font-size:12.7px}
+    th{background:#e5edf7;text-align:left}
+    .label{width:20%;background:#e5edf7;font-weight:900}
+    .value{font-weight:800}
+    .mt{margin-top:1.9mm}
+    .major-head{
+      background:#d7e3f4;
+      border:1.6px solid #111;
+      border-bottom:none;
+      padding:1.05mm 1.8mm;
+      font-size:13.1px;
+      font-weight:900;
+      letter-spacing:.04em;
+      color:#0f172a;
+    }
+    .major-table td,.major-table th{border:1.6px solid #111}
+    .destination-table .label{width:22%}
+    .item-table th{font-size:13.5px}
+    .item-table td{padding:1.65mm 1.9mm}
+    .item-name{height:8.4mm}
+    .caution-box{
+      margin-top:2.0mm;
+      border:2.2px solid #111;
+      background:#eaf1fb;
+      border-radius:2px;
+      padding:1.7mm 2.1mm;
+    }
+    .caution-title{font-size:13.2px;font-weight:900;margin-bottom:0.9mm}
+    .caution-body{font-size:12.3px;font-weight:800;line-height:1.52;white-space:pre-wrap}
+    .minor-table td,.minor-table th{border:1px solid #111}
+    .minor-table .label{background:#eef2f7}
+    .small{font-size:11.8px;line-height:1.55;color:#1f2937}
+    .sender-head{
+      font-size:12px;
+      padding:1.2mm 1.8mm;
+    }
+    .sender-table td,.sender-table th{
+      font-size:11.4px;
+      padding:1.15mm 1.55mm;
+      line-height:1.35;
+    }
+    .sender-table .label{width:20%}
+    .head-row{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 52mm;
+      gap:1.2mm;
+      margin-bottom:1.8mm;
+      align-items:stretch;
+    }
+    .head-meta-table{
+      height:auto;
+    }
+    .head-meta-table .label{
+      width:22%;
+      background:#e5edf7;
+      font-weight:900;
+    }
+    .head-meta-table td{
+      border:1px solid #111;
+      height:auto;
+      padding:1.55mm 1.9mm;
+      font-size:12.7px;
+      line-height:1.4;
+    }
+    .head-meta-table .value{
+      font-size:12.7px;
+      font-weight:800;
+      letter-spacing:0;
+    }
+    .sign-panel{
+      width:52mm;
+      height:auto;
+      border:1px solid #111;
+      display:flex;
+      flex-direction:column;
+      background:#fff;
+    }
+    .sign-panel-title{
+      border-bottom:1px solid #111;
+      background:#e5edf7;
+      font-size:12px;
+      font-weight:900;
+      padding:1.0mm 1.4mm;
+      line-height:1.1;
+    }
+    .sign-panel-box{
+      flex:1;
+      position:relative;
+      min-height:14mm;
+    }
+    .stamp-hint{
+      position:absolute;
+      right:2.6mm;
+      top:50%;
+      transform:translateY(-50%);
+      color:rgba(71,85,105,.28);
+      font-size:14px;
+      font-weight:900;
+      letter-spacing:.02em;
+      user-select:none;
+    }
+    .sender-sign-hint{
+      display:inline-block;
+      margin-left:10mm;
+      color:rgba(71,85,105,.28);
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:.02em;
+      user-select:none;
+    }
+    .nowrap{white-space:nowrap}
+    .pre{white-space:pre-wrap}
+    .footer-bar{
+      margin-top:2.0mm;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:4mm;
+    }
+    .brand-logo img{display:block;width:33mm;max-width:100%;height:auto}
+    .company{font-size:10.6px;line-height:1.44;color:#1f2937;text-align:right}
+    @media print{
+      body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+      @page{size:A4;margin:6mm}
+      .top,#db-status,.grid>.card:first-child,.grid>.card:last-child>.hdr{display:none !important}
+      .wrap,.grid,.grid>.card:last-child,.paper-wrap{margin:0 !important;padding:0 !important;max-width:none !important;min-width:0 !important;width:auto !important;background:transparent !important;box-shadow:none !important;border:none !important;overflow:visible !important}
+      .grid{display:block !important}
+      .sheet{box-shadow:none !important;border:1px solid #111 !important;padding:4.6mm;min-height:272mm}
+      .title-row{margin:0 0 1.2mm}
+      .title{font-size:23px}
+      .copy-inline{font-size:15px}
+      td,th{padding:1.45mm 1.75mm;font-size:12.4px}
+      .major-head{padding:0.95mm 1.7mm;font-size:12.8px}
+      .item-name{height:7.8mm}
+      .caution-title{font-size:12.8px}
+      .caution-body{font-size:12px;line-height:1.48}
+      .brand-logo img{width:31mm}
+      .company{font-size:10.2px;line-height:1.4}
+      .sender-head{font-size:11.6px;padding:1.1mm 1.7mm}
+      .sender-table td,.sender-table th{font-size:11.1px;padding:1.05mm 1.45mm}
+      .head-row{grid-template-columns:minmax(0,1fr) 52mm;gap:1.1mm}
+      .head-meta-table{height:auto}
+      .sign-panel{width:52mm;height:auto}
+      .sign-panel-box{min-height:13mm}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a class="back" href="transport-order.html">← 運送手配表へ戻る</a>
+      <div class="actions">
+        <div class="search-inline">
+          <label for="loadCaseNoQuery">案件番号</label>
+          <input id="loadCaseNoQuery" class="inp" type="text" placeholder="例: FK2346">
+          <label for="loadNameQuery">発送先名</label>
+          <input id="loadNameQuery" class="inp" type="text" placeholder="例: 上組 名古屋">
+        </div>
+        <button class="btn alt" onclick="loadShippingSlip(this)">案件呼び出し</button>
+        <button class="btn alt" onclick="loadShippingList(this)">全件表示</button>
+        <button class="btn alt" onclick="saveShippingSlip(this)">更新保存</button>
+        <button class="btn" onclick="window.print()">PDF出力</button>
+        <button class="btn alt" onclick="resetSlip()">リセット</button>
+      </div>
+    </div>
+    <div id="db-status" style="margin:-2px 0 10px;font-size:12px;color:#475569;">DB状態: 未接続</div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="hdr">送状 入力</div>
+        <div class="form">
+          <div class="field"><label>発送日</label><input id="requestDate" class="inp" type="date" oninput="renderPreview()"></div>
+          <div class="field"><label>案件番号</label><input id="caseNo" class="inp" type="text" oninput="renderPreview()"></div>
+
+          <div class="field"><label>運送会社</label><input id="carrierCompany" class="inp" type="text" oninput="renderPreview()"></div>
+          <div class="field"><label>車番</label><input id="vehicleNo" class="inp" type="text" oninput="renderPreview()"></div>
+
+          <div class="field"><label>ドライバー</label><input id="driverName" class="inp" type="text" oninput="renderPreview()"></div>
+          <div class="field"><label>携帯番号</label><input id="driverMobile" class="inp" type="text" oninput="renderPreview()"></div>
+
+          <div class="field"><label>会社名</label><input id="destinationCompany" class="inp" type="text" oninput="renderPreview()"></div>
+          <div class="field"><label>送り先 部署名</label><input id="destinationDept" class="inp" type="text" oninput="onDestinationContactFieldInput()"></div>
+          <div class="field"><label>送り先 担当者名</label><input id="destinationContact" class="inp" type="text" oninput="onDestinationContactFieldInput()"></div>
+          <div class="field full checkline">
+            <input id="destinationNoHonorific" class="chk" type="checkbox" onchange="renderPreview()">
+            <label for="destinationNoHonorific">敬称なし</label>
+          </div>
+
+          <div class="field"><label>送り先 郵便番号</label><input id="destinationPostal" class="inp" type="text" placeholder="〒000-0000" oninput="renderPreview()"></div>
+          <div class="field"><label>到着日/時間</label><input id="arrivalDateTime" class="inp" type="text" oninput="renderPreview()"></div>
+
+          <div class="field full"><label>送り先 住所</label><textarea id="destinationAddress" class="inp" rows="2" oninput="renderPreview()"></textarea></div>
+          <div class="field"><label>送り先 TEL</label><input id="destinationTel" class="inp" type="text" oninput="onDestinationContactFieldInput()"></div>
+
+          <div class="field full">
+            <label>品目 / 個数</label>
+            <div class="items-grid items-head"><div>品名</div><div>個数</div></div>
+            <div class="items-grid">
+              <input id="itemName1" class="inp" type="text" oninput="renderPreview()">
+              <div class="qty-with-unit">
+                <input id="itemQty1" class="inp" type="text" oninput="renderPreview()">
+                <select id="itemQtyUnit1" class="inp qty-unit" onchange="renderPreview()"><option value="個">個</option><option value="式">式</option></select>
+              </div>
+            </div>
+            <div class="items-grid">
+              <input id="itemName2" class="inp" type="text" oninput="renderPreview()">
+              <div class="qty-with-unit">
+                <input id="itemQty2" class="inp" type="text" oninput="renderPreview()">
+                <select id="itemQtyUnit2" class="inp qty-unit" onchange="renderPreview()"><option value="個">個</option><option value="式">式</option></select>
+              </div>
+            </div>
+            <div class="items-grid">
+              <input id="itemName3" class="inp" type="text" oninput="renderPreview()">
+              <div class="qty-with-unit">
+                <input id="itemQty3" class="inp" type="text" oninput="renderPreview()">
+                <select id="itemQtyUnit3" class="inp qty-unit" onchange="renderPreview()"><option value="個">個</option><option value="式">式</option></select>
+              </div>
+            </div>
+            <div class="items-grid">
+              <input id="itemName4" class="inp" type="text" oninput="renderPreview()">
+              <div class="qty-with-unit">
+                <input id="itemQty4" class="inp" type="text" oninput="renderPreview()">
+                <select id="itemQtyUnit4" class="inp qty-unit" onchange="renderPreview()"><option value="個">個</option><option value="式">式</option></select>
+              </div>
+            </div>
+            <div class="items-grid">
+              <input id="itemName5" class="inp" type="text" oninput="renderPreview()">
+              <div class="qty-with-unit">
+                <input id="itemQty5" class="inp" type="text" oninput="renderPreview()">
+                <select id="itemQtyUnit5" class="inp qty-unit" onchange="renderPreview()"><option value="個">個</option><option value="式">式</option></select>
+              </div>
+            </div>
+          </div>
+
+          <div class="field full"><label>注意事項</label><textarea id="caution" class="inp" rows="2" oninput="renderPreview()"></textarea></div>
+          <div class="field full checkline">
+            <input id="cautionSameAsDestination" class="chk" type="checkbox" onchange="onCautionSameAsDestinationChanged()">
+            <label for="cautionSameAsDestination">送り先担当者と同様の場合はチェック</label>
+          </div>
+          <div class="field"><label>部署名</label><input id="cautionReceiverDept" class="inp" type="text" oninput="renderPreview()"></div>
+          <div class="field"><label>担当者名</label><input id="cautionReceiverName" class="inp" type="text" oninput="renderPreview()"></div>
+          <div class="field"><label>連絡先</label><input id="cautionReceiverTel" class="inp" type="text" oninput="renderPreview()"></div>
+          <div class="field"><label>補足注意</label><input id="cautionNote" class="inp" type="text" oninput="renderPreview()"></div>
+
+          <div class="field"><label>依頼元 会社名</label><input id="senderCompany" class="inp" type="text" oninput="renderPreview()"></div>
+          <div class="field"><label>依頼元担当者</label><input id="senderName" class="inp" type="text" oninput="renderPreview()"></div>
+          <div class="field full"><label>依頼元 住所</label><textarea id="senderAddress" class="inp" rows="2" oninput="renderPreview()"></textarea></div>
+          <div class="field"><label>依頼元 TEL</label><input id="senderTel" class="inp" type="text" oninput="renderPreview()"></div>
+          <div class="field full"><label>備考</label><textarea id="remarks" class="inp" rows="2" oninput="renderPreview()"></textarea></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="hdr">帳票プレビュー（3枚）</div>
+        <div class="paper-wrap" id="slipPages"></div>
+      </div>
+    </div>
+  </div>
+  <div class="search-modal" id="searchModal" onclick="closeSearchModalOnBackdrop(event)">
+    <div class="search-modal-card">
+      <div class="search-modal-head">
+        <div style="font-size:16px;font-weight:900;">検索候補から選択</div>
+        <button class="btn alt" type="button" onclick="closeSearchModal()">閉じる</button>
+      </div>
+      <div id="searchResultMeta" style="font-size:12px;color:#475569;margin-bottom:8px;"></div>
+      <table class="search-result-table">
+        <thead>
+          <tr>
+            <th style="width:50px;">選択</th>
+            <th style="width:170px;">案件番号</th>
+            <th>配送先名</th>
+            <th style="width:190px;">保存日時</th>
+          </tr>
+        </thead>
+        <tbody id="searchResultBody"></tbody>
+      </table>
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:10px;">
+        <button class="btn alt" type="button" onclick="closeSearchModal()">キャンセル</button>
+        <button class="btn" type="button" onclick="applySelectedSearchResult()">この案件を呼び出す</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbzueRIitHcmbZIjfS1iT7qsAY3awEHioinFms0NO6e9ieVtlJY-ekogHjzmwDhZjUfyBA/exec";
+    const TRANSPORT_DB_SPREADSHEET_KEY = "transport_db_spreadsheet_id";
+    const TRANSPORT_DB_GAS_URL_KEY = "transport_db_gas_url";
+    let _transportDbSpreadsheetId = "";
+    let _transportDbGasUrl = "";
+    let _slipRecordId = "";
+    let _searchCandidates = [];
+    const $ = id => document.getElementById(id);
+    function val(id){ const el = $(id); return el ? String(el.value || "").trim() : ""; }
+    function setDbStatus(text, isError){
+      const el = $("db-status");
+      if(!el) return;
+      el.textContent = text;
+      el.style.color = isError ? "#b91c1c" : "#475569";
+    }
+    function setActionLoading(btn, loading, loadingText){
+      if(!btn) return;
+      if(loading){
+        btn.disabled = true;
+        btn.dataset.prevText = btn.textContent;
+        btn.textContent = loadingText || "処理中...";
+      }else{
+        btn.disabled = false;
+        btn.textContent = btn.dataset.prevText || btn.textContent;
+        delete btn.dataset.prevText;
+      }
+    }
+    function normalizeSearchText(s){
+      return String(s || "")
+        .toLowerCase()
+        .replace(/[０-９]/g, ch => String.fromCharCode(ch.charCodeAt(0) - 65248))
+        .replace(/[　\s]/g, "")
+        .replace(/[()（）［］\[\]【】「」『』<>＜＞]/g, "")
+        .replace(/[・･\.\-ー_／\/,，]/g, "");
+    }
+    function getCandidateDisplayName(row){
+      const name = String((row && (row.unloadName || row.destinationCompany || row.unloadPlace || row.toCompany)) || "").trim();
+      return name;
+    }
+    function formatSavedAtForList(v){
+      const raw = String(v || "").trim();
+      if(!raw) return "-";
+      const p2 = n => String(Number(n || 0)).padStart(2, "0");
+      const m = raw.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})(?:[ T](\d{1,2}):(\d{1,2}))?/);
+      if(m){
+        const hm = (m[4] != null && m[5] != null) ? ` ${p2(m[4])}:${p2(m[5])}` : "";
+        return `${m[1]}/${p2(m[2])}/${p2(m[3])}${hm}`;
+      }
+      const d = new Date(raw);
+      if(!Number.isNaN(d.getTime())){
+        return `${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())} ${p2(d.getHours())}:${p2(d.getMinutes())}`;
+      }
+      return raw;
+    }
+    function openSearchModal(rows, metaText){
+      _searchCandidates = Array.isArray(rows) ? rows : [];
+      const body = $("searchResultBody");
+      const meta = $("searchResultMeta");
+      const modal = $("searchModal");
+      if(!body || !modal) return;
+      if(meta) meta.textContent = metaText || `${_searchCandidates.length}件ヒット`;
+      body.innerHTML = _searchCandidates.map((row, idx) => {
+        const checked = idx === 0 ? "checked" : "";
+        const caseNo = String(row.caseNo || "").trim() || "-";
+        const name = getCandidateDisplayName(row) || "-";
+        const savedAt = formatSavedAtForList(row.savedAt);
+        return `<tr>
+          <td><input type="radio" name="searchResultPick" value="${idx}" ${checked}></td>
+          <td>${esc(caseNo)}</td>
+          <td>${esc(name)}</td>
+          <td>${esc(savedAt)}</td>
+        </tr>`;
+      }).join("");
+      if(!_searchCandidates.length && meta){
+        meta.textContent = "全件表示: 0件";
+      }
+      modal.classList.add("open");
+    }
+    function closeSearchModal(){
+      const modal = $("searchModal");
+      if(modal) modal.classList.remove("open");
+    }
+    function closeSearchModalOnBackdrop(ev){
+      if(ev && ev.target && ev.target.id === "searchModal") closeSearchModal();
+    }
+    async function applySelectedSearchResult(){
+      const picked = document.querySelector('input[name="searchResultPick"]:checked');
+      if(!picked){
+        alert("呼び出す案件を選択してください。");
+        return;
+      }
+      const idx = Number(picked.value);
+      const row = _searchCandidates[idx];
+      if(!row){
+        alert("選択データが見つかりませんでした。");
+        return;
+      }
+      setVal("caseNo", row.caseNo || "");
+      setVal("loadCaseNoQuery", row.caseNo || "");
+      setVal("loadNameQuery", row.unloadName || row.unloadPlace || row.toCompany || "");
+      closeSearchModal();
+      await loadShippingSlip();
+    }
+    function extractSpreadsheetId(raw){
+      const s = String(raw || "").trim();
+      if(!s) return "";
+      const m = s.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+      return (m && m[1]) ? m[1] : s;
+    }
+    function gasPost(url, payload){
+      return fetch(url,{
+        method:"POST",
+        mode:"no-cors",
+        headers:{"Content-Type":"application/x-www-form-urlencoded"},
+        body:"data="+encodeURIComponent(JSON.stringify(payload))
+      });
+    }
+    function nowStr(){
+      const d = new Date();
+      const p = n => String(n).padStart(2,"0");
+      return `${d.getFullYear()}/${p(d.getMonth()+1)}/${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+    }
+    function p2(n){ return String(Number(n || 0)).padStart(2,"0"); }
+    function parseDateParts(raw){
+      const s = String(raw || "").trim();
+      if(!s) return null;
+      let m = s.match(/^(\d{4})[\/\-年](\d{1,2})[\/\-月](\d{1,2})/);
+      if(m){
+        return { y:Number(m[1]), m:Number(m[2]), d:Number(m[3]) };
+      }
+      const dt = new Date(s);
+      if(!Number.isNaN(dt.getTime())){
+        return { y:dt.getFullYear(), m:dt.getMonth()+1, d:dt.getDate() };
+      }
+      return null;
+    }
+    function toDateInputValue(raw){
+      const p = parseDateParts(raw);
+      if(!p) return "";
+      return `${p.y}-${String(p.m).padStart(2,"0")}-${String(p.d).padStart(2,"0")}`;
+    }
+    function fmtDateJp(v){
+      const p = parseDateParts(v);
+      if(!p) return String(v || "").trim();
+      return `${p.y}年${p.m}月${p.d}日`;
+    }
+    function isChecked(id){
+      const el = $(id);
+      return !!(el && el.checked);
+    }
+    function setChecked(id, checked){
+      const el = $(id);
+      if(el) el.checked = !!checked;
+    }
+    function parseBoolean(value){
+      const s = String(value == null ? "" : value).trim().toLowerCase();
+      return s === "1" || s === "true" || s === "on" || s === "yes";
+    }
+    function formatDepartmentPerson(dept, name){
+      const d = String(dept || "").trim();
+      const n = String(name || "").trim();
+      if(d && n) return `${d} ${n}`;
+      return d || n || "";
+    }
+    function formatDestinationDisplayName(dept, name, noHonorific){
+      const d = String(dept || "").trim();
+      const n = String(name || "").trim();
+      if(!d && !n) return "";
+      if(!n) return d;
+      const suffix = noHonorific ? "" : " 様";
+      return d ? `${d} ${n}${suffix}` : `${n}${suffix}`;
+    }
+    function syncCautionReceiverFromDestination(){
+      if(!isChecked("cautionSameAsDestination")) return;
+      setVal("cautionReceiverDept", val("destinationDept"));
+      setVal("cautionReceiverName", val("destinationContact"));
+      setVal("cautionReceiverTel", val("destinationTel"));
+    }
+    function updateCautionReceiverLockState(){
+      const disabled = isChecked("cautionSameAsDestination");
+      ["cautionReceiverDept","cautionReceiverName","cautionReceiverTel"].forEach(id => {
+        const el = $(id);
+        if(el) el.disabled = disabled;
+      });
+    }
+    function onDestinationContactFieldInput(){
+      syncCautionReceiverFromDestination();
+      renderPreview();
+    }
+    function onCautionSameAsDestinationChanged(){
+      syncCautionReceiverFromDestination();
+      updateCautionReceiverLockState();
+      renderPreview();
+    }
+    function esc(s){
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+    function itemRowsHtml(){
+      let out = "";
+      for(let i=1; i<=5; i++){
+        const name = val(`itemName${i}`);
+        const qty = buildQtyWithUnit(val(`itemQty${i}`), val(`itemQtyUnit${i}`));
+        if(!name && !qty) continue;
+        out += `<tr><td class="value item-name">${esc(name)}</td><td class="value nowrap">${esc(qty)}</td></tr>`;
+      }
+      if(!out){
+        out = `<tr><td class="value item-name">&nbsp;</td><td class="value nowrap">&nbsp;</td></tr>`;
+      }
+      return out;
+    }
+    function buildQtyWithUnit(qtyRaw, unitRaw){
+      const qty = String(qtyRaw || "").trim();
+      if(!qty) return "";
+      const unit = String(unitRaw || "個").trim() || "個";
+      return `${qty}${unit}`;
+    }
+    function splitQtyAndUnit(raw){
+      const s = String(raw || "").trim();
+      if(!s) return { qty:"", unit:"個" };
+      const m = s.match(/^(.*?)(個|式)$/);
+      if(m){
+        return { qty:String(m[1] || "").trim(), unit:m[2] || "個" };
+      }
+      return { qty:s, unit:"個" };
+    }
+    function buildSheet(label){
+      const requestDate = fmtDateJp(val("requestDate"));
+      const caseNo = val("caseNo");
+      const carrierCompany = val("carrierCompany");
+      const vehicleNo = val("vehicleNo");
+      const driverName = val("driverName");
+      const driverMobile = val("driverMobile");
+      const destinationCompany = val("destinationCompany");
+      const destinationDept = val("destinationDept");
+      const destinationContact = val("destinationContact");
+      const destinationNoHonorific = isChecked("destinationNoHonorific");
+      const destinationPostal = val("destinationPostal");
+      const destinationAddress = val("destinationAddress");
+      const destinationTel = val("destinationTel");
+      const arrivalDateTime = val("arrivalDateTime");
+      const caution = val("caution");
+      const cautionReceiverDept = val("cautionReceiverDept");
+      const cautionReceiverName = val("cautionReceiverName");
+      const cautionReceiverTel = val("cautionReceiverTel");
+      const cautionNote = val("cautionNote");
+      const senderName = val("senderName");
+      const senderCompany = val("senderCompany");
+      const senderAddress = val("senderAddress");
+      const senderTel = val("senderTel");
+      const remarks = val("remarks");
+      return `
+        <div class="sheet">
+          <div class="title-row">
+            <div class="title">送り状</div>
+            <div class="copy-inline">${esc(label)}</div>
+          </div>
+          <div class="head-row">
+            <table class="head-meta-table">
+              <tr><td class="label">発送日</td><td class="value">${esc(requestDate)}</td></tr>
+              <tr><td class="label">案件番号</td><td class="value">${esc(caseNo)}</td></tr>
+            </table>
+            <div class="sign-panel">
+              <div class="sign-panel-title">受領印</div>
+              <div class="sign-panel-box"><span class="stamp-hint">印</span></div>
+            </div>
+          </div>
+
+          <div class="major-head mt">送り先情報</div>
+          <table class="major-table destination-table">
+            <tr><td class="label">会社名</td><td class="value">${esc(destinationCompany)}</td></tr>
+            <tr><td class="label">ご担当者</td><td class="value">${esc(formatDestinationDisplayName(destinationDept, destinationContact, destinationNoHonorific))}</td></tr>
+            <tr><td class="label">住所</td><td class="value pre">${esc(destinationPostal)} ${esc(destinationAddress)}</td></tr>
+            <tr><td class="label">TEL</td><td class="value">${esc(destinationTel)}</td></tr>
+            <tr><td class="label">到着日/時間</td><td class="value">${esc(arrivalDateTime)}</td></tr>
+          </table>
+
+          <div class="major-head mt">品目・個数</div>
+          <table class="major-table item-table">
+            <tr><th>品名</th><th style="width:24%;">個数</th></tr>
+            ${itemRowsHtml()}
+          </table>
+          <div class="caution-box">
+            <div class="caution-title">注意事項</div>
+            <div class="caution-body">${esc(caution)}</div>
+            <div class="caution-body">担当: ${esc(formatDepartmentPerson(cautionReceiverDept, cautionReceiverName))}</div>
+            <div class="caution-body">連絡先: ${esc(cautionReceiverTel)}</div>
+            <div class="caution-body">${esc(cautionNote)}</div>
+            <div class="caution-body">備考: ${esc(remarks)}</div>
+          </div>
+
+          <div class="major-head mt">運行情報</div>
+          <table class="minor-table">
+            <tr><td class="label">運送会社</td><td class="value">${esc(carrierCompany)}</td><td class="label">車番</td><td class="value">${esc(vehicleNo)}</td></tr>
+            <tr><td class="label">ドライバー</td><td class="value">${esc(driverName)}</td><td class="label">携帯番号</td><td class="value">${esc(driverMobile)}</td></tr>
+          </table>
+          <div class="major-head mt sender-head">依頼元</div>
+          <table class="minor-table sender-table">
+            <tr><td class="label">会社名</td><td class="value">${esc(senderCompany)}</td></tr>
+            <tr><td class="label">担当者</td><td class="value">${esc(senderName)}${senderName ? `<span class="sender-sign-hint">印</span>` : ""}</td></tr>
+            <tr><td class="label">住所</td><td class="value pre">${esc(senderAddress)}</td></tr>
+            <tr><td class="label">TEL</td><td class="value">${esc(senderTel)}</td></tr>
+          </table>
+          <div class="footer-bar">
+            <div class="brand-logo">
+              <img src="https://www.jpnext.co.jp/wp-content/uploads/footer_logo01.png" alt="JP NEXT ロゴ">
+            </div>
+            <div class="company">
+              ジェイピーネクスト株式会社<br>
+              〒454-0872 名古屋市中川区万町302番地<br>
+              TEL : 052-353-3146　FAX : 052-353-4568
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    function renderPreview(){
+      const el = $("slipPages");
+      if(!el) return;
+      const labels = ["依頼元控", "運送会社控", "お客様控"];
+      el.innerHTML = labels.map(buildSheet).join("");
+    }
+    function setVal(id, value){
+      const el = $(id);
+      if(!el) return;
+      el.value = value == null ? "" : String(value);
+    }
+    function buildShippingPayload(){
+      const caseNo = val("caseNo");
+      return {
+        sheet: _slipRecordId ? "送状_DB_UPDATE" : "送状_DB_ADD",
+        mode: _slipRecordId ? "shipping_update" : "shipping_add",
+        targetSpreadsheetId: _transportDbSpreadsheetId,
+        recordId: _slipRecordId || "",
+        savedAt: nowStr(),
+        caseNo: caseNo,
+        requestDate: val("requestDate"),
+        carrierCompany: val("carrierCompany"),
+        vehicleNo: val("vehicleNo"),
+        driverName: val("driverName"),
+        driverMobile: val("driverMobile"),
+        destinationCompany: val("destinationCompany"),
+        destinationDept: val("destinationDept"),
+        destinationContact: val("destinationContact"),
+        destinationNoHonorific: isChecked("destinationNoHonorific") ? "1" : "",
+        destinationPostal: val("destinationPostal"),
+        destinationAddress: val("destinationAddress"),
+        destinationTel: val("destinationTel"),
+        arrivalDateTime: val("arrivalDateTime"),
+        itemName1: val("itemName1"), itemQty1: buildQtyWithUnit(val("itemQty1"), val("itemQtyUnit1")),
+        itemName2: val("itemName2"), itemQty2: buildQtyWithUnit(val("itemQty2"), val("itemQtyUnit2")),
+        itemName3: val("itemName3"), itemQty3: buildQtyWithUnit(val("itemQty3"), val("itemQtyUnit3")),
+        itemName4: val("itemName4"), itemQty4: buildQtyWithUnit(val("itemQty4"), val("itemQtyUnit4")),
+        itemName5: val("itemName5"), itemQty5: buildQtyWithUnit(val("itemQty5"), val("itemQtyUnit5")),
+        caution: val("caution"),
+        cautionReceiverDept: val("cautionReceiverDept"),
+        cautionReceiverName: val("cautionReceiverName"),
+        cautionReceiverTel: val("cautionReceiverTel"),
+        cautionSameAsDestination: isChecked("cautionSameAsDestination") ? "1" : "",
+        cautionNote: val("cautionNote"),
+        senderCompany: val("senderCompany"),
+        senderName: val("senderName"),
+        senderAddress: val("senderAddress"),
+        senderTel: val("senderTel"),
+        remarks: val("remarks")
+      };
+    }
+    function fillSlipFromRow(row){
+      if(!row) return;
+      _slipRecordId = String(row.recordId || "").trim();
+      setVal("requestDate", toDateInputValue(row.requestDate || row.sendDate || row.slip_requestDate || ""));
+      setVal("caseNo", row.caseNo || "");
+      setVal("carrierCompany", row.carrierCompany || row.slip_carrierCompany || "");
+      setVal("vehicleNo", row.vehicleNo || row.slip_vehicleNo || "");
+      setVal("driverName", row.driverName || row.slip_driverName || "");
+      setVal("driverMobile", row.driverMobile || row.slip_driverMobile || "");
+      setVal("destinationCompany", row.destinationCompany || row.slip_destinationCompany || "");
+      setVal("destinationDept", row.destinationDept || row.slip_destinationDept || "");
+      setVal("destinationContact", row.destinationContact || row.slip_destinationContact || "");
+      setChecked("destinationNoHonorific", parseBoolean(row.destinationNoHonorific || row.slip_destinationNoHonorific || row.unloadPersonNoHonorific || ""));
+      setVal("destinationPostal", row.destinationPostal || row.slip_destinationPostal || "");
+      setVal("destinationAddress", row.destinationAddress || row.slip_destinationAddress || "");
+      setVal("destinationTel", row.destinationTel || row.slip_destinationTel || "");
+      setVal("arrivalDateTime", row.arrivalDateTime || row.slip_arrivalDateTime || "");
+      for(let i=1;i<=5;i++){
+        setVal(`itemName${i}`, row[`itemName${i}`] || row[`slip_itemName${i}`] || "");
+        const pair = splitQtyAndUnit(row[`itemQty${i}`] || row[`slip_itemQty${i}`] || "");
+        setVal(`itemQty${i}`, pair.qty);
+        setVal(`itemQtyUnit${i}`, pair.unit === "式" ? "式" : "個");
+      }
+      setVal("caution", row.caution || row.slip_caution || "");
+      setVal("cautionReceiverDept", row.cautionReceiverDept || row.slip_cautionReceiverDept || "");
+      setVal("cautionReceiverName", row.cautionReceiverName || row.slip_cautionReceiverName || "");
+      setVal("cautionReceiverTel", row.cautionReceiverTel || row.slip_cautionReceiverTel || row.cautionTel || row.slip_cautionTel || "");
+      setChecked("cautionSameAsDestination", parseBoolean(row.cautionSameAsDestination || row.slip_cautionSameAsDestination || ""));
+      setVal("cautionNote", row.cautionNote || row.slip_cautionNote || "");
+      setVal("senderCompany", row.senderCompany || row.slip_senderCompany || "");
+      setVal("senderName", row.senderName || row.slip_senderName || "");
+      setVal("senderAddress", row.senderAddress || row.slip_senderAddress || "");
+      setVal("senderTel", row.senderTel || row.slip_senderTel || "");
+      setVal("remarks", row.remarks || row.slip_remarks || "");
+      if(isChecked("cautionSameAsDestination")) syncCautionReceiverFromDestination();
+      updateCautionReceiverLockState();
+      renderPreview();
+    }
+    async function loadTransportDbSettings(){
+      try{
+        const r = await fetch(GAS_URL + "?t=" + Date.now(), {mode:"cors"});
+        const d = await r.json();
+        const settings = (d && d.settings) || {};
+        _transportDbSpreadsheetId = extractSpreadsheetId(settings[TRANSPORT_DB_SPREADSHEET_KEY] || settings.transport_db_spreadsheet_id || "");
+        _transportDbGasUrl = String(settings[TRANSPORT_DB_GAS_URL_KEY] || settings.transport_db_gas_url || "").trim();
+        if(_transportDbSpreadsheetId && _transportDbGasUrl){
+          setDbStatus("DB状態: 接続設定OK", false);
+        }else{
+          setDbStatus("DB状態: 連携設定が未完了", true);
+        }
+      }catch(e){
+        _transportDbSpreadsheetId = "";
+        _transportDbGasUrl = "";
+        setDbStatus("DB状態: 設定取得エラー", true);
+      }
+    }
+    async function saveShippingSlip(btn){
+      const caseNo = val("caseNo");
+      if(!caseNo){
+        alert("案件番号を入力してください。");
+        return false;
+      }
+      if(!_transportDbSpreadsheetId || !_transportDbGasUrl){
+        alert("DB連携設定が未完了です。");
+        return false;
+      }
+      setActionLoading(btn, true, "保存中...");
+      try{
+        const payload = buildShippingPayload();
+        await gasPost(_transportDbGasUrl, payload);
+        const url = `${_transportDbGasUrl}?mode=shipping_get&targetSpreadsheetId=${encodeURIComponent(_transportDbSpreadsheetId)}&caseNo=${encodeURIComponent(caseNo)}&_=${Date.now()}`;
+        const r = await fetch(url, {mode:"cors"});
+        const j = await r.json();
+        const row = (j && (j.row || j.data)) || null;
+        if(!row){
+          setDbStatus("DB状態: 保存未確認", true);
+          alert("保存確認ができませんでした。");
+          return false;
+        }
+        fillSlipFromRow(row);
+        setDbStatus(`DB状態: 送状保存済み（${caseNo}）`, false);
+        return true;
+      }catch(e){
+        setDbStatus("DB状態: 保存エラー", true);
+        alert("送状保存でエラーが発生しました。");
+        return false;
+      }finally{
+        setActionLoading(btn, false);
+      }
+    }
+    async function loadShippingList(btn){
+      if(!_transportDbSpreadsheetId || !_transportDbGasUrl){
+        alert("DB連携設定が未完了です。");
+        return;
+      }
+      const caseNoQuery = val("loadCaseNoQuery");
+      const unloadNameQuery = val("loadNameQuery");
+      setActionLoading(btn, true, "検索中...");
+      try{
+        const qs =
+          `mode=transport_search` +
+          `&targetSpreadsheetId=${encodeURIComponent(_transportDbSpreadsheetId)}` +
+          `&caseNoQuery=${encodeURIComponent(caseNoQuery)}` +
+          `&unloadNameQuery=${encodeURIComponent(unloadNameQuery)}` +
+          `&_=${Date.now()}`;
+        const r = await fetch(`${_transportDbGasUrl}?${qs}`, {mode:"cors"});
+        const j = await r.json();
+        const rows = (j && (j.rows || j.data || j.list)) || [];
+        _searchCandidates = Array.isArray(rows) ? rows : [];
+        openSearchModal(_searchCandidates, `全件表示: ${_searchCandidates.length}件`);
+      }catch(e){
+        alert("検索に失敗しました。");
+      }finally{
+        setActionLoading(btn, false);
+      }
+    }
+    async function loadShippingSlip(btn){
+      let caseNo = val("loadCaseNoQuery") || val("caseNo");
+      if(!val("caseNo") && caseNo){
+        setVal("caseNo", caseNo);
+      }
+      if(!caseNo){
+        const unloadNameQuery = val("loadNameQuery");
+        if(unloadNameQuery){
+          await loadShippingList();
+          return;
+        }
+        alert("案件番号または発送先名を入力してください。");
+        return;
+      }
+      if(!_transportDbSpreadsheetId || !_transportDbGasUrl){
+        alert("DB連携設定が未完了です。");
+        return;
+      }
+      setActionLoading(btn, true, "呼び出し中...");
+      try{
+        const url = `${_transportDbGasUrl}?mode=shipping_get&targetSpreadsheetId=${encodeURIComponent(_transportDbSpreadsheetId)}&caseNo=${encodeURIComponent(caseNo)}&_=${Date.now()}`;
+        const r = await fetch(url, {mode:"cors"});
+        const j = await r.json();
+        const row = (j && (j.row || j.data)) || null;
+        if(!row){
+          alert("該当する送状データが見つかりませんでした。");
+          setDbStatus(`DB状態: 該当データなし（${caseNo}）`, true);
+          return;
+        }
+        fillSlipFromRow(row);
+        setVal("loadCaseNoQuery", caseNo);
+        setVal("loadNameQuery", row.destinationCompany || row.unloadName || "");
+        setDbStatus(`DB状態: 送状呼び出し済み（${caseNo}）`, false);
+      }catch(e){
+        setDbStatus("DB状態: 呼び出しエラー", true);
+        alert("送状呼び出しでエラーが発生しました。");
+      }finally{
+        setActionLoading(btn, false);
+      }
+    }
+    function applyPrefill(){
+      try{
+        const raw = sessionStorage.getItem("shippingSlipPrefill");
+        if(!raw) return;
+        const p = JSON.parse(raw);
+        setVal("requestDate", toDateInputValue(p.requestDate || p.sendDate || "") || new Date().toISOString().slice(0,10));
+        setVal("caseNo", p.caseNo || "");
+        setVal("carrierCompany", p.carrierCompany || "");
+        setVal("destinationCompany", p.destinationCompany || "");
+        setVal("destinationAddress", p.destinationPostalAddress || "");
+        setVal("destinationDept", p.destinationDept || "");
+        setVal("destinationContact", p.destinationContact || "");
+        setChecked("destinationNoHonorific", parseBoolean(p.destinationNoHonorific || p.unloadPersonNoHonorific || ""));
+        setVal("destinationTel", p.destinationTel || "");
+        setVal("arrivalDateTime", p.arrivalDateTime || "");
+        setVal("senderCompany", p.senderCompany || "ジェイピーネクスト株式会社");
+        setVal("senderName", p.senderName || "");
+        setVal("senderAddress", p.senderPostalAddress || "名古屋市中川区万町302番地");
+        setVal("senderTel", p.senderTel || "052-353-3146");
+        setVal("remarks", p.remarks || "");
+      }catch(e){}
+    }
+    function resetSlip(){
+      setVal("requestDate", new Date().toISOString().slice(0,10));
+      [
+        "caseNo","carrierCompany","vehicleNo","driverName","driverMobile",
+        "destinationCompany","destinationDept","destinationContact","destinationPostal","destinationAddress","destinationTel","arrivalDateTime",
+        "itemName1","itemQty1","itemName2","itemQty2","itemName3","itemQty3","itemName4","itemQty4","itemName5","itemQty5",
+        "caution","cautionReceiverDept","cautionReceiverName","cautionReceiverTel","cautionNote","senderCompany","senderName","senderAddress","senderTel","remarks"
+      ].forEach(id => setVal(id, ""));
+      ["itemQtyUnit1","itemQtyUnit2","itemQtyUnit3","itemQtyUnit4","itemQtyUnit5"].forEach(id => setVal(id, "個"));
+      setChecked("destinationNoHonorific", false);
+      setChecked("cautionSameAsDestination", false);
+      updateCautionReceiverLockState();
+      setVal("senderCompany", "ジェイピーネクスト株式会社");
+      setVal("senderAddress", "名古屋市中川区万町302番地");
+      setVal("senderTel", "052-353-3146");
+      setVal("caution", "現場入門前に必ず下記番号へ連絡してください");
+      renderPreview();
+    }
+    applyPrefill();
+    if(!val("requestDate")) setVal("requestDate", new Date().toISOString().slice(0,10));
+    if(!val("senderCompany")) setVal("senderCompany", "ジェイピーネクスト株式会社");
+    if(!val("senderAddress")) setVal("senderAddress", "名古屋市中川区万町302番地");
+    if(!val("senderTel")) setVal("senderTel", "052-353-3146");
+    if(!val("caution")) setVal("caution", "現場入門前に必ず下記番号へ連絡してください");
+    updateCautionReceiverLockState();
+    loadTransportDbSettings();
+    renderPreview();
+  </script>
+</body>
+</html>
