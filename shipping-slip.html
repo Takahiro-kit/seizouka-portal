@@ -249,7 +249,7 @@
         <button class="btn alt" onclick="loadShippingSlip(this)">案件呼び出し</button>
         <button class="btn alt" onclick="loadShippingList(this)">全件表示</button>
         <button class="btn alt" onclick="saveShippingSlip(this)">更新保存</button>
-        <button class="btn" onclick="window.print()">PDF出力</button>
+        <button class="btn" onclick="printWithAutoSave(this)">PDF出力</button>
         <button class="btn alt" onclick="resetSlip()">リセット</button>
       </div>
     </div>
@@ -830,6 +830,11 @@
       }finally{
         setActionLoading(btn, false);
       }
+    }
+    async function printWithAutoSave(btn){
+      const ok = await saveShippingSlip(btn);
+      if(!ok) return;
+      window.print();
     }
     async function loadShippingList(btn){
       if(!_transportDbSpreadsheetId || !_transportDbGasUrl){
