@@ -489,6 +489,77 @@
         body:"data="+encodeURIComponent(JSON.stringify(payload))
       });
     }
+    function getPortalOperatorName(){
+      return String(sessionStorage.getItem("portal_operator_name") || "").trim();
+    }
+    function getPortalOperatorDisplayName(){
+      return String(sessionStorage.getItem("portal_operator_display") || "").trim();
+    }
+    function applyOperatorAutoFill(){
+      const display = getPortalOperatorDisplayName();
+      if(display && !val("senderName")) setVal("senderName", display);
+      renderPreview();
+    }
+    function postPortalAuditPayload(payloadObj, after){
+      const body = "data=" + encodeURIComponent(JSON.stringify(payloadObj));
+      let sent = false;
+      if(typeof navigator.sendBeacon === "function"){
+        try{
+          sent = navigator.sendBeacon(GAS_URL, new Blob([body], { type: "application/x-www-form-urlencoded;charset=UTF-8" }));
+        }catch(_){}
+      }
+      if(!sent){
+        fetch(GAS_URL, {
+          method:"POST",
+          mode:"no-cors",
+          headers:{"Content-Type":"application/x-www-form-urlencoded"},
+          body
+        }).catch(()=>{});
+      }
+      if(typeof after === "function") setTimeout(after, sent ? 0 : 80);
+    }
+    function logPortalAudit(action, target, detail, after){
+      const operator = getPortalOperatorName();
+      if(!operator){
+        if(typeof after === "function") after();
+        return;
+      }
+      const pageName = location.pathname.split("/").pop() || "shipping-slip.html";
+      const detailObj = detail && typeof detail === "object"
+        ? {...detail, page: detail.page || pageName}
+        : { message: String(detail || ""), page: pageName };
+      postPortalAuditPayload({
+        sheet:"監査ログ",
+        action: String(action || "操作"),
+        target: String(target || ""),
+        detail: detailObj,
+        operator
+      }, after);
+    }
+    function isSameTabInternalNav(anchor, href){
+      if(!href || href === "#" || href.startsWith("javascript:") || href.startsWith("blob:")) return false;
+      if(anchor.target === "_blank" || anchor.hasAttribute("target")) return false;
+      if(href.startsWith("mailto:") || href.startsWith("tel:")) return false;
+      if(/^https?:\/\//i.test(href)) return false;
+      return true;
+    }
+    function setupPortalAuditCapture(){
+      document.addEventListener("click", (ev) => {
+        if(!getPortalOperatorName()) return;
+        const anchor = ev.target.closest("a[href]");
+        if(!anchor) return;
+        const href = String(anchor.getAttribute("href") || "").trim();
+        if(!href || href === "#" || href.startsWith("javascript:") || href.startsWith("blob:")) return;
+        const label = String(anchor.textContent || "").replace(/\s+/g, " ").trim().slice(0, 80) || href;
+        const detail = { href, kind: "link", opensNewTab: anchor.target === "_blank" };
+        if(isSameTabInternalNav(anchor, href)){
+          ev.preventDefault();
+          logPortalAudit("リンククリック", label, detail, () => { location.href = href; });
+          return;
+        }
+        logPortalAudit("リンククリック", label, detail);
+      }, true);
+    }
     function nowStr(){
       const d = new Date();
       const p = n => String(n).padStart(2,"0");
@@ -541,7 +612,7 @@
       const n = String(name || "").trim();
       if(!d && !n) return "";
       if(!n) return d;
-      const suffix = noHonorific ? "" : " 様";
+      const suffix = noHonorific ? "" : " 様宛";
       return d ? `${d} ${n}${suffix}` : `${n}${suffix}`;
     }
     function syncCautionReceiverFromDestination(){
@@ -810,6 +881,7 @@
       setActionLoading(btn, true, "保存中...");
       try{
         const payload = buildShippingPayload();
+        const isUpdate = payload.mode === "shipping_update";
         await gasPost(_transportDbGasUrl, payload);
         const url = `${_transportDbGasUrl}?mode=shipping_get&targetSpreadsheetId=${encodeURIComponent(_transportDbSpreadsheetId)}&caseNo=${encodeURIComponent(caseNo)}&_=${Date.now()}`;
         const r = await fetch(url, {mode:"cors"});
@@ -822,6 +894,7 @@
         }
         fillSlipFromRow(row);
         setDbStatus(`DB状態: 送状保存済み（${caseNo}）`, false);
+        logPortalAudit(isUpdate ? "更新保存" : "新規保存", caseNo, { kind: "shipping_save", mode: payload.mode });
         return true;
       }catch(e){
         setDbStatus("DB状態: 保存エラー", true);
@@ -835,6 +908,7 @@
       const ok = await saveShippingSlip(btn);
       if(!ok) return;
       window.print();
+      logPortalAudit("PDF出力", val("caseNo"), { kind: "shipping_pdf" });
     }
     async function loadShippingList(btn){
       if(!_transportDbSpreadsheetId || !_transportDbGasUrl){
@@ -856,6 +930,7 @@
         const rows = (j && (j.rows || j.data || j.list)) || [];
         _searchCandidates = Array.isArray(rows) ? rows : [];
         openSearchModal(_searchCandidates, `全件表示: ${_searchCandidates.length}件`);
+        logPortalAudit("全件表示", "送状", { kind: "shipping_list", count: _searchCandidates.length });
       }catch(e){
         alert("検索に失敗しました。");
       }finally{
@@ -895,6 +970,7 @@
         setVal("loadCaseNoQuery", caseNo);
         setVal("loadNameQuery", row.destinationCompany || row.unloadName || "");
         setDbStatus(`DB状態: 送状呼び出し済み（${caseNo}）`, false);
+        logPortalAudit("案件呼び出し", caseNo, { kind: "shipping_load" });
       }catch(e){
         setDbStatus("DB状態: 呼び出しエラー", true);
         alert("送状呼び出しでエラーが発生しました。");
@@ -940,7 +1016,7 @@
       setVal("senderAddress", "名古屋市中川区万町302番地");
       setVal("senderTel", "052-353-3146");
       setVal("caution", "現場入門前に必ず下記番号へ連絡してください");
-      renderPreview();
+      applyOperatorAutoFill();
     }
     applyPrefill();
     if(!val("requestDate")) setVal("requestDate", new Date().toISOString().slice(0,10));
@@ -950,7 +1026,9 @@
     if(!val("caution")) setVal("caution", "現場入門前に必ず下記番号へ連絡してください");
     updateCautionReceiverLockState();
     loadTransportDbSettings();
-    renderPreview();
+    applyOperatorAutoFill();
+    logPortalAudit("ページ表示", "送状", { kind: "page_view" });
+    setupPortalAuditCapture();
   </script>
 </body>
 </html>

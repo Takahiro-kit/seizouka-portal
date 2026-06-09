@@ -293,6 +293,85 @@
         body:"data="+encodeURIComponent(JSON.stringify(payload))
       });
     }
+    function getPortalOperatorName(){
+      return String(sessionStorage.getItem("portal_operator_name") || "").trim();
+    }
+    function getPortalOperatorWorkorderLabel(){
+      return String(sessionStorage.getItem("portal_operator_workorder_label") || getPortalOperatorName() || "").trim();
+    }
+    function applyOperatorAutoFill(){
+      const label = getPortalOperatorWorkorderLabel();
+      const req = $("requester");
+      if(label && req && !String(req.value || "").trim()){
+        for(const opt of req.options){
+          if(String(opt.value || "").trim() === label){
+            req.value = opt.value;
+            break;
+          }
+        }
+      }
+      renderPreview();
+    }
+    function postPortalAuditPayload(payloadObj, after){
+      const body = "data=" + encodeURIComponent(JSON.stringify(payloadObj));
+      let sent = false;
+      if(typeof navigator.sendBeacon === "function"){
+        try{
+          sent = navigator.sendBeacon(GAS_URL, new Blob([body], { type: "application/x-www-form-urlencoded;charset=UTF-8" }));
+        }catch(_){}
+      }
+      if(!sent){
+        fetch(GAS_URL, {
+          method:"POST",
+          mode:"no-cors",
+          headers:{"Content-Type":"application/x-www-form-urlencoded"},
+          body
+        }).catch(()=>{});
+      }
+      if(typeof after === "function") setTimeout(after, sent ? 0 : 80);
+    }
+    function logPortalAudit(action, target, detail, after){
+      const operator = getPortalOperatorName();
+      if(!operator){
+        if(typeof after === "function") after();
+        return;
+      }
+      const pageName = location.pathname.split("/").pop() || "workorder.html";
+      const detailObj = detail && typeof detail === "object"
+        ? {...detail, page: detail.page || pageName}
+        : { message: String(detail || ""), page: pageName };
+      postPortalAuditPayload({
+        sheet:"監査ログ",
+        action: String(action || "操作"),
+        target: String(target || ""),
+        detail: detailObj,
+        operator
+      }, after);
+    }
+    function isSameTabInternalNav(anchor, href){
+      if(!href || href === "#" || href.startsWith("javascript:") || href.startsWith("blob:")) return false;
+      if(anchor.target === "_blank" || anchor.hasAttribute("target")) return false;
+      if(href.startsWith("mailto:") || href.startsWith("tel:")) return false;
+      if(/^https?:\/\//i.test(href)) return false;
+      return true;
+    }
+    function setupPortalAuditCapture(){
+      document.addEventListener("click", (ev) => {
+        if(!getPortalOperatorName()) return;
+        const anchor = ev.target.closest("a[href]");
+        if(!anchor) return;
+        const href = String(anchor.getAttribute("href") || "").trim();
+        if(!href || href === "#" || href.startsWith("javascript:") || href.startsWith("blob:")) return;
+        const label = String(anchor.textContent || "").replace(/\s+/g, " ").trim().slice(0, 80) || href;
+        const detail = { href, kind: "link", opensNewTab: anchor.target === "_blank" };
+        if(isSameTabInternalNav(anchor, href)){
+          ev.preventDefault();
+          logPortalAudit("リンククリック", label, detail, () => { location.href = href; });
+          return;
+        }
+        logPortalAudit("リンククリック", label, detail);
+      }, true);
+    }
     function fmtDate(v){
       const s = String(v || "").trim();
       const m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
@@ -327,7 +406,7 @@
       if($("workPlace")) $("workPlace").value = DEFAULT_WORK_PLACES[0] || "";
       $("fileDate").value = new Date().toISOString().slice(0,10);
       $("caseNo").value = "";
-      renderPreview();
+      applyOperatorAutoFill();
     }
     function syncCaseNoFromDoc(){
       if(!$("docCaseNo") || !$("caseNo")) return;
@@ -435,6 +514,7 @@
         renderTemplateSelect();
         if($("templateSelect")) $("templateSelect").value = name;
         alert("テンプレートを保存しました。");
+        logPortalAudit("テンプレート保存", name, { kind: "workorder_template_save" });
       }catch(e){
         alert("テンプレート保存でエラーが発生しました: " + e.message);
       }finally{
@@ -464,6 +544,7 @@
         renderTemplateSelect();
         if($("templateSelect")) $("templateSelect").value = "";
         alert("テンプレートを削除しました。");
+        logPortalAudit("テンプレート削除", name, { kind: "workorder_template_delete" });
       }catch(e){
         alert("テンプレート削除でエラーが発生しました: " + e.message);
       }finally{
@@ -515,7 +596,7 @@
         renderSelectOptions("workDept", deptOptions, deptOptions[0] || "");
         renderSelectOptions("workPlace", placeOptions, placeOptions[0] || "");
         renderTemplateSelect();
-        renderPreview();
+        applyOperatorAutoFill();
         return;
       }catch(e){}
       _workorderDbSpreadsheetId = "";
@@ -526,7 +607,7 @@
       renderSelectOptions("workDept", DEFAULT_WORK_DEPARTMENTS, DEFAULT_WORK_DEPARTMENTS[0]);
       renderSelectOptions("workPlace", DEFAULT_WORK_PLACES, DEFAULT_WORK_PLACES[0]);
       renderTemplateSelect();
-      renderPreview();
+      applyOperatorAutoFill();
     }
     function fileDateToken(v){
       const s = String(v || "").trim();
@@ -594,6 +675,7 @@
       };
       try{
         await gasPost(_workorderDbGasUrl, payload);
+        logPortalAudit("保存", caseNo, { kind: "workorder_save" });
         if(!silent) alert("作業指示書データを送信しました。");
         return true;
       }catch(e){
@@ -638,12 +720,15 @@
       };
       window.addEventListener("afterprint", restore);
       window.print();
+      logPortalAudit("PDF出力", casePart, { kind: "workorder_pdf", caseNo: casePart });
       setTimeout(() => setActionLoading(btn, false), 3000);
     }
     $("requestDate").value = new Date().toISOString().slice(0,10);
     $("fileDate").value = new Date().toISOString().slice(0,10);
     loadMasterOptions();
     renderPreview();
+    logPortalAudit("ページ表示", "作業指示書", { kind: "page_view" });
+    setupPortalAuditCapture();
   </script>
 </body>
 </html>

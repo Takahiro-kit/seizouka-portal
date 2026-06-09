@@ -493,6 +493,96 @@
         body:"data="+encodeURIComponent(JSON.stringify(payload))
       });
     }
+    function getPortalOperatorName(){
+      return String(sessionStorage.getItem("portal_operator_name") || "").trim();
+    }
+    function getPortalOperatorDisplayName(){
+      return String(sessionStorage.getItem("portal_operator_display") || "").trim();
+    }
+    function getPortalOperatorPhone(){
+      return String(sessionStorage.getItem("portal_operator_phone") || "").trim();
+    }
+    function setSelectIfMatch(selectId, value){
+      const sel = $(selectId);
+      if(!sel || !value) return;
+      for(const opt of sel.options){
+        if(String(opt.value || "").trim() === value){
+          sel.value = opt.value;
+          return;
+        }
+      }
+    }
+    function applyOperatorAutoFill(){
+      const display = getPortalOperatorDisplayName();
+      const phone = getPortalOperatorPhone();
+      if(display){
+        setSelectIfMatch("sender", display);
+        if($("loadPerson") && !String($("loadPerson").value || "").trim()) $("loadPerson").value = display;
+        setSelectIfMatch("loadPersonPick", display);
+      }
+      if(phone && $("loadTel") && !String($("loadTel").value || "").trim()) $("loadTel").value = phone;
+      renderPreview();
+    }
+    function postPortalAuditPayload(payloadObj, after){
+      const body = "data=" + encodeURIComponent(JSON.stringify(payloadObj));
+      let sent = false;
+      if(typeof navigator.sendBeacon === "function"){
+        try{
+          sent = navigator.sendBeacon(GAS_URL, new Blob([body], { type: "application/x-www-form-urlencoded;charset=UTF-8" }));
+        }catch(_){}
+      }
+      if(!sent){
+        fetch(GAS_URL, {
+          method:"POST",
+          mode:"no-cors",
+          headers:{"Content-Type":"application/x-www-form-urlencoded"},
+          body
+        }).catch(()=>{});
+      }
+      if(typeof after === "function") setTimeout(after, sent ? 0 : 80);
+    }
+    function logPortalAudit(action, target, detail, after){
+      const operator = getPortalOperatorName();
+      if(!operator){
+        if(typeof after === "function") after();
+        return;
+      }
+      const pageName = location.pathname.split("/").pop() || "transport-order.html";
+      const detailObj = detail && typeof detail === "object"
+        ? {...detail, page: detail.page || pageName}
+        : { message: String(detail || ""), page: pageName };
+      postPortalAuditPayload({
+        sheet:"監査ログ",
+        action: String(action || "操作"),
+        target: String(target || ""),
+        detail: detailObj,
+        operator
+      }, after);
+    }
+    function isSameTabInternalNav(anchor, href){
+      if(!href || href === "#" || href.startsWith("javascript:") || href.startsWith("blob:")) return false;
+      if(anchor.target === "_blank" || anchor.hasAttribute("target")) return false;
+      if(href.startsWith("mailto:") || href.startsWith("tel:")) return false;
+      if(/^https?:\/\//i.test(href)) return false;
+      return true;
+    }
+    function setupPortalAuditCapture(){
+      document.addEventListener("click", (ev) => {
+        if(!getPortalOperatorName()) return;
+        const anchor = ev.target.closest("a[href]");
+        if(!anchor) return;
+        const href = String(anchor.getAttribute("href") || "").trim();
+        if(!href || href === "#" || href.startsWith("javascript:") || href.startsWith("blob:")) return;
+        const label = String(anchor.textContent || "").replace(/\s+/g, " ").trim().slice(0, 80) || href;
+        const detail = { href, kind: "link", opensNewTab: anchor.target === "_blank" };
+        if(isSameTabInternalNav(anchor, href)){
+          ev.preventDefault();
+          logPortalAudit("リンククリック", label, detail, () => { location.href = href; });
+          return;
+        }
+        logPortalAudit("リンククリック", label, detail);
+      }, true);
+    }
     function fmtDate(v){
       const s = String(v||"").trim();
       const m = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
@@ -792,10 +882,12 @@
     function honorific(name){
       const s = String(name || "").trim();
       if(!s) return "";
-      return s.endsWith("様") ? s : `${s} 様`;
+      if (s.endsWith("様宛")) return s;
+      if (s.endsWith("様")) return `${s}宛`;
+      return `${s} 様宛`;
     }
     function stripHonorific(name){
-      return String(name || "").replace(/\s*様$/, "").trim();
+      return String(name || "").replace(/\s*様宛$/, "").replace(/\s*様$/, "").trim();
     }
     function setChecked(id, checked){
       const el = $(id);
@@ -897,15 +989,15 @@
       if($("vehicle")) $("vehicle").value = "4ｔ平車";
       if($("toCompany")) $("toCompany").value = "上組陸運株式会社 名古屋支店";
       if($("loadPlace")) $("loadPlace").value = "〒454-0872 名古屋市中川区上高畑１丁目１番地 ジェイピーネクスト㈱ テックセンタ";
-      if($("loadPerson")) $("loadPerson").value = "鬼頭 貴広";
-      if($("loadTel")) $("loadTel").value = "090-7863-5701";
+      if($("loadPerson")) $("loadPerson").value = "";
+      if($("loadTel")) $("loadTel").value = "";
       _transportRecordId = "";
       _loadedCaseNo = "";
       _loadedRawLoadAt = "";
       _loadedRawUnloadAt = "";
       setDbStatus("DB状態: 新規入力モード", false);
       populateTimeRangeSelects();
-      renderPreview();
+      applyOperatorAutoFill();
     }
     function setActionLoading(btn, loading, loadingText){
       if(!btn) return;
@@ -973,9 +1065,9 @@
       setVal("toPerson1", row.toPerson1 || personList[0] || "");
       setVal("toPerson2", row.toPerson2 || personList[1] || "");
       setVal("toPerson3", row.toPerson3 || personList[2] || "");
-      setChecked("toPerson1NoHonorific", parseBoolean(row.toPerson1NoHonorific || row["担当者1敬称なし"] || (personRawList[0] && !/様\s*$/.test(personRawList[0]) ? "1" : "")));
-      setChecked("toPerson2NoHonorific", parseBoolean(row.toPerson2NoHonorific || row["担当者2敬称なし"] || (personRawList[1] && !/様\s*$/.test(personRawList[1]) ? "1" : "")));
-      setChecked("toPerson3NoHonorific", parseBoolean(row.toPerson3NoHonorific || row["担当者3敬称なし"] || (personRawList[2] && !/様\s*$/.test(personRawList[2]) ? "1" : "")));
+      setChecked("toPerson1NoHonorific", parseBoolean(row.toPerson1NoHonorific || row["担当者1敬称なし"] || (personRawList[0] && !/様(?:宛)?\s*$/.test(personRawList[0]) ? "1" : "")));
+      setChecked("toPerson2NoHonorific", parseBoolean(row.toPerson2NoHonorific || row["担当者2敬称なし"] || (personRawList[1] && !/様(?:宛)?\s*$/.test(personRawList[1]) ? "1" : "")));
+      setChecked("toPerson3NoHonorific", parseBoolean(row.toPerson3NoHonorific || row["担当者3敬称なし"] || (personRawList[2] && !/様(?:宛)?\s*$/.test(personRawList[2]) ? "1" : "")));
       setVal("vehicle", row.vehicle || row["手配車両"] || "4ｔ平車");
       const loadNorm = normalizeRangeFromRow(row, {
         rangeKeys: ["loadAt","積み込み日時","積込日時","集荷日時","集荷時間"],
@@ -1079,6 +1171,7 @@
       _loadedCaseNo = getCaseNoCombined();
       renderPreview();
       setDbStatus(`DB状態: 呼び出し済み（${_loadedCaseNo}）`, false);
+      logPortalAudit("案件呼び出し", _loadedCaseNo, { kind: "transport_load", via: "search_modal" });
       closeSearchModal();
     }
     async function fetchTransportSearchRows(caseNoQuery, nameQuery){
@@ -1113,6 +1206,7 @@
           _loadedCaseNo = getCaseNoCombined();
           renderPreview();
           setDbStatus(`DB状態: 呼び出し済み（${_loadedCaseNo}）`, false);
+          logPortalAudit("案件呼び出し", _loadedCaseNo, { kind: "transport_load" });
           return;
         }
         openSearchModal(rows, `${rows.length}件ヒットしました。案件を選択してください。`);
@@ -1137,6 +1231,7 @@
           return;
         }
         openSearchModal(rows, `全件表示: ${rows.length}件`);
+        logPortalAudit("全件表示", "運送手配表", { kind: "transport_list", count: rows.length });
       }catch(e){
         alert("全件表示の取得に失敗しました。");
       }finally{
@@ -1207,6 +1302,7 @@
         _loadedCaseNo = caseNo;
         if(!_transportRecordId) _transportRecordId = payload.savedAt;
         setDbStatus(`DB状態: ${isUpdate ? "更新保存済み" : "新規保存済み"}（${caseNo}）`, false);
+        logPortalAudit(isUpdate ? "更新保存" : "新規保存", caseNo, { kind: "transport_save", mode: isUpdate ? "update" : "add" });
         return true;
       }catch(e){
         alert("スプレッドシート保存でエラーが発生しました: " + e.message);
@@ -1244,6 +1340,7 @@
       }
       document.title = caseNo;
       window.print();
+      logPortalAudit("PDF出力", caseNo, { kind: "transport_pdf" });
       setTimeout(()=>{
         document.title = prevTitle;
         setActionLoading(btn,false);
@@ -1289,11 +1386,15 @@
       try{
         sessionStorage.setItem("shippingSlipPrefill", JSON.stringify(prefill));
       }catch(e){}
-      location.href = "shipping-slip.html";
+      logPortalAudit("送状作成", currentCaseNo, { kind: "navigate", href: "shipping-slip.html" }, () => {
+        location.href = "shipping-slip.html";
+      });
     }
     populateTimeRangeSelects();
     loadTransportDbSettings();
     resetForm();
+    logPortalAudit("ページ表示", "運送手配表", { kind: "page_view" });
+    setupPortalAuditCapture();
   </script>
 </body>
 </html>

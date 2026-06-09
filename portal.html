@@ -43,10 +43,14 @@ body{font-family:var(--sans);background:#ffffff;color:var(--text);font-size:15px
 .nav.collapsed .nav-item{padding:12px 16px;justify-content:center;gap:0;}
 .nav-item-label{white-space:nowrap;}
 .nav-settings-links{display:none;}
+.nav-admin-links{display:none;}
 body.settings-mode .nav-home-links{display:none;}
 body.settings-mode .nav-settings-links{display:block;}
+body.admin-mode .nav-home-links{display:none;}
+body.admin-mode .nav-admin-links{display:block;}
 .nav-settings-head{padding:10px 14px 6px;font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.05em;}
 .nav-settings-links .nav-item{font-size:13px;padding:9px 14px;}
+.nav-admin-links .nav-item{font-size:13px;padding:9px 14px;}
 .nav-item.nav-temp-active{background:#e8f0fe;color:var(--blue);font-weight:600;}
 .nav-divider{height:1px;background:var(--border);margin:5px 0;}
 .nav.collapsed .nav-divider{margin:5px 8px;}
@@ -145,7 +149,12 @@ body.settings-mode .nav-settings-links{display:block;}
     drop-shadow(0 -1px 0 #fff);
 }
 #weblinks .tile-logo.mitoco-logo{
-  filter:none !important;
+  filter:
+    drop-shadow(0 0 1px rgba(255,255,255,.98))
+    drop-shadow(1px 0 0 #fff)
+    drop-shadow(-1px 0 0 #fff)
+    drop-shadow(0 1px 0 #fff)
+    drop-shadow(0 -1px 0 #fff) !important;
   object-position:left center;
 }
 #weblinks .tile-logo.yamato{
@@ -238,7 +247,9 @@ body.settings-mode .nav-settings-links{display:block;}
 .ni--important{border-left-color:#dc2626;background:linear-gradient(90deg,#fff8f8 0%,#fff 32%);}
 .ni--info{border-left-color:var(--blue);background:linear-gradient(90deg,#f4f9fd 0%,#fff 32%);}
 .ni--done{border-left-color:#15803d;background:linear-gradient(90deg,#f6fbf7 0%,#fff 32%);}
-.ni-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;}
+.ni-top{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.post-meta-wrap{margin-left:auto;display:inline-flex;align-items:center;gap:6px;flex-shrink:0;}
+.post-author-meta{font-size:10px;font-weight:600;color:#94a3b8;white-space:nowrap;line-height:1.2;}
 .notice-type{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;letter-spacing:.03em;padding:4px 10px;border-radius:4px;white-space:nowrap;line-height:1;box-shadow:0 1px 2px rgba(0,0,0,.06);}
 .notice-type i{font-size:13px;opacity:.95;}
 .notice-type--important{background:#dc2626;color:#fff;}
@@ -253,8 +264,8 @@ body.settings-mode .nav-settings-links{display:block;}
 .nmt{font-size:11px;color:var(--text3);margin-top:4px;}
 #notice-section .input-row{flex-wrap:wrap;}
 #notice-section .input-row select{min-width:88px;}
-#notice-section .notice-input-row{display:grid;grid-template-columns:120px 120px 1fr auto;gap:8px;padding:11px 18px;border-top:1px solid var(--border);background:#fff;align-items:start;}
-#notice-section .notice-input-row textarea{grid-column:1 / span 3;min-height:72px;resize:vertical;}
+#notice-section .notice-input-row{display:grid;grid-template-columns:120px 1fr auto;gap:8px;padding:11px 18px;border-top:1px solid var(--border);background:#fff;align-items:start;}
+#notice-section .notice-input-row textarea{grid-column:1 / span 2;min-height:72px;resize:vertical;}
 #notice-section .notice-input-row input,
 #notice-section .notice-input-row textarea,
 #notice-section .notice-input-row select{border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:14px;font-family:var(--sans);background:#fff;color:var(--text);outline:none;}
@@ -272,6 +283,47 @@ body.settings-mode .nav-settings-links{display:block;}
 .input-row button:hover{background:var(--blue-dk);}
 
 /* TODO */
+#todo-section .ti-row{display:flex;align-items:center;gap:8px;padding:10px 12px 10px 18px;border-bottom:1px solid var(--border);font-size:14px;}
+#todo-section .ti-row:last-child{border-bottom:none;}
+#todo-section .ti-body{flex:1;min-width:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+#todo-section .ti-body .tt{flex:1;min-width:100px;}
+#todo-section .ti-meta-panel{
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:6px;
+  padding-left:8px;
+  margin-left:auto;
+  border-left:1px solid var(--border);
+  white-space:nowrap;
+  max-width:220px;
+  overflow:hidden;
+  transition:max-width .2s ease, opacity .15s ease, padding .2s ease, border-color .2s ease, margin .2s ease;
+}
+#todo-section.todo-meta-collapsed .ti-meta-panel{
+  max-width:0;
+  opacity:0;
+  padding-left:0;
+  margin-left:0;
+  border-left-color:transparent;
+  pointer-events:none;
+}
+#todo-section .ti-meta-panel--empty{min-width:0;border-left:none;padding:0;margin:0;}
+.todo-meta-toggle-btn{
+  border:1px solid var(--border2);
+  border-radius:4px;
+  background:#f8fafc;
+  color:#64748b;
+  font-size:11px;
+  font-weight:700;
+  padding:4px 8px;
+  cursor:pointer;
+  font-family:var(--sans);
+  white-space:nowrap;
+  line-height:1.2;
+}
+.todo-meta-toggle-btn:hover{background:#eef2f7;border-color:#cbd5e1;color:#475569;}
 .ti-row{display:flex;align-items:center;gap:10px;padding:10px 18px;border-bottom:1px solid var(--border);font-size:14px;}
 .ti-row:last-child{border-bottom:none;}
 .tc{width:18px;height:18px;border:2px solid var(--border2);border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .12s;}
@@ -381,7 +433,8 @@ body.settings-mode .nav-settings-links{display:block;}
 .todo-assignee-preview{display:flex;flex-wrap:wrap;gap:5px;min-height:20px;grid-column:1 / -1;margin-top:2px;}
 .todo-assignee-tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
 .todo-date-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
-.todo-date-pill{font-size:10px;font-weight:700;padding:3px 7px;border-radius:4px;background:#eef2ff;color:#3730a3;white-space:nowrap;}
+.todo-date-pill{font-size:10px;font-weight:700;padding:3px 7px;border-radius:4px;background:#eef2ff;color:#3730a3;white-space:nowrap;line-height:1.2;}
+.todo-date-pill--due{background:#f1f5f9;color:#475569;}
 .todo-due-wrap{display:flex;align-items:center;gap:6px;min-width:0;}
 .todo-due-label{font-size:12px;font-weight:700;color:var(--text2);white-space:nowrap;}
 .todo-due-wrap input{min-width:0;flex:1;}
@@ -653,9 +706,6 @@ body.settings-mode .nav-settings-links{display:block;}
   color:#ffffff;
   pointer-events:none;
 }
-
-
-
 /* FOOTER */
 .ft{flex:0 0 auto;padding:10px 24px;font-size:12px;color:var(--text3);border-top:1px solid var(--border);margin-top:0;background:#fff;}
 
@@ -672,8 +722,138 @@ body.settings-mode .nav-settings-links{display:block;}
 .pw-dialog{width:min(420px,92vw);background:#fff;border-radius:8px;box-shadow:0 20px 40px rgba(15,23,42,.28);padding:16px 16px 14px;}
 .pw-title{font-size:16px;font-weight:800;color:#0f172a;margin-bottom:8px;}
 .pw-desc{font-size:12px;color:#64748b;margin-bottom:10px;}
+#portal-login-modal .pw-title{font-size:18px;letter-spacing:.02em;color:#1e1b4b;}
+#portal-login-modal .pw-desc{
+  font-size:13px;
+  color:#1e40af;
+  font-weight:700;
+  background:linear-gradient(90deg,#eff6ff 0%,#eef2ff 100%);
+  border-left:3px solid #3b82f6;
+  padding:8px 10px;
+  border-radius:4px;
+  margin-bottom:12px;
+}
+#portal-login-modal{
+  background:#ffffff;
+}
+#portal-login-modal .pw-dialog{
+  width:min(760px,94vw);
+  border-radius:16px;
+  padding:28px 30px 24px;
+  box-shadow:0 28px 60px rgba(15,23,42,.16),0 8px 24px rgba(15,23,42,.10);
+  border:1px solid #e2e8f0;
+}
+#portal-login-modal .pw-title{
+  font-size:24px;
+  margin-bottom:12px;
+  font-weight:900;
+  color:#0f172a;
+}
+#portal-login-modal .pw-desc{
+  font-size:18px;
+  font-weight:700;
+  letter-spacing:.02em;
+  line-height:1.5;
+  background:#0078d4;
+  color:#ffffff;
+  border:none;
+  border-radius:3px;
+  padding:14px 16px;
+  margin-bottom:16px;
+}
+#portal-login-modal .pw-input{
+  height:46px;
+  font-size:15px;
+  border-radius:10px;
+}
+#portal-login-modal .pw-actions{
+  margin-top:16px;
+}
+#portal-login-modal .pw-actions .s-btn{
+  min-width:140px;
+  height:44px;
+  border-radius:10px;
+  font-size:14px;
+  font-weight:700;
+}
+#portal-login-guest-wrap{
+  margin-top:16px;
+  padding-top:16px;
+  border-top:1px solid #e2e8f0;
+  text-align:center;
+}
+.portal-login-guest-link{
+  background:none;
+  border:none;
+  color:#0f766e;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+  font-family:var(--sans);
+  text-decoration:underline;
+  padding:4px 8px;
+}
+.portal-login-guest-link:hover{color:#115e59;}
+#portal-guest-login-modal{
+  background:#ffffff;
+}
+#portal-guest-login-modal .pw-dialog{
+  width:min(640px,94vw);
+  border-radius:16px;
+  padding:28px 30px 24px;
+  box-shadow:0 28px 60px rgba(15,23,42,.16),0 8px 24px rgba(15,23,42,.10);
+  border:1px solid #dbeafe;
+}
+#portal-guest-login-modal .pw-title{
+  font-size:24px;
+  margin-bottom:12px;
+  font-weight:900;
+  color:#0f172a;
+}
+#portal-guest-login-modal .pw-desc{
+  font-size:15px;
+  font-weight:600;
+  line-height:1.65;
+  background:linear-gradient(90deg,#ecfeff 0%,#eff6ff 100%);
+  color:#0f766e;
+  border-left:3px solid #14b8a6;
+  border-radius:4px;
+  padding:14px 16px;
+  margin-bottom:18px;
+}
+#portal-guest-login-modal .pw-actions .s-btn{
+  min-width:140px;
+  height:44px;
+  border-radius:10px;
+  font-size:14px;
+  font-weight:700;
+}
+body.prelogin #nav,
+body.prelogin #main{display:none !important;}
+body.prelogin #portal-login-modal{display:flex;z-index:5000;}
+body.prelogin #portal-guest-login-modal{display:none;}
+body.prelogin.guest-login-mode #portal-login-modal{display:none !important;}
+body.prelogin.guest-login-mode #portal-guest-login-modal{display:flex;z-index:5000;}
+body.guest-mode .nav-home-links .nav-item:not([data-portal-guest-allowed]){display:none !important;}
+body.guest-mode .hero-btns .hero-btn:not([data-portal-guest-allowed]){display:none !important;}
+body.guest-mode #page-home .content-main > :not(#mgmt){display:none !important;}
+body.guest-mode #page-home .content-side > :not(#calendar-section){display:none !important;}
 .pw-input{width:100%;border:1px solid #cbd5e1;border-radius:6px;padding:9px 10px;font-size:14px;font-family:var(--sans);outline:none;}
 .pw-input:focus{border-color:#3b82f6;box-shadow:0 0 0 2px rgba(59,130,246,.15);}
+.pw-input-wrap{position:relative;width:100%;}
+.pw-input-wrap .pw-input,
+.pw-input-wrap .admin-input,
+.pw-input-wrap .m-edit-input{padding-right:40px;}
+.pw-input-wrap .admin-input{width:100%;max-width:none;}
+.pw-input-wrap .m-edit-input{width:100%;}
+.pw-input-toggle{
+  position:absolute;right:8px;top:50%;transform:translateY(-50%);
+  border:none;background:transparent;color:#64748b;cursor:pointer;
+  padding:4px;line-height:0;border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+}
+.pw-input-toggle:hover{color:#334155;background:#f1f5f9;}
+.pw-input-toggle i{font-size:18px;}
 .pw-actions{margin-top:12px;display:flex;justify-content:flex-end;gap:8px;}
 
 /* SETTINGS */
@@ -726,7 +906,7 @@ body.settings-mode .nav-settings-links{display:block;}
 .s-list-item{display:flex;align-items:center;gap:10px;padding:9px 18px;border-bottom:1px solid var(--border);font-size:13px;}
 .s-list-item:last-child{border-bottom:none;}
 .s-list-item input[type=checkbox]{width:16px;height:16px;cursor:pointer;flex-shrink:0;}
-.s-list-item-body{flex:1;color:var(--text);}
+.s-list-item-body{flex:1;color:var(--text);display:flex;align-items:center;gap:8px;min-width:0;flex-wrap:wrap;}
 .s-list-item-meta{font-size:11px;color:var(--text3);margin-top:2px;}
 .s-list-item-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap;flex-shrink:0;}
 .s-list-item .notice-type{font-size:10px;padding:3px 8px;}
@@ -770,7 +950,7 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
 .page.active{display:block;}
 </style>
 </head>
-<body>
+<body class="prelogin">
 
 <div class="toast" id="toast"></div>
 <div class="pw-modal" id="settings-pw-modal" aria-hidden="true">
@@ -788,10 +968,45 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
   <div class="pw-dialog" role="dialog" aria-modal="true" aria-labelledby="admin-pw-title">
     <div class="pw-title" id="admin-pw-title">管理画面のパスワード</div>
     <div class="pw-desc">管理者ページへ進むにはパスワード入力が必要です。</div>
-    <input id="admin-pw-entry" class="pw-input" type="password" placeholder="パスワードを入力" autocomplete="current-password">
+    <div class="pw-input-wrap">
+      <input id="admin-pw-entry" class="pw-input" type="password" placeholder="パスワードを入力" autocomplete="current-password">
+      <button type="button" class="pw-input-toggle" aria-label="パスワードを表示" aria-pressed="false" onclick="togglePasswordFieldVisibility('admin-pw-entry', this)"><i class="ti ti-eye"></i></button>
+    </div>
     <div class="pw-actions">
       <button class="s-btn" style="background:#64748b;" type="button" onclick="closeAdminPasswordDialog(null)">キャンセル</button>
       <button class="s-btn" type="button" onclick="submitAdminPasswordDialog()">確認</button>
+    </div>
+  </div>
+</div>
+<div class="pw-modal" id="portal-login-modal" aria-hidden="true">
+  <div class="pw-dialog" role="dialog" aria-modal="true" aria-labelledby="portal-login-title">
+    <div class="pw-title" id="portal-login-title">ポータルログイン</div>
+    <div class="pw-desc">ユーザーを選択し、PCログイン用パスワードを入力してください。</div>
+    <select id="portal-login-member" class="pw-input" style="margin-bottom:8px;">
+      <option value="鬼頭貴広">鬼頭貴広</option>
+      <option value="佐藤慎祐">佐藤慎祐</option>
+      <option value="山下英則">山下英則</option>
+      <option value="山﨑裕真">山﨑裕真</option>
+      <option value="喜多健児">喜多健児</option>
+      <option value="サン">サン</option>
+      <option value="津田啓次">津田啓次</option>
+    </select>
+    <input id="portal-login-password" class="pw-input" type="password" placeholder="パスワードを入力" autocomplete="current-password">
+    <div class="pw-actions">
+      <button class="s-btn" type="button" onclick="submitPortalLogin()">ログイン</button>
+    </div>
+    <div id="portal-login-guest-wrap" class="portal-login-guest-wrap" style="display:none;">
+      <button type="button" class="portal-login-guest-link" onclick="openPortalGuestLoginDialog()">ゲストとして閲覧（パスワード不要）</button>
+    </div>
+  </div>
+</div>
+<div class="pw-modal" id="portal-guest-login-modal" aria-hidden="true">
+  <div class="pw-dialog" role="dialog" aria-modal="true" aria-labelledby="portal-guest-login-title">
+    <div class="pw-title" id="portal-guest-login-title">ゲストログイン</div>
+    <div class="pw-desc">パスワード不要でポータルを閲覧できます。設定・管理画面や各種編集機能は利用できません。</div>
+    <div class="pw-actions" style="justify-content:space-between;">
+      <button class="s-btn" style="background:#64748b;" type="button" onclick="backToPortalLoginFromGuest()">通常ログインへ</button>
+      <button class="s-btn" style="background:#0f766e;" type="button" onclick="submitGuestLogin()">ゲストとして入る</button>
     </div>
   </div>
 </div>
@@ -810,22 +1025,21 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
     <div class="nav-home-links">
       <a class="nav-item active" onclick="goHome('top')"><i class="ti ti-home"></i><span class="nav-item-label">ホーム</span></a>
       <a class="nav-item" onclick="goHome('weblinks')"><i class="ti ti-link"></i><span class="nav-item-label">Webリンク</span></a>
-      <a class="nav-item" onclick="goHome('mgmt')"><i class="ti ti-table"></i><span class="nav-item-label">管理表</span></a>
+      <a class="nav-item" data-portal-guest-allowed onclick="goHome('mgmt')"><i class="ti ti-table"></i><span class="nav-item-label">管理表</span></a>
       <a class="nav-item" onclick="goHome('notice-only')"><i class="ti ti-speakerphone"></i><span class="nav-item-label">課内連絡</span></a>
-      <a class="nav-item" onclick="goHome('todo-section')"><i class="ti ti-checkbox"></i><span class="nav-item-label">ToDo</span></a>
+      <a class="nav-item" onclick="goHome('todo-section')"><i class="ti ti-checkbox"></i><span class="nav-item-label">TODO</span></a>
       <a class="nav-item" onclick="goHome('docs')"><i class="ti ti-book"></i><span class="nav-item-label">手順書・ルール</span></a>
       <a class="nav-item" onclick="goHome('storage')"><i class="ti ti-folder"></i><span class="nav-item-label">共有ファイル</span></a>
       <a class="nav-item" onclick="goHome('img-tools')"><i class="ti ti-photo-edit"></i><span class="nav-item-label">画像圧縮</span></a>
       <a class="nav-item" onclick="goHome('forms-section')"><i class="ti ti-forms"></i><span class="nav-item-label">フォーム</span></a>
       <a class="nav-item" onclick="goHome('data-section')"><i class="ti ti-database"></i><span class="nav-item-label">データ</span></a>
-      <a class="nav-item" onclick="goHome('calendar-section')"><i class="ti ti-calendar"></i><span class="nav-item-label">カレンダー</span></a>
+      <a class="nav-item" data-portal-guest-allowed onclick="goHome('calendar-section')"><i class="ti ti-calendar"></i><span class="nav-item-label">カレンダー</span></a>
       <a class="nav-item" onclick="goHome('members-section')"><i class="ti ti-users"></i><span class="nav-item-label">メンバー</span></a>
     </div>
     <div class="nav-settings-links" id="settings-nav-links">
       <button class="nav-item" onclick="goHome('top')"><i class="ti ti-home"></i><span class="nav-item-label">ホームへ戻る</span></button>
       <div class="nav-settings-head">設定カテゴリ</div>
-      <button class="nav-item" data-settings-target="sec-settings-lock" onclick="goSettingsSection('sec-settings-lock')"><i class="ti ti-lock"></i><span class="nav-item-label">設定画面ロック</span></button>
-      <button class="nav-item" data-settings-target="sec-admin-lock" onclick="goSettingsSection('sec-admin-lock')"><i class="ti ti-shield-lock"></i><span class="nav-item-label">管理者ロック</span></button>
+      <button class="nav-item" onclick="showPage('admin')"><i class="ti ti-lock"></i><span class="nav-item-label">設定/管理ロック</span></button>
       <button class="nav-item" data-settings-target="sec-shukka-update" onclick="goSettingsSection('sec-shukka-update')"><i class="ti ti-file-upload"></i><span class="nav-item-label">出荷連絡表更新</span></button>
       <button class="nav-item" data-settings-target="sec-schedule-update" onclick="goSettingsSection('sec-schedule-update')"><i class="ti ti-calendar-up"></i><span class="nav-item-label">スケジュール更新</span></button>
       <button class="nav-item" data-settings-target="sec-notice-manage" onclick="goSettingsSection('sec-notice-manage')"><i class="ti ti-speakerphone"></i><span class="nav-item-label">課内連絡管理</span></button>
@@ -842,11 +1056,22 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
       <button class="nav-item" data-settings-target="sec-member-pages" onclick="goSettingsSection('sec-member-pages')"><i class="ti ti-user-cog"></i><span class="nav-item-label">専用ページ設定</span></button>
       <button class="nav-item" data-settings-target="sec-calendar-events" onclick="goSettingsSection('sec-calendar-events')"><i class="ti ti-calendar-event"></i><span class="nav-item-label">イベント管理</span></button>
     </div>
+    <div class="nav-admin-links" id="admin-nav-links">
+      <button class="nav-item" onclick="goHome('top')"><i class="ti ti-home"></i><span class="nav-item-label">ホームへ戻る</span></button>
+      <div class="nav-settings-head">管理画面メニュー</div>
+      <button class="nav-item" data-admin-target="admin-sec-db" onclick="goAdminSection('admin-sec-db')"><i class="ti ti-database"></i><span class="nav-item-label">管理データベース</span></button>
+      <button class="nav-item" data-admin-target="admin-sec-links" onclick="goAdminSection('admin-sec-links')"><i class="ti ti-link"></i><span class="nav-item-label">業務リンク</span></button>
+      <button class="nav-item" data-admin-target="admin-sec-settings-lock" onclick="goAdminSection('admin-sec-settings-lock')"><i class="ti ti-lock"></i><span class="nav-item-label">設定画面ロック</span></button>
+      <button class="nav-item" data-admin-target="admin-sec-admin-lock" onclick="goAdminSection('admin-sec-admin-lock')"><i class="ti ti-shield-lock"></i><span class="nav-item-label">管理画面ロック</span></button>
+      <button class="nav-item" data-admin-target="admin-sec-members" onclick="goAdminSection('admin-sec-members')"><i class="ti ti-users"></i><span class="nav-item-label">メンバー管理</span></button>
+    </div>
   </div>
   <div class="nav-bottom">
-    <button class="nav-item" id="nav-open-admin" onclick="showPage('admin')"><i class="ti ti-shield-lock"></i><span class="nav-item-label">管理者ページ</span></button>
+    <button class="nav-item" id="nav-open-admin" data-portal-privileged-only onclick="showPage('admin')"><i class="ti ti-shield-lock"></i><span class="nav-item-label">管理者ページ</span></button>
     <div class="nav-divider"></div>
-    <button class="nav-item" id="nav-open-settings" onclick="showPage('settings')"><i class="ti ti-settings-2"></i><span class="nav-item-label">設定</span></button>
+    <button class="nav-item" id="nav-open-settings" data-portal-privileged-only onclick="showPage('settings')"><i class="ti ti-settings-2"></i><span class="nav-item-label">設定</span></button>
+    <div class="nav-divider"></div>
+    <button class="nav-item" id="nav-logout" onclick="logoutPortal()" style="color:#b91c1c;"><i class="ti ti-logout"></i><span class="nav-item-label">ログアウト</span></button>
   </div>
 </nav>
 
@@ -866,18 +1091,18 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
           <div class="hero-btns">
             <a class="hero-btn" onclick="goHome('top')"><i class="ti ti-home"></i>トップ</a>
             <a class="hero-btn" onclick="goHome('weblinks')"><i class="ti ti-link"></i>Webリンク</a>
-            <a class="hero-btn" onclick="goHome('mgmt')"><i class="ti ti-table"></i>管理表</a>
+            <a class="hero-btn" data-portal-guest-allowed onclick="goHome('mgmt')"><i class="ti ti-table"></i>管理表</a>
             <a class="hero-btn" onclick="goHome('notice-only')"><i class="ti ti-speakerphone"></i>課内連絡</a>
-            <a class="hero-btn" onclick="goHome('todo-section')"><i class="ti ti-checkbox"></i>ToDo</a>
+            <a class="hero-btn" onclick="goHome('todo-section')"><i class="ti ti-checkbox"></i>TODO</a>
             <a class="hero-btn" onclick="goHome('docs')"><i class="ti ti-book"></i>手順書</a>
             <a class="hero-btn" onclick="goHome('storage')"><i class="ti ti-folder"></i>共有ファイル</a>
             <a class="hero-btn" onclick="goHome('img-tools')"><i class="ti ti-photo-edit"></i>画像圧縮</a>
             <a class="hero-btn" onclick="goHome('forms-section')"><i class="ti ti-forms"></i>フォーム</a>
             <a class="hero-btn" onclick="goHome('data-section')"><i class="ti ti-database"></i>データ</a>
-            <a class="hero-btn" onclick="goHome('calendar-section')"><i class="ti ti-calendar"></i>カレンダー</a>
+            <a class="hero-btn" data-portal-guest-allowed onclick="goHome('calendar-section')"><i class="ti ti-calendar"></i>カレンダー</a>
             <a class="hero-btn" onclick="goHome('members-section')"><i class="ti ti-users"></i>メンバー</a>
-            <a class="hero-btn" onclick="showPage('admin')"><i class="ti ti-shield-lock"></i>管理者ページ</a>
-            <a class="hero-btn" onclick="showPage('settings')"><i class="ti ti-settings-2"></i>設定</a>
+            <a class="hero-btn" data-portal-privileged-only onclick="showPage('admin')"><i class="ti ti-shield-lock"></i>管理者ページ</a>
+            <a class="hero-btn" data-portal-privileged-only onclick="showPage('settings')"><i class="ti ti-settings-2"></i>設定</a>
           </div>
         </div>
       </div>
@@ -908,7 +1133,7 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
               </div>
             </div>
                         <div class="tile sf-tile">
-              <img src="seizouka-schedule/mitoco_logo.svg" class="tile-logo color mitoco-logo" alt="mitoco ロゴ">
+              <img src="https://cdn.jsdelivr.net/gh/Takahiro-kit/seizouka-schedule@main/mitoco_logo.svg" class="tile-logo color mitoco-logo" alt="mitoco ロゴ">
               <div class="tile-name">mitoco</div>
               <div class="tile-desc">社内コミュニケーション</div>
               <div class="sf-shortcut-row">
@@ -917,7 +1142,7 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
                   <option value="https://jpnext.lightning.force.com/lightning/n/TSMNTBS__mitocoLEX">mitocoホーム</option>
                   <option value="https://jpnext.lightning.force.com/TSMNTBS/portalLEX.app#app=cal">カレンダー</option>
                   <option value="https://jpnext.lightning.force.com/TSMNTBS/portalLEX.app#app=com">トーク</option>
-                  <option value="https://jpnext.lightning.force.com/TSMNTBS/portalLEX.app#app=todo">ToDo</option>
+                  <option value="https://jpnext.lightning.force.com/TSMNTBS/portalLEX.app#app=todo">TODO</option>
                   <option value="https://jpnext.lightning.force.com/TSMNTBS/portalLEX.app#app=bbs">掲示版</option>
                   <option value="https://jpnext.lightning.force.com/TSMNTBS/portalLEX.app#app=doc">文書管理</option>
                 </select>
@@ -977,16 +1202,16 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
               <div id="nlist"><div class="loading"><i class="ti ti-loader-2"></i>読み込み中...</div></div>
               <div class="notice-input-row">
                 <select id="ntype"><option value="">種別</option></select>
-                <select id="n-author"><option value="">投稿者</option></select>
                 <input id="ntitle" type="text" placeholder="タイトルを入力…" autocomplete="off">
                 <textarea id="nbody" placeholder="内容を入力…"></textarea>
                 <button id="add-notice-btn" onclick="addN()">投稿</button>
               </div>
             </div>
-            <div id="todo-section" data-focusable="true">
+            <div id="todo-section" class="todo-meta-collapsed" data-focusable="true">
               <div class="card-hdr yellow">
-                <div class="card-title clickable" onclick="openHomeSectionWindow('todo-section','ToDo')"><i class="ti ti-checkbox"></i>ToDo</div>
+                <div class="card-title clickable" onclick="openHomeSectionWindow('todo-section','TODO')"><i class="ti ti-checkbox"></i>TODO</div>
                 <div class="card-hdr-actions">
+                  <button type="button" id="todo-meta-toggle" class="todo-meta-toggle-btn" onclick="toggleTodoMetaPanel()" title="登録日・投稿者の表示切替" aria-expanded="false">▸ 登録/投稿者</button>
                   <span class="card-sub">GS連携</span>
                 </div>
               </div>
@@ -1044,7 +1269,7 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
               <select id="img-name-rule" onchange="onImageToolRuleChange()" style="border:1px solid var(--border2);border-radius:4px;padding:8px 10px;font-size:13px;font-family:var(--sans);outline:none;background:#fff;">
                 <option value="image">画像: 入力文字_YYYYMMDD_連番</option>
                 <option value="workreport">作業報告書: 作業報告書 FK/FS番号 ユーザー名 日付</option>
-                <option value="slip">送状: 日付_客先会社名_お客様名様_送状</option>
+                <option value="slip">送状: 日付_客先会社名_お客様名様宛_送状</option>
               </select>
               <div class="img-tool-note" id="img-rule-hint" style="margin-top:0;">命名形式: <strong>入力文字_YYYYMMDD_連番</strong>（日付は自動、連番は3桁）</div>
             </div>
@@ -1109,6 +1334,12 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
             <a class="form-tile" href="https://docs.google.com/spreadsheets/d/1NpPRRbv5rFVYGQWZzAuuM5urJpZkUL3QBa2e8-nQwBA/edit?gid=1258037297#gid=1258037297" target="_blank" rel="noopener noreferrer">
               <i class="ti ti-file-spreadsheet"></i><span class="form-tile-label">運送手配データ</span>
             </a>
+            <a class="form-tile" href="https://docs.google.com/spreadsheets/d/1T6NqphPc7NFAg-xhyr2FafsdnymqPuy17vHgd3-RNeI/edit?gid=403374992#gid=403374992" target="_blank" rel="noopener noreferrer">
+              <i class="ti ti-file-spreadsheet"></i><span class="form-tile-label">課内連絡データ</span>
+            </a>
+            <a class="form-tile" href="https://docs.google.com/spreadsheets/d/17MgRa0AcE1d1G9N-Miq4-0jD8FD1ROFj0uu0JyjdRl0/edit?gid=2016988240#gid=2016988240" target="_blank" rel="noopener noreferrer">
+              <i class="ti ti-file-spreadsheet"></i><span class="form-tile-label">TODOデータ</span>
+            </a>
           </div>
         </div>
 
@@ -1164,36 +1395,30 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
 
       <div class="s-sec" id="sec-settings-lock">
         <div class="s-sec-hdr">
-          <div class="s-sec-title">🔐 設定画面のロック</div>
-          <div class="s-sec-desc">GASで全ユーザー共通管理します。未設定ならロックなし。</div>
+          <div class="s-sec-title">🔐 設定/管理ロック</div>
+          <div class="s-sec-desc">パスワード設定は管理画面へ移動しました。</div>
         </div>
-        <div class="s-row" style="flex-wrap:wrap;align-items:flex-end;">
-          <div class="s-row-body" style="min-width:280px;">
-            <div class="s-row-title">パスワード（4文字以上）</div>
-            <input id="settings-pass-input" type="password" placeholder="設定画面のパスワード" style="margin-top:6px;width:100%;max-width:360px;border:1px solid var(--border2);border-radius:4px;padding:8px 12px;font-size:13px;font-family:var(--sans);outline:none;">
-            <div id="settings-lock-status" style="margin-top:8px;font-size:12px;color:var(--text3);">状態: 未設定（ロックなし）</div>
+        <div class="s-row">
+          <div class="s-row-icon"><i class="ti ti-shield-lock"></i></div>
+          <div class="s-row-body">
+            <div class="s-row-title">管理画面で設定してください</div>
+            <div class="s-row-desc">管理画面に「設定画面ロック」「管理者画面ロック」「メンバー管理」を集約しています。</div>
           </div>
-          <button class="s-btn" style="background:#0f766e;" onclick="setGlobalSettingsPassword(this)">全ユーザーへ保存</button>
-          <button class="s-btn" style="background:#666;" onclick="clearGlobalSettingsPassword(this)">全ユーザー設定を解除</button>
+          <button class="s-btn" onclick="showPage('admin')">管理画面を開く</button>
         </div>
       </div>
 
       <div class="s-sec" id="sec-admin-lock">
         <div class="s-sec-hdr">
-          <div class="s-sec-title">🛡️ 管理者ページロック設定</div>
-          <div class="s-sec-desc">管理者ページのパスワードはここで設定します（入力画面は管理者ページ側に表示）。</div>
+          <div class="s-sec-title">🛡️ 管理者ロック設定</div>
+          <div class="s-sec-desc">管理画面へ移動しました。</div>
         </div>
-        <div class="s-row" style="flex-wrap:wrap;align-items:flex-end;">
-          <div class="s-row-body" style="min-width:280px;">
-            <div class="s-row-title">現在の状態</div>
-            <div id="admin-lock-status" style="margin-top:6px;font-size:12px;color:var(--text3);">状態を読み込み中...</div>
+        <div class="s-row">
+          <div class="s-row-icon"><i class="ti ti-settings-2"></i></div>
+          <div class="s-row-body">
+            <div class="s-row-title">管理画面に統合済み</div>
           </div>
-          <div class="s-row-body" style="min-width:260px;">
-            <div class="s-row-title">パスワード設定（4文字以上）</div>
-            <input id="admin-pass-input" type="password" placeholder="管理者ページのパスワード" style="margin-top:6px;width:100%;max-width:320px;border:1px solid var(--border2);border-radius:4px;padding:8px 12px;font-size:13px;font-family:var(--sans);outline:none;">
-          </div>
-          <button class="s-btn" style="background:#0f766e;" onclick="setAdminPagePassword(this)">保存</button>
-          <button class="s-btn" style="background:#666;" onclick="clearAdminPagePassword(this)">解除</button>
+          <button class="s-btn" onclick="showPage('admin')">管理画面を開く</button>
         </div>
       </div>
 
@@ -1429,23 +1654,19 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
         <div id="s-todo-tag-list" style="max-height:260px;overflow-y:auto;"></div>
       </div>
 
-      <!-- メンバー管理（課内連絡・ToDoのメンバータグ） -->
+      <!-- メンバー管理は管理画面へ移動 -->
       <div class="s-sec" id="sec-members">
         <div class="s-sec-hdr">
-          <div class="s-sec-title">👥 メンバータグ管理</div>
-          <div class="s-sec-desc">投稿者・担当者タグの名前と色を編集できます。GASに保存され、portal.htmlを更新すると自動で読み込まれます。</div>
+          <div class="s-sec-title">👥 メンバー管理</div>
+          <div class="s-sec-desc">追加・削除・リネームを管理画面へ移動しました。</div>
         </div>
-        <!-- メンバー追加 -->
-        <div style="padding:14px 18px;border-bottom:1px solid var(--border);background:#ffffff;">
-          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;">＋ メンバーを追加</div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-            <input type="text" id="new-member-name" placeholder="名前" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;width:120px;">
-
-            <input type="color" id="new-member-color" value="#2563eb" style="width:44px;height:34px;border:1px solid var(--border2);border-radius:4px;cursor:pointer;padding:2px;">
-            <button class="s-btn" onclick="addMember()">追加</button>
+        <div class="s-row">
+          <div class="s-row-icon"><i class="ti ti-user-cog"></i></div>
+          <div class="s-row-body">
+            <div class="s-row-title">管理画面でメンバーを編集</div>
           </div>
+          <button class="s-btn" onclick="showPage('admin')">管理画面を開く</button>
         </div>
-        <div id="s-member-list" style="max-height:600px;overflow-y:auto;"></div>
       </div>
 
       <div class="s-sec" id="sec-workorder-options">
@@ -1547,19 +1768,22 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
       <div class="admin-sec" id="admin-unlock-panel" style="display:none;">
         <div class="admin-sec-hdr">
           <div class="admin-sec-title"><i class="ti ti-key"></i>管理者認証</div>
-          <div class="admin-sec-desc">設定ページで設定したパスワードを入力</div>
+          <div class="admin-sec-desc">管理画面ロックで設定したパスワードを入力</div>
         </div>
         <div class="admin-row">
           <div class="admin-col">
             <div class="admin-label">パスワード入力</div>
-            <input id="admin-unlock-input" class="admin-input" type="password" placeholder="パスワードを入力">
+            <div class="pw-input-wrap">
+              <input id="admin-unlock-input" class="admin-input" type="password" placeholder="パスワードを入力">
+              <button type="button" class="pw-input-toggle" aria-label="パスワードを表示" aria-pressed="false" onclick="togglePasswordFieldVisibility('admin-unlock-input', this)"><i class="ti ti-eye"></i></button>
+            </div>
           </div>
           <button class="s-btn" onclick="unlockAdminPage(this)">解除</button>
         </div>
       </div>
 
       <div id="admin-content-wrap" style="display:none;">
-        <div class="admin-sec">
+        <div class="admin-sec" id="admin-sec-db">
           <div class="admin-sec-hdr">
             <div class="admin-sec-title"><i class="ti ti-database"></i>管理データベース</div>
             <div class="admin-sec-desc">フォーム回答の管理用リンク</div>
@@ -1593,7 +1817,7 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
             </div>
           </div>
         </div>
-        <div class="admin-sec">
+        <div class="admin-sec" id="admin-sec-links">
           <div class="admin-sec-hdr">
             <div class="admin-sec-title"><i class="ti ti-link"></i>業務リンク</div>
             <div class="admin-sec-desc">選択すると新しいタブで開きます</div>
@@ -1629,6 +1853,82 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
             </div>
           </div>
         </div>
+
+        <div class="admin-sec" id="admin-sec-settings-lock">
+          <div class="admin-sec-hdr">
+            <div class="admin-sec-title"><i class="ti ti-lock"></i>設定画面ロック設定</div>
+            <div class="admin-sec-desc">設定画面に入るための共通パスワードを管理します。</div>
+          </div>
+          <div class="admin-row" style="align-items:flex-end;gap:10px;flex-wrap:wrap;">
+            <div class="admin-col" style="min-width:320px;max-width:540px;">
+              <div class="admin-label">パスワード（4文字以上）</div>
+              <div class="pw-input-wrap">
+                <input id="settings-pass-input" class="admin-input" type="password" placeholder="設定画面のパスワード">
+                <button type="button" class="pw-input-toggle" aria-label="パスワードを表示" aria-pressed="false" onclick="togglePasswordFieldVisibility('settings-pass-input', this)"><i class="ti ti-eye"></i></button>
+              </div>
+              <div id="settings-lock-status" style="margin-top:8px;font-size:12px;color:var(--text3);">状態を読み込み中...</div>
+            </div>
+            <button class="s-btn" style="background:#0f766e;" onclick="setGlobalSettingsPassword(this)">全ユーザーへ保存</button>
+            <button class="s-btn" style="background:#666;" onclick="clearGlobalSettingsPassword(this)">全ユーザー設定を解除</button>
+          </div>
+        </div>
+
+        <div class="admin-sec" id="admin-sec-admin-lock">
+          <div class="admin-sec-hdr">
+            <div class="admin-sec-title"><i class="ti ti-shield-lock"></i>管理画面ロック設定</div>
+            <div class="admin-sec-desc">管理者ページへ入るためのパスワードを管理します。</div>
+          </div>
+          <div class="admin-row" style="align-items:flex-end;gap:10px;flex-wrap:wrap;">
+            <div class="admin-col" style="min-width:280px;max-width:420px;">
+              <div class="admin-label">現在の状態</div>
+              <div id="admin-lock-status" style="margin-top:6px;font-size:12px;color:var(--text3);">状態を読み込み中...</div>
+            </div>
+            <div class="admin-col" style="min-width:320px;max-width:420px;">
+              <div class="admin-label">パスワード（4文字以上）</div>
+              <div class="pw-input-wrap">
+                <input id="admin-pass-input" class="admin-input" type="password" placeholder="管理者ページのパスワード">
+                <button type="button" class="pw-input-toggle" aria-label="パスワードを表示" aria-pressed="false" onclick="togglePasswordFieldVisibility('admin-pass-input', this)"><i class="ti ti-eye"></i></button>
+              </div>
+            </div>
+            <button class="s-btn" style="background:#0f766e;" onclick="setAdminPagePassword(this)">保存</button>
+            <button class="s-btn" style="background:#666;" onclick="clearAdminPagePassword(this)">解除</button>
+          </div>
+        </div>
+
+        <div class="admin-sec" id="admin-sec-members">
+          <div class="admin-sec-hdr">
+            <div class="admin-sec-title"><i class="ti ti-users"></i>メンバー管理（追加/削除/リネーム）</div>
+            <div class="admin-sec-desc">ログインメンバーや課内連絡/TODOのメンバータグを管理します。ログイン選択肢への表示もここで切り替えできます。</div>
+          </div>
+          <div style="padding:14px 18px;border-bottom:1px solid var(--border);background:#faf5ff;">
+            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;">ゲストログイン</div>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;">
+              <label style="display:inline-flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;min-height:34px;">
+                <input type="checkbox" id="guest-login-enabled" style="width:16px;height:16px;cursor:pointer;">
+                ログイン画面にゲスト入口を表示
+              </label>
+              <div class="admin-col" style="min-width:180px;max-width:240px;">
+                <div class="admin-label">表示名</div>
+                <input id="guest-login-label" class="admin-input" placeholder="ゲスト">
+              </div>
+              <button class="s-btn" style="background:#0f766e;" onclick="saveGuestLoginSettings(this)">保存</button>
+            </div>
+            <div id="guest-login-status" style="margin-top:8px;font-size:12px;color:var(--text3);">状態を読み込み中...</div>
+          </div>
+          <div style="padding:14px 18px;border-bottom:1px solid var(--border);background:#ffffff;">
+            <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;">＋ メンバーを追加</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+              <input type="text" id="new-member-name" placeholder="名前" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;width:180px;">
+              <div class="pw-input-wrap" style="width:180px;">
+                <input type="password" id="new-member-password" placeholder="初期パスワード" style="border:1px solid var(--border2);border-radius:4px;padding:7px 34px 7px 10px;font-size:13px;font-family:var(--sans);outline:none;width:100%;box-sizing:border-box;">
+                <button type="button" class="pw-input-toggle" aria-label="パスワードを表示" aria-pressed="false" onclick="togglePasswordFieldVisibility('new-member-password', this)"><i class="ti ti-eye"></i></button>
+              </div>
+              <input type="color" id="new-member-color" value="#2563eb" style="width:44px;height:34px;border:1px solid var(--border2);border-radius:4px;cursor:pointer;padding:2px;">
+              <button class="s-btn" onclick="addMember()">追加</button>
+            </div>
+          </div>
+          <div id="s-member-list" style="max-height:600px;overflow-y:auto;"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -1659,14 +1959,205 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbzueRIitHcmbZIjfS1iT7qsAY3awEHioinFms0NO6e9ieVtlJY-ekogHjzmwDhZjUfyBA/exec';
 /** GAS WebアプリへPOST（form-urlencoded の data= JSON が最も確実） */
 function gasPost(payload){
+  const operatorName = getCurrentPortalOperatorName();
+  const payloadObj = (payload && typeof payload === 'object')
+    ? {...payload, operator: operatorName}
+    : payload;
   return fetch(GAS_URL,{
     method:'POST',
     mode:'no-cors',
     headers:{'Content-Type':'application/x-www-form-urlencoded'},
-    body:'data='+encodeURIComponent(JSON.stringify(payload))
+    body:'data='+encodeURIComponent(JSON.stringify(payloadObj))
   });
 }
-const MEMBER_CLASS = {'鬼頭':'a-kito','鬼頭(貴)':'a-kito','佐藤':'a-sato','山下':'a-yamashita','山﨑':'a-yamazaki','サン':'a-san','喜多':'a-kita','アン':'a-an','津田':'a-tsuda'};
+function postPortalAuditPayload(payloadObj, after){
+  const body = 'data=' + encodeURIComponent(JSON.stringify(payloadObj));
+  let sent = false;
+  if(typeof navigator.sendBeacon === 'function'){
+    try{
+      sent = navigator.sendBeacon(GAS_URL, new Blob([body], { type: 'application/x-www-form-urlencoded;charset=UTF-8' }));
+    }catch(_){}
+  }
+  if(!sent){
+    fetch(GAS_URL, {
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body
+    }).catch(()=>{});
+  }
+  if(typeof after === 'function') setTimeout(after, sent ? 0 : 80);
+}
+function logPortalAudit(action, target, detail, after){
+  const operator = getCurrentPortalOperatorName();
+  if(!operator && action !== 'ログイン'){
+    if(typeof after === 'function') after();
+    return;
+  }
+  const detailObj = detail && typeof detail === 'object'
+    ? {...detail, page: detail.page || 'portal.html'}
+    : { message: String(detail || ''), page: 'portal.html' };
+  postPortalAuditPayload({
+    sheet:'監査ログ',
+    action: String(action || '操作'),
+    target: String(target || ''),
+    detail: detailObj,
+    operator
+  }, after);
+}
+function isSameTabInternalNav(anchor, href){
+  if(!href || href === '#' || href.startsWith('javascript:') || href.startsWith('blob:')) return false;
+  if(anchor.target === '_blank' || anchor.hasAttribute('target')) return false;
+  if(href.startsWith('mailto:') || href.startsWith('tel:')) return false;
+  if(/^https?:\/\//i.test(href)) return false;
+  return true;
+}
+const PORTAL_AUDIT_SECTIONS = new Set([
+  'weblinks','mgmt','notice-only','todo-section','docs','storage','img-tools',
+  'forms-section','data-section','calendar-section','members-section',
+  'page-home','page-settings','page-admin','page-member'
+]);
+function getPortalSectionFromEl(el){
+  let cur = el;
+  while(cur){
+    const id = cur.id;
+    if(id && PORTAL_AUDIT_SECTIONS.has(id)) return id;
+    cur = cur.parentElement;
+  }
+  return '';
+}
+function getPortalLinkLabel(el){
+  if(!el) return '';
+  const fromClass = el.querySelector('.mgmt-tile-name, .form-tile-label, .doc-name, .admin-tile-title, .stn, .notta-logo-text');
+  if(fromClass) return String(fromClass.textContent || '').trim();
+  const row = el.closest('.sti');
+  if(row){
+    const stn = row.querySelector('.stn');
+    if(stn) return String(stn.textContent || '').trim();
+  }
+  const title = String(el.getAttribute('title') || '').trim();
+  if(title) return title;
+  const text = String(el.textContent || '').replace(/\s+/g, ' ').trim();
+  return text.slice(0, 80);
+}
+function classifyPortalLinkKind(el, href){
+  if(!href.startsWith('http') && /\.html(?:\?|#|$)/i.test(href)) return 'internal_form';
+  if(el.classList.contains('doc-row')) return 'doc';
+  if(el.classList.contains('mgmt-tile')) return 'mgmt_link';
+  if(el.classList.contains('form-tile')) return 'form_link';
+  if(el.classList.contains('admin-tile')) return 'admin_db_link';
+  if(el.classList.contains('card-link')) return 'card_link';
+  if(el.closest('#storage-list')) return 'storage_link';
+  if(el.closest('#weblinks')) return 'web_link';
+  if(el.closest('#data-section')) return 'data_link';
+  if(href.startsWith('http')) return 'external';
+  return 'link';
+}
+function logPortalAnchorClick(anchor, ev){
+  const href = String(anchor.getAttribute('href') || '').trim();
+  if(!href || href === '#' || href.startsWith('javascript:') || href.startsWith('blob:')) return;
+  const label = getPortalLinkLabel(anchor);
+  const detail = {
+    href,
+    section: getPortalSectionFromEl(anchor),
+    kind: classifyPortalLinkKind(anchor, href),
+    opensNewTab: anchor.target === '_blank' || anchor.hasAttribute('target')
+  };
+  if(isSameTabInternalNav(anchor, href)){
+    if(ev) ev.preventDefault();
+    logPortalAudit('リンククリック', label || href, detail, () => { location.href = href; });
+    return;
+  }
+  logPortalAudit('リンククリック', label || href, detail);
+}
+function logPortalQuickLinkOpen(sel, category){
+  if(!sel) return;
+  const url = String(sel.value || '').trim();
+  if(!url) return;
+  const opt = sel.options[sel.selectedIndex];
+  const label = opt ? String(opt.textContent || '').trim() : url;
+  logPortalAudit('リンククリック', label || url, {
+    href: url,
+    section: getPortalSectionFromEl(sel),
+    kind: category,
+    opensNewTab: true
+  });
+  window.open(url, '_blank', 'noopener');
+  sel.value = '';
+}
+function setupPortalAuditCapture(){
+  document.addEventListener('click', (ev) => {
+    if(!getCurrentPortalOperatorName()) return;
+    const anchor = ev.target.closest('a[href]');
+    if(anchor) logPortalAnchorClick(anchor, ev);
+  }, true);
+}
+const MEMBER_CLASS = {'鬼頭':'a-kito','鬼頭(貴)':'a-kito','鬼頭貴広':'a-kito','佐藤':'a-sato','佐藤慎祐':'a-sato','山下':'a-yamashita','山下英則':'a-yamashita','山﨑':'a-yamazaki','山﨑裕真':'a-yamazaki','サン':'a-san','喜多':'a-kita','喜多健児':'a-kita','津田':'a-tsuda','津田啓次':'a-tsuda'};
+let _portalOperatorName = '';
+function getCurrentPortalOperatorName(){
+  return _portalOperatorName || sessionStorage.getItem('portal_operator_name') || '';
+}
+function formatJapaneseDisplayName(name){
+  const n = String(name || '').trim();
+  if(!n || n.includes(' ')) return n;
+  const twoCharSurnames = ['鬼頭','佐藤','山下','山﨑','喜多','津田'];
+  for(const s of twoCharSurnames){
+    if(n.startsWith(s) && n.length > s.length) return s + ' ' + n.slice(s.length);
+  }
+  return n;
+}
+function defaultPhoneForMember(name){
+  const n = String(name || '').trim();
+  if(n === '鬼頭貴広' || n === '鬼頭(貴)' || n.startsWith('鬼頭')) return '090-7863-5701';
+  return '';
+}
+function persistPortalOperatorSession(memberName){
+  _portalOperatorName = memberName;
+  _adminUnlocked = isPrivilegedOperator(memberName);
+  sessionStorage.setItem('portal_operator_name', memberName);
+  const prof = getMemberProfileForLogin(memberName);
+  const displayName = isGuestOperator(memberName)
+    ? getGuestLoginLabel()
+    : (prof.fullName || formatJapaneseDisplayName(memberName));
+  sessionStorage.setItem('portal_operator_display', displayName);
+  sessionStorage.setItem('portal_operator_phone', isGuestOperator(memberName) ? '' : (prof.phone || defaultPhoneForMember(memberName)));
+  sessionStorage.setItem('portal_operator_workorder_label', isGuestOperator(memberName) ? getGuestLoginLabel() : (PORTAL_LOGIN_MEMBER_ALIAS[memberName] || memberName));
+  updatePortalOperatorNavVisibility();
+}
+function clearPortalOperatorSession(){
+  sessionStorage.removeItem('portal_operator_name');
+  sessionStorage.removeItem('portal_operator_display');
+  sessionStorage.removeItem('portal_operator_phone');
+  sessionStorage.removeItem('portal_operator_workorder_label');
+  _portalOperatorName = '';
+  _adminUnlocked = false;
+  updatePortalOperatorNavVisibility();
+}
+function getPortalPostAuthor(){
+  return String(getCurrentPortalOperatorName() || '').trim();
+}
+function isPrivilegedOperator(name){
+  const n = String(name || '').trim();
+  return n === '鬼頭貴広' || n === '鬼頭(貴)';
+}
+function getMemberLoginPassword(name){
+  const canonical = String(name || '').trim();
+  if(!canonical) return '';
+  const prof = getMemberProfile(canonical);
+  const alias = PORTAL_LOGIN_MEMBER_ALIAS[canonical] || '';
+  const aliasProf = alias ? getMemberProfile(alias) : null;
+  return String((prof && prof.password) || (aliasProf && aliasProf.password) || '').trim();
+}
+function getMemberProfileForLogin(name){
+  const base = getMemberProfile(name);
+  const pw = getMemberLoginPassword(name);
+  return normalizeMemberProfile({...base, password: pw});
+}
+function getPortalLoginMembersList(){
+  return getMembersList()
+    .filter(m => getMemberProfileForLogin(m.name).loginEnabled !== false)
+    .map(m => ({ label: m.name, memberName: m.name }));
+}
 function getMembersList(){
   return (_membersCache && _membersCache.length > 0) ? _membersCache : DEFAULT_MEMBERS;
 }
@@ -1677,6 +2168,43 @@ function memberTagHtml(name){
   const ac = MEMBER_CLASS[name] || '';
   if(ac) return `<span class="assignee-tag ${ac}">${esc(name)}</span>`;
   return `<span class="assignee-tag" style="background:#6b7280">${esc(name)}</span>`;
+}
+function postAuthorMetaHtml(name){
+  const n = String(name || '').trim();
+  if(!n) return '';
+  return `<span class="post-author-meta">${esc(n)}</span>`;
+}
+function postMetaWrapHtml(parts){
+  const inner = (parts || []).filter(Boolean).join('');
+  if(!inner) return '';
+  return `<div class="post-meta-wrap">${inner}</div>`;
+}
+const TODO_META_COLLAPSED_KEY = 'todo_meta_collapsed';
+function isTodoMetaCollapsed(){
+  return sessionStorage.getItem(TODO_META_COLLAPSED_KEY) !== '0';
+}
+function applyTodoMetaPanelState(){
+  const section = document.getElementById('todo-section');
+  const btn = document.getElementById('todo-meta-toggle');
+  if(!section) return;
+  const collapsed = isTodoMetaCollapsed();
+  section.classList.toggle('todo-meta-collapsed', collapsed);
+  section.classList.toggle('todo-meta-expanded', !collapsed);
+  if(btn){
+    btn.textContent = collapsed ? '▸ 登録/投稿者' : '◂ 登録/投稿者';
+    btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+  }
+}
+function toggleTodoMetaPanel(){
+  sessionStorage.setItem(TODO_META_COLLAPSED_KEY, isTodoMetaCollapsed() ? '0' : '1');
+  applyTodoMetaPanelState();
+}
+function todoMetaPanelHtml(regDate, author){
+  const inner = [
+    regDate ? `<span class="todo-date-pill">登録: ${esc(regDate)}</span>` : '',
+    postAuthorMetaHtml(author)
+  ].filter(Boolean).join('');
+  return `<div class="ti-meta-panel${inner ? '' : ' ti-meta-panel--empty'}">${inner}</div>`;
 }
 function parseAssigneeNames(raw){
   if(Array.isArray(raw)){
@@ -1694,18 +2222,33 @@ function assigneeTagsHtml(names){
   if(!arr.length) return '';
   return `<div class="todo-assignee-tags">${arr.map(memberTagHtml).join('')}</div>`;
 }
-function extractYmdFromDateLike(v){
-  const s = String(v || '').trim();
+function formatDisplayYmd(v){
+  if(v == null || v === '') return '';
+  if(v instanceof Date && !isNaN(v.getTime())){
+    return `${v.getFullYear()}-${String(v.getMonth()+1).padStart(2,'0')}-${String(v.getDate()).padStart(2,'0')}`;
+  }
+  const s = String(v).trim();
   if(!s) return '';
   const m = s.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
-  if(!m) return '';
-  return `${m[1]}-${String(m[2]).padStart(2,'0')}-${String(m[3]).padStart(2,'0')}`;
+  if(m) return `${m[1]}-${String(m[2]).padStart(2,'0')}-${String(m[3]).padStart(2,'0')}`;
+  const iso = s.match(/^(\d{4})-(\d{2})-(\d{2})T/);
+  if(iso) return `${iso[1]}-${iso[2]}-${iso[3]}`;
+  const dt = new Date(s);
+  if(!isNaN(dt.getTime())){
+    return `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;
+  }
+  return '';
+}
+function extractYmdFromDateLike(v){
+  return formatDisplayYmd(v);
 }
 function getTodoRegisteredDate(t){
-  return String(t.regDate || t.registeredDate || '').trim() || extractYmdFromDateLike(t.datetime);
+  if(!t) return '';
+  return formatDisplayYmd(t.regDate || t.registeredDate) || formatDisplayYmd(t.datetime);
 }
 function getTodoDueDate(t){
-  return String(t.dueDate || t.deadline || '').trim();
+  if(!t) return '';
+  return formatDisplayYmd(t.dueDate || t.deadline);
 }
 let _todoAssigneeSelected = [];
 function syncTodoAssigneeSelectedWithMembers(){
@@ -1759,15 +2302,6 @@ function toggleTodoAssignee(name){
   renderTodoAssigneePicker();
 }
 function refreshMemberSelects(){
-  const list = getMembersList();
-  const nAuthor = document.getElementById('n-author');
-  if(nAuthor){
-    fillSelectOptions(nAuthor, list, {
-      placeholder: '投稿者',
-      getValue: m => m.name,
-      getLabel: m => m.name
-    });
-  }
   renderTodoAssigneePicker();
 }
 const NOW = new Date();
@@ -1787,7 +2321,11 @@ function toggleNav(){
   icon.className = collapsed ? 'ti ti-layout-sidebar-left-expand' : 'ti ti-layout-sidebar-left-collapse';
 }
 function goHome(id){
+  touchPortalDataLoad();
   document.body.classList.remove('settings-mode');
+  document.body.classList.remove('admin-mode');
+  id = normalizeGuestHomeSection(id);
+  logPortalAudit('ホーム移動', id || 'top', { section: id || 'top' });
   // 設定画面など別ページにいる場合はhomeに戻ってからスクロール
   const homePage = document.getElementById('page-home');
   if(!homePage.classList.contains('active')){
@@ -1832,12 +2370,18 @@ function navScroll(id){
   }, 400);
 }
 function openHomeSectionWindow(targetId, title){
+  touchPortalDataLoad();
+  if(isGuestOperatorSession() && !GUEST_ALLOWED_HOME_SECTIONS.has(String(targetId || '').trim())){
+    showToast('ゲストログインではこの項目は利用できません');
+    return false;
+  }
   const src = document.getElementById(targetId);
   if(!src){
     showToast('対象セクションが見つかりません');
     return false;
   }
   const safeTitle = String(title || '').trim() || '単独表示';
+  logPortalAudit('単独表示', safeTitle, { targetId, section: targetId });
   const popupFeatures = [
     'popup=yes',
     `width=${Math.max(900, window.screen?.availWidth || 1400)}`,
@@ -2023,6 +2567,7 @@ function pulseSettingsNavItem(targetId){
   setTimeout(()=>cur.classList.remove('nav-temp-active'), 800);
 }
 function goSettingsSection(targetId){
+  touchPortalDataLoad();
   const settingsPage = document.getElementById('page-settings');
   if(!settingsPage || !targetId) return;
   if(!settingsPage.classList.contains('active')){
@@ -2038,6 +2583,39 @@ function goSettingsSection(targetId){
   const offset = settingsPage.scrollTop + (targetRect.top - paneRect.top) - 24;
   settingsPage.scrollTo({top: Math.max(0, offset), behavior:'smooth'});
   pulseSettingsNavItem(targetId);
+  logPortalAudit('設定画面移動', targetId, { page: 'settings' });
+  setTimeout(()=>{
+    el.classList.add('section-highlight');
+    setTimeout(()=>el.classList.remove('section-highlight'), 2000);
+  }, 200);
+}
+function pulseAdminNavItem(targetId){
+  const links = document.querySelectorAll('#admin-nav-links .nav-item[data-admin-target]');
+  links.forEach(b => b.classList.remove('nav-temp-active'));
+  if(!targetId) return;
+  const cur = document.querySelector(`#admin-nav-links .nav-item[data-admin-target="${targetId}"]`);
+  if(!cur) return;
+  cur.classList.add('nav-temp-active');
+  setTimeout(()=>cur.classList.remove('nav-temp-active'), 800);
+}
+function goAdminSection(targetId){
+  touchPortalDataLoad();
+  const adminPage = document.getElementById('page-admin');
+  if(!adminPage || !targetId) return;
+  if(!adminPage.classList.contains('active')){
+    Promise.resolve(showPage('admin')).then(() => {
+      if(adminPage.classList.contains('active')) goAdminSection(targetId);
+    });
+    return;
+  }
+  const el = document.getElementById(targetId);
+  if(!el) return;
+  const paneRect = adminPage.getBoundingClientRect();
+  const targetRect = el.getBoundingClientRect();
+  const offset = adminPage.scrollTop + (targetRect.top - paneRect.top) - 24;
+  adminPage.scrollTo({top: Math.max(0, offset), behavior:'smooth'});
+  pulseAdminNavItem(targetId);
+  logPortalAudit('管理画面移動', targetId, { page: 'admin' });
   setTimeout(()=>{
     el.classList.add('section-highlight');
     setTimeout(()=>el.classList.remove('section-highlight'), 2000);
@@ -2045,9 +2623,103 @@ function goSettingsSection(targetId){
 }
 const SETTINGS_PASS_GLOBAL_KEY='settings_page_password';
 const ADMIN_PAGE_PASSWORD_KEY='admin_page_password';
+const GUEST_LOGIN_SETTINGS_KEY='guest_login_json';
+const GUEST_OPERATOR_NAME='ゲスト';
+const GUEST_ALLOWED_HOME_SECTIONS=new Set(['mgmt','calendar-section']);
 let _globalSettingsPassword='';
 let _adminPagePassword='';
 let _adminUnlocked=false;
+let _guestLoginSettings={ enabled:false, label:'ゲスト' };
+function normalizeGuestLoginSettings(x){
+  const o = x || {};
+  const enabledOff = o.enabled === false || o.enabled === 0 || o.enabled === '0' || o.enabled === 'false';
+  const label = String(o.label || 'ゲスト').trim();
+  return {
+    enabled: !enabledOff,
+    label: label || 'ゲスト'
+  };
+}
+function applyGuestLoginSettingsFromData(d){
+  const raw = d && d.settings && (d.settings[GUEST_LOGIN_SETTINGS_KEY] || d.settings.guest_login_json);
+  if(raw){
+    try{
+      const o = typeof raw === 'string' ? JSON.parse(raw) : raw;
+      _guestLoginSettings = normalizeGuestLoginSettings(o);
+      return;
+    }catch(e){}
+  }
+  _guestLoginSettings = normalizeGuestLoginSettings({});
+}
+function isGuestLoginEnabled(){
+  return !!(_guestLoginSettings && _guestLoginSettings.enabled);
+}
+function getGuestLoginLabel(){
+  return String(_guestLoginSettings?.label || 'ゲスト').trim() || 'ゲスト';
+}
+function isGuestOperator(name){
+  return String(name || '').trim() === GUEST_OPERATOR_NAME;
+}
+function isGuestOperatorSession(){
+  return isGuestOperator(getCurrentPortalOperatorName());
+}
+function renderGuestLoginSettingsPanel(){
+  const enabledEl = document.getElementById('guest-login-enabled');
+  const labelEl = document.getElementById('guest-login-label');
+  const statusEl = document.getElementById('guest-login-status');
+  if(enabledEl) enabledEl.checked = isGuestLoginEnabled();
+  if(labelEl) labelEl.value = getGuestLoginLabel();
+  if(statusEl){
+    statusEl.textContent = isGuestLoginEnabled()
+      ? `状態: 表示中（ログイン画面に「${getGuestLoginLabel()}」入口を表示）`
+      : '状態: 非表示（ゲスト入口はログイン画面に出ません）';
+  }
+}
+function updateGuestLoginUi(){
+  const wrap = document.getElementById('portal-login-guest-wrap');
+  const guestLink = wrap ? wrap.querySelector('.portal-login-guest-link') : null;
+  const guestTitle = document.getElementById('portal-guest-login-title');
+  const enabled = isGuestLoginEnabled();
+  if(wrap) wrap.style.display = enabled ? 'block' : 'none';
+  if(guestLink) guestLink.textContent = `${getGuestLoginLabel()}として閲覧（パスワード不要）`;
+  if(guestTitle) guestTitle.textContent = `${getGuestLoginLabel()}ログイン`;
+  renderGuestLoginSettingsPanel();
+}
+async function persistGuestLoginSettings(){
+  await gasPost({sheet:'設定_UPDATE', key:GUEST_LOGIN_SETTINGS_KEY, value:JSON.stringify(_guestLoginSettings || {})});
+}
+async function saveGuestLoginSettings(btnEl){
+  if(btnEl && btnEl.disabled) return;
+  const enabledEl = document.getElementById('guest-login-enabled');
+  const labelEl = document.getElementById('guest-login-label');
+  _guestLoginSettings = normalizeGuestLoginSettings({
+    enabled: enabledEl ? enabledEl.checked : false,
+    label: labelEl ? labelEl.value : 'ゲスト'
+  });
+  setAdminActionLoading(btnEl, true, '保存中...');
+  try{
+    await persistGuestLoginSettings();
+    updateGuestLoginUi();
+    showToast('ゲストログイン設定を保存しました');
+  }catch(e){
+    showToast('エラー: '+e.message);
+  }finally{
+    setAdminActionLoading(btnEl, false);
+  }
+}
+function updatePortalOperatorNavVisibility(){
+  const guest = isGuestOperatorSession();
+  document.body.classList.toggle('guest-mode', guest);
+  document.querySelectorAll('[data-portal-privileged-only]').forEach(el => {
+    el.style.display = guest ? 'none' : '';
+  });
+}
+function normalizeGuestHomeSection(id){
+  const target = String(id || 'top').trim();
+  if(!isGuestOperatorSession()) return target;
+  if(GUEST_ALLOWED_HOME_SECTIONS.has(target)) return target;
+  if(target && target !== 'top') showToast('ゲストログインではこの項目は利用できません');
+  return 'mgmt';
+}
 function refreshSettingsLockStatus(){
   const s = document.getElementById('settings-lock-status');
   if(!s) return;
@@ -2153,7 +2825,10 @@ function unlockAdminPage(btnEl){
     return;
   }
   _adminUnlocked = true;
-  if(inp) inp.value = '';
+  if(inp){
+    inp.value = '';
+    resetPasswordFieldVisibility('admin-unlock-input');
+  }
   renderAdminVisibility();
   showToast('管理者ページのロックを解除しました');
   setAdminActionLoading(btnEl, false);
@@ -2188,6 +2863,30 @@ function submitSettingsPasswordDialog(){
   const input = document.getElementById('settings-pw-entry');
   closeSettingsPasswordDialog(input ? input.value : '');
 }
+function togglePasswordFieldVisibility(inputId, btnEl){
+  const input = document.getElementById(inputId);
+  if(!input || !btnEl) return;
+  const icon = btnEl.querySelector('i');
+  const show = input.type === 'password';
+  input.type = show ? 'text' : 'password';
+  if(icon) icon.className = show ? 'ti ti-eye-off' : 'ti ti-eye';
+  btnEl.setAttribute('aria-label', show ? 'パスワードを隠す' : 'パスワードを表示');
+  btnEl.setAttribute('aria-pressed', show ? 'true' : 'false');
+}
+function resetPasswordFieldVisibility(inputId){
+  const input = document.getElementById(inputId);
+  if(!input) return;
+  if(input.type !== 'password') input.type = 'password';
+  const wrap = input.closest('.pw-input-wrap');
+  if(!wrap) return;
+  const btn = wrap.querySelector('.pw-input-toggle');
+  const icon = btn ? btn.querySelector('i') : null;
+  if(icon) icon.className = 'ti ti-eye';
+  if(btn){
+    btn.setAttribute('aria-label', 'パスワードを表示');
+    btn.setAttribute('aria-pressed', 'false');
+  }
+}
 function openAdminPasswordDialog(){
   const modal = document.getElementById('admin-pw-modal');
   const input = document.getElementById('admin-pw-entry');
@@ -2195,6 +2894,7 @@ function openAdminPasswordDialog(){
   modal.classList.add('active');
   modal.setAttribute('aria-hidden','false');
   input.value = '';
+  resetPasswordFieldVisibility('admin-pw-entry');
   setTimeout(()=>input.focus(), 0);
   return new Promise(resolve => { _adminPwResolver = resolve; });
 }
@@ -2206,6 +2906,7 @@ function closeAdminPasswordDialog(value){
     modal.setAttribute('aria-hidden','true');
   }
   if(input) input.value = '';
+  resetPasswordFieldVisibility('admin-pw-entry');
   if(_adminPwResolver){
     const done = _adminPwResolver;
     _adminPwResolver = null;
@@ -2215,6 +2916,159 @@ function closeAdminPasswordDialog(value){
 function submitAdminPasswordDialog(){
   const input = document.getElementById('admin-pw-entry');
   closeAdminPasswordDialog(input ? input.value : '');
+}
+function renderPortalLoginMembers(){
+  const sel = document.getElementById('portal-login-member');
+  if(!sel) return;
+  const loginMembers = getPortalLoginMembersList();
+  const cur = sel.value;
+  if(!loginMembers.length){
+    sel.innerHTML = '<option value="">ログイン対象メンバーなし</option>';
+    sel.value = '';
+    return;
+  }
+  sel.innerHTML = loginMembers.map(m => `<option value="${escAttr(m.memberName)}">${esc(m.label)}</option>`).join('');
+  if(cur && loginMembers.some(m => m.memberName === cur)) sel.value = cur;
+  else sel.value = loginMembers[0].memberName;
+}
+let _portalDataReady = false;
+let _portalDataLoadPromise = null;
+function startPortalDataLoad(){
+  if(_portalDataReady) return Promise.resolve();
+  if(_portalDataLoadPromise) return _portalDataLoadPromise;
+  _portalDataLoadPromise = loadData()
+    .then(()=>{ _portalDataReady = true; })
+    .catch((e)=>{
+      console.error(e);
+      if(!_portalDataReady) showToast('データ読み込みでエラーが発生しました');
+    })
+    .finally(()=>{ _portalDataLoadPromise = null; });
+  return _portalDataLoadPromise;
+}
+/** ナビ・リンク操作時に裏読み込みを開始（完了を待たない） */
+function touchPortalDataLoad(){
+  startPortalDataLoad();
+}
+function ensureInitialDataLoaded(){
+  return startPortalDataLoad();
+}
+function openPortalLoginDialog(){
+  const modal = document.getElementById('portal-login-modal');
+  const pw = document.getElementById('portal-login-password');
+  const memberSel = document.getElementById('portal-login-member');
+  if(!modal || !pw || !memberSel) return;
+  closePortalGuestLoginDialog();
+  renderPortalLoginMembers();
+  updateGuestLoginUi();
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden','false');
+  pw.value = '';
+  setTimeout(()=>memberSel.focus(), 0);
+  startPortalDataLoad();
+}
+function closePortalLoginDialog(){
+  const modal = document.getElementById('portal-login-modal');
+  const pw = document.getElementById('portal-login-password');
+  if(modal){
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden','true');
+  }
+  if(pw) pw.value = '';
+}
+function openPortalGuestLoginDialog(){
+  if(!isGuestLoginEnabled()){
+    showToast('ゲストログインは現在利用できません');
+    return;
+  }
+  closePortalLoginDialog();
+  const modal = document.getElementById('portal-guest-login-modal');
+  if(!modal) return;
+  updateGuestLoginUi();
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden','false');
+  document.body.classList.add('guest-login-mode');
+  startPortalDataLoad();
+}
+function closePortalGuestLoginDialog(){
+  const modal = document.getElementById('portal-guest-login-modal');
+  if(modal){
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden','true');
+  }
+  document.body.classList.remove('guest-login-mode');
+}
+function backToPortalLoginFromGuest(){
+  closePortalGuestLoginDialog();
+  openPortalLoginDialog();
+}
+async function submitGuestLogin(){
+  if(!isGuestLoginEnabled()){
+    showToast('ゲストログインは現在利用できません');
+    return;
+  }
+  const label = getGuestLoginLabel();
+  persistPortalOperatorSession(GUEST_OPERATOR_NAME);
+  document.body.classList.remove('prelogin');
+  closePortalGuestLoginDialog();
+  closePortalLoginDialog();
+  logPortalAudit('ログイン', GUEST_OPERATOR_NAME, { event: 'portal_guest_login', label });
+  await ensureInitialDataLoaded();
+  showPage('home', { fromHistory: true });
+  goHome('mgmt');
+  showToast(label + 'としてログインしました');
+}
+async function submitPortalLogin(){
+  const memberSel = document.getElementById('portal-login-member');
+  const pw = document.getElementById('portal-login-password');
+  const memberName = memberSel ? String(memberSel.value || '').trim() : '';
+  const entered = pw ? String(pw.value || '').trim() : '';
+  if(!memberName){
+    showToast('メンバーを選択してください');
+    return;
+  }
+  const memberPw = getMemberLoginPassword(memberName);
+  const canLogin = !memberPw || entered === memberPw;
+  if(!canLogin){
+    showToast('パスワードが違います');
+    return;
+  }
+  persistPortalOperatorSession(memberName);
+  document.body.classList.remove('prelogin');
+  closePortalLoginDialog();
+  logPortalAudit('ログイン', memberName, { event: 'portal_login' });
+  await ensureInitialDataLoaded();
+  showToast(memberName + 'でログインしました');
+}
+function ensurePortalLogin(){
+  const name = String(sessionStorage.getItem('portal_operator_name') || '').trim();
+  if(name){
+    persistPortalOperatorSession(name);
+    document.body.classList.remove('prelogin', 'guest-login-mode');
+    closePortalLoginDialog();
+    closePortalGuestLoginDialog();
+    ensureInitialDataLoaded();
+    if(isGuestOperatorSession()){
+      setTimeout(()=>{
+        if(document.getElementById('page-home')?.classList.contains('active')) goHome('mgmt');
+      }, 0);
+    }
+    return true;
+  }
+  _adminUnlocked = false;
+  document.body.classList.add('prelogin');
+  document.body.classList.remove('guest-login-mode');
+  openPortalLoginDialog();
+  return false;
+}
+function logoutPortal(){
+  if(!confirm('ログアウトしますか？')) return;
+  const operator = getCurrentPortalOperatorName();
+  logPortalAudit('ログアウト', operator, { event: 'portal_logout' });
+  clearPortalOperatorSession();
+  document.body.classList.add('prelogin');
+  document.body.classList.remove('guest-login-mode');
+  openPortalLoginDialog();
+  showToast('ログアウトしました');
 }
 document.addEventListener('click', (ev) => {
   const settingsModal = document.getElementById('settings-pw-modal');
@@ -2230,20 +3084,28 @@ document.addEventListener('click', (ev) => {
 document.addEventListener('keydown', (ev) => {
   const settingsModal = document.getElementById('settings-pw-modal');
   const adminModal = document.getElementById('admin-pw-modal');
+  const loginModal = document.getElementById('portal-login-modal');
+  const guestModal = document.getElementById('portal-guest-login-modal');
   const settingsOpen = settingsModal && settingsModal.classList.contains('active');
   const adminOpen = adminModal && adminModal.classList.contains('active');
-  if(!settingsOpen && !adminOpen) return;
+  const loginOpen = loginModal && loginModal.classList.contains('active');
+  const guestOpen = guestModal && guestModal.classList.contains('active');
+  if(!settingsOpen && !adminOpen && !loginOpen && !guestOpen) return;
   if(ev.key === 'Escape'){
     ev.preventDefault();
     if(settingsOpen) closeSettingsPasswordDialog(null);
     if(adminOpen) closeAdminPasswordDialog(null);
+    if(guestOpen) backToPortalLoginFromGuest();
   }else if(ev.key === 'Enter'){
     ev.preventDefault();
     if(settingsOpen) submitSettingsPasswordDialog();
     if(adminOpen) submitAdminPasswordDialog();
+    if(loginOpen) submitPortalLogin();
+    if(guestOpen) submitGuestLogin();
   }
 });
 async function requestSettingsAccess(){
+  if(isPrivilegedOperator(getCurrentPortalOperatorName())) return true;
   const saved = _globalSettingsPassword || '';
   if(!saved) return true;
   const entered = await openSettingsPasswordDialog();
@@ -2255,6 +3117,10 @@ async function requestSettingsAccess(){
   return true;
 }
 async function requestAdminAccess(){
+  if(isPrivilegedOperator(getCurrentPortalOperatorName())){
+    _adminUnlocked = true;
+    return true;
+  }
   const saved = _adminPagePassword || '';
   if(!saved) return true;
   const entered = await openAdminPasswordDialog();
@@ -2406,10 +3272,20 @@ async function clearGlobalSettingsPassword(btnEl){
   }
 }
 async function showPage(name){
+  if(!ensurePortalLogin()) return;
+  if(isGuestOperatorSession() && (name==='settings' || name==='admin' || name==='member')){
+    showToast('ゲストログインでは利用できません');
+    return;
+  }
+  touchPortalDataLoad();
+  if(name==='settings' || name==='admin'){
+    await ensureInitialDataLoaded();
+  }
   if(name==='settings' && !(await requestSettingsAccess())) return;
   if(name==='admin' && _adminPagePassword && !_adminUnlocked && !(await requestAdminAccess())) return;
   const fromHistory = !!(arguments[1] && arguments[1].fromHistory);
   document.body.classList.toggle('settings-mode', name==='settings');
+  document.body.classList.toggle('admin-mode', name==='admin');
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   // navのactive更新
@@ -2442,12 +3318,21 @@ async function showPage(name){
     if(ap) ap.scrollTop = 0;
     const adminNavBtn = document.getElementById('nav-open-admin');
     if(adminNavBtn) adminNavBtn.classList.add('active');
+    refreshSettingsLockStatus();
+    refreshAdminLockStatus();
+    renderMemberSettings();
+    renderGuestLoginSettingsPanel();
     renderAdminVisibility();
   } else if(name==='member'){
     // メンバーページ中はサイドナビのactiveを付けない
   }
   if(!fromHistory){
     syncPortalHistory(false, name);
+    const pageLabels = { home:'ホーム', settings:'設定', admin:'管理者', member:'メンバー' };
+    logPortalAudit('ページ表示', pageLabels[name] || name, {
+      page: name,
+      member: name === 'member' ? (_activeMemberName || '') : ''
+    });
   }
 }
 
@@ -2570,18 +3455,23 @@ function buildNoticeBody(title, text){
   if(!t) return b;
   return `[NTITLE]${t}\n${b}`;
 }
-function cp(path,btn){navigator.clipboard.writeText(path).then(()=>{const o=btn.textContent;btn.textContent='✓ 完了';btn.classList.add('ok');setTimeout(()=>{btn.textContent=o;btn.classList.remove('ok');},2000);});}
+function cp(path,btn){
+  const p = String(path || '').trim();
+  if(p){
+    logPortalAudit('パスコピー', getPortalLinkLabel(btn) || '共有パス', {
+      path: p,
+      kind: 'clipboard_copy',
+      section: getPortalSectionFromEl(btn)
+    });
+  }
+  navigator.clipboard.writeText(path).then(()=>{const o=btn.textContent;btn.textContent='✓ 完了';btn.classList.add('ok');setTimeout(()=>{btn.textContent=o;btn.classList.remove('ok');},2000);});
+}
 function cpFromBtn(btn){
   if(!btn) return;
   cp(String(btn.dataset.copy || ''), btn);
 }
 function openSalesforceQuickLink(){
-  const sel = document.getElementById('sf-quick-link');
-  if(!sel) return;
-  const url = String(sel.value || '').trim();
-  if(!url) return;
-  window.open(url, '_blank', 'noopener');
-  sel.value = '';
+  logPortalQuickLinkOpen(document.getElementById('sf-quick-link'), 'salesforce_quick_link');
 }
 function sanitizeSalesforceQuickLinkOptions(){
   const sel = document.getElementById('sf-quick-link');
@@ -2592,28 +3482,13 @@ function sanitizeSalesforceQuickLinkOptions(){
   });
 }
 function openMitocoQuickLink(){
-  const sel = document.getElementById('mitoco-quick-link');
-  if(!sel) return;
-  const url = String(sel.value || '').trim();
-  if(!url) return;
-  window.open(url, '_blank', 'noopener');
-  sel.value = '';
+  logPortalQuickLinkOpen(document.getElementById('mitoco-quick-link'), 'mitoco_quick_link');
 }
 function openAdminQuickLink(){
-  const sel = document.getElementById('admin-quick-link');
-  if(!sel) return;
-  const url = String(sel.value || '').trim();
-  if(!url) return;
-  window.open(url, '_blank', 'noopener');
-  sel.value = '';
+  logPortalQuickLinkOpen(document.getElementById('admin-quick-link'), 'admin_business_link');
 }
 function openAdminDevQuickLink(){
-  const sel = document.getElementById('admin-dev-quick-link');
-  if(!sel) return;
-  const url = String(sel.value || '').trim();
-  if(!url) return;
-  window.open(url, '_blank', 'noopener');
-  sel.value = '';
+  logPortalQuickLinkOpen(document.getElementById('admin-dev-quick-link'), 'admin_dev_link');
 }
 
 // ── DATA ──
@@ -2629,6 +3504,7 @@ function renameDownload(input){
   a.click();
   URL.revokeObjectURL(url);
   input.value = '';
+  logPortalAudit('ファイルリネーム', newName, { original: file.name, kind: 'shukka_rename' });
   showToast('"' + newName + '"としてダウンロードしました');
 }
 
@@ -2636,7 +3512,8 @@ async function reloadData(btnEl){
   const btn = btnEl || document.getElementById('reload-btn');
   setAdminActionLoading(btn, true, '読み込み中...');
   try{
-    await loadData();
+    await loadData({ force: true });
+    logPortalAudit('データ再読み込み', 'portal', { force: true });
     showToast('データを再読み込みしました');
   }catch(e){
     showToast('エラー: '+e.message);
@@ -2720,7 +3597,7 @@ function onImageToolRuleChange(){
     hint.innerHTML = rule === IMAGE_TOOL_RULE_WORKREPORT
       ? '命名形式: <strong>作業報告書 FK/FS番号 ユーザー名 日付</strong>（日付は初期値が当日で変更可）'
       : rule === IMAGE_TOOL_RULE_SLIP
-        ? '命名形式: <strong>日付_客先会社名_お客様名様_送状</strong>（日付は初期値が当日で変更可）'
+        ? '命名形式: <strong>日付_客先会社名_お客様名様宛_送状</strong>（日付は初期値が当日で変更可）'
         : '命名形式: <strong>入力文字_YYYYMMDD_連番</strong>（日付は自動、連番は3桁）';
   }
 }
@@ -2843,7 +3720,7 @@ function buildImageToolName(rule, seq, total){
     if(!company || !customer){
       return { ok:false, message: '客先会社名とお客様名を入力してください' };
     }
-    return { ok:true, base:`${dateYmd}_${company}_${customer}様_送状` };
+    return { ok:true, base:`${dateYmd}_${company}_${customer}様宛_送状` };
   }
   const prefix = sanitizeFileToken((document.getElementById('img-name-prefix') || {}).value);
   if(!prefix){
@@ -2949,49 +3826,153 @@ async function compressAndRenameImages(btnEl){
     showToast(`保存を中断しました（保存 ${ok}件）`);
   }else{
     showToast(ng ? `一部失敗しました（成功 ${ok} / 失敗 ${ng}）` : `${ok}件を処理しました`);
+    if(ok > 0){
+      logPortalAudit('画像保存', rule, {
+        kind: 'image_tool_save',
+        rule,
+        count: ok,
+        failed: ng,
+        saveMode,
+        compressedCount,
+        pdfRenameOnlyCount
+      });
+    }
   }
   if(isFileProtocol && saveMode === 'download'){
     showToast('保存先選択を使うには、http://localhost で開いてください');
   }
 }
 
-async function loadData(){
-  // GASから最新を取得
+const PORTAL_BOOT_CACHE_KEY = 'portal_boot_cache_v1';
+function toCalEventDateStr(v){
+  if(v instanceof Date){
+    return v.getFullYear()+'-'+p(v.getMonth()+1)+'-'+p(v.getDate());
+  }
+  return String(v || '');
+}
+function normalizePortalPayload(raw){
+  const d = raw && typeof raw === 'object' ? {...raw} : {};
+  d.notices = (d.notices || []).map(normalizeNoticeItem);
+  d.todos = d.todos || [];
+  d.docs = d.docs || [];
+  d.calEvents = (d.calEvents || []).map(ev => ({...ev, date: toCalEventDateStr(ev.date)}));
+  d.settings = d.settings || {};
+  return d;
+}
+let _lastPortalPayloadJson = '';
+let _networkRefreshPromise = null;
+function portalPayloadJson(d){
   try{
-    const r=await fetch(GAS_URL+'?t='+Date.now(),{mode:'cors'});
-    const d=await r.json();
-    d.notices = (d.notices || []).map(normalizeNoticeItem);
-    parseDocCategoriesFromSettings(d);
-    renderDocCategoryControls();
-    applyPortalConfig(d);
-    renderNotices(d.notices);
-    renderTodos(d.todos||[]);
-    renderDocs(d.docs||[]);
-    initHeroImage(d.settings||{});
-    // 最終読み込み時刻更新
-    const tEl = document.getElementById('last-reload-time');
-    if(tEl){ tEl.textContent = '最終読み込み：' + fmtDT(); }
-    // カレンダーイベントをキャッシュして描画
-    _calEvents = (d.calEvents||[]).map(ev=>{
-      // Googleスプレッドシートの日付はDate型で返ることがあるので文字列に変換
-      const dateStr = ev.date instanceof Date
-        ? ev.date.getFullYear()+'-'+p(ev.date.getMonth()+1)+'-'+p(ev.date.getDate())
-        : String(ev.date);
-      return {...ev, date: dateStr};
-    });
+    return JSON.stringify(d);
+  }catch(_){
+    return String(Date.now());
+  }
+}
+function scheduleSecondaryPortalRenders(){
+  const run = ()=>{
     renderCal();
     renderCalEventList();
     renderHolidayList();
+  };
+  if(typeof requestIdleCallback === 'function'){
+    requestIdleCallback(run, { timeout: 800 });
+  }else{
+    setTimeout(run, 0);
+  }
+}
+function applyLoadedPortalData(d, opts){
+  const options = opts || {};
+  const skipSecondary = !!options.skipSecondary;
+  parseDocCategoriesFromSettings(d);
+  renderDocCategoryControls();
+  applyPortalConfig(d);
+  renderNotices(d.notices);
+  renderTodos(d.todos);
+  renderDocs(d.docs);
+  initHeroImage(d.settings || {});
+  const tEl = document.getElementById('last-reload-time');
+  if(tEl){ tEl.textContent = '最終読み込み：' + fmtDT(); }
+  _calEvents = d.calEvents || [];
+  if(skipSecondary) scheduleSecondaryPortalRenders();
+  else{
+    renderCal();
+    renderCalEventList();
+    renderHolidayList();
+  }
+}
+function applyLoadedPortalDataWhenIdle(d, opts){
+  return new Promise(resolve=>{
+    const run = ()=>{
+      applyLoadedPortalData(d, opts);
+      resolve();
+    };
+    if(document.body.classList.contains('prelogin')){
+      if(typeof requestIdleCallback === 'function'){
+        requestIdleCallback(run, { timeout: 1200 });
+      }else{
+        setTimeout(run, 50);
+      }
+    }else{
+      run();
+    }
+  });
+}
+async function fetchAndApplyPortalData(force){
+  const qs = force ? ('?t=' + Date.now()) : '';
+  const r = await fetch(GAS_URL + qs, { mode:'cors', cache: force ? 'no-store' : 'default' });
+  const d = normalizePortalPayload(await r.json());
+  const nextJson = portalPayloadJson(d);
+  if(!force && nextJson === _lastPortalPayloadJson) return d;
+  _lastPortalPayloadJson = nextJson;
+  writePortalBootCache(d);
+  await applyLoadedPortalDataWhenIdle(d, { skipSecondary: true });
+  return d;
+}
+function readPortalBootCache(){
+  try{
+    const raw = sessionStorage.getItem(PORTAL_BOOT_CACHE_KEY);
+    if(!raw) return null;
+    return normalizePortalPayload(JSON.parse(raw));
+  }catch(_){
+    return null;
+  }
+}
+function writePortalBootCache(d){
+  try{
+    sessionStorage.setItem(PORTAL_BOOT_CACHE_KEY, JSON.stringify(d));
+  }catch(_){}
+}
+async function loadData(opts){
+  const options = opts || {};
+  const force = !!options.force;
+  try{
+    if(!force){
+      const cached = readPortalBootCache();
+      if(cached){
+        const cachedJson = portalPayloadJson(cached);
+        if(cachedJson !== _lastPortalPayloadJson){
+          _lastPortalPayloadJson = cachedJson;
+          await applyLoadedPortalDataWhenIdle(cached, { skipSecondary: true });
+        }
+        if(!_networkRefreshPromise){
+          _networkRefreshPromise = fetchAndApplyPortalData(false)
+            .catch((e)=>{ console.error(e); })
+            .finally(()=>{ _networkRefreshPromise = null; });
+        }
+        return;
+      }
+    }
+    await fetchAndApplyPortalData(force);
   }catch(e){
-    document.getElementById('nlist').innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">読み込みエラー（設定画面で再読み込みしてください）</div>';
-    document.getElementById('tlist').innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">読み込みエラー（設定画面で再読み込みしてください）</div>';
-    applyPortalConfig({});
-    _docCategories = [...DEFAULT_DOC_CATEGORIES];
-    renderDocCategoryControls();
-    initHeroImage({});
-    renderCal();
-    renderCalEventList();
-    renderHolidayList();
+    if(!readPortalBootCache()){
+      document.getElementById('nlist').innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">読み込みエラー（設定画面で再読み込みしてください）</div>';
+      document.getElementById('tlist').innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">読み込みエラー（設定画面で再読み込みしてください）</div>';
+      applyPortalConfig({});
+      _docCategories = [...DEFAULT_DOC_CATEGORIES];
+      renderDocCategoryControls();
+      initHeroImage({});
+      scheduleSecondaryPortalRenders();
+    }
   }
 }
 
@@ -3237,16 +4218,21 @@ function applyPortalConfig(d){
   if(!_adminPagePassword) _adminUnlocked = true;
   applyStorageLinksFromData(d || {});
   applyMemberProfilesFromData(d || {});
+  applyGuestLoginSettingsFromData(d || {});
   applyWorkorderOptionsFromData(d || {});
   if(d && d.members && d.members.length) _membersCache = d.members;
   applyNoticeTypesFromData(d || {});
   applyTodoTagsFromData(d || {});
   renderStorageLinks();
   renderMembers(null);
-  renderWorkorderOptionsSettings();
   refreshNoticeTypeSelect();
   refreshTodoTagSelect();
   updateMembersCount();
+  updateGuestLoginUi();
+  if(isGuestOperatorSession()){
+    sessionStorage.setItem('portal_operator_display', getGuestLoginLabel());
+    sessionStorage.setItem('portal_operator_workorder_label', getGuestLoginLabel());
+  }
 }
 
 // ── メンバー専用ページプロフィール（GAS設定） ──
@@ -3256,6 +4242,7 @@ let _activeMemberName = '';
 
 function normalizeMemberProfile(x){
   const p = x || {};
+  const loginOff = p.loginEnabled === false || p.loginEnabled === 0 || p.loginEnabled === '0' || p.loginEnabled === 'false';
   return {
     headline: String(p.headline || '').trim(),
     mission: String(p.mission || '').trim(),
@@ -3263,6 +4250,7 @@ function normalizeMemberProfile(x){
     contact: String(p.contact || '').trim(),
     note: String(p.note || '').trim(),
     password: String(p.password || '').trim(),
+    loginEnabled: !loginOff,
     fullName: String(p.fullName || '').trim(),
     address: String(p.address || '').trim(),
     phone: String(p.phone || '').trim(),
@@ -3851,13 +4839,16 @@ function renderNotices(notices){
     const type = n.type || '連絡';
     const author = (n.author || '').trim();
     const title = String(n.title || '').trim();
+    const regDate = extractYmdFromDateLike(n.datetime);
     return `<div class="ni" style="${noticeRowStyle(type)}">
-      <div class="ni-top">${noticeTypeHtml(type)}${author ? memberTagHtml(author) : ''}</div>
+      <div class="ni-top">${noticeTypeHtml(type)}${postMetaWrapHtml([
+        regDate ? `<span class="todo-date-pill">登録: ${esc(regDate)}</span>` : '',
+        postAuthorMetaHtml(author)
+      ])}</div>
       <div class="ntx">
         ${title ? `<div class="ntx-title">${esc(title)}</div>` : ''}
         <div class="ntx-body">${esc(n.text)}</div>
       </div>
-      <div class="nmt">${esc(String(n.datetime))}</div>
     </div>`;
   }).join('');
 }
@@ -3865,19 +4856,18 @@ async function addN(){
   const btn = document.getElementById('add-notice-btn');
   if(btn && btn.disabled) return;
   const typeEl = document.querySelector('#notice-section #ntype');
-  const authorEl = document.querySelector('#notice-section #n-author');
   const titleEl = document.querySelector('#notice-section #ntitle');
   const textEl = document.querySelector('#notice-section #nbody');
-  if(!typeEl || !authorEl || !titleEl || !textEl){
+  if(!typeEl || !titleEl || !textEl){
     showToast('入力欄の読み込みに失敗しました');
     return;
   }
   const noticeType = (typeEl.options[typeEl.selectedIndex]?.value ?? typeEl.value).trim();
-  const author = authorEl.value.trim();
+  const author = getPortalPostAuthor();
   const noticeTitle = titleEl.value.trim();
   const noticeText = textEl.value.trim();
   if(!noticeType){ showToast('種別を選択してください'); return; }
-  if(!author){ showToast('投稿者を選択してください'); return; }
+  if(!author){ showToast('ログインしてください'); return; }
   if(!noticeTitle){ showToast('タイトルを入力してください'); return; }
   if(!noticeText){ showToast('内容を入力してください'); return; }
   if(btn){ btn.disabled=true; btn.innerHTML='<span class="btn-spinner"></span>投稿中...'; }
@@ -3904,7 +4894,6 @@ async function addN(){
     titleEl.value='';
     textEl.value='';
     resetSelectToDefault('ntype');
-    resetSelectToDefault('n-author');
     showToast('投稿しました');
     loadData().catch(()=>{});
     if(btn){btn.disabled=false;btn.innerHTML='投稿';}
@@ -3918,7 +4907,11 @@ async function addN(){
 function renderTodos(todos){
   _settingsTodos = todos;
   const el=document.getElementById('tlist');
-  if(!todos.length){el.innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">タスクはありません</div>';return;}
+  if(!todos.length){
+    el.innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">タスクはありません</div>';
+    applyTodoMetaPanelState();
+    return;
+  }
   const now=new Date();
   const active=[],done_list=[];
   todos.forEach(t=>{
@@ -3932,12 +4925,16 @@ function renderTodos(todos){
     const assignees = parseAssigneeNames(t.assignees && t.assignees.length ? t.assignees : t.assignee);
     const regDate = getTodoRegisteredDate(t);
     const dueDate = getTodoDueDate(t);
+    const author = String(t.author || '').trim();
     return `<div class="ti-row" data-id="${esc(String(t.id))}">
-      <div class="tc ${done?'dn':''}" onclick="toggleTodo('${esc(String(t.id))}',this)"><i class="ti ti-check"></i></div>
-      <div class="tt ${done?'dn':''}">${esc(t.text)}</div>
-      ${assignees.length ? assigneeTagsHtml(assignees) : ''}
-      ${(regDate || dueDate) ? `<div class="todo-date-meta">${regDate ? `<span class="todo-date-pill">登録: ${esc(regDate)}</span>` : ''}${dueDate ? `<span class="todo-date-pill">希望: ${esc(dueDate)}</span>` : ''}</div>` : ''}
-      ${t.tag?`<span class="task-tag">${esc(t.tag)}</span>`:''}
+      <div class="ti-body">
+        <div class="tc ${done?'dn':''}" onclick="toggleTodo('${esc(String(t.id))}',this)"><i class="ti ti-check"></i></div>
+        <div class="tt ${done?'dn':''}">${esc(t.text)}</div>
+        ${assignees.length ? assigneeTagsHtml(assignees) : ''}
+        ${t.tag?`<span class="task-tag">${esc(t.tag)}</span>`:''}
+        ${dueDate ? `<span class="todo-date-pill todo-date-pill--due">希望: ${esc(dueDate)}</span>` : ''}
+      </div>
+      ${todoMetaPanelHtml(regDate, author)}
     </div>`;
   }
   let html=active.map(rowHtml).join('');
@@ -3947,6 +4944,7 @@ function renderTodos(todos){
     <div id="done-list" style="display:none;">${done_list.map(rowHtml).join('')}</div>`;
   }
   el.innerHTML=html;
+  applyTodoMetaPanelState();
 }
 function toggleDone(){
   const dl=document.getElementById('done-list');
@@ -3964,13 +4962,15 @@ async function addT(){
   const assignees = [..._todoAssigneeSelected];
   const as=assigneeNamesToPayload(assignees);
   const tg=document.getElementById('t-tag').value;
+  const author = getPortalPostAuthor();
   const regDate=getTodayIsoDate();
   const dueDate=document.getElementById('t-due-date').value || '';
   if(!tx){ if(btn){btn.disabled=false;btn.textContent='追加';} return; }
+  if(!author){ showToast('ログインしてください'); if(btn){btn.disabled=false;btn.innerHTML='追加';} return; }
   const id='T'+Date.now();
   try{
-    await gasPost({sheet:'TODO',id,datetime:fmtDT(),regDate,dueDate,assignee:as,text:tx,tag:tg,done:false});
-    const nextTodos = [...(_settingsTodos||[]), {id, datetime:fmtDT(), regDate, dueDate, assignee:as, assignees, text:tx, tag:tg, done:false, doneAt:''}];
+    await gasPost({sheet:'TODO',id,datetime:fmtDT(),regDate,dueDate,assignee:as,text:tx,tag:tg,done:false,author});
+    const nextTodos = [...(_settingsTodos||[]), {id, datetime:fmtDT(), regDate, dueDate, assignee:as, assignees, text:tx, tag:tg, done:false, doneAt:'', author}];
     renderTodos(nextTodos);
     renderSettingsLists();
     document.getElementById('tinp').value='';
@@ -4018,13 +5018,16 @@ function renderSettingsLists(){
       const idx = _settingsNotices.length - 1 - i;
       const rowKey = n.row != null ? Number(n.row) : null;
       const author = (n.author || '').trim();
+      const regDate = extractYmdFromDateLike(n.datetime);
       return `<div class="s-list-item">
         <input type="checkbox" class="notice-chk" data-idx="${idx}" data-row="${rowKey}">
         <div class="s-list-item-body">
           ${noticeTypeHtml(n.type||'連絡')}
-          ${author ? memberTagHtml(author) : ''}
           <span style="margin-left:6px;">${esc(n.title ? `${n.title} / ${n.text}` : n.text)}</span>
-          <div class="s-list-item-meta">${esc(String(n.datetime))}</div>
+          ${postMetaWrapHtml([
+            regDate ? `<span class="todo-date-pill">登録: ${esc(regDate)}</span>` : '',
+            postAuthorMetaHtml(author)
+          ])}
         </div>
       </div>`;
     }).join('');
@@ -4039,13 +5042,20 @@ function renderSettingsLists(){
     tl.innerHTML = _settingsTodos.map((t,idx)=>{
       const done = String(t.done)==='true'||t.done===true;
       const assignees = parseAssigneeNames(t.assignees && t.assignees.length ? t.assignees : t.assignee);
+      const author = String(t.author || '').trim();
+      const regDate = getTodoRegisteredDate(t);
+      const dueDate = getTodoDueDate(t);
       return `<div class="s-list-item">
         <input type="checkbox" class="todo-chk" data-id="${esc(String(t.id))}">
         <div class="s-list-item-body">
           ${assignees.length ? assigneeTagsHtml(assignees) : ''}
           <span style="margin-left:4px;${done?'text-decoration:line-through;color:#999':''}">${esc(t.text)}</span>
           ${t.tag?`<span class="task-tag" style="margin-left:4px;">${esc(t.tag)}</span>`:''}
-          <div class="s-list-item-meta">${esc(String(t.datetime))}${getTodoRegisteredDate(t)?` / 登録日: ${esc(getTodoRegisteredDate(t))}`:''}${getTodoDueDate(t)?` / 完了希望日: ${esc(getTodoDueDate(t))}`:''}</div>
+          ${postMetaWrapHtml([
+            regDate ? `<span class="todo-date-pill">登録: ${esc(regDate)}</span>` : '',
+            dueDate ? `<span class="todo-date-pill todo-date-pill--due">希望: ${esc(dueDate)}</span>` : '',
+            postAuthorMetaHtml(author)
+          ])}
         </div>
       </div>`;
     }).join('');
@@ -4076,7 +5086,7 @@ async function deleteCheckedNotices(){
 async function deleteCheckedTodos(){
   const checked = [...document.querySelectorAll('.todo-chk:checked')].map(c=>String(c.dataset.id)).filter(Boolean);
   if(!checked.length){ showToast('削除するタスクを選択してください'); return; }
-  if(!confirm(checked.length+'件のToDoをスプレッドシートから完全に削除しますか？\nこの操作は取り消せません。')) return;
+  if(!confirm(checked.length+'件のTODOをスプレッドシートから完全に削除しますか？\nこの操作は取り消せません。')) return;
   const btn = document.querySelector('[onclick="deleteCheckedTodos()"]');
   if(btn && btn.disabled) return;
   if(btn){ btn.disabled=true; btn.innerHTML='<span class="btn-spinner"></span>削除中...'; }
@@ -4191,24 +5201,45 @@ const KITO_FIXED_COLOR = '#e85d04';
 const MEMBER_COLOR_BY_NAME = {
   '鬼頭': KITO_FIXED_COLOR,
   '鬼頭(貴)': KITO_FIXED_COLOR,
+  '鬼頭貴広': KITO_FIXED_COLOR,
   '佐藤': '#7c3aed',
+  '佐藤慎祐': '#7c3aed',
   '山下': '#2563eb',
+  '山下英則': '#2563eb',
   '山﨑': '#65a30d',
+  '山﨑裕真': '#65a30d',
   'サン': '#db2777',
   '喜多': '#ca8a04',
-  'アン': '#dc2626',
-  '津田': '#0f766e'
+  '喜多健児': '#ca8a04',
+  '津田': '#0f766e',
+  '津田啓次': '#0f766e'
 };
 const DEFAULT_MEMBERS = [
-  {name:'鬼頭(貴)', color:KITO_FIXED_COLOR, initial:'鬼', photoUrl:''},
-  {name:'佐藤', color:'#7c3aed', initial:'佐', photoUrl:''},
-  {name:'山下', color:'#2563eb', initial:'山', photoUrl:''},
-  {name:'山﨑', color:'#65a30d', initial:'山', photoUrl:''},
+  {name:'鬼頭貴広', color:KITO_FIXED_COLOR, initial:'鬼', photoUrl:''},
+  {name:'佐藤慎祐', color:'#7c3aed', initial:'佐', photoUrl:''},
+  {name:'山下英則', color:'#2563eb', initial:'山', photoUrl:''},
+  {name:'山﨑裕真', color:'#65a30d', initial:'山', photoUrl:''},
   {name:'サン', color:'#db2777', initial:'サ', photoUrl:''},
-  {name:'喜多', color:'#ca8a04', initial:'喜', photoUrl:''},
-  {name:'アン', color:'#dc2626', initial:'ア', photoUrl:''},
-  {name:'津田', color:'#0f766e', initial:'津', photoUrl:''},
+  {name:'喜多健児', color:'#ca8a04', initial:'喜', photoUrl:''},
+  {name:'津田啓次', color:'#0f766e', initial:'津', photoUrl:''},
 ];
+const PORTAL_LOGIN_MEMBERS = [
+  {label:'鬼頭貴広', memberName:'鬼頭貴広'},
+  {label:'佐藤慎祐', memberName:'佐藤慎祐'},
+  {label:'山下英則', memberName:'山下英則'},
+  {label:'山﨑裕真', memberName:'山﨑裕真'},
+  {label:'喜多健児', memberName:'喜多健児'},
+  {label:'サン', memberName:'サン'},
+  {label:'津田啓次', memberName:'津田啓次'}
+];
+const PORTAL_LOGIN_MEMBER_ALIAS = {
+  '鬼頭貴広': '鬼頭(貴)',
+  '佐藤慎祐': '佐藤',
+  '山下英則': '山下',
+  '山﨑裕真': '山﨑',
+  '喜多健児': '喜多',
+  '津田啓次': '津田'
+};
 
 function isKitoMember(name){
   const n = String(name||'').trim();
@@ -4226,12 +5257,13 @@ function renderMembers(members){
     _membersCache = members.map(m => ({...m, color: resolveMemberColor(m.name, m.color)}));
   }
   refreshMemberSelects();
+  renderPortalLoginMembers();
   updateMembersCount();
   const list = (_membersCache && _membersCache.length > 0) ? _membersCache : DEFAULT_MEMBERS;
   const el = document.getElementById('members-grid-wrap');
   if(!el) return;
   el.innerHTML = list.map(m => {
-    const prof = getMemberProfile(m.name);
+    const prof = getMemberProfileForLogin(m.name);
     const locked = !!prof.password;
     const avatar = m.photoUrl
       ? `<div class="mav"><img src="${esc(m.photoUrl)}" alt="${esc(m.name)}"></div>`
@@ -4270,6 +5302,9 @@ function renderMemberSettings(){
     : DEFAULT_MEMBERS;
   _membersCache = list;
   el.innerHTML = list.map((m,i) => {
+    const profile = getMemberProfileForLogin(m.name);
+    const currentPw = String(profile.password || '').trim();
+    const loginEnabled = profile.loginEnabled !== false;
     const avatar = m.photoUrl
       ? `<div class="m-edit-av" style="background:${esc(m.color)};"><img src="${esc(m.photoUrl)}" alt="${esc(m.name)}"></div>`
       : `<div class="m-edit-av" style="background:${esc(m.color)};">${esc(m.name.charAt(0))}</div>`;
@@ -4303,6 +5338,20 @@ function renderMemberSettings(){
           <div class="m-edit-label">写真URL</div>
           <input class="m-edit-input" id="mp-photo-${i}" value="${esc(m.photoUrl||'')}" placeholder="https://... (共有画像URL)">
         </div>
+        <div class="m-edit-field">
+          <div class="m-edit-label">ログインパスワード（管理者設定）</div>
+          <div class="pw-input-wrap">
+            <input class="m-edit-input" id="mp-password-${i}" type="password" value="${escAttr(currentPw)}" placeholder="初期パスワードを設定">
+            <button type="button" class="pw-input-toggle" aria-label="パスワードを表示" aria-pressed="false" onclick="togglePasswordFieldVisibility('mp-password-${i}', this)"><i class="ti ti-eye"></i></button>
+          </div>
+        </div>
+        <div class="m-edit-field">
+          <div class="m-edit-label">ログイン選択肢</div>
+          <label style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text);cursor:pointer;min-height:34px;">
+            <input type="checkbox" id="mp-login-${i}" ${loginEnabled ? 'checked' : ''} style="width:16px;height:16px;cursor:pointer;">
+            ログイン画面のユーザー一覧に表示
+          </label>
+        </div>
       </div>
       <div class="m-edit-save">
         <button class="s-btn" onclick="saveMember(${i})">保存</button>
@@ -4322,7 +5371,7 @@ function renderMemberProfileSettings(){
     return;
   }
   el.innerHTML = list.map((m, i) => {
-    const p = getMemberProfile(m.name);
+    const p = getMemberProfileForLogin(m.name);
     const lockLabel = p.password ? '有効' : '未設定';
     return `<div class="m-edit-row" id="mpf-row-${i}">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;">
@@ -4343,6 +5392,11 @@ function renderMemberProfileSettings(){
 }
 
 function openMemberPage(name){
+  if(isGuestOperatorSession()){
+    showToast('ゲストログインでは利用できません');
+    return;
+  }
+  touchPortalDataLoad();
   const list = (_membersCache && _membersCache.length) ? _membersCache : DEFAULT_MEMBERS;
   const m = list.find(x => x.name === name);
   if(!m){ showToast('メンバー情報が見つかりません'); return; }
@@ -4357,6 +5411,7 @@ function openMemberPage(name){
   }
   _activeMemberName = m.name;
   renderMemberPage(m.name);
+  logPortalAudit('メンバーページ', m.name, { kind: 'member_page', section: 'members-section' });
   showPage('member');
 }
 
@@ -4394,7 +5449,7 @@ function renderMemberPage(name){
     root.innerHTML = '<div class="member-full"><div class="member-panel-body empty">メンバー情報が見つかりません。</div></div>';
     return;
   }
-  const p = getMemberProfile(m.name);
+  const p = getMemberProfileForLogin(m.name);
   const avatar = m.photoUrl
     ? `<div class="member-avatar" style="background:${esc(m.color)};"><img src="${esc(m.photoUrl)}" alt="${esc(m.name)}"></div>`
     : `<div class="member-avatar" style="background:${esc(m.color)};">${esc(m.initial||m.name.charAt(0))}</div>`;
@@ -4441,7 +5496,7 @@ function renderMemberEditPage(name){
     root.innerHTML = '<div class="member-full"><div class="member-panel-body empty">メンバー情報が見つかりません。</div></div>';
     return;
   }
-  const p = getMemberProfile(m.name);
+  const p = getMemberProfileForLogin(m.name);
   root.innerHTML = `
     <div class="member-hero" style="border-top-color:${esc(m.color)};">
       <div class="member-avatar" style="background:${esc(m.color)};">${esc(m.initial||m.name.charAt(0))}</div>
@@ -4482,7 +5537,7 @@ async function saveActiveMemberProfile(){
     return;
   }
   const saveBtn = document.getElementById('mpv-save-btn');
-  const current = getMemberProfile(_activeMemberName);
+  const current = getMemberProfileForLogin(_activeMemberName);
   const v = id => {
     const el = document.getElementById(id);
     return el ? el.value : '';
@@ -4510,6 +5565,7 @@ async function saveActiveMemberProfile(){
   try{
     await persistMemberProfiles();
     renderMembers(_membersCache);
+    renderMemberSettings();
     renderMemberProfileSettings();
     renderMemberPage(_activeMemberName);
     const screen = document.getElementById('member-editor-screen');
@@ -4543,22 +5599,24 @@ function setMemberColor(i, color){
     if(av) av.style.background = nextColor;
   }
 }
-
 async function addMember(){
   const name = document.getElementById('new-member-name').value.trim();
   const color = resolveMemberColor(name, document.getElementById('new-member-color').value);
+  const passwordEl = document.getElementById('new-member-password');
+  const loginPassword = String(passwordEl ? passwordEl.value : '').trim();
   if(!name){ showToast('名前を入力してください'); return; }
   const list = (_membersCache && _membersCache.length) ? [..._membersCache] : [...DEFAULT_MEMBERS];
   const initial = name.charAt(0);
   list.push({name, color, initial, photoUrl:''});
   _membersCache = list;
-  setMemberProfile(name, getMemberProfile(name));
+  setMemberProfile(name, {...getMemberProfile(name), password: loginPassword, loginEnabled: true});
   const addBtn = document.querySelector('[onclick="addMember()"]');
   if(addBtn){ addBtn.disabled=true; addBtn.innerHTML='<span class="btn-spinner"></span>追加中...'; }
   try{
     await gasPost({sheet:'メンバー_UPDATE', name, color, initial, photoUrl:''});
     await persistMemberProfiles();
     document.getElementById('new-member-name').value='';
+    if(passwordEl) passwordEl.value = '';
 
     showToast(name+'を追加しました');
     renderMemberSettings();
@@ -4602,12 +5660,20 @@ async function saveMember(i){
   const initial  = document.getElementById('mp-initial-'+i).value.trim() || m.name.charAt(0);
   const color    = resolveMemberColor(name, m.color);
   const photoUrl = document.getElementById('mp-photo-'+i).value.trim();
+  const loginPassword = String(document.getElementById('mp-password-'+i)?.value || '').trim();
+  const loginEnabled = document.getElementById('mp-login-'+i)?.checked !== false;
   const oldName = m.name;
   if(name !== oldName && _memberProfileCache && _memberProfileCache[oldName]){
     _memberProfileCache[name] = normalizeMemberProfile(_memberProfileCache[oldName]);
     delete _memberProfileCache[oldName];
   }
+  const oldAliasName = PORTAL_LOGIN_MEMBER_ALIAS[name] || '';
+  if(!_memberProfileCache[name] && oldAliasName && _memberProfileCache[oldAliasName]){
+    _memberProfileCache[name] = normalizeMemberProfile(_memberProfileCache[oldAliasName]);
+    delete _memberProfileCache[oldAliasName];
+  }
   if(!_memberProfileCache[name]) setMemberProfile(name, {});
+  setMemberProfile(name, {...getMemberProfileForLogin(name), password: loginPassword, loginEnabled});
   // キャッシュ更新
   list[i] = {...m, name, initial, color, photoUrl};
   _membersCache = list;
@@ -4623,6 +5689,7 @@ async function saveMember(i){
     renderMembers(_membersCache);
     renderMemberSettings();
     renderMemberProfileSettings();
+    renderPortalLoginMembers();
     if(_activeMemberName === oldName) _activeMemberName = name;
   }catch(e){ showToast('エラー: '+e.message); }
   finally{ if(saveBtn){ saveBtn.disabled=false; saveBtn.innerHTML='保存'; } }
@@ -5135,16 +6202,24 @@ if(woRequestDateEl && !woRequestDateEl.value) woRequestDateEl.value = getTodayIs
 renderWorkOrderPreview();
 onImageToolRuleChange();
 onImageToolFilesChange();
-renderCal();
-refreshNoticeTypeSelect();
-refreshTodoTagSelect();
-refreshMemberSelects();
-renderDocCategoryControls();
 sanitizeSalesforceQuickLinkOptions();
 syncPortalHistory(true);
-loadData().finally(() => {
-  // ホーム単独表示は新規ウィンドウ注入方式へ切替済み
-});
+function setupPortalNavPrefetch(){
+  const onNavClick = (ev)=>{
+    if(ev.target.closest('.nav-item, .hero-btn, .card-title.clickable, .mi')){
+      touchPortalDataLoad();
+    }
+  };
+  const nav = document.getElementById('nav');
+  const main = document.getElementById('main');
+  if(nav) nav.addEventListener('click', onNavClick, true);
+  if(main) main.addEventListener('click', onNavClick, true);
+}
+setupPortalNavPrefetch();
+setupPortalAuditCapture();
+ensurePortalLogin();
+applyTodoMetaPanelState();
+// ホーム単独表示は新規ウィンドウ注入方式へ切替済み
 </script>
 </body>
 </html>
