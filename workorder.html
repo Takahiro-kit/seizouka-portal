@@ -28,6 +28,39 @@
       font-size:15px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;
     }
     .actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+    .actions .search-inline{
+      display:flex;align-items:center;gap:6px;
+      padding:7px 8px;
+      border:1px solid #cbd5e1;
+      border-radius:8px;
+      background:#f8fafc;
+    }
+    .actions .search-inline label{
+      font-size:12px;font-weight:800;color:#334155;white-space:nowrap;
+    }
+    .actions .search-inline .inp{
+      width:150px;min-width:110px;height:34px;padding:6px 8px;font-size:13px;
+      border:1px solid #cbd5e1;border-radius:6px;font-family:inherit;background:#fff;outline:none;
+    }
+    .actions .search-inline .inp:focus{border-color:var(--blue);}
+    .actions .search-inline .inp-date{width:132px;min-width:132px;}
+    .search-modal{
+      position:fixed;inset:0;z-index:9999;
+      display:none;align-items:center;justify-content:center;
+      background:rgba(15,23,42,.38);
+    }
+    .search-modal.open{display:flex}
+    .search-modal-card{
+      width:min(860px,92vw);max-height:78vh;overflow:auto;
+      background:#fff;border-radius:10px;
+      border:1px solid #cbd5e1;box-shadow:0 16px 42px rgba(15,23,42,.28);
+      padding:14px;
+    }
+    .search-modal-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+    .search-result-table{width:100%;border-collapse:collapse;font-size:13px}
+    .search-result-table th,.search-result-table td{border:1px solid #dbe3ef;padding:7px 8px;text-align:left}
+    .search-result-table th{background:#f1f5fb;color:#334155;font-weight:900}
+    .search-result-table tr:hover{background:#f8fbff}
     .name-input{
       border:1px solid #cbd5e1;border-radius:6px;padding:8px 10px;
       font-size:14px;font-family:inherit;min-width:180px;background:#fff;
@@ -97,7 +130,7 @@
     @media print{
       @page{size:A4;margin:6mm;}
       html,body{margin:0;padding:0;background:#fff !important;}
-      .top,
+      .top,#db-status,.search-modal,
       .grid > .card:first-child,
       .grid > .card:last-child > .hdr{
         display:none !important;
@@ -150,14 +183,24 @@
 <body>
   <div class="wrap">
     <div class="top">
-      <a class="back" href="portal.html">← ホームに戻る</a>
+      <a class="back" href="portal.html" onclick="return goBackOrDefault('portal.html')">← ホームに戻る</a>
       <div class="actions">
-        <input id="fileDate" class="name-input" type="date" title="出力日付（ファイル名用）">
-        <input id="caseNo" class="name-input" type="text" placeholder="案件番号（例: FK00000）">
-        <button class="btn" onclick="printPdf(this)">PDF出力</button>
-        <button class="btn alt" onclick="resetForm()">次の指示書を作成</button>
+        <div class="search-inline">
+          <label for="loadCaseNoQuery">案件番号</label>
+          <input id="loadCaseNoQuery" class="inp" type="text" placeholder="例: FK2346">
+          <label for="loadCustomerQuery">顧客名</label>
+          <input id="loadCustomerQuery" class="inp" type="text" placeholder="例: 〇〇ファーマ様">
+          <label for="fileDate">出力日付</label>
+          <input id="fileDate" class="inp inp-date" type="date" title="PDFファイル名用">
+        </div>
+        <button class="btn alt" type="button" onclick="loadWorkorder(this)">案件呼び出し</button>
+        <button class="btn alt" type="button" onclick="loadWorkorderList(this)">全件表示</button>
+        <button class="btn alt" type="button" onclick="updateWorkorder(this)">更新保存</button>
+        <button class="btn" type="button" onclick="printPdf(this)">PDF出力</button>
+        <button class="btn alt" type="button" onclick="resetForm()">リセット</button>
       </div>
     </div>
+    <div id="db-status" style="margin:-2px 0 10px;font-size:12px;color:#475569;">DB状態: 未接続</div>
 
     <div class="grid">
       <div class="card">
@@ -195,7 +238,7 @@
           </div>
           <div class="field">
             <label for="docCaseNo">案件番号</label>
-            <input id="docCaseNo" class="inp" type="text" placeholder="例: FA000000" oninput="syncCaseNoFromDoc();renderPreview()">
+            <input id="docCaseNo" class="inp" type="text" placeholder="例: FA000000" oninput="onDocCaseNoInput();renderPreview()">
           </div>
           <div class="field">
             <label for="customerName">顧客名</label>
@@ -270,9 +313,44 @@
     </div>
   </div>
 
+  <div id="searchModal" class="search-modal" onclick="closeSearchModalOnBackdrop(event)">
+    <div class="search-modal-card">
+      <div class="search-modal-head">
+        <div style="font-size:16px;font-weight:900;">検索候補から選択</div>
+        <button class="btn alt" type="button" onclick="closeSearchModal()">閉じる</button>
+      </div>
+      <div id="searchResultMeta" style="font-size:12px;color:#475569;margin-bottom:8px;"></div>
+      <table class="search-result-table">
+        <thead>
+          <tr>
+            <th style="width:50px;">選択</th>
+            <th style="width:170px;">案件番号</th>
+            <th>顧客名</th>
+            <th style="width:190px;">保存日時</th>
+          </tr>
+        </thead>
+        <tbody id="searchResultBody"></tbody>
+      </table>
+      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:10px;">
+        <button class="btn alt" type="button" onclick="closeSearchModal()">キャンセル</button>
+        <button class="btn" type="button" onclick="applySelectedSearchResult()">この案件を呼び出す</button>
+      </div>
+    </div>
+  </div>
+
   <script>
+    function goBackOrDefault(fallbackUrl){
+      try{
+        if(window.history.length > 1){
+          window.history.back();
+          return false;
+        }
+      }catch(_e){}
+      window.location.href = fallbackUrl || "portal.html";
+      return false;
+    }
     const GAS_URL = "https://script.google.com/macros/s/AKfycbzueRIitHcmbZIjfS1iT7qsAY3awEHioinFms0NO6e9ieVtlJY-ekogHjzmwDhZjUfyBA/exec";
-    const DEFAULT_MEMBER_OPTIONS = ["佐藤","山下","山﨑","喜多","サン","アン","津田","鬼頭(貴)"];
+    const DEFAULT_MEMBER_OPTIONS = [];
     const DEFAULT_WORK_DEPARTMENTS = ["ジェイピーネクスト株式会社　製造部　製造課"];
     const DEFAULT_WORK_PLACES = ["テックセンタ"];
     const WORKORDER_DEPARTMENTS_KEY = "workorder_departments_json";
@@ -283,7 +361,12 @@
     let _workorderDbSpreadsheetId = "";
     let _workorderDbGasUrl = "";
     let _workorderTemplates = [];
+    let _workorderRecordId = "";
+    let _loadedCaseNo = "";
+    let _searchCandidates = [];
     const $ = id => document.getElementById(id);
+    const val = id => { const el = $(id); return el ? String(el.value || "").trim() : ""; };
+    const setVal = (id, value) => { const el = $(id); if(el) el.value = value == null ? "" : String(value); };
     const textOrSpace = v => (String(v || "").trim() || "　");
     function gasPost(url, payload){
       return fetch(url,{
@@ -397,7 +480,7 @@
       $("issued").textContent = `作成日時: ${nowStr()}`;
     }
     function resetForm(){
-      ["request","work","note","docCaseNo","customerName"].forEach(id => $(id).value = "");
+      ["request","work","note","docCaseNo","customerName","loadCaseNoQuery","loadCustomerQuery"].forEach(id => setVal(id, ""));
       if($("requester")) $("requester").value = "";
       if($("contractor")) $("contractor").value = "";
       $("requestDate").value = new Date().toISOString().slice(0,10);
@@ -405,12 +488,19 @@
       if($("workDept")) $("workDept").value = DEFAULT_WORK_DEPARTMENTS[0] || "";
       if($("workPlace")) $("workPlace").value = DEFAULT_WORK_PLACES[0] || "";
       $("fileDate").value = new Date().toISOString().slice(0,10);
-      $("caseNo").value = "";
+      _workorderRecordId = "";
+      _loadedCaseNo = "";
+      setDbStatus("DB状態: 新規入力モード", false);
       applyOperatorAutoFill();
     }
+    function onDocCaseNoInput(){
+      const current = val("docCaseNo");
+      if(_loadedCaseNo && current !== _loadedCaseNo){
+        _workorderRecordId = "";
+      }
+    }
     function syncCaseNoFromDoc(){
-      if(!$("docCaseNo") || !$("caseNo")) return;
-      $("caseNo").value = $("docCaseNo").value;
+      onDocCaseNoInput();
     }
     function uniqList(list){
       const out = [];
@@ -439,6 +529,26 @@
         return [...fallback];
       }
     }
+    function parseMemberProfiles(raw){
+      if(!raw) return {};
+      try{
+        const parsed = typeof raw === "string" ? JSON.parse(raw) : raw;
+        return parsed && typeof parsed === "object" ? parsed : {};
+      }catch(e){
+        return {};
+      }
+    }
+    function isLoginEnabledProfile(profile){
+      if(!profile || typeof profile !== "object") return true;
+      const v = profile.loginEnabled;
+      return !(v === false || v === 0 || v === "0" || v === "false");
+    }
+    function getLoginEnabledMemberOptions(rawMembers, settings){
+      const profiles = parseMemberProfiles(settings && (settings.member_profiles_json || settings["member_profiles_json"]));
+      return uniqList((rawMembers || [])
+        .map(m => (m && m.name) || "")
+        .filter(name => isLoginEnabledProfile(profiles[String(name || "").trim()])));
+    }
     function getFormData(){
       return {
         requester: $("requester") ? $("requester").value : "",
@@ -450,19 +560,19 @@
         request: $("request") ? $("request").value : "",
         work: $("work") ? $("work").value : "",
         note: $("note") ? $("note").value : "",
-        workDept: $("workDept") ? $("workDept").value : "",
-        workPlace: $("workPlace") ? $("workPlace").value : "",
-        fileDate: $("fileDate") ? $("fileDate").value : "",
-        caseNo: $("caseNo") ? $("caseNo").value : ""
+        workDept: val("workDept"),
+        workPlace: val("workPlace"),
+        fileDate: val("fileDate")
       };
     }
     function applyFormData(data){
       const d = data || {};
-      ["requester","contractor","requestDate","deadline","docCaseNo","customerName","request","work","note","workDept","workPlace","fileDate","caseNo"].forEach(id => {
+      ["requester","contractor","requestDate","deadline","docCaseNo","customerName","request","work","note","workDept","workPlace","fileDate"].forEach(id => {
         const el = $(id);
         if(!el) return;
         el.value = String(d[id] != null ? d[id] : "");
       });
+      _loadedCaseNo = val("docCaseNo");
       renderPreview();
     }
     function renderTemplateSelect(){
@@ -574,12 +684,10 @@
       try{
         const r = await fetch(GAS_URL + "?t=" + Date.now(), {mode:"cors"});
         const d = await r.json();
-        const members = Array.isArray(d.members) ? uniqList(d.members.map(m => (m && m.name) || "")) : [];
-        const memberOptions = members.length ? members : [...DEFAULT_MEMBER_OPTIONS];
-        renderSelectOptions("requester", memberOptions);
-        renderSelectOptions("contractor", memberOptions);
-
         const settings = (d && d.settings) || {};
+        const memberOptions = getLoginEnabledMemberOptions(Array.isArray(d.members) ? d.members : [], settings);
+        renderSelectOptions("requester", memberOptions.length ? memberOptions : DEFAULT_MEMBER_OPTIONS);
+        renderSelectOptions("contractor", memberOptions.length ? memberOptions : DEFAULT_MEMBER_OPTIONS);
         const deptOptions = parseSettingList(settings[WORKORDER_DEPARTMENTS_KEY] || settings.workorder_departments_json, DEFAULT_WORK_DEPARTMENTS);
         const placeOptions = parseSettingList(settings[WORKORDER_PLACES_KEY] || settings.workorder_places_json, DEFAULT_WORK_PLACES);
         const templatesRaw = settings[WORKORDER_TEMPLATES_KEY] || settings.workorder_templates_json;
@@ -596,6 +704,7 @@
         renderSelectOptions("workDept", deptOptions, deptOptions[0] || "");
         renderSelectOptions("workPlace", placeOptions, placeOptions[0] || "");
         renderTemplateSelect();
+        updateWorkorderDbStatus();
         applyOperatorAutoFill();
         return;
       }catch(e){}
@@ -607,7 +716,195 @@
       renderSelectOptions("workDept", DEFAULT_WORK_DEPARTMENTS, DEFAULT_WORK_DEPARTMENTS[0]);
       renderSelectOptions("workPlace", DEFAULT_WORK_PLACES, DEFAULT_WORK_PLACES[0]);
       renderTemplateSelect();
+      updateWorkorderDbStatus();
       applyOperatorAutoFill();
+    }
+    function setDbStatus(text, isError){
+      const el = $("db-status");
+      if(!el) return;
+      el.textContent = text;
+      el.style.color = isError ? "#b91c1c" : "#475569";
+    }
+    function updateWorkorderDbStatus(){
+      if(_workorderDbSpreadsheetId && _workorderDbGasUrl){
+        setDbStatus("DB状態: 接続設定OK", false);
+      }else{
+        setDbStatus("DB状態: 連携設定が未完了", true);
+      }
+    }
+    function pickFirstRowValue(row, keys){
+      for(const key of keys){
+        const v = row && row[key];
+        if(v == null) continue;
+        const s = String(v).trim();
+        if(s) return s;
+      }
+      return "";
+    }
+    function toDateInputValue(v){
+      const raw = String(v || "").trim();
+      if(!raw) return "";
+      const p2 = n => String(Number(n || 0)).padStart(2, "0");
+      const half = raw
+        .replace(/[０-９]/g, ch => String.fromCharCode(ch.charCodeAt(0) - 65248))
+        .replace(/／/g, "/")
+        .replace(/－/g, "-")
+        .replace(/[　\t]+/g, " ")
+        .trim();
+      const mIso = half.match(/^(\d{4})-(\d{1,2})-(\d{1,2})(?:[T\s].*)?$/);
+      if(mIso) return `${mIso[1]}-${p2(mIso[2])}-${p2(mIso[3])}`;
+      const mSep = half.match(/^(\d{4})[\/\.\-](\d{1,2})[\/\.\-](\d{1,2})(?:\D.*)?$/);
+      if(mSep) return `${mSep[1]}-${p2(mSep[2])}-${p2(mSep[3])}`;
+      return "";
+    }
+    function fillFormFromRow(row){
+      setVal("requester", pickFirstRowValue(row, ["requester","作業依頼者"]));
+      setVal("contractor", pickFirstRowValue(row, ["contractor","作業請負者"]));
+      setVal("requestDate", toDateInputValue(pickFirstRowValue(row, ["requestDate","依頼日"])) || new Date().toISOString().slice(0,10));
+      setVal("deadline", toDateInputValue(pickFirstRowValue(row, ["deadline","作業期限"])));
+      setVal("docCaseNo", pickFirstRowValue(row, ["caseNo","案件番号"]));
+      setVal("customerName", pickFirstRowValue(row, ["customerName","顧客名"]));
+      setVal("request", pickFirstRowValue(row, ["request","依頼事項"]));
+      setVal("work", pickFirstRowValue(row, ["work","作業内容"]));
+      setVal("note", pickFirstRowValue(row, ["note","備考"]));
+      setVal("workDept", pickFirstRowValue(row, ["workDept","作業部署"]));
+      setVal("workPlace", pickFirstRowValue(row, ["workPlace","作業場所"]));
+      const outDate = pickFirstRowValue(row, ["outputFileDate","出力日付"]);
+      if(outDate) setVal("fileDate", toDateInputValue(outDate) || outDate);
+    }
+    function formatSavedAtForList(v){
+      const raw = String(v || "").trim();
+      if(!raw) return "-";
+      const p2 = n => String(Number(n || 0)).padStart(2, "0");
+      const m = raw.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})\s+(\d{1,2}):(\d{1,2})/);
+      if(m) return `${m[1]}/${p2(m[2])}/${p2(m[3])} ${p2(m[4])}:${p2(m[5])}`;
+      const d = new Date(raw);
+      if(!Number.isNaN(d.getTime())){
+        return `${d.getFullYear()}/${p2(d.getMonth()+1)}/${p2(d.getDate())} ${p2(d.getHours())}:${p2(d.getMinutes())}`;
+      }
+      return raw;
+    }
+    function openSearchModal(rows, metaText){
+      _searchCandidates = Array.isArray(rows) ? rows : [];
+      const body = $("searchResultBody");
+      const meta = $("searchResultMeta");
+      if(meta) meta.textContent = metaText || `${_searchCandidates.length}件ヒット`;
+      if(body){
+        body.innerHTML = _searchCandidates.map((row, idx) => {
+          const checked = idx === 0 ? "checked" : "";
+          const caseNo = String(row.caseNo || "").trim() || "-";
+          const customer = String(row.customerName || "").trim() || "-";
+          const savedAt = formatSavedAtForList(row.savedAt);
+          return `<tr>
+            <td><input type="radio" name="searchResultPick" value="${idx}" ${checked}></td>
+            <td>${caseNo}</td>
+            <td>${customer}</td>
+            <td>${savedAt}</td>
+          </tr>`;
+        }).join("");
+      }
+      const modal = $("searchModal");
+      if(modal) modal.classList.add("open");
+    }
+    function closeSearchModal(){
+      const modal = $("searchModal");
+      if(modal) modal.classList.remove("open");
+    }
+    function closeSearchModalOnBackdrop(e){
+      if(e && e.target && e.target.id === "searchModal") closeSearchModal();
+    }
+    function applySelectedSearchResult(){
+      const picked = document.querySelector('input[name="searchResultPick"]:checked');
+      if(!picked){
+        alert("呼び出す案件を選択してください。");
+        return;
+      }
+      const idx = Number(picked.value);
+      const row = _searchCandidates[idx];
+      if(!row){
+        alert("選択データが見つかりませんでした。");
+        return;
+      }
+      fillFormFromRow(row);
+      _workorderRecordId = String(row.recordId || row.id || row.rowId || row.savedAt || "").trim();
+      _loadedCaseNo = val("docCaseNo");
+      renderPreview();
+      setDbStatus(`DB状態: 呼び出し済み（${_loadedCaseNo}）`, false);
+      logPortalAudit("案件呼び出し", _loadedCaseNo, { kind: "workorder_load", via: "search_modal" });
+      closeSearchModal();
+    }
+    async function fetchWorkorderSearchRows(caseNoQuery, customerQuery){
+      const url = `${_workorderDbGasUrl}?mode=workorder_search&targetSpreadsheetId=${encodeURIComponent(_workorderDbSpreadsheetId)}&caseNoQuery=${encodeURIComponent(caseNoQuery || "")}&customerNameQuery=${encodeURIComponent(customerQuery || "")}&_=${Date.now()}`;
+      const r = await fetch(url, {mode:"cors"});
+      const j = await r.json();
+      return (j && (j.rows || j.data || [])) || [];
+    }
+    async function loadWorkorder(btn){
+      const caseNoQuery = val("loadCaseNoQuery") || val("docCaseNo");
+      const customerQuery = val("loadCustomerQuery") || val("customerName");
+      if(!caseNoQuery && !customerQuery){
+        alert("案件番号または顧客名を入力してください（検索欄/入力欄どちらでも可）。");
+        return;
+      }
+      if(!_workorderDbSpreadsheetId || !_workorderDbGasUrl){
+        alert("作業指示書DBの連携設定が未完了です。portal.html の設定画面で保存してください。");
+        return;
+      }
+      setActionLoading(btn, true, "検索中");
+      try{
+        const rows = await fetchWorkorderSearchRows(caseNoQuery, customerQuery);
+        if(!rows.length){
+          alert("該当データが見つかりませんでした。");
+          setDbStatus("DB状態: 該当データなし", true);
+          return;
+        }
+        if(rows.length === 1){
+          fillFormFromRow(rows[0]);
+          _workorderRecordId = String(rows[0].recordId || rows[0].id || rows[0].rowId || rows[0].savedAt || "").trim();
+          _loadedCaseNo = val("docCaseNo");
+          renderPreview();
+          setDbStatus(`DB状態: 呼び出し済み（${_loadedCaseNo}）`, false);
+          logPortalAudit("案件呼び出し", _loadedCaseNo, { kind: "workorder_load" });
+          return;
+        }
+        openSearchModal(rows, `${rows.length}件ヒットしました。案件を選択してください。`);
+        setDbStatus(`DB状態: 複数候補あり（${rows.length}件）`, false);
+      }catch(e){
+        alert("呼び出しに失敗しました。GAS側の検索API(mode=workorder_search)を確認してください。");
+        setDbStatus("DB状態: 呼び出しエラー", true);
+      }finally{
+        setActionLoading(btn, false);
+      }
+    }
+    async function loadWorkorderList(btn){
+      if(!_workorderDbSpreadsheetId || !_workorderDbGasUrl){
+        alert("作業指示書DBの連携設定が未完了です。portal.html の設定画面で保存してください。");
+        return;
+      }
+      setActionLoading(btn, true, "取得中");
+      try{
+        const rows = await fetchWorkorderSearchRows("", "");
+        if(!rows.length){
+          alert("表示できるデータがありません。");
+          return;
+        }
+        openSearchModal(rows, `全件表示: ${rows.length}件`);
+        logPortalAudit("全件表示", "作業指示書", { kind: "workorder_list", count: rows.length });
+      }catch(e){
+        alert("全件表示の取得に失敗しました。");
+      }finally{
+        setActionLoading(btn, false);
+      }
+    }
+    async function verifyWorkorderSaved(caseNo){
+      try{
+        const url = `${_workorderDbGasUrl}?mode=workorder_get&targetSpreadsheetId=${encodeURIComponent(_workorderDbSpreadsheetId)}&caseNo=${encodeURIComponent(caseNo)}&_=${Date.now()}`;
+        const r = await fetch(url, {mode:"cors"});
+        const j = await r.json();
+        return !!(j && (j.row || j.data));
+      }catch(e){
+        return false;
+      }
     }
     function fileDateToken(v){
       const s = String(v || "").trim();
@@ -635,9 +932,12 @@
         delete btn.dataset.prevHtml;
       }
     }
-    async function saveWorkorderToGas(btn, opts){
-      const silent = !!(opts && opts.silent);
-      const caseNo = String(($("docCaseNo") && $("docCaseNo").value) || "").trim();
+    async function saveWorkorderToGas(opts){
+      const options = opts || {};
+      const forceUpdate = !!options.forceUpdate;
+      const silent = !!options.silent;
+      const btn = options.btn || null;
+      const caseNo = val("docCaseNo");
       if(!caseNo){
         if(!silent) alert("案件番号を入力してください。");
         return false;
@@ -653,60 +953,90 @@
       if(btn){
         btn.disabled = true;
         btn.dataset.prevHtml = btn.innerHTML;
-        btn.innerHTML = "保存中...";
+        btn.innerHTML = `<span class="btn-spinner"></span>保存中...`;
       }
+      const isUpdate = forceUpdate || !!_workorderRecordId;
       const payload = {
-        sheet:"作業指示書_DB_ADD",
+        sheet: isUpdate ? "作業指示書_DB_UPDATE" : "作業指示書_DB_ADD",
+        mode: isUpdate ? "workorder_update" : "workorder_add",
         targetSpreadsheetId: _workorderDbSpreadsheetId.trim(),
+        recordId: _workorderRecordId || "",
         savedAt: nowStr(),
-        requester: $("requester") ? $("requester").value : "",
-        contractor: $("contractor") ? $("contractor").value : "",
-        requestDate: $("requestDate") ? $("requestDate").value : "",
-        deadline: $("deadline") ? $("deadline").value : "",
+        requester: val("requester"),
+        contractor: val("contractor"),
+        requestDate: val("requestDate"),
+        deadline: val("deadline"),
         caseNo,
-        customerName: $("customerName") ? $("customerName").value : "",
-        request: $("request") ? $("request").value : "",
-        work: $("work") ? $("work").value : "",
-        note: $("note") ? $("note").value : "",
-        workDept: $("workDept") ? $("workDept").value : "",
-        workPlace: $("workPlace") ? $("workPlace").value : "",
-        outputFileDate: $("fileDate") ? $("fileDate").value : "",
-        outputFileName: `${safeFileName(caseNo)}_${fileDateToken($("fileDate") ? $("fileDate").value : "")}_作業指示書`
+        customerName: val("customerName"),
+        request: val("request"),
+        work: val("work"),
+        note: val("note"),
+        workDept: val("workDept"),
+        workPlace: val("workPlace"),
+        outputFileDate: val("fileDate"),
+        outputFileName: `${safeFileName(caseNo)}_${fileDateToken(val("fileDate"))}_作業指示書`
       };
       try{
         await gasPost(_workorderDbGasUrl, payload);
-        logPortalAudit("保存", caseNo, { kind: "workorder_save" });
-        if(!silent) alert("作業指示書データを送信しました。");
+        const verified = await verifyWorkorderSaved(caseNo);
+        if(!verified){
+          if(!silent) alert("保存確認ができませんでした。作業指示書専用のGAS URL/スプレッドシートID、またはWebアプリ再デプロイ状態を確認してください。");
+          setDbStatus("DB状態: 保存未確認（設定要確認）", true);
+          return false;
+        }
+        _loadedCaseNo = caseNo;
+        if(!_workorderRecordId) _workorderRecordId = payload.savedAt;
+        setDbStatus(`DB状態: ${isUpdate ? "更新保存済み" : "新規保存済み"}（${caseNo}）`, false);
+        logPortalAudit(isUpdate ? "更新保存" : "新規保存", caseNo, { kind: "workorder_save", mode: isUpdate ? "update" : "add" });
+        if(!silent) alert(isUpdate ? "更新保存しました。" : "作業指示書データを保存しました。");
         return true;
       }catch(e){
         if(!silent) alert("保存でエラーが発生しました: " + e.message);
+        setDbStatus("DB状態: 保存エラー", true);
         return false;
       }finally{
         if(btn){
           btn.disabled = false;
-          btn.innerHTML = btn.dataset.prevHtml || "作業指示書をGAS保存";
+          btn.innerHTML = btn.dataset.prevHtml || "更新保存";
           delete btn.dataset.prevHtml;
         }
       }
     }
+    async function updateWorkorder(btn){
+      const caseNo = val("docCaseNo");
+      if(!caseNo){
+        alert("案件番号を入力してください。");
+        return;
+      }
+      if(!_workorderRecordId){
+        alert("先に「案件呼び出し」で既存データを読み込んでから更新してください。");
+        return;
+      }
+      setActionLoading(btn, true, "保存中");
+      try{
+        const ok = await saveWorkorderToGas({ forceUpdate: true, silent: true });
+        if(ok) alert("更新保存しました。");
+      }finally{
+        setActionLoading(btn, false);
+      }
+    }
     async function printPdf(btn){
       renderPreview();
-      setActionLoading(btn, true, "保存・出力中...");
+      setActionLoading(btn, true, "保存・出力中");
       const prevTitle = document.title;
-      const datePart = fileDateToken($("fileDate") ? $("fileDate").value : "");
-      const caseRaw = $("caseNo") ? $("caseNo").value : "";
-      const casePart = safeFileName(caseRaw);
+      const datePart = fileDateToken(val("fileDate"));
+      const casePart = safeFileName(val("docCaseNo"));
       if(!datePart){
-        alert("ファイル名用の日付を入力してください。");
+        alert("ファイル名用の出力日付を入力してください。");
         setActionLoading(btn, false);
         return;
       }
-      if(!String(caseRaw || "").trim()){
+      if(!casePart){
         alert("案件番号を入力してください。");
         setActionLoading(btn, false);
         return;
       }
-      const saved = await saveWorkorderToGas(null, {silent:true});
+      const saved = await saveWorkorderToGas({ silent: true, forceUpdate: !!_workorderRecordId });
       if(!saved){
         alert("作業指示書DBへの保存に失敗したため、PDF出力を中止しました。設定画面の連携先を確認してください。");
         setActionLoading(btn, false);
@@ -726,6 +1056,7 @@
     $("requestDate").value = new Date().toISOString().slice(0,10);
     $("fileDate").value = new Date().toISOString().slice(0,10);
     loadMasterOptions();
+    resetForm();
     renderPreview();
     logPortalAudit("ページ表示", "作業指示書", { kind: "page_view" });
     setupPortalAuditCapture();

@@ -295,7 +295,12 @@ body.admin-mode .nav-admin-links{display:block;}
 .nmt{font-size:11px;color:var(--text3);margin-top:4px;}
 #notice-section .input-row{flex-wrap:wrap;}
 #notice-section .input-row select{min-width:88px;}
-#notice-section .notice-input-row{display:grid;grid-template-columns:120px 1fr auto;gap:8px;padding:11px 18px;border-top:1px solid var(--border);background:#fff;align-items:start;}
+#notice-section .notice-input-row{display:grid;grid-template-columns:120px 1fr auto auto;gap:8px;padding:11px 18px;border-top:1px solid var(--border);background:#fff;align-items:start;}
+#notice-section .notice-input-row.notice-input-row--edit{background:#f8fbff;border-top-color:#93c5fd;box-shadow:inset 0 2px 0 #3b82f6;}
+#notice-section .notice-input-row #cancel-notice-edit-btn{display:none;background:#64748b;min-width:84px;align-self:stretch;}
+#notice-section .notice-input-row.notice-input-row--edit #cancel-notice-edit-btn{display:inline-flex;align-items:center;justify-content:center;}
+#notice-section .ni.ni-editing{box-shadow:inset 0 0 0 2px #93c5fd;background:#f8fbff;}
+#notice-section .post-edit-btn.active{background:#2563eb;border-color:#2563eb;color:#fff;}
 #notice-section .notice-input-row textarea{grid-column:1 / span 2;min-height:72px;resize:vertical;}
 #notice-section .notice-input-row input,
 #notice-section .notice-input-row textarea,
@@ -342,6 +347,7 @@ body.admin-mode .nav-admin-links{display:block;}
   color:#2563eb;
 }
 #todo-section .ti-body .post-edit-btn:hover{background:#dbeafe;color:#1d4ed8;}
+#todo-section .ti-body .post-edit-btn.active{background:#2563eb;border-color:#2563eb;color:#fff;}
 #todo-section .ti-meta-panel{
   display:none;
 }
@@ -377,7 +383,11 @@ body.admin-mode .nav-admin-links{display:block;}
 .a-an{background:var(--an);}
 .a-tsuda{background:var(--tsuda);}
 .task-tag{font-size:10px;font-weight:700;background:#f0f0f0;color:var(--text2);padding:3px 8px;border-radius:4px;white-space:nowrap;}
-.todo-input-row{display:grid;grid-template-columns:minmax(180px,1fr) 200px 120px 190px auto;gap:8px;padding:11px 18px;border-top:1px solid var(--border);background:#ffffff;align-items:center;}
+.todo-input-row{display:grid;grid-template-columns:minmax(180px,1fr) 200px 120px 190px auto auto;gap:8px;padding:11px 18px;border-top:1px solid var(--border);background:#ffffff;align-items:center;}
+.todo-input-row.todo-input-row--edit{background:#f8fbff;border-top-color:#93c5fd;box-shadow:inset 0 2px 0 #3b82f6;}
+.todo-input-row #cancel-todo-edit-btn{display:none;background:#64748b;}
+.todo-input-row.todo-input-row--edit #cancel-todo-edit-btn{display:inline-flex;align-items:center;justify-content:center;}
+#todo-section .ti-row.ti-row-editing{background:#f8fbff;box-shadow:inset 0 0 0 2px #93c5fd;}
 .todo-input-row input{flex:1;min-width:120px;border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:14px;font-family:var(--sans);outline:none;}
 .todo-input-row input:focus{border-color:var(--blue);}
 .todo-input-row select{border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:14px;font-family:var(--sans);background:#fff;cursor:pointer;outline:none;height:36px;}
@@ -475,6 +485,10 @@ body.admin-mode .nav-admin-links{display:block;}
 .todo-due-wrap input{min-width:0;flex:1;}
 .btn-spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:4px;}
 .btn-spinner-danger{display:inline-block;width:16px;height:16px;border:2px solid rgba(220,38,38,.25);border-top-color:#dc2626;border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;}
+.reload-spin{animation:spin .8s linear infinite;}
+.reload-icon-btn{width:40px;min-width:40px;height:36px;padding:0;display:inline-flex;align-items:center;justify-content:center;}
+.reload-icon-wrap{width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;transform-origin:50% 50%;}
+.reload-svg{width:22px;height:22px;display:block;stroke:currentColor;stroke-width:2.3;fill:none;stroke-linecap:round;stroke-linejoin:round;}
 .icon-del-btn:disabled{opacity:.45;cursor:not-allowed;pointer-events:none;}
 .todo-input-row > button:hover{background:var(--blue-dk);}
 .two-col{display:grid;grid-template-columns:1fr 1fr;}
@@ -992,7 +1006,14 @@ body.single-view-mode .nav-toggle,
 body.single-view-mode .hero,
 body.single-view-mode .hero-spacer{display:none !important;}
 body.single-view-mode .main{margin-left:0 !important;}
-body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin:0 auto;}
+body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin:0 auto;height:auto;min-height:100vh;overflow:visible;}
+body.single-view-mode #top{display:none !important;}
+body.single-view-mode .content{overflow:visible;min-height:auto;grid-template-columns:minmax(0,1fr);}
+body.single-view-mode .content-side{display:none !important;}
+body.single-view-mode .content-main{height:auto;overflow:visible;max-height:none;}
+body.single-view-mode .single-view-hidden{display:none !important;}
+body.single-view-mode #nlist,
+body.single-view-mode #tlist{max-height:none !important;overflow:visible !important;}
 .single-view-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;}
 .single-view-title{font-size:20px;font-weight:900;color:#0f172a;}
 .single-view-actions{display:flex;gap:8px;align-items:center;}
@@ -1005,19 +1026,7 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
 <body class="prelogin">
 <script>
 (function(){
-  var KEY='portal_guest_login_cache';
-  try{
-    var raw=localStorage.getItem(KEY);
-    if(!raw){
-      document.documentElement.classList.add('guest-login-entry-pending');
-      return;
-    }
-    var o=JSON.parse(raw);
-    var off=o.enabled===false||o.enabled===0||o.enabled==='0'||o.enabled==='false';
-    document.documentElement.classList.add(off?'guest-login-entry-hidden':'guest-login-entry-ready');
-  }catch(e){
-    document.documentElement.classList.add('guest-login-entry-pending');
-  }
+  document.documentElement.classList.add('guest-login-entry-pending');
 })();
 </script>
 
@@ -1093,18 +1102,18 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
   </div>
   <div class="nav-body">
     <div class="nav-home-links">
-      <a class="nav-item active" onclick="goHome('top')"><i class="ti ti-home"></i><span class="nav-item-label">ホーム</span></a>
-      <a class="nav-item" onclick="goHome('weblinks')"><i class="ti ti-link"></i><span class="nav-item-label">Webリンク</span></a>
+    <a class="nav-item active" onclick="goHome('top')"><i class="ti ti-home"></i><span class="nav-item-label">ホーム</span></a>
+    <a class="nav-item" onclick="goHome('weblinks')"><i class="ti ti-link"></i><span class="nav-item-label">Webリンク</span></a>
       <a class="nav-item" data-portal-guest-allowed onclick="goHome('mgmt')"><i class="ti ti-table"></i><span class="nav-item-label">管理表</span></a>
-      <a class="nav-item" onclick="goHome('notice-only')"><i class="ti ti-speakerphone"></i><span class="nav-item-label">課内連絡</span></a>
+    <a class="nav-item" onclick="goHome('notice-only')"><i class="ti ti-speakerphone"></i><span class="nav-item-label">課内連絡</span></a>
       <a class="nav-item" onclick="goHome('todo-section')"><i class="ti ti-checkbox"></i><span class="nav-item-label">TODO</span></a>
-      <a class="nav-item" onclick="goHome('docs')"><i class="ti ti-book"></i><span class="nav-item-label">手順書・ルール</span></a>
-      <a class="nav-item" onclick="goHome('storage')"><i class="ti ti-folder"></i><span class="nav-item-label">共有ファイル</span></a>
-      <a class="nav-item" onclick="goHome('img-tools')"><i class="ti ti-photo-edit"></i><span class="nav-item-label">画像圧縮</span></a>
-      <a class="nav-item" onclick="goHome('forms-section')"><i class="ti ti-forms"></i><span class="nav-item-label">フォーム</span></a>
+    <a class="nav-item" onclick="goHome('docs')"><i class="ti ti-book"></i><span class="nav-item-label">手順書・ルール</span></a>
+    <a class="nav-item" onclick="goHome('storage')"><i class="ti ti-folder"></i><span class="nav-item-label">共有ファイル</span></a>
+    <a class="nav-item" onclick="goHome('img-tools')"><i class="ti ti-photo-edit"></i><span class="nav-item-label">画像圧縮</span></a>
+    <a class="nav-item" onclick="goHome('forms-section')"><i class="ti ti-forms"></i><span class="nav-item-label">フォーム</span></a>
       <a class="nav-item" onclick="goHome('data-section')"><i class="ti ti-database"></i><span class="nav-item-label">データ</span></a>
       <a class="nav-item" data-portal-guest-allowed onclick="goHome('calendar-section')"><i class="ti ti-calendar"></i><span class="nav-item-label">カレンダー</span></a>
-      <a class="nav-item" onclick="goHome('members-section')"><i class="ti ti-users"></i><span class="nav-item-label">メンバー</span></a>
+    <a class="nav-item" onclick="goHome('members-section')"><i class="ti ti-users"></i><span class="nav-item-label">メンバー</span></a>
     </div>
     <div class="nav-settings-links" id="settings-nav-links">
       <button class="nav-item" onclick="goHome('top')"><i class="ti ti-home"></i><span class="nav-item-label">ホームへ戻る</span></button>
@@ -1131,6 +1140,7 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
       <div class="nav-settings-head">管理画面メニュー</div>
       <button class="nav-item" data-admin-target="admin-sec-db" onclick="goAdminSection('admin-sec-db')"><i class="ti ti-database"></i><span class="nav-item-label">管理データベース</span></button>
       <button class="nav-item" data-admin-target="admin-sec-links" onclick="goAdminSection('admin-sec-links')"><i class="ti ti-link"></i><span class="nav-item-label">業務リンク</span></button>
+      <button class="nav-item" data-admin-target="admin-sec-improvement-proposal" onclick="goAdminSection('admin-sec-improvement-proposal')"><i class="ti ti-bulb"></i><span class="nav-item-label">業務改善提案</span></button>
       <button class="nav-item" data-admin-target="admin-sec-settings-lock" onclick="goAdminSection('admin-sec-settings-lock')"><i class="ti ti-lock"></i><span class="nav-item-label">設定画面ロック</span></button>
       <button class="nav-item" data-admin-target="admin-sec-admin-lock" onclick="goAdminSection('admin-sec-admin-lock')"><i class="ti ti-shield-lock"></i><span class="nav-item-label">管理画面ロック</span></button>
       <button class="nav-item" data-admin-target="admin-sec-members" onclick="goAdminSection('admin-sec-members')"><i class="ti ti-users"></i><span class="nav-item-label">メンバー管理</span></button>
@@ -1274,7 +1284,8 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
                 <select id="ntype"><option value="">種別</option></select>
                 <input id="ntitle" type="text" placeholder="タイトルを入力…" autocomplete="off">
                 <textarea id="nbody" placeholder="内容を入力…"></textarea>
-                <button id="add-notice-btn" onclick="addN()">投稿</button>
+                <button id="add-notice-btn" type="button" onclick="submitNoticeForm()">投稿</button>
+                <button id="cancel-notice-edit-btn" type="button" onclick="cancelNoticeEdit()">キャンセル</button>
               </div>
             </div>
             <div id="todo-section" class="todo-meta-expanded" data-focusable="true">
@@ -1299,7 +1310,8 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
                   <span class="todo-due-label">完了希望日</span>
                   <input id="t-due-date" type="date" title="完了希望日" aria-label="完了希望日">
                 </div>
-                <button id="add-todo-btn" onclick="addT()">追加</button>
+                <button id="add-todo-btn" type="button" onclick="submitTodoForm()">追加</button>
+                <button id="cancel-todo-edit-btn" type="button" onclick="cancelTodoEdit()">キャンセル</button>
                 <div id="t-assignee-preview" class="todo-assignee-preview"></div>
               </div>
             </div>
@@ -1311,7 +1323,7 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
           <div class="card-hdr yellow">
             <div class="card-title clickable" onclick="openHomeSectionWindow('docs','製造課ルール / 手順書')"><i class="ti ti-book"></i>製造課ルール / 手順書</div>
             <div class="card-hdr-actions">
-              <a class="card-link" href="https://jpnext01-my.sharepoint.com/:f:/g/personal/t-kito_jpnext_co_jp/IgAduuef3YMiSLQODHxjbCfZAb0yyR7ZpbThfL5ItWOX6G4?e=PFavsj" target="_blank">共有フォルダを開く</a>
+            <a class="card-link" href="https://jpnext01-my.sharepoint.com/:f:/g/personal/t-kito_jpnext_co_jp/IgAduuef3YMiSLQODHxjbCfZAb0yyR7ZpbThfL5ItWOX6G4?e=PFavsj" target="_blank">共有フォルダを開く</a>
             </div>
           </div>
           <div id="docs-list"><div class="loading"><i class="ti ti-loader-2"></i>読み込み中...</div></div>
@@ -1382,13 +1394,16 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
               <i class="ti ti-truck-delivery"></i><span class="form-tile-label">運送手配表</span>
             </a>
             <a class="form-tile" href="https://docs.google.com/forms/d/1Q9DhQZTHoC4xBF5y93m5sGnRkoONNJ-zKje1nQmzEYE/edit" target="_blank" rel="noopener noreferrer">
-              <i class="ti ti-alert-triangle"></i><span class="form-tile-label">不具合</span>
+              <i class="ti ti-alert-triangle"></i><span class="form-tile-label">不具合・要望等 報告</span>
             </a>
             <a class="form-tile" href="https://jpnext01-my.sharepoint.com/:x:/g/personal/t-kito_jpnext_co_jp/IQD0SRwhewE4Sq09WVjXnCeyAePDl046MNsy6bQ1UAEP8k0?e=kV81R7" target="_blank" rel="noopener noreferrer">
-              <i class="ti ti-file-spreadsheet"></i><span class="form-tile-label">案件</span>
+              <i class="ti ti-file-spreadsheet"></i><span class="form-tile-label">案件管理チェックリスト</span>
             </a>
             <a class="form-tile" href="https://docs.google.com/forms/d/e/1FAIpQLSfbyv5Qxxjc2dUoQN5PrxVp9sv6xsGz5y621PzwOFy2dDQZQA/viewform" target="_blank" rel="noopener noreferrer">
               <i class="ti ti-map-pin"></i><span class="form-tile-label">現地報告</span>
+            </a>
+            <a class="form-tile" href="improvement-proposal.html">
+              <i class="ti ti-bulb"></i><span class="form-tile-label">業務改善提案</span>
             </a>
 
           </div>
@@ -1729,12 +1744,12 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
         <div class="s-sec-hdr">
           <div class="s-sec-title">👥 メンバー管理</div>
           <div class="s-sec-desc">追加・削除・リネームを管理画面へ移動しました。</div>
-        </div>
+          </div>
         <div class="s-row">
           <div class="s-row-icon"><i class="ti ti-user-cog"></i></div>
           <div class="s-row-body">
             <div class="s-row-title">管理画面でメンバーを編集</div>
-          </div>
+        </div>
           <button class="s-btn" onclick="showPage('admin')">管理画面を開く</button>
         </div>
       </div>
@@ -1844,7 +1859,7 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
           <div class="admin-col">
             <div class="admin-label">パスワード入力</div>
             <div class="pw-input-wrap">
-              <input id="admin-unlock-input" class="admin-input" type="password" placeholder="パスワードを入力">
+            <input id="admin-unlock-input" class="admin-input" type="password" placeholder="パスワードを入力">
               <button type="button" class="pw-input-toggle" aria-label="パスワードを表示" aria-pressed="false" onclick="togglePasswordFieldVisibility('admin-unlock-input', this)"><i class="ti ti-eye"></i></button>
             </div>
           </div>
@@ -1884,7 +1899,15 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
                   </div>
                 </a>
               </div>
+              <div class="admin-tile-wrap">
+                <a class="admin-tile" href="https://docs.google.com/spreadsheets/d/1rJyDotLMTs59qG9lnEagPOMe-3BNjzKALCjkCHR0QSk/edit?gid=0#gid=0" target="_blank">
+                  <i class="ti ti-file-spreadsheet admin-tile-icon"></i>
+                  <div>
+                    <div class="admin-tile-title">製造課ポータル<br>業務改善提案DB</div>
             </div>
+                </a>
+          </div>
+        </div>
           </div>
         </div>
         <div class="admin-sec" id="admin-sec-links">
@@ -1921,6 +1944,17 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
                 </select>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div class="admin-sec" id="admin-sec-improvement-proposal">
+          <div class="admin-sec-hdr">
+            <div class="admin-sec-title"><i class="ti ti-bulb"></i>業務改善提案 管理</div>
+            <div class="admin-sec-desc">提案内容確認・上司コメント入力・Excel出力を行います。</div>
+          </div>
+          <div style="padding:14px 18px;border-bottom:1px solid var(--border);background:#ffffff;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+            <a class="s-btn" href="improvement-proposal.html?return=admin" style="background:#0f766e;text-decoration:none;display:inline-flex;align-items:center;">管理画面を開く</a>
+            <span style="font-size:12px;color:var(--text3);">通知メール送信先: t-kito@jpnext.co.jp</span>
           </div>
         </div>
 
@@ -1989,10 +2023,15 @@ body.single-view-mode #page-home{padding:18px !important;max-width:1280px;margin
             <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;">＋ メンバーを追加</div>
             <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
               <input type="text" id="new-member-name" placeholder="名前" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;width:180px;">
+              <input type="email" id="new-member-email" placeholder="通知先メール" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;width:220px;">
               <div class="pw-input-wrap" style="width:180px;">
                 <input type="password" id="new-member-password" placeholder="初期パスワード" style="border:1px solid var(--border2);border-radius:4px;padding:7px 34px 7px 10px;font-size:13px;font-family:var(--sans);outline:none;width:100%;box-sizing:border-box;">
                 <button type="button" class="pw-input-toggle" aria-label="パスワードを表示" aria-pressed="false" onclick="togglePasswordFieldVisibility('new-member-password', this)"><i class="ti ti-eye"></i></button>
               </div>
+              <label style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text2);cursor:pointer;min-height:34px;padding:0 6px;">
+                <input type="checkbox" id="new-member-admin" style="width:16px;height:16px;cursor:pointer;">
+                管理者
+              </label>
               <input type="color" id="new-member-color" value="#2563eb" style="width:44px;height:34px;border:1px solid var(--border2);border-radius:4px;cursor:pointer;padding:2px;">
               <button class="s-btn" onclick="addMember()">追加</button>
             </div>
@@ -2188,10 +2227,11 @@ function persistPortalOperatorSession(memberName){
   const prof = getMemberProfileForLogin(memberName);
   const displayName = isGuestOperator(memberName)
     ? getGuestLoginLabel()
-    : (prof.fullName || formatJapaneseDisplayName(memberName));
+    : String(memberName || '').trim();
   sessionStorage.setItem('portal_operator_display', displayName);
   sessionStorage.setItem('portal_operator_phone', isGuestOperator(memberName) ? '' : (prof.phone || defaultPhoneForMember(memberName)));
   sessionStorage.setItem('portal_operator_workorder_label', isGuestOperator(memberName) ? getGuestLoginLabel() : (PORTAL_LOGIN_MEMBER_ALIAS[memberName] || memberName));
+  syncPrivilegedAccessState();
   updatePortalOperatorNavVisibility();
 }
 function clearPortalOperatorSession(){
@@ -2208,25 +2248,50 @@ function getPortalPostAuthor(){
 }
 function isPrivilegedOperator(name){
   const n = String(name || '').trim();
-  return n === '鬼頭貴広' || n === '鬼頭(貴)';
+  if(!n) return false;
+  const prof = getMemberProfileForLogin(n);
+  if(prof && prof.isAdmin) return true;
+  if(n === '鬼頭貴広' || n === '鬼頭(貴)' || n === '鬼頭 貴広') return true;
+  return n.startsWith('鬼頭');
+}
+function syncPrivilegedAccessState(){
+  if(isPrivilegedOperator(getCurrentPortalOperatorName())){
+    _adminUnlocked = true;
+  }
 }
 function getMemberLoginPassword(name){
   const canonical = String(name || '').trim();
   if(!canonical) return '';
+  const master = getMembersList().find(m => m && String(m.name || '').trim() === canonical) || null;
+  const aliasMasterName = PORTAL_LOGIN_MEMBER_ALIAS[canonical] || '';
+  const aliasMaster = aliasMasterName ? (getMembersList().find(m => m && String(m.name || '').trim() === aliasMasterName) || null) : null;
   const prof = getMemberProfile(canonical);
   const alias = PORTAL_LOGIN_MEMBER_ALIAS[canonical] || '';
   const aliasProf = alias ? getMemberProfile(alias) : null;
-  return String((prof && prof.password) || (aliasProf && aliasProf.password) || '').trim();
+  return String(
+    (master && master.loginPassword) ||
+    (aliasMaster && aliasMaster.loginPassword) ||
+    (prof && prof.password) ||
+    (aliasProf && aliasProf.password) ||
+    ''
+  ).trim();
 }
 function getMemberProfileForLogin(name){
   const canonical = String(name || '').trim();
+  const master = getMembersList().find(m => m && String(m.name || '').trim() === canonical) || null;
+  const aliasMasterName = PORTAL_LOGIN_MEMBER_ALIAS[canonical] || '';
+  const aliasMaster = aliasMasterName ? (getMembersList().find(m => m && String(m.name || '').trim() === aliasMasterName) || null) : null;
   const base = getMemberProfile(canonical);
   const alias = PORTAL_LOGIN_MEMBER_ALIAS[canonical] || '';
   const aliasProf = alias ? getMemberProfile(alias) : null;
   const pw = getMemberLoginPassword(canonical);
   const loginOff = (p) => p.loginEnabled === false || p.loginEnabled === 0 || p.loginEnabled === '0' || p.loginEnabled === 'false';
-  const loginEnabled = !loginOff(base) && (!aliasProf || !loginOff(aliasProf));
-  return normalizeMemberProfile({...base, password: pw, loginEnabled});
+  const masterLoginOff = master ? loginOff(master) : false;
+  const aliasMasterLoginOff = aliasMaster ? loginOff(aliasMaster) : false;
+  const loginEnabled = !masterLoginOff && !aliasMasterLoginOff && !loginOff(base) && (!aliasProf || !loginOff(aliasProf));
+  const adminOn = !!(master && master.isAdmin) || !!(aliasMaster && aliasMaster.isAdmin) || !!(base && base.isAdmin) || !!(aliasProf && aliasProf.isAdmin);
+  const email = String((master && master.email) || (aliasMaster && aliasMaster.email) || (base && base.email) || (aliasProf && aliasProf.email) || '').trim();
+  return normalizeMemberProfile({...base, password: pw, email, loginEnabled, isAdmin: adminOn});
 }
 function getPortalLoginMembersList(){
   return getMembersList()
@@ -2286,8 +2351,10 @@ function todoRowFootHtml(regDate, author){
 }
 function canEditTodoItem(t){
   if(isGuestOperatorSession()) return false;
+  const cur = getPortalPostAuthor();
+  if(!cur) return false;
   const author = resolveTodoAuthor(t);
-  if(!author) return false;
+  if(!author) return isPrivilegedOperator(cur);
   return canEditAsAuthor(author);
 }
 function parseAssigneeNames(raw){
@@ -2334,10 +2401,41 @@ function getTodoDueDate(t){
   if(!t) return '';
   return formatDisplayYmd(t.dueDate || t.deadline);
 }
+function hasTodoText(t){
+  return !!String(t?.text ?? '').trim();
+}
+function hasNoticeContent(n){
+  const item = n && n.title != null ? n : normalizeNoticeItem(n || {});
+  return !!(String(item.title || '').trim() || String(item.text || '').trim());
+}
 let _noticeEditKey = null;
 let _todoEditId = '';
-let _todoEditAssignees = [];
 const TODO_AUTHOR_SESSION_KEY = 'portal_todo_author_map';
+const NOTICE_AUTHOR_SESSION_KEY = 'portal_notice_author_map';
+function rememberNoticeAuthor(row, author){
+  const key = String(row || '').trim();
+  const name = String(author || '').trim();
+  if(!key || !name) return;
+  try{
+    const raw = sessionStorage.getItem(NOTICE_AUTHOR_SESSION_KEY);
+    const map = raw ? JSON.parse(raw) : {};
+    map[key] = name;
+    sessionStorage.setItem(NOTICE_AUTHOR_SESSION_KEY, JSON.stringify(map));
+  }catch(e){}
+}
+function resolveNoticeAuthor(n){
+  const direct = String(n?.author || '').trim();
+  if(direct) return direct;
+  const key = String(n?.row || '').trim();
+  if(!key) return '';
+  try{
+    const raw = sessionStorage.getItem(NOTICE_AUTHOR_SESSION_KEY);
+    const map = raw ? JSON.parse(raw) : {};
+    return String(map[key] || '').trim();
+  }catch(e){
+    return '';
+  }
+}
 function rememberTodoAuthor(id, author){
   const key = String(id || '').trim();
   const name = String(author || '').trim();
@@ -2375,20 +2473,94 @@ function canEditAsAuthor(storedAuthor){
   if(PORTAL_LOGIN_MEMBER_ALIAS[stored] === cur) return true;
   return false;
 }
+function canEditNoticeItem(n){
+  if(isGuestOperatorSession()) return false;
+  const cur = getPortalPostAuthor();
+  if(!cur) return false;
+  const author = resolveNoticeAuthor(n);
+  if(!author) return isPrivilegedOperator(cur);
+  return canEditAsAuthor(author);
+}
 function isNoticeWithinHomeWindow(n){
   const cutoff = new Date();
   cutoff.setMonth(cutoff.getMonth() - 2);
   const d = parseNoticeDatetime(n.datetime);
   return !(d && d < cutoff);
 }
-function noticeEditBtnHtml(row, context){
+function noticeEditBtnHtml(row){
   if(row == null || isNaN(Number(row))) return '';
-  return `<button type="button" class="post-edit-btn" onclick="startNoticeEdit(${Number(row)}, '${escAttr(context)}')" title="編集"><i class="ti ti-pencil"></i></button>`;
+  const active = _noticeEditKey && Number(_noticeEditKey.row) === Number(row);
+  const title = active ? '編集をキャンセル' : '編集';
+  return `<button type="button" class="post-edit-btn${active ? ' active' : ''}" onclick="startNoticeEdit(${Number(row)})" title="${title}"><i class="ti ti-pencil"></i></button>`;
+}
+function fillNoticeFormFromItem(n){
+  const typeEl = document.querySelector('#notice-section #ntype');
+  const titleEl = document.querySelector('#notice-section #ntitle');
+  const textEl = document.querySelector('#notice-section #nbody');
+  if(typeEl) typeEl.value = String(n?.type || '連絡').trim();
+  if(titleEl) titleEl.value = String(n?.title || '').trim();
+  if(textEl) textEl.value = String(n?.text || '').trim();
+}
+function clearNoticeForm(){
+  const titleEl = document.querySelector('#notice-section #ntitle');
+  const textEl = document.querySelector('#notice-section #nbody');
+  if(titleEl) titleEl.value = '';
+  if(textEl) textEl.value = '';
+  resetSelectToDefault('ntype');
+}
+function syncNoticeInputRowMode(){
+  const row = document.querySelector('#notice-section .notice-input-row');
+  const btn = document.getElementById('add-notice-btn');
+  const titleEl = document.querySelector('#notice-section #ntitle');
+  const textEl = document.querySelector('#notice-section #nbody');
+  const editing = !!(_noticeEditKey && _noticeEditKey.row != null);
+  if(row) row.classList.toggle('notice-input-row--edit', editing);
+  if(btn && !btn.disabled) btn.textContent = editing ? '保存' : '投稿';
+  if(titleEl) titleEl.placeholder = editing ? 'タイトルを編集…' : 'タイトルを入力…';
+  if(textEl) textEl.placeholder = editing ? '内容を編集…' : '内容を入力…';
+}
+function submitNoticeForm(){
+  if(_noticeEditKey && _noticeEditKey.row != null) saveNoticeEdit(document.getElementById('add-notice-btn'));
+  else addN();
 }
 function todoEditBtnHtml(id){
   const sid = String(id || '').trim();
   if(!sid) return '';
-  return `<button type="button" class="post-edit-btn" onclick="startTodoEdit('${escAttr(sid)}')" title="編集"><i class="ti ti-pencil"></i></button>`;
+  const active = _todoEditId && sid === String(_todoEditId);
+  const title = active ? '編集をキャンセル' : '編集';
+  return `<button type="button" class="post-edit-btn${active ? ' active' : ''}" onclick="startTodoEdit('${escAttr(sid)}')" title="${title}"><i class="ti ti-pencil"></i></button>`;
+}
+function fillTodoFormFromItem(t){
+  const inp = document.getElementById('tinp');
+  const tagEl = document.getElementById('t-tag');
+  const dueEl = document.getElementById('t-due-date');
+  if(inp) inp.value = String(t?.text || '').trim();
+  if(tagEl) tagEl.value = String(t?.tag || '').trim();
+  if(dueEl) dueEl.value = getTodoDueDate(t);
+  _todoAssigneeSelected = parseAssigneeNames(t?.assignees && t.assignees.length ? t.assignees : t?.assignee);
+  renderTodoAssigneePicker();
+}
+function clearTodoForm(){
+  const inp = document.getElementById('tinp');
+  const dueEl = document.getElementById('t-due-date');
+  if(inp) inp.value = '';
+  if(dueEl) dueEl.value = '';
+  resetSelectToDefault('t-tag');
+  _todoAssigneeSelected = [];
+  renderTodoAssigneePicker();
+}
+function syncTodoInputRowMode(){
+  const row = document.querySelector('#todo-section .todo-input-row');
+  const btn = document.getElementById('add-todo-btn');
+  const inp = document.getElementById('tinp');
+  const editing = !!_todoEditId;
+  if(row) row.classList.toggle('todo-input-row--edit', editing);
+  if(btn && !btn.disabled) btn.textContent = editing ? '保存' : '追加';
+  if(inp) inp.placeholder = editing ? 'タスクを編集…' : 'タスクを追加…';
+}
+function submitTodoForm(){
+  if(_todoEditId) saveTodoEdit(document.getElementById('add-todo-btn'));
+  else addT();
 }
 function buildNoticeTypeOptionsHtml(selected){
   return getNoticeTypesList().map(t =>
@@ -2401,48 +2573,6 @@ function buildTodoTagOptionsHtml(selected){
     `<option value="${escAttr(tag)}"${tag === selected ? ' selected' : ''}>${esc(tag)}</option>`
   )).join('');
 }
-function noticeEditPanelHtml(n){
-  const type = n.type || '連絡';
-  const title = String(n.title || '').trim();
-  const text = String(n.text || '').trim();
-  return `<div class="post-edit-panel">
-    <div class="post-edit-grid">
-      <select id="notice-edit-type">${buildNoticeTypeOptionsHtml(type)}</select>
-      <input id="notice-edit-title" type="text" value="${escAttr(title)}" placeholder="タイトル">
-      <textarea id="notice-edit-body" class="full" placeholder="内容">${esc(text)}</textarea>
-    </div>
-    <div class="post-edit-actions">
-      <button type="button" class="s-btn" style="background:#64748b;" onclick="cancelNoticeEdit()">キャンセル</button>
-      <button type="button" class="s-btn" onclick="saveNoticeEdit(this)">保存</button>
-    </div>
-  </div>`;
-}
-function todoEditAssigneeChipsHtml(){
-  const list = getMembersList();
-  if(!list.length) return '<div style="font-size:12px;color:#94a3b8;">メンバーがありません</div>';
-  return list.map(m => {
-    const name = String(m.name || '').trim();
-    const selected = _todoEditAssignees.includes(name);
-    return `<button type="button" class="todo-edit-assignee-chip${selected ? ' selected' : ''}" onclick="toggleTodoEditAssignee('${escAttr(name)}')">${esc(name)}</button>`;
-  }).join('');
-}
-function todoEditPanelHtml(t){
-  const text = String(t.text || '').trim();
-  const tag = String(t.tag || '').trim();
-  const dueDate = getTodoDueDate(t);
-  return `<div class="post-edit-panel todo-edit-panel">
-    <div class="todo-edit-grid">
-      <input id="todo-edit-text" type="text" value="${escAttr(text)}" placeholder="タスク内容">
-      <select id="todo-edit-tag">${buildTodoTagOptionsHtml(tag)}</select>
-      <input id="todo-edit-due" type="date" value="${escAttr(dueDate)}" title="完了希望日" aria-label="完了希望日">
-    </div>
-    <div class="todo-edit-assignee-grid" id="todo-edit-assignee-grid">${todoEditAssigneeChipsHtml()}</div>
-    <div class="post-edit-actions">
-      <button type="button" class="s-btn" style="background:#64748b;" onclick="cancelTodoEdit()">キャンセル</button>
-      <button type="button" class="s-btn" onclick="saveTodoEdit(this)">保存</button>
-    </div>
-  </div>`;
-}
 function findNoticeByRow(row){
   const target = Number(row);
   return (_settingsNotices || []).find(n => Number(n.row) === target) || null;
@@ -2451,28 +2581,47 @@ function findTodoById(id){
   const target = String(id || '').trim();
   return (_settingsTodos || []).find(t => String(t.id) === target) || null;
 }
-function startNoticeEdit(row, context){
+function startNoticeEdit(row){
+  if(_noticeEditKey && Number(_noticeEditKey.row) === Number(row)){
+    cancelNoticeEdit();
+    return;
+  }
   const n = findNoticeByRow(row);
   if(!n){ showToast('投稿が見つかりません'); return; }
-  if(!canEditAsAuthor(n.author)){ showToast('投稿者のみ編集できます'); return; }
-  if(context === 'home' && !isNoticeWithinHomeWindow(n)){ showToast('2ヶ月より古い連絡は設定画面から編集してください'); return; }
-  _noticeEditKey = { row: Number(row), context: context || 'home' };
+  if(!canEditNoticeItem(n)){ showToast('投稿者のみ編集できます'); return; }
+  if(!isNoticeWithinHomeWindow(n)){ showToast('2ヶ月より古い連絡は編集できません'); return; }
+  _noticeEditKey = { row: Number(row) };
   _todoEditId = '';
+  clearTodoForm();
+  syncTodoInputRowMode();
+  fillNoticeFormFromItem(n);
+  syncNoticeInputRowMode();
   renderNotices(_settingsNotices);
   renderSettingsLists();
+  const openEditForm = () => {
+    const section = document.getElementById('notice-only') || document.getElementById('notice-section');
+    if(section) section.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    const titleEl = document.querySelector('#notice-section #ntitle');
+    if(titleEl) titleEl.focus();
+  };
+  const homePage = document.getElementById('page-home');
+  if(homePage && homePage.classList.contains('active')) openEditForm();
+  else Promise.resolve(showPage('home')).then(() => { goHome('notice-only'); openEditForm(); });
 }
 function cancelNoticeEdit(){
   _noticeEditKey = null;
+  clearNoticeForm();
+  syncNoticeInputRowMode();
   renderNotices(_settingsNotices);
   renderSettingsLists();
 }
 async function saveNoticeEdit(btnEl){
   if(!_noticeEditKey || _noticeEditKey.row == null){ return; }
   const n = findNoticeByRow(_noticeEditKey.row);
-  if(!n || !canEditAsAuthor(n.author)){ showToast('投稿者のみ編集できます'); return; }
-  const typeEl = document.getElementById('notice-edit-type');
-  const titleEl = document.getElementById('notice-edit-title');
-  const bodyEl = document.getElementById('notice-edit-body');
+  if(!n || !canEditNoticeItem(n)){ showToast('投稿者のみ編集できます'); return; }
+  const typeEl = document.querySelector('#notice-section #ntype');
+  const titleEl = document.querySelector('#notice-section #ntitle');
+  const bodyEl = document.querySelector('#notice-section #nbody');
   const noticeType = typeEl ? String(typeEl.value || '').trim() : '';
   const noticeTitle = titleEl ? String(titleEl.value || '').trim() : '';
   const noticeText = bodyEl ? String(bodyEl.value || '').trim() : '';
@@ -2489,48 +2638,62 @@ async function saveNoticeEdit(btnEl){
       noticeBody:buildNoticeBody(noticeTitle, noticeText)
     });
     _noticeEditKey = null;
+    clearNoticeForm();
+    syncNoticeInputRowMode();
+    renderNotices(_settingsNotices);
+    renderSettingsLists();
     showToast('課内連絡を更新しました');
-    await loadData();
+    await loadData({ force: true });
   }catch(e){
     showToast('エラー: ' + e.message);
   }finally{
-    if(btnEl){ btnEl.disabled = false; btnEl.innerHTML = '保存'; }
+    if(btnEl){
+      btnEl.disabled = false;
+      syncNoticeInputRowMode();
+    }
   }
 }
 function startTodoEdit(id){
+  const sid = String(id || '').trim();
+  if(_todoEditId && sid === String(_todoEditId)){
+    cancelTodoEdit();
+    return;
+  }
   const t = findTodoById(id);
   if(!t){ showToast('タスクが見つかりません'); return; }
   if(!canEditTodoItem(t)){ showToast('投稿者のみ編集できます'); return; }
   _todoEditId = String(id);
-  _todoEditAssignees = parseAssigneeNames(t.assignees && t.assignees.length ? t.assignees : t.assignee);
   _noticeEditKey = null;
+  clearNoticeForm();
+  syncNoticeInputRowMode();
+  fillTodoFormFromItem(t);
+  syncTodoInputRowMode();
   renderTodos(_settingsTodos);
   renderSettingsLists();
+  const openEditForm = () => {
+    const section = document.getElementById('todo-section');
+    if(section) section.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    const inp = document.getElementById('tinp');
+    if(inp) inp.focus();
+  };
+  const homePage = document.getElementById('page-home');
+  if(homePage && homePage.classList.contains('active')) openEditForm();
+  else Promise.resolve(showPage('home')).then(() => { goHome('todo-section'); openEditForm(); });
 }
 function cancelTodoEdit(){
   _todoEditId = '';
-  _todoEditAssignees = [];
+  clearTodoForm();
+  syncTodoInputRowMode();
   renderTodos(_settingsTodos);
   renderSettingsLists();
-}
-function toggleTodoEditAssignee(name){
-  const n = String(name || '').trim();
-  if(!n) return;
-  if(_todoEditAssignees.includes(n)) _todoEditAssignees = _todoEditAssignees.filter(x => x !== n);
-  else _todoEditAssignees.push(n);
-  const grid = document.getElementById('todo-edit-assignee-grid');
-  if(grid) grid.innerHTML = todoEditAssigneeChipsHtml();
 }
 async function saveTodoEdit(btnEl){
   if(!_todoEditId) return;
   const t = findTodoById(_todoEditId);
   if(!t || !canEditTodoItem(t)){ showToast('投稿者のみ編集できます'); return; }
-  const textEl = document.getElementById('todo-edit-text');
-  const tagEl = document.getElementById('todo-edit-tag');
-  const dueEl = document.getElementById('todo-edit-due');
-  const text = textEl ? String(textEl.value || '').trim() : '';
-  const tag = tagEl ? String(tagEl.value || '').trim() : '';
-  const dueDate = dueEl ? String(dueEl.value || '').trim() : '';
+  const text = String(document.getElementById('tinp')?.value || '').trim();
+  const tag = String(document.getElementById('t-tag')?.value || '').trim();
+  const dueDate = String(document.getElementById('t-due-date')?.value || '').trim();
   if(!text){ showToast('内容を入力してください'); return; }
   if(btnEl){ btnEl.disabled = true; btnEl.innerHTML = '<span class="btn-spinner"></span>保存中...'; }
   try{
@@ -2540,16 +2703,22 @@ async function saveTodoEdit(btnEl){
       text,
       tag,
       dueDate,
-      assignee:assigneeNamesToPayload(_todoEditAssignees)
+      assignee:assigneeNamesToPayload(_todoAssigneeSelected)
     });
     _todoEditId = '';
-    _todoEditAssignees = [];
+    clearTodoForm();
+    syncTodoInputRowMode();
+    renderTodos(_settingsTodos);
+    renderSettingsLists();
     showToast('TODOを更新しました');
-    await loadData();
+    await loadData({ force: true });
   }catch(e){
     showToast('エラー: ' + e.message);
   }finally{
-    if(btnEl){ btnEl.disabled = false; btnEl.innerHTML = '保存'; }
+    if(btnEl){
+      btnEl.disabled = false;
+      btnEl.textContent = _todoEditId ? '保存' : '追加';
+    }
   }
 }
 let _todoAssigneeSelected = [];
@@ -2673,17 +2842,20 @@ function navScroll(id){
 }
 function openHomeSectionWindow(targetId, title){
   touchPortalDataLoad();
-  if(isGuestOperatorSession() && !GUEST_ALLOWED_HOME_SECTIONS.has(String(targetId || '').trim())){
+  const sectionId = String(targetId || '').trim();
+  if(isGuestOperatorSession() && !GUEST_ALLOWED_HOME_SECTIONS.has(sectionId)){
     showToast('ゲストログインではこの項目は利用できません');
     return false;
   }
-  const src = document.getElementById(targetId);
-  if(!src){
+  if(!document.getElementById(sectionId)){
     showToast('対象セクションが見つかりません');
     return false;
   }
   const safeTitle = String(title || '').trim() || '単独表示';
-  logPortalAudit('単独表示', safeTitle, { targetId, section: targetId });
+  logPortalAudit('単独表示', safeTitle, { targetId: sectionId, section: sectionId });
+  const url = new URL(window.location.href);
+  url.searchParams.set('single', sectionId);
+  url.searchParams.set('singleTitle', safeTitle);
   const popupFeatures = [
     'popup=yes',
     `width=${Math.max(900, window.screen?.availWidth || 1400)}`,
@@ -2693,171 +2865,105 @@ function openHomeSectionWindow(targetId, title){
     'resizable=yes',
     'scrollbars=yes'
   ].join(',');
-  const w = window.open('about:blank', '_blank', popupFeatures);
+  const w = window.open(url.toString(), '_blank', popupFeatures);
   if(!w){
     showToast('ポップアップがブロックされています');
     return false;
   }
-  if(!w.document){
-    showToast('新規ウィンドウに描画できませんでした');
-    return false;
-  }
   try{
-    w.moveTo?.(0,0);
+    w.moveTo?.(0, 0);
     w.resizeTo?.(window.screen?.availWidth || 1400, window.screen?.availHeight || 900);
-  }catch(_){}
-  const styleText = Array.from(document.querySelectorAll('style')).map(s=>s.textContent || '').join('\n');
-  const styleLinks = Array.from(document.querySelectorAll('link[rel="stylesheet"]')).map(l=>l.outerHTML).join('\n');
-  const clone = src.cloneNode(true);
-  clone.classList.remove('home-focus-target');
-  clone.classList.remove('section-highlight');
-  clone.querySelectorAll('.card-title.clickable').forEach(el => {
-    el.classList.remove('clickable');
-    el.removeAttribute('onclick');
-  });
-  clone.querySelectorAll('*').forEach(el => {
-    Array.from(el.attributes).forEach(attr => {
-      if(attr.name.toLowerCase().startsWith('on')) el.removeAttribute(attr.name);
-    });
-  });
-  const singleCss = `
-body{
-  margin:0;
-  background:#f3f6fb;
-  min-height:100vh;
-  overflow-y:auto;
-}
-.single-wrap{
-  min-height:100vh;
-  height:auto;
-  display:flex;
-  flex-direction:column;
-}
-.single-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:14px 18px;
-  border-bottom:1px solid #d9e1ef;
-  background:#fff;
-  box-shadow:0 4px 14px rgba(15,23,42,.06);
-}
-.single-title{
-  font-size:20px;
-  font-weight:900;
-  color:#0f172a;
-}
-.single-main{
-  flex:none;
-  min-height:auto;
-  overflow:visible;
-  padding:18px;
-}
-.single-main #single-content{
-  height:auto;
-}
-.single-main .card{
-  margin:0;
-}
-#single-content > .tc-l{
-  background:#fff;
-  border:1px solid #e2e8f0;
-  border-radius:4px;
-  padding:12px;
-}
-#single-content #nlist,
-#single-content #tlist{
-  max-height:none !important;
-  overflow:visible !important;
-}
-.single-btn{
-  border:1px solid #cbd5e1;
-  border-radius:4px;
-  background:#f8fafc;
-  color:#0f172a;
-  font-weight:700;
-  padding:8px 12px;
-  cursor:pointer;
-}
-.single-btn:hover{
-  background:#eef2f7;
-}
-`;
-  const esc = (s)=>String(s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-  const doc = w.document;
-  doc.open();
-  doc.write(`<!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>${esc(safeTitle)}</title>
-  <base href="${esc(window.location.href)}">
-  ${styleLinks}
-  <style>${styleText}</style>
-  <style>${singleCss}</style>
-</head>
-<body>
-  <div class="single-wrap">
-    <div class="single-head">
-      <div class="single-title">${esc(safeTitle)}</div>
-      <button class="single-btn" type="button" onclick="window.close()">閉じる</button>
-    </div>
-    <div class="single-main"><div id="single-content"></div></div>
-  </div>
-</body>
-</html>`);
-  doc.close();
-  const mount = doc.getElementById('single-content');
-  if(mount) mount.innerHTML = clone.outerHTML;
-  try{
     w.focus();
   }catch(_){}
   return true;
 }
+const SINGLE_VIEW_SECTIONS = new Set(['notice-only','todo-section','docs','storage']);
 function applySingleViewFromQuery(){
   const params = new URLSearchParams(window.location.search);
   const targetId = String(params.get('single') || '').trim();
-  if(!targetId) return;
+  if(!targetId || !SINGLE_VIEW_SECTIONS.has(targetId)) return;
+  if(isGuestOperatorSession() && !GUEST_ALLOWED_HOME_SECTIONS.has(targetId)){
+    const url = new URL(window.location.href);
+    url.searchParams.delete('single');
+    url.searchParams.delete('singleTitle');
+    window.location.replace(url.toString());
+    return;
+  }
   const src = document.getElementById(targetId);
   const home = document.getElementById('page-home');
   if(!src || !home) return;
   const title = String(params.get('singleTitle') || '').trim() || (src.querySelector('.card-title')?.textContent || '単独表示').trim();
-  const clone = src.cloneNode(true);
-  clone.classList.remove('home-focus-target');
-  clone.classList.add('section-highlight');
-  clone.querySelectorAll('.card-title.clickable').forEach(el => {
+  document.body.classList.add('single-view-mode');
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  home.classList.add('active');
+  home.querySelectorAll('.content-main > *, .content-side > *').forEach(el => el.classList.add('single-view-hidden'));
+  let node = src;
+  while(node && node !== home){
+    node.classList.remove('single-view-hidden');
+    node = node.parentElement;
+  }
+  const twoCol = src.closest('.two-col');
+  if(twoCol){
+    twoCol.querySelectorAll(':scope > *').forEach(child => {
+      if(child !== src) child.classList.add('single-view-hidden');
+    });
+  }
+  src.querySelectorAll('.card-title.clickable').forEach(el => {
     el.classList.remove('clickable');
     el.removeAttribute('onclick');
   });
-  document.body.classList.add('single-view-mode');
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  home.classList.add('active');
-  home.innerHTML = '';
-  const head = document.createElement('div');
-  head.className = 'single-view-head';
-  const hTitle = document.createElement('div');
-  hTitle.className = 'single-view-title';
-  hTitle.textContent = title;
-  const actions = document.createElement('div');
-  actions.className = 'single-view-actions';
-  const backBtn = document.createElement('button');
-  backBtn.className = 's-btn';
-  backBtn.type = 'button';
-  backBtn.textContent = '通常表示に戻る';
-  backBtn.onclick = () => {
-    const url = new URL(window.location.href);
-    url.searchParams.delete('single');
-    url.searchParams.delete('singleTitle');
-    window.location.href = url.toString();
-  };
-  actions.appendChild(backBtn);
-  head.appendChild(hTitle);
-  head.appendChild(actions);
-  home.appendChild(head);
-  home.appendChild(clone);
+  let head = document.getElementById('single-view-head');
+  if(!head){
+    head = document.createElement('div');
+    head.id = 'single-view-head';
+    head.className = 'single-view-head';
+    const hTitle = document.createElement('div');
+    hTitle.className = 'single-view-title';
+    hTitle.id = 'single-view-title';
+    const actions = document.createElement('div');
+    actions.className = 'single-view-actions';
+    const backBtn = document.createElement('button');
+    backBtn.className = 's-btn';
+    backBtn.type = 'button';
+    backBtn.textContent = '閉じる';
+    backBtn.onclick = () => {
+      if(window.opener){
+        window.close();
+        return;
+      }
+      const url = new URL(window.location.href);
+      url.searchParams.delete('single');
+      url.searchParams.delete('singleTitle');
+      window.location.href = url.toString();
+    };
+    actions.appendChild(backBtn);
+    head.appendChild(hTitle);
+    head.appendChild(actions);
+    home.insertBefore(head, home.firstChild);
+  }
+  const titleEl = document.getElementById('single-view-title');
+  if(titleEl) titleEl.textContent = title;
   document.title = `${title} - 単独表示`;
+  touchPortalDataLoad();
+}
+async function applyOpenPageFromQuery(){
+  const params = new URLSearchParams(window.location.search);
+  const open = String(params.get('open') || '').trim();
+  if(!open) return;
+  if(open === 'admin'){
+    await showPage('admin', { fromHistory: true });
+    syncPortalHistory(true, 'admin');
+  }else if(open === 'settings'){
+    await showPage('settings', { fromHistory: true });
+    syncPortalHistory(true, 'settings');
+  }else if(open === 'home'){
+    await showPage('home', { fromHistory: true });
+    syncPortalHistory(true, 'home');
+  }
+  params.delete('open');
+  const nextQs = params.toString();
+  const nextUrl = window.location.pathname + (nextQs ? ('?' + nextQs) : '') + window.location.hash;
+  history.replaceState(history.state || buildPortalHistoryState(), '', nextUrl);
 }
 function pulseSettingsNavItem(targetId){
   const links = document.querySelectorAll('#settings-nav-links .nav-item[data-settings-target]');
@@ -2926,9 +3032,9 @@ function goAdminSection(targetId){
 const SETTINGS_PASS_GLOBAL_KEY='settings_page_password';
 const ADMIN_PAGE_PASSWORD_KEY='admin_page_password';
 const GUEST_LOGIN_SETTINGS_KEY='guest_login_json';
-const GUEST_LOGIN_CACHE_KEY='portal_guest_login_cache';
 const GUEST_OPERATOR_NAME='ゲスト';
 const GUEST_ALLOWED_HOME_SECTIONS=new Set(['mgmt','calendar-section']);
+try{ localStorage.removeItem('portal_guest_login_cache'); }catch(_e){}
 let _globalSettingsPassword='';
 let _adminPagePassword='';
 let _adminUnlocked=false;
@@ -2942,24 +3048,6 @@ function normalizeGuestLoginSettings(x){
     label: label || 'ゲスト'
   };
 }
-function readGuestLoginCache(){
-  try{
-    const raw = localStorage.getItem(GUEST_LOGIN_CACHE_KEY);
-    if(!raw) return null;
-    return normalizeGuestLoginSettings(JSON.parse(raw));
-  }catch(e){
-    return null;
-  }
-}
-function writeGuestLoginCache(settings){
-  try{
-    localStorage.setItem(GUEST_LOGIN_CACHE_KEY, JSON.stringify(normalizeGuestLoginSettings(settings || {})));
-  }catch(e){}
-}
-function initGuestLoginSettingsFromCache(){
-  const cached = readGuestLoginCache();
-  if(cached) _guestLoginSettings = cached;
-}
 function syncGuestLoginEntryHtmlState(show){
   const root = document.documentElement;
   root.classList.remove('guest-login-entry-pending','guest-login-entry-ready','guest-login-entry-hidden');
@@ -2970,8 +3058,6 @@ function syncGuestLoginEntryHtmlState(show){
 function shouldShowGuestLoginLink(){
   if(isGuestLoginEnabled()) return true;
   if(_portalDataReady) return false;
-  const cached = readGuestLoginCache();
-  if(cached) return cached.enabled;
   return true;
 }
 function applyGuestLoginSettingsFromData(d){
@@ -2980,19 +3066,16 @@ function applyGuestLoginSettingsFromData(d){
     try{
       const o = typeof raw === 'string' ? JSON.parse(raw) : raw;
       _guestLoginSettings = normalizeGuestLoginSettings(o);
-      writeGuestLoginCache(_guestLoginSettings);
       return;
     }catch(e){}
   }
   _guestLoginSettings = normalizeGuestLoginSettings({});
-  writeGuestLoginCache(_guestLoginSettings);
 }
 function isGuestLoginEnabled(){
   return !!(_guestLoginSettings && _guestLoginSettings.enabled);
 }
 function getGuestLoginLabel(){
-  const cached = readGuestLoginCache();
-  return String(_guestLoginSettings?.label || cached?.label || 'ゲスト').trim() || 'ゲスト';
+  return String(_guestLoginSettings?.label || 'ゲスト').trim() || 'ゲスト';
 }
 function isGuestOperator(name){
   return String(name || '').trim() === GUEST_OPERATOR_NAME;
@@ -3034,7 +3117,6 @@ async function saveGuestLoginSettings(btnEl){
     enabled: enabledEl ? enabledEl.checked : false,
     label: labelEl ? labelEl.value : 'ゲスト'
   });
-  writeGuestLoginCache(_guestLoginSettings);
   updateGuestLoginUi();
   setAdminActionLoading(btnEl, true, '保存中...');
   try{
@@ -3081,10 +3163,12 @@ function refreshAdminLockStatus(){
   }
 }
 function renderAdminVisibility(){
+  syncPrivilegedAccessState();
   const unlockPanel = document.getElementById('admin-unlock-panel');
   const content = document.getElementById('admin-content-wrap');
-  const needUnlock = !!_adminPagePassword && !_adminUnlocked;
-  if(unlockPanel) unlockPanel.style.display = 'none';
+  const privileged = isPrivilegedOperator(getCurrentPortalOperatorName());
+  const needUnlock = !!_adminPagePassword && !_adminUnlocked && !privileged;
+  if(unlockPanel) unlockPanel.style.display = needUnlock ? 'block' : 'none';
   if(content) content.style.display = needUnlock ? 'none' : 'block';
   refreshAdminLockStatus();
 }
@@ -3144,6 +3228,11 @@ async function clearAdminPagePassword(btnEl){
   }
 }
 function unlockAdminPage(btnEl){
+  if(isPrivilegedOperator(getCurrentPortalOperatorName())){
+    _adminUnlocked = true;
+    renderAdminVisibility();
+    return;
+  }
   if(btnEl && btnEl.disabled) return;
   setAdminActionLoading(btnEl, true, '解除中...');
   if(!_adminPagePassword){
@@ -3389,8 +3478,11 @@ async function submitGuestLogin(){
     closePortalLoginDialog();
     logPortalAudit('ログイン', GUEST_OPERATOR_NAME, { event: 'portal_guest_login', label });
     await ensureInitialDataLoaded();
-    showPage('home', { fromHistory: true });
-    goHome('mgmt');
+    applySingleViewFromQuery();
+    if(!new URLSearchParams(window.location.search).get('single')){
+      showPage('home', { fromHistory: true });
+      goHome('mgmt');
+    }
     showToast(label + 'としてログインしました');
   }catch(e){
     showToast('ログイン処理でエラーが発生しました');
@@ -3443,6 +3535,7 @@ async function submitPortalLogin(){
     closePortalLoginDialog();
     logPortalAudit('ログイン', memberName, { event: 'portal_login' });
     await ensureInitialDataLoaded();
+    applySingleViewFromQuery();
     showToast(memberName + 'でログインしました');
   }catch(e){
     clearPortalOperatorSession();
@@ -3485,8 +3578,11 @@ function logoutPortal(){
   logPortalAudit('ログアウト', operator, { event: 'portal_logout' });
   clearPortalOperatorSession();
   _noticeEditKey = null;
+  clearNoticeForm();
+  syncNoticeInputRowMode();
   _todoEditId = '';
-  _todoEditAssignees = [];
+  clearTodoForm();
+  syncTodoInputRowMode();
   try{ sessionStorage.removeItem(TODO_AUTHOR_SESSION_KEY); }catch(e){}
   document.body.classList.add('prelogin');
   document.body.classList.remove('guest-login-mode');
@@ -3699,12 +3795,15 @@ async function showPage(name){
     showToast('ゲストログインでは利用できません');
     return;
   }
+  syncPrivilegedAccessState();
   touchPortalDataLoad();
   if(name==='settings' || name==='admin'){
     await ensureInitialDataLoaded();
   }
-  if(name==='settings' && !(await requestSettingsAccess())) return;
-  if(name==='admin' && _adminPagePassword && !_adminUnlocked && !(await requestAdminAccess())) return;
+  const privileged = isPrivilegedOperator(getCurrentPortalOperatorName());
+  if(name==='settings' && !privileged && !(await requestSettingsAccess())) return;
+  if(name==='admin' && !privileged && _adminPagePassword && !_adminUnlocked && !(await requestAdminAccess())) return;
+  if(privileged) _adminUnlocked = true;
   const fromHistory = !!(arguments[1] && arguments[1].fromHistory);
   document.body.classList.toggle('settings-mode', name==='settings');
   document.body.classList.toggle('admin-mode', name==='admin');
@@ -3782,6 +3881,10 @@ function isSamePortalState(a, b){
 function syncPortalHistory(replace, pageName){
   const nextState = buildPortalHistoryState(pageName);
   const currentState = history.state || {};
+  // 既存履歴に有効なportalPageがある場合、初期化時のreplaceで潰さない
+  if(replace && !pageName && currentState && currentState.portalPage){
+    return;
+  }
   if(isSamePortalState(currentState, nextState)) return;
   if(replace) history.replaceState(nextState, '');
   else history.pushState(nextState, '');
@@ -3936,7 +4039,7 @@ async function reloadData(btnEl){
   try{
     await loadData({ force: true });
     logPortalAudit('データ再読み込み', 'portal', { force: true });
-    showToast('データを再読み込みしました');
+  showToast('データを再読み込みしました');
   }catch(e){
     showToast('エラー: '+e.message);
   }finally{
@@ -4274,7 +4377,7 @@ function toCalEventDateStr(v){
 }
 function normalizePortalPayload(raw){
   const d = raw && typeof raw === 'object' ? {...raw} : {};
-  d.notices = (d.notices || []).map(normalizeNoticeItem);
+    d.notices = (d.notices || []).map(normalizeNoticeItem);
   d.todos = (d.todos || []).map(t => ({
     ...t,
     author: String(t.author || '').trim()
@@ -4310,17 +4413,38 @@ function applyLoadedPortalData(d, opts){
   const skipSecondary = !!options.skipSecondary;
   parseDocCategoriesFromSettings(d);
   renderDocCategoryControls();
-  applyPortalConfig(d);
+    applyPortalConfig(d);
+  (d.notices || []).forEach(n => {
+    const author = String(n.author || '').trim();
+    if(author && n.row != null) rememberNoticeAuthor(n.row, author);
+  });
   (d.todos || []).forEach(t => {
     const author = String(t.author || '').trim();
     if(author && t.id) rememberTodoAuthor(t.id, author);
   });
-  renderNotices(d.notices);
+  const emptyTodoIds = (d.todos || [])
+    .filter(t => !hasTodoText(t))
+    .map(t => String(t.id || '').trim())
+    .filter(Boolean);
+  d.todos = (d.todos || []).filter(hasTodoText);
+  if(emptyTodoIds.length){
+    gasPost({ sheet:'TODO_DELETE', ids: emptyTodoIds }).catch(()=>{});
+  }
+  const normalizedNotices = (d.notices || []).map(normalizeNoticeItem);
+  const emptyNoticeRows = normalizedNotices
+    .filter(n => !hasNoticeContent(n))
+    .map(n => Number(n.row))
+    .filter(r => !isNaN(r) && r >= 2);
+  d.notices = normalizedNotices.filter(hasNoticeContent);
+  if(emptyNoticeRows.length){
+    gasPost({ sheet:'課内連絡_DELETE', rows: emptyNoticeRows }).catch(()=>{});
+  }
+    renderNotices(d.notices);
   renderTodos(d.todos);
   renderDocs(d.docs);
   initHeroImage(d.settings || {});
-  const tEl = document.getElementById('last-reload-time');
-  if(tEl){ tEl.textContent = '最終読み込み：' + fmtDT(); }
+    const tEl = document.getElementById('last-reload-time');
+    if(tEl){ tEl.textContent = '最終読み込み：' + fmtDT(); }
   _calEvents = d.calEvents || [];
   if(skipSecondary) scheduleSecondaryPortalRenders();
   else{
@@ -4394,12 +4518,12 @@ async function loadData(opts){
     await fetchAndApplyPortalData(force);
   }catch(e){
     if(!readPortalBootCache()){
-      document.getElementById('nlist').innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">読み込みエラー（設定画面で再読み込みしてください）</div>';
-      document.getElementById('tlist').innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">読み込みエラー（設定画面で再読み込みしてください）</div>';
-      applyPortalConfig({});
+    document.getElementById('nlist').innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">読み込みエラー（設定画面で再読み込みしてください）</div>';
+    document.getElementById('tlist').innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">読み込みエラー（設定画面で再読み込みしてください）</div>';
+    applyPortalConfig({});
       _docCategories = [...DEFAULT_DOC_CATEGORIES];
       renderDocCategoryControls();
-      initHeroImage({});
+    initHeroImage({});
       scheduleSecondaryPortalRenders();
     }
   }
@@ -4640,11 +4764,12 @@ function applyPortalConfig(d){
   const settings = (d && d.settings) || {};
   _globalSettingsPassword = String(settings[SETTINGS_PASS_GLOBAL_KEY] || '').trim();
   const nextAdminPassword = String(settings[ADMIN_PAGE_PASSWORD_KEY] || '').trim();
-  if(nextAdminPassword !== _adminPagePassword){
+  if(nextAdminPassword !== _adminPagePassword && !isPrivilegedOperator(getCurrentPortalOperatorName())){
     _adminUnlocked = false;
   }
   _adminPagePassword = nextAdminPassword;
   if(!_adminPagePassword) _adminUnlocked = true;
+  syncPrivilegedAccessState();
   applyStorageLinksFromData(d || {});
   applyMemberProfilesFromData(d || {});
   applyGuestLoginSettingsFromData(d || {});
@@ -4672,6 +4797,7 @@ let _activeMemberName = '';
 function normalizeMemberProfile(x){
   const p = x || {};
   const loginOff = p.loginEnabled === false || p.loginEnabled === 0 || p.loginEnabled === '0' || p.loginEnabled === 'false';
+  const adminOn = p.isAdmin === true || p.isAdmin === 1 || p.isAdmin === '1' || p.isAdmin === 'true';
   return {
     headline: String(p.headline || '').trim(),
     mission: String(p.mission || '').trim(),
@@ -4679,7 +4805,9 @@ function normalizeMemberProfile(x){
     contact: String(p.contact || '').trim(),
     note: String(p.note || '').trim(),
     password: String(p.password || '').trim(),
+    email: String(p.email || '').trim(),
     loginEnabled: !loginOff,
+    isAdmin: !!adminOn,
     fullName: String(p.fullName || '').trim(),
     address: String(p.address || '').trim(),
     phone: String(p.phone || '').trim(),
@@ -4724,7 +4852,7 @@ async function persistMemberProfiles(){
   }catch(e){}
 }
 function profileHasContent(p){
-  return !!(p.headline || p.mission || p.strengths || p.contact || p.note || p.password || p.fullName || p.address || p.phone || p.birthDate || p.clothSize || p.shoeSize || p.workwearTop || p.workwearBottom || p.licenses);
+  return !!(p.headline || p.mission || p.strengths || p.contact || p.note || p.password || p.email || p.isAdmin || p.fullName || p.address || p.phone || p.birthDate || p.clothSize || p.shoeSize || p.workwearTop || p.workwearBottom || p.licenses);
 }
 
 // ── 課内連絡種別タグ（GAS / 設定画面で管理） ──
@@ -5247,13 +5375,15 @@ async function deleteNoticeType(i){
 
 // ── 課内連絡 ──
 function renderNotices(notices){
-  _settingsNotices = notices;
+  const list = (notices || []).map(normalizeNoticeItem);
+  _settingsNotices = list;
   const el=document.getElementById('nlist');
-  if(!notices.length){el.innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">連絡はありません</div>';return;}
+  if(!list.length){el.innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">連絡はありません</div>';return;}
   const cutoff = new Date();
   cutoff.setMonth(cutoff.getMonth() - 2);
   let oldCount = 0;
-  const visible = notices.slice().reverse().filter((n)=>{
+  const visible = list.slice().reverse().filter((n)=>{
+    if(!hasNoticeContent(n)) return false;
     const d = parseNoticeDatetime(n.datetime);
     if(d && d < cutoff){ oldCount++; return false; }
     return true;
@@ -5266,26 +5396,17 @@ function renderNotices(notices){
   }
   el.innerHTML=visible.map(n=>{
     const type = n.type || '連絡';
-    const author = (n.author || '').trim();
+    const author = resolveNoticeAuthor(n);
     const title = String(n.title || '').trim();
     const regDate = extractYmdFromDateLike(n.datetime);
     const rowNum = n.row != null ? Number(n.row) : null;
-    const editing = _noticeEditKey && _noticeEditKey.context === 'home' && rowNum != null && Number(_noticeEditKey.row) === rowNum;
-    const showEdit = rowNum != null && canEditAsAuthor(author) && isNoticeWithinHomeWindow(n);
-    if(editing){
-      return `<div class="ni" style="${noticeRowStyle(type)}">
-        <div class="ni-top">${noticeTypeHtml(type)}${postMetaWrapHtml([
-          regDate ? `<span class="todo-date-pill">登録: ${esc(regDate)}</span>` : '',
-          postAuthorMetaHtml(author)
-        ])}</div>
-        ${noticeEditPanelHtml(n)}
-      </div>`;
-    }
-    return `<div class="ni" style="${noticeRowStyle(type)}">
+    const editing = _noticeEditKey && rowNum != null && Number(_noticeEditKey.row) === rowNum;
+    const showEdit = rowNum != null && canEditNoticeItem(n) && isNoticeWithinHomeWindow(n);
+    return `<div class="ni${editing ? ' ni-editing' : ''}" style="${noticeRowStyle(type)}">
       <div class="ni-top">${noticeTypeHtml(type)}${postMetaWrapHtml([
         regDate ? `<span class="todo-date-pill">登録: ${esc(regDate)}</span>` : '',
         postAuthorMetaHtml(author)
-      ])}${showEdit ? noticeEditBtnHtml(rowNum, 'home') : ''}</div>
+      ])}${showEdit ? noticeEditBtnHtml(rowNum) : ''}</div>
       <div class="ntx">
         ${title ? `<div class="ntx-title">${esc(title)}</div>` : ''}
         <div class="ntx-body">${esc(n.text)}</div>
@@ -5322,40 +5443,32 @@ async function addN(){
   };
   try{
     await gasPost(payload);
-    const nextNotices = [...(_settingsNotices||[]), {
-      row:null,
-      datetime:payload.datetime,
-      type:noticeType,
-      title:noticeTitle,
-      text:noticeText,
-      author:author
-    }];
-    renderNotices(nextNotices);
+    await loadData({ force: true });
     renderSettingsLists();
     titleEl.value='';
     textEl.value='';
     resetSelectToDefault('ntype');
     showToast('投稿しました');
-    loadData().catch(()=>{});
-    if(btn){btn.disabled=false;btn.innerHTML='投稿';}
+    if(btn){ btn.disabled=false; syncNoticeInputRowMode(); }
   }catch(e){
     showToast('エラー: '+e.message);
-    if(btn){btn.disabled=false;btn.innerHTML='投稿';}
+    if(btn){ btn.disabled=false; syncNoticeInputRowMode(); }
   }
 }
 
 // ── TODO ──
 function renderTodos(todos){
-  _settingsTodos = todos;
+  const list = (todos || []).filter(hasTodoText);
+  _settingsTodos = list;
   const el=document.getElementById('tlist');
-  if(!todos.length){
+  if(!list.length){
     el.innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">タスクはありません</div>';
     applyTodoMetaPanelState();
     return;
   }
   const now=new Date();
   const active=[],done_list=[];
-  todos.forEach(t=>{
+  list.forEach(t=>{
     const done=String(t.done)==='true'||t.done===true;
     if(!done){active.push(t);return;}
     if(t.doneAt){const d=new Date(t.doneAt);if((now-d)/(1000*60*60*24)<=7)done_list.push(t);}
@@ -5370,19 +5483,12 @@ function renderTodos(todos){
     const tid = String(t.id || '');
     const editing = _todoEditId && tid === String(_todoEditId);
     const showEdit = canEditTodoItem(t);
-    if(editing){
-      return `<div class="ti-row" data-id="${esc(tid)}">
-        <div class="ti-body" style="display:block;width:100%;">
-          ${todoEditPanelHtml(t)}
-        </div>
-      </div>`;
-    }
-    return `<div class="ti-row" data-id="${esc(tid)}">
+    return `<div class="ti-row${editing ? ' ti-row-editing' : ''}" data-id="${esc(tid)}">
       <div class="ti-body">
         <div class="tc ${done?'dn':''}" onclick="toggleTodo('${esc(tid)}',this)"><i class="ti ti-check"></i></div>
-        <div class="tt ${done?'dn':''}">${esc(t.text)}</div>
-        ${assignees.length ? assigneeTagsHtml(assignees) : ''}
-        ${t.tag?`<span class="task-tag">${esc(t.tag)}</span>`:''}
+      <div class="tt ${done?'dn':''}">${esc(t.text)}</div>
+      ${assignees.length ? assigneeTagsHtml(assignees) : ''}
+      ${t.tag?`<span class="task-tag">${esc(t.tag)}</span>`:''}
         ${dueDate ? `<span class="todo-date-pill todo-date-pill--due">希望: ${esc(dueDate)}</span>` : ''}
         ${showEdit ? todoEditBtnHtml(tid) : ''}
       </div>
@@ -5423,8 +5529,7 @@ async function addT(){
   try{
     await gasPost({sheet:'TODO',id,datetime:fmtDT(),regDate,dueDate,assignee:as,text:tx,tag:tg,done:false,author});
     rememberTodoAuthor(id, author);
-    const nextTodos = [...(_settingsTodos||[]), {id, datetime:fmtDT(), regDate, dueDate, assignee:as, assignees, text:tx, tag:tg, done:false, doneAt:'', author}];
-    renderTodos(nextTodos);
+    await loadData({ force: true });
     renderSettingsLists();
     document.getElementById('tinp').value='';
     document.getElementById('t-due-date').value='';
@@ -5432,11 +5537,10 @@ async function addT(){
     _todoAssigneeSelected = [];
     renderTodoAssigneePicker();
     showToast('タスクを追加しました');
-    loadData().catch(()=>{});
-    if(btn){btn.disabled=false;btn.innerHTML='追加';}
+    if(btn){ btn.disabled=false; syncTodoInputRowMode(); }
   }catch(e){
     showToast('エラー: '+e.message);
-    if(btn){btn.disabled=false;btn.innerHTML='追加';}
+    if(btn){ btn.disabled=false; syncTodoInputRowMode(); }
   }
 }
 async function toggleTodo(id,btn){
@@ -5464,34 +5568,24 @@ function renderSettingsLists(){
   // 課内連絡
   const nl = document.getElementById('s-notice-list');
   if(!nl) return;
-  if(!_settingsNotices.length){
+  const noticeItems = _settingsNotices.filter(hasNoticeContent);
+  if(!noticeItems.length){
     nl.innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">データがありません</div>';
   } else {
-    nl.innerHTML = _settingsNotices.slice().reverse().map((n,i)=>{
-      const idx = _settingsNotices.length - 1 - i;
+    nl.innerHTML = noticeItems.slice().reverse().map((n,i)=>{
+      const idx = noticeItems.length - 1 - i;
       const rowKey = n.row != null ? Number(n.row) : null;
-      const author = (n.author || '').trim();
+      const author = resolveNoticeAuthor(n);
       const regDate = extractYmdFromDateLike(n.datetime);
-      const editing = _noticeEditKey && _noticeEditKey.context === 'settings' && rowKey != null && Number(_noticeEditKey.row) === rowKey;
-      const showEdit = rowKey != null && canEditAsAuthor(author);
-      if(editing){
-        return `<div class="s-list-item post-edit-active">
-          <div style="flex:1;min-width:0;">
-            ${noticeTypeHtml(n.type||'連絡')}
-            <span style="margin-left:6px;font-size:12px;color:var(--text3);">編集中</span>
-            ${noticeEditPanelHtml(n)}
-          </div>
-        </div>`;
-      }
       return `<div class="s-list-item">
-        <input type="checkbox" class="notice-chk" data-idx="${idx}" data-row="${rowKey}">
+        <input type="checkbox" class="notice-chk" data-idx="${idx}" data-row="${rowKey != null ? rowKey : ''}">
         <div class="s-list-item-body">
           ${noticeTypeHtml(n.type||'連絡')}
           <span style="margin-left:6px;">${esc(n.title ? `${n.title} / ${n.text}` : n.text)}</span>
           ${postMetaWrapHtml([
             regDate ? `<span class="todo-date-pill">登録: ${esc(regDate)}</span>` : '',
             postAuthorMetaHtml(author)
-          ])}${showEdit ? noticeEditBtnHtml(rowKey, 'settings') : ''}
+          ])}
         </div>
       </div>`;
     }).join('');
@@ -5503,23 +5597,13 @@ function renderSettingsLists(){
   if(!_settingsTodos.length){
     tl.innerHTML='<div style="padding:12px 18px;font-size:13px;color:#999;">データがありません</div>';
   } else {
-    tl.innerHTML = _settingsTodos.map((t,idx)=>{
+    tl.innerHTML = _settingsTodos.filter(hasTodoText).map((t,idx)=>{
       const done = String(t.done)==='true'||t.done===true;
       const assignees = parseAssigneeNames(t.assignees && t.assignees.length ? t.assignees : t.assignee);
       const author = resolveTodoAuthor(t);
       const regDate = getTodoRegisteredDate(t);
       const dueDate = getTodoDueDate(t);
       const tid = String(t.id || '');
-      const editing = _todoEditId && tid === String(_todoEditId);
-      const showEdit = canEditTodoItem(t);
-      if(editing){
-        return `<div class="s-list-item post-edit-active">
-          <div style="flex:1;min-width:0;">
-            <div style="font-size:12px;color:var(--text3);margin-bottom:6px;">TODO編集中</div>
-            ${todoEditPanelHtml(t)}
-          </div>
-        </div>`;
-      }
       return `<div class="s-list-item">
         <input type="checkbox" class="todo-chk" data-id="${esc(tid)}">
         <div class="s-list-item-body">
@@ -5530,7 +5614,7 @@ function renderSettingsLists(){
             regDate ? `<span class="todo-date-pill">登録: ${esc(regDate)}</span>` : '',
             dueDate ? `<span class="todo-date-pill todo-date-pill--due">希望: ${esc(dueDate)}</span>` : '',
             postAuthorMetaHtml(author)
-          ])}${showEdit ? todoEditBtnHtml(tid) : ''}
+          ])}
         </div>
       </div>`;
     }).join('');
@@ -5780,6 +5864,7 @@ function renderMemberSettings(){
     const profile = getMemberProfileForLogin(m.name);
     const currentPw = String(profile.password || '').trim();
     const loginEnabled = profile.loginEnabled !== false;
+    const isAdmin = !!profile.isAdmin;
     const avatar = m.photoUrl
       ? `<div class="m-edit-av" style="background:${esc(m.color)};"><img src="${esc(m.photoUrl)}" alt="${esc(m.name)}"></div>`
       : `<div class="m-edit-av" style="background:${esc(m.color)};">${esc(m.name.charAt(0))}</div>`;
@@ -5821,10 +5906,21 @@ function renderMemberSettings(){
           </div>
         </div>
         <div class="m-edit-field">
+          <div class="m-edit-label">通知先メールアドレス</div>
+          <input class="m-edit-input" id="mp-email-${i}" type="email" value="${escAttr(profile.email || '')}" placeholder="example@domain.com">
+        </div>
+        <div class="m-edit-field">
           <div class="m-edit-label">ログイン選択肢</div>
           <label style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text);cursor:pointer;min-height:34px;">
             <input type="checkbox" id="mp-login-${i}" ${loginEnabled ? 'checked' : ''} style="width:16px;height:16px;cursor:pointer;">
             ログイン画面のユーザー一覧に表示
+          </label>
+        </div>
+        <div class="m-edit-field">
+          <div class="m-edit-label">管理者権限</div>
+          <label style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text);cursor:pointer;min-height:34px;">
+            <input type="checkbox" id="mp-admin-${i}" ${isAdmin ? 'checked' : ''} style="width:16px;height:16px;cursor:pointer;">
+            管理者として扱う（設定/管理ロック解除）
           </label>
         </div>
       </div>
@@ -6076,22 +6172,28 @@ function setMemberColor(i, color){
 }
 async function addMember(){
   const name = document.getElementById('new-member-name').value.trim();
+  const emailEl = document.getElementById('new-member-email');
+  const email = String(emailEl ? emailEl.value : '').trim();
   const color = resolveMemberColor(name, document.getElementById('new-member-color').value);
   const passwordEl = document.getElementById('new-member-password');
   const loginPassword = String(passwordEl ? passwordEl.value : '').trim();
+  const adminEl = document.getElementById('new-member-admin');
+  const isAdmin = !!(adminEl && adminEl.checked);
   if(!name){ showToast('名前を入力してください'); return; }
   const list = (_membersCache && _membersCache.length) ? [..._membersCache] : [...DEFAULT_MEMBERS];
   const initial = name.charAt(0);
-  list.push({name, color, initial, photoUrl:''});
+  list.push({name, color, initial, photoUrl:'', loginPassword, loginEnabled:true, isAdmin, email});
   _membersCache = list;
-  setMemberProfile(name, {...getMemberProfile(name), password: loginPassword, loginEnabled: true});
+  setMemberProfile(name, {...getMemberProfile(name)});
   const addBtn = document.querySelector('[onclick="addMember()"]');
   if(addBtn){ addBtn.disabled=true; addBtn.innerHTML='<span class="btn-spinner"></span>追加中...'; }
   try{
-    await gasPost({sheet:'メンバー_UPDATE', name, color, initial, photoUrl:''});
+    await gasPost({sheet:'メンバー_UPDATE', name, color, initial, photoUrl:'', loginPassword, loginEnabled:true, isAdmin, email});
     await persistMemberProfiles();
     document.getElementById('new-member-name').value='';
+    if(emailEl) emailEl.value = '';
     if(passwordEl) passwordEl.value = '';
+    if(adminEl) adminEl.checked = false;
 
     showToast(name+'を追加しました');
     renderMemberSettings();
@@ -6136,7 +6238,9 @@ async function saveMember(i){
   const color    = resolveMemberColor(name, m.color);
   const photoUrl = document.getElementById('mp-photo-'+i).value.trim();
   const loginPassword = String(document.getElementById('mp-password-'+i)?.value || '').trim();
+  const email = String(document.getElementById('mp-email-'+i)?.value || '').trim();
   const loginEnabled = document.getElementById('mp-login-'+i)?.checked !== false;
+  const isAdmin = !!document.getElementById('mp-admin-'+i)?.checked;
   const oldName = m.name;
   if(name !== oldName && _memberProfileCache && _memberProfileCache[oldName]){
     _memberProfileCache[name] = normalizeMemberProfile(_memberProfileCache[oldName]);
@@ -6148,16 +6252,16 @@ async function saveMember(i){
     delete _memberProfileCache[oldAliasName];
   }
   if(!_memberProfileCache[name]) setMemberProfile(name, {});
-  setMemberProfile(name, {...getMemberProfileForLogin(name), password: loginPassword, loginEnabled});
+  setMemberProfile(name, {...getMemberProfile(name)});
   // キャッシュ更新
-  list[i] = {...m, name, initial, color, photoUrl};
+  list[i] = {...m, name, initial, color, photoUrl, loginPassword, loginEnabled, isAdmin, email};
   _membersCache = list;
   const saveBtn = document.querySelector('#m-edit-'+i+' .s-btn');
   if(saveBtn){ saveBtn.disabled=true; saveBtn.innerHTML='<span class="btn-spinner"></span>保存中...'; }
   try{
     await gasPost({
       sheet:'メンバー_UPDATE',
-      oldName:m.name, name, color, initial, photoUrl
+      oldName:m.name, name, color, initial, photoUrl, loginPassword, loginEnabled, isAdmin, email
     });
     await persistMemberProfiles();
     showToast(name+'の情報を保存しました');
@@ -6692,12 +6796,12 @@ function setupPortalNavPrefetch(){
 }
 setupPortalNavPrefetch();
 setupPortalAuditCapture();
-initGuestLoginSettingsFromCache();
 updateGuestLoginUi();
 startPortalDataLoad();
 ensurePortalLogin();
 applyTodoMetaPanelState();
-// ホーム単独表示は新規ウィンドウ注入方式へ切替済み
+applySingleViewFromQuery();
+applyOpenPageFromQuery().catch(()=>{});
 </script>
 </body>
 </html>

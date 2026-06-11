@@ -192,7 +192,7 @@
 <body>
   <div class="wrap">
     <div class="top">
-      <a class="back" href="portal.html">← ホームに戻る</a>
+      <a class="back" href="portal.html" onclick="return goBackOrDefault('portal.html')">← ホームに戻る</a>
       <div class="actions">
         <div class="search-inline">
           <label for="loadCaseNoQuery">案件番号</label>
@@ -228,17 +228,6 @@
               </select>
               <input id="caseNo" class="inp" type="text" placeholder="0000" oninput="onCaseNoInput();renderPreview()">
             </div>
-          </div>
-          <div class="field">
-            <label>依頼元担当</label>
-            <select id="sender" class="inp" onchange="renderPreview()">
-              <option value="">選択してください</option>
-              <option value="鬼頭 貴広">鬼頭 貴広</option>
-              <option value="佐藤 慎祐">佐藤 慎祐</option>
-              <option value="喜多 健二">喜多 健二</option>
-              <option value="山下 英則">山下 英則</option>
-              <option value="山﨑 裕真">山﨑 裕真</option>
-            </select>
           </div>
           <div class="field">
             <label>手配先</label>
@@ -314,12 +303,6 @@
             <div style="display:grid;grid-template-columns:1fr;gap:6px;">
               <select id="loadPersonPick" class="inp pick" onchange="applyPresetValue(this,'loadPerson')">
                 <option value="">候補から選択</option>
-                <option value="鬼頭 貴広">鬼頭 貴広</option>
-                <option value="佐藤 慎祐">佐藤 慎祐</option>
-                <option value="山下 英則">山下 英則</option>
-                <option value="山﨑 裕真">山﨑 裕真</option>
-                <option value="喜多 健児">喜多 健児</option>
-                <option value="津田 啓次">津田 啓次</option>
               </select>
               <input id="loadPerson" class="inp" type="text" value="鬼頭 貴広" oninput="renderPreview()">
             </div>
@@ -472,6 +455,16 @@
   </div>
 
   <script>
+    function goBackOrDefault(fallbackUrl){
+      try{
+        if(window.history.length > 1){
+          window.history.back();
+          return false;
+        }
+      }catch(_e){}
+      window.location.href = fallbackUrl || "portal.html";
+      return false;
+    }
     const GAS_URL = "https://script.google.com/macros/s/AKfycbzueRIitHcmbZIjfS1iT7qsAY3awEHioinFms0NO6e9ieVtlJY-ekogHjzmwDhZjUfyBA/exec";
     const TRANSPORT_DB_SPREADSHEET_KEY = "transport_db_spreadsheet_id";
     const TRANSPORT_DB_GAS_URL_KEY = "transport_db_gas_url";
@@ -484,6 +477,8 @@
     let _loadedRawLoadAt = "";
     let _loadedRawUnloadAt = "";
     let _searchCandidates = [];
+    const DEFAULT_MEMBER_OPTIONS = [];
+    let _memberOptions = [];
     const $ = id => document.getElementById(id);
     function gasPost(url, payload){
       return fetch(url,{
@@ -512,11 +507,53 @@
         }
       }
     }
+    function uniqMemberNames(list){
+      const uniq = [];
+      (Array.isArray(list) ? list : []).forEach(v => {
+        const s = String(v || "").trim();
+        if(s && !uniq.includes(s)) uniq.push(s);
+      });
+      return uniq;
+    }
+    function parseMemberProfiles(raw){
+      if(!raw) return {};
+      try{
+        const parsed = typeof raw === "string" ? JSON.parse(raw) : raw;
+        return parsed && typeof parsed === "object" ? parsed : {};
+      }catch(e){
+        return {};
+      }
+    }
+    function isLoginEnabledProfile(profile){
+      if(!profile || typeof profile !== "object") return true;
+      const v = profile.loginEnabled;
+      return !(v === false || v === 0 || v === "0" || v === "false");
+    }
+    function getLoginEnabledMemberOptions(rawMembers, settings){
+      const profiles = parseMemberProfiles(settings && (settings.member_profiles_json || settings["member_profiles_json"]));
+      return uniqMemberNames((rawMembers || [])
+        .map(m => (m && m.name) || "")
+        .filter(name => isLoginEnabledProfile(profiles[String(name || "").trim()])));
+    }
+    function renderLoadPersonPickOptions(names){
+      const sel = $("loadPersonPick");
+      if(!sel) return;
+      const current = String(sel.value || "").trim();
+      const list = uniqMemberNames(names);
+      _memberOptions = list.slice();
+      sel.innerHTML = `<option value="">候補から選択</option>` + list.map(name =>
+        `<option value="${name.replace(/"/g, "&quot;")}">${name}</option>`
+      ).join("");
+      if(current && list.includes(current)) sel.value = current;
+    }
+    function isMemberName(name){
+      const s = String(name || "").trim();
+      return !!(s && _memberOptions.includes(s));
+    }
     function applyOperatorAutoFill(){
-      const display = getPortalOperatorDisplayName();
+      const display = getPortalOperatorDisplayName() || getPortalOperatorName();
       const phone = getPortalOperatorPhone();
-      if(display){
-        setSelectIfMatch("sender", display);
+      if(display && isMemberName(display)){
         if($("loadPerson") && !String($("loadPerson").value || "").trim()) $("loadPerson").value = display;
         setSelectIfMatch("loadPersonPick", display);
       }
@@ -979,7 +1016,7 @@
     }
     function resetForm(){
       $("sendDate").value = new Date().toISOString().slice(0,10);
-      ["caseNo","sender","toPerson1","toPerson2","toPerson3","unloadName","unloadAddress","unloadPerson","unloadTel","loadDate","loadStartTime","loadEndTime","unloadDate","unloadStartTime","unloadEndTime"].forEach(id => { if($(id)) $(id).value = ""; });
+      ["caseNo","toPerson1","toPerson2","toPerson3","unloadName","unloadAddress","unloadPerson","unloadTel","loadDate","loadStartTime","loadEndTime","unloadDate","unloadStartTime","unloadEndTime"].forEach(id => { if($(id)) $(id).value = ""; });
       ["loadCaseNoQuery","loadNameQuery"].forEach(id => { if($(id)) $(id).value = ""; });
       ["toPerson1NoHonorific","toPerson2NoHonorific","toPerson3NoHonorific","unloadPersonNoHonorific"].forEach(id => setChecked(id, false));
       if($("casePrefix")) $("casePrefix").value = "FK";
@@ -1016,6 +1053,8 @@
         const r = await fetch(GAS_URL + "?t=" + Date.now(), {mode:"cors"});
         const d = await r.json();
         const settings = (d && d.settings) || {};
+        const memberOptions = getLoginEnabledMemberOptions(Array.isArray(d.members) ? d.members : [], settings);
+        renderLoadPersonPickOptions(memberOptions.length ? memberOptions : DEFAULT_MEMBER_OPTIONS);
         const ownSheet = settings[TRANSPORT_DB_SPREADSHEET_KEY] || settings.transport_db_spreadsheet_id;
         const ownGas = settings[TRANSPORT_DB_GAS_URL_KEY] || settings.transport_db_gas_url;
         _transportDbSpreadsheetId = extractSpreadsheetId(ownSheet);
@@ -1025,10 +1064,13 @@
         }else{
           setDbStatus("DB状態: 連携設定が未完了", true);
         }
+        applyOperatorAutoFill();
       }catch(e){
+        renderLoadPersonPickOptions(DEFAULT_MEMBER_OPTIONS);
         _transportDbSpreadsheetId = "";
         _transportDbGasUrl = "";
         setDbStatus("DB状態: 設定取得エラー", true);
+        applyOperatorAutoFill();
       }
     }
     async function verifyTransportSaved(caseNo){
@@ -1053,7 +1095,6 @@
       const caseInfo = splitCaseNo(row.caseNo || row["案件番号"] || "");
       setVal("casePrefix", caseInfo.prefix);
       setVal("caseNo", caseInfo.number);
-      setVal("sender", row.sender || row["依頼元担当"] || "");
       setVal("toCompany", row.toCompany || row["手配先"] || "");
       const personRaw = String(row.toPerson || row["先方ご担当者"] || "").trim();
       const personList = personRaw
@@ -1268,7 +1309,6 @@
         pages: val("pages"),
         contactNo: val("contactNo"),
         subject: val("subject"),
-        sender: val("sender"),
         toCompany: val("toCompany"),
         toPerson: toPersonCombined,
         toPerson1: stripHonorific((toPersons[0] && toPersons[0].name) || ""),

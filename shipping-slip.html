@@ -238,7 +238,7 @@
 <body>
   <div class="wrap">
     <div class="top">
-      <a class="back" href="transport-order.html">← 運送手配表へ戻る</a>
+      <a class="back" href="transport-order.html" onclick="return goBackOrDefault('transport-order.html')">← 運送手配表へ戻る</a>
       <div class="actions">
         <div class="search-inline">
           <label for="loadCaseNoQuery">案件番号</label>
@@ -372,6 +372,16 @@
   </div>
 
   <script>
+    function goBackOrDefault(fallbackUrl){
+      try{
+        if(window.history.length > 1){
+          window.history.back();
+          return false;
+        }
+      }catch(_e){}
+      window.location.href = fallbackUrl || "transport-order.html";
+      return false;
+    }
     const GAS_URL = "https://script.google.com/macros/s/AKfycbzueRIitHcmbZIjfS1iT7qsAY3awEHioinFms0NO6e9ieVtlJY-ekogHjzmwDhZjUfyBA/exec";
     const TRANSPORT_DB_SPREADSHEET_KEY = "transport_db_spreadsheet_id";
     const TRANSPORT_DB_GAS_URL_KEY = "transport_db_gas_url";
@@ -496,7 +506,7 @@
       return String(sessionStorage.getItem("portal_operator_display") || "").trim();
     }
     function applyOperatorAutoFill(){
-      const display = getPortalOperatorDisplayName();
+      const display = getPortalOperatorDisplayName() || getPortalOperatorName();
       if(display && !val("senderName")) setVal("senderName", display);
       renderPreview();
     }

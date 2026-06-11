@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>業務改善提案</title>
+  <style>
+    :root{--bg:#eef4fb;--card:#fff;--line:#d6dde8;--text:#0f172a;--muted:#475569;--blue:#0a5ec2;--blue-dk:#084892;}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;color:var(--text)}
+    .wrap{max-width:1600px;margin:0 auto;padding:22px;overflow-x:auto}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+    .back{font-size:15px;font-weight:800;color:var(--blue);text-decoration:none}
+    .actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .btn{border:none;border-radius:6px;padding:10px 14px;font-size:14px;font-weight:800;color:#fff;background:var(--blue);cursor:pointer}
+    .btn.alt{background:#64748b}
+    .btn:hover{background:var(--blue-dk)}
+    .btn.alt:hover{background:#475569}
+    .btn.copied{background:#15803d !important}
+    .btn:disabled{opacity:.6;cursor:not-allowed}
+    .btn-spinner{
+      width:13px;height:13px;border:2px solid rgba(255,255,255,.45);
+      border-top-color:#fff;border-radius:50%;display:inline-block;vertical-align:-2px;
+      margin-right:6px;animation:spin 1s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .reload-spin{animation:spin .8s linear infinite}
+    .reload-icon-btn{width:40px;min-width:40px;height:38px;padding:0;display:inline-flex;align-items:center;justify-content:center}
+    .reload-icon-wrap{width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;transform-origin:50% 50%}
+    .reload-svg{width:24px;height:24px;display:block;stroke:currentColor;stroke-width:2.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+    .status{font-size:12px;color:#475569}
+    .grid{display:grid;grid-template-columns:minmax(520px,1fr) minmax(520px,1fr);gap:14px;align-items:start}
+    .card{background:var(--card);border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(15,23,42,.08);min-height:0}
+    .hdr{padding:13px 16px;background:#f7f9fc;border-bottom:1px solid var(--line);font-size:18px;font-weight:900}
+    .form{padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .field{display:flex;flex-direction:column;gap:5px}
+    .field.full{grid-column:1/span 2}
+    .field label{font-size:13px;font-weight:800;color:var(--muted)}
+    .inp{border:1px solid #cbd5e1;border-radius:6px;padding:9px 11px;font-size:14px;font-family:inherit;background:#fff;outline:none}
+    .inp:focus{border-color:var(--blue)}
+    .inp[readonly]{background:#f8fafc;color:#334155}
+    textarea.inp{min-height:180px;resize:vertical}
+    .img-drop{border:1px dashed #94a3b8;background:#f8fbff;border-radius:8px;padding:10px;cursor:pointer;color:#334155;font-size:13px}
+    .img-drop:hover{background:#eef5ff}
+    .img-meta{margin-top:6px;font-size:12px;color:#475569}
+    .img-preview{margin-top:8px;max-width:100%;max-height:180px;border:1px solid #cbd5e1;border-radius:6px;display:none}
+    .img-actions{display:flex;gap:8px;margin-top:8px}
+    .mini-btn{border:1px solid #94a3b8;background:#fff;border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer}
+    .list-wrap{padding:12px 14px;max-height:72vh;overflow:auto}
+    .list-table{width:100%;border-collapse:collapse;font-size:13px}
+    .list-table th,.list-table td{border:1px solid #dbe3ef;padding:7px 8px;text-align:left;vertical-align:top}
+    .list-table th{background:#f1f5fb;color:#334155;font-weight:900}
+    .list-table tr:hover{background:#f8fbff}
+    .toast{position:fixed;right:16px;bottom:16px;background:#0f172a;color:#fff;padding:10px 14px;border-radius:8px;font-size:13px;opacity:0;transform:translateY(8px);transition:.2s;z-index:9999}
+    .toast.show{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a class="back" href="portal.html" onclick="return goBackOrDefault('portal.html')">← ホームに戻る</a>
+      <div class="actions">
+        <button class="btn alt" type="button" id="reload-btn">再読込</button>
+        <button class="btn alt" type="button" id="clear-btn">新規作成</button>
+        <button class="btn" type="button" id="save-btn">送信/更新</button>
+        <button class="btn alt" type="button" id="comment-btn" style="display:none;">上司コメント保存</button>
+        <button class="btn alt" type="button" id="copy-excel-btn" style="display:none;">Excel貼付用コピー</button>
+        <button class="btn alt" type="button" id="export-btn" style="display:none;">Excel出力</button>
+      </div>
+    </div>
+    <div class="status" id="page-status">読み込み中...</div>
+    <div class="grid" style="margin-top:10px;">
+      <div class="card">
+        <div class="hdr">業務改善提案 入力</div>
+        <div class="form">
+          <div class="field">
+            <label for="proposal-date">日付</label>
+            <input id="proposal-date" class="inp" type="date">
+          </div>
+          <div class="field">
+            <label for="proposer-name">氏名（ログイン名）</label>
+            <input id="proposer-name" class="inp" type="text" readonly>
+          </div>
+          <div class="field full">
+            <label for="problem-text">どんなことがおきているのか？</label>
+            <textarea id="problem-text" class="inp"></textarea>
+          </div>
+          <div class="field full">
+            <label for="improvement-text">改善策としては！</label>
+            <textarea id="improvement-text" class="inp"></textarea>
+          </div>
+          <div class="field full">
+            <label>写真（貼り付け / 選択）</label>
+            <div id="image-drop" class="img-drop" tabindex="0">ここをクリックして画像選択、または画像を貼り付け（Ctrl/Cmd+V）</div>
+            <input id="image-file" type="file" accept="image/*" style="display:none;">
+            <div id="image-meta" class="img-meta">未選択</div>
+            <img id="image-preview" class="img-preview" alt="選択画像プレビュー">
+            <div class="img-actions">
+              <button id="image-clear-btn" type="button" class="mini-btn">画像をクリア</button>
+            </div>
+          </div>
+          <div class="field full" id="supervisor-comment-field" style="display:none;">
+            <label for="manager-comment">上司からのコメント</label>
+            <textarea id="manager-comment" class="inp" readonly></textarea>
+          </div>
+          <div class="field" id="supervisor-decision-field" style="display:none;">
+            <label for="supervisor-decision">判定</label>
+            <select id="supervisor-decision" class="inp">
+              <option value="">選択してください</option>
+              <option value="採用">採用</option>
+              <option value="不採用">不採用</option>
+              <option value="検討">検討</option>
+            </select>
+          </div>
+          <div class="field" id="implement-owner-field" style="display:none;">
+            <label for="implement-owner">実施担当（選択/手入力）</label>
+            <input id="implement-owner" class="inp" list="implement-owner-options" placeholder="担当者（名字）を選択または入力">
+            <datalist id="implement-owner-options"></datalist>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="hdr" id="list-title">提案一覧</div>
+        <div class="list-wrap">
+          <table class="list-table">
+            <thead>
+              <tr>
+                <th style="width:110px;">日付</th>
+                <th style="width:120px;">提案者</th>
+                <th style="width:72px;">連番</th>
+                <th>どんなこと</th>
+                <th style="width:86px;">状態</th>
+                <th style="width:90px;">操作</th>
+              </tr>
+            </thead>
+            <tbody id="proposal-list"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    function goBackOrDefault(fallbackUrl){
+      try{
+        const p = new URLSearchParams(window.location.search);
+        const ret = String(p.get("return") || "").trim();
+        if(ret === "admin"){
+          window.location.href = "portal.html?open=admin";
+          return false;
+        }
+      }catch(_e){}
+      try{
+        if(window.history.length > 1){
+          window.history.back();
+          return false;
+        }
+      }catch(_e){}
+      window.location.href = fallbackUrl || "portal.html";
+      return false;
+    }
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbzueRIitHcmbZIjfS1iT7qsAY3awEHioinFms0NO6e9ieVtlJY-ekogHjzmwDhZjUfyBA/exec";
+    const $ = id => document.getElementById(id);
+    const state = {
+      rows: [],
+      selectedId: "",
+      isAdmin: false,
+      operator: "",
+      operatorDisplay: "",
+      memberLastNames: [],
+      newImageDataUrl: "",
+      newImageFileName: "",
+      savedImageFileId: "",
+      savedImageFileName: "",
+      removeSavedImage: false
+    };
+    const MEMBER_ALIAS_TO_FULL = {
+      "鬼頭(貴)": "鬼頭貴広",
+      "佐藤": "佐藤慎祐",
+      "山下": "山下英則",
+      "山﨑": "山﨑裕真",
+      "喜多": "喜多健児",
+      "津田": "津田啓次"
+    };
+    function canonicalMemberName(name){
+      const n = String(name || "").trim();
+      if(!n) return "";
+      return MEMBER_ALIAS_TO_FULL[n] || n;
+    }
+    function isPrivilegedOperator(name){
+      const n = String(name || "").trim();
+      if(!n) return false;
+      if(n === "鬼頭貴広" || n === "鬼頭(貴)" || n === "鬼頭 貴広") return true;
+      return n.startsWith("鬼頭");
+    }
+    function showToast(msg){
+      const t = $("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      setTimeout(()=>t.classList.remove("show"), 2600);
+    }
+    function escapeHtml(s){
+      return String(s || "").replace(/[&<>"']/g, ch => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[ch]));
+    }
+    function todayIso(){
+      return new Date().toISOString().slice(0,10);
+    }
+    function normalizeName(s){
+      return String(s || "").replace(/\s|　/g, "").trim();
+    }
+    function toMonthLabel(ymd){
+      const s = String(ymd || "").trim();
+      const m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+      if(m) return `${Number(m[2])}月`;
+      const d = new Date(s);
+      if(!isNaN(d.getTime())) return `${d.getMonth() + 1}月`;
+      return "";
+    }
+    function extractLastName(name){
+      const raw = String(name || "").trim();
+      if(!raw) return "";
+      const parts = raw.split(/[\s　]+/).filter(Boolean);
+      if(parts.length >= 2) return parts[0];
+      const compact = raw.replace(/[\s　]+/g, "");
+      const twoCharSurnames = ["鬼頭", "佐藤", "山下", "山﨑", "喜多", "津田"];
+      for(const s of twoCharSurnames){
+        if(compact.startsWith(s) && compact.length > s.length) return s;
+      }
+      return compact;
+    }
+    function normalizeExcelCellText(text){
+      return String(text || "")
+        .replace(/\r\n/g, "\n")
+        .replace(/\r/g, "\n")
+        .replace(/\n+/g, " ")
+        .replace(/\t+/g, " ")
+        .replace(/\s{2,}/g, " ")
+        .trim();
+    }
+    async function copyTextToClipboard(text){
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+    }
+    function setPageStatus(text){
+      $("page-status").textContent = text;
+    }
+    let _imagePreviewLoadToken = 0;
+    function renderImageState(){
+      const meta = $("image-meta");
+      const preview = $("image-preview");
+      if(state.newImageDataUrl){
+        meta.textContent = `新規画像: ${state.newImageFileName || "貼り付け画像"}`;
+        preview.src = state.newImageDataUrl;
+        preview.style.display = "block";
+        return;
+      }
+      if(state.removeSavedImage){
+        preview.src = "";
+        preview.style.display = "none";
+        meta.textContent = "保存済み画像は削除予定です";
+      }else if(state.savedImageFileId){
+        meta.textContent = `保存済み画像: ${state.savedImageFileName || state.savedImageFileId}`;
+        preview.src = "";
+        preview.style.display = "none";
+      }else{
+        preview.src = "";
+        preview.style.display = "none";
+        meta.textContent = "未選択";
+      }
+    }
+    async function loadSavedImagePreview(id){
+      const token = ++_imagePreviewLoadToken;
+      const meta = $("image-meta");
+      const preview = $("image-preview");
+      const row = state.rows.find(r => String(r.id || "") === String(id || ""));
+      if(!row || !row.imageFileId){
+        if(token !== _imagePreviewLoadToken) return;
+        renderImageState();
+        return;
+      }
+      meta.textContent = `保存済み画像を読み込み中: ${row.imageFileName || row.imageFileId}`;
+      try{
+        const url = `${GAS_URL}?mode=proposal_image&id=${encodeURIComponent(row.id)}&operator=${encodeURIComponent(state.operator)}&_=${Date.now()}`;
+        const r = await fetch(url, { mode: "cors" });
+        const d = await r.json();
+        if(token !== _imagePreviewLoadToken) return;
+        if(d && d.status !== "error" && d.hasImage && d.fileBase64){
+          preview.src = `data:${d.mimeType || "image/jpeg"};base64,${d.fileBase64}`;
+          preview.style.display = "block";
+          meta.textContent = `保存済み画像: ${d.imageFileName || d.imageFileId || "画像"}`;
+        }else{
+          preview.src = "";
+          preview.style.display = "none";
+          meta.textContent = `保存済み画像あり（プレビュー取得不可）: ${row.imageFileName || row.imageFileId}`;
+        }
+      }catch(_e){
+        if(token !== _imagePreviewLoadToken) return;
+        preview.src = "";
+        preview.style.display = "none";
+        meta.textContent = `保存済み画像あり（プレビュー取得失敗）: ${row.imageFileName || row.imageFileId}`;
+      }
+    }
+    function resetImageState(){
+      state.newImageDataUrl = "";
+      state.newImageFileName = "";
+      state.savedImageFileId = "";
+      state.savedImageFileName = "";
+      state.removeSavedImage = false;
+      renderImageState();
+    }
+    function setImageFromFile(file){
+      if(!file) return;
+      if(!String(file.type || "").startsWith("image/")){
+        showToast("画像ファイルを選択してください");
+        return;
+      }
+      convertImageForSheet(file)
+        .then(res => {
+          state.newImageDataUrl = String(res.dataUrl || "");
+          state.newImageFileName = String(res.fileName || file.name || "image.jpg");
+          state.removeSavedImage = false;
+          renderImageState();
+        })
+        .catch(() => showToast("画像の読み込みに失敗しました"));
+    }
+    function readFileAsDataUrl(file){
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result || ""));
+        reader.onerror = () => reject(new Error("read error"));
+        reader.readAsDataURL(file);
+      });
+    }
+    function loadImage(dataUrl){
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error("image load error"));
+        img.src = dataUrl;
+      });
+    }
+    async function convertImageForSheet(file){
+      const srcDataUrl = await readFileAsDataUrl(file);
+      const img = await loadImage(srcDataUrl);
+      const maxPixels = 1000000; // GAS insertImage 上限
+      const maxSide = 1600;
+      let w = img.naturalWidth || img.width;
+      let h = img.naturalHeight || img.height;
+      const scaleBySide = Math.min(1, maxSide / Math.max(w, h));
+      w = Math.max(1, Math.round(w * scaleBySide));
+      h = Math.max(1, Math.round(h * scaleBySide));
+      const pixels = w * h;
+      if(pixels > maxPixels){
+        const r = Math.sqrt(maxPixels / pixels);
+        w = Math.max(1, Math.floor(w * r));
+        h = Math.max(1, Math.floor(h * r));
+      }
+      const canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, w, h);
+      let q = 0.9;
+      let out = canvas.toDataURL("image/jpeg", q);
+      while(out.length > 1_900_000 && q > 0.45){
+        q -= 0.1;
+        out = canvas.toDataURL("image/jpeg", q);
+      }
+      return {
+        dataUrl: out,
+        fileName: (String(file.name || "image").replace(/\.[^.]+$/, "") || "image") + ".jpg"
+      };
+    }
+    async function gasPost(payload){
+      await fetch(GAS_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {"Content-Type":"application/x-www-form-urlencoded"},
+        body: "data=" + encodeURIComponent(JSON.stringify(payload))
+      });
+    }
+    function setActionLoading(btn, loading, text){
+      if(!btn) return;
+      if(loading){
+        if(btn.disabled) return;
+        btn.disabled = true;
+        btn.dataset.prevHtml = btn.innerHTML;
+        btn.innerHTML = `<span class="btn-spinner"></span>${text || "処理中"}...`;
+      }else{
+        btn.disabled = false;
+        btn.innerHTML = btn.dataset.prevHtml || btn.textContent;
+        delete btn.dataset.prevHtml;
+      }
+    }
+    function markCopiedButton(btn){
+      if(!btn) return;
+      const prev = btn.innerHTML;
+      btn.classList.add("copied");
+      btn.textContent = "コピー済み";
+      setTimeout(() => {
+        btn.classList.remove("copied");
+        btn.innerHTML = prev;
+      }, 1800);
+    }
+    async function fetchRows(){
+      const url = `${GAS_URL}?mode=proposal_list&operator=${encodeURIComponent(state.operator)}&admin=${state.isAdmin ? 1 : 0}&_=${Date.now()}`;
+      const r = await fetch(url, { mode: "cors" });
+      const d = await r.json();
+      state.rows = Array.isArray(d.rows) ? d.rows : [];
+      if(typeof d.isAdmin === "boolean") state.isAdmin = d.isAdmin;
+      state.memberLastNames = Array.isArray(d.memberLastNames) ? d.memberLastNames : [];
+      const pending = Number(d.newCount || 0);
+      if(state.isAdmin && pending > 0) showToast(`未対応の提案が${pending}件あります`);
+      renderImplementOwnerOptions();
+      renderList();
+    }
+    function renderImplementOwnerOptions(){
+      const dl = $("implement-owner-options");
+      if(!dl) return;
+      dl.innerHTML = (state.memberLastNames || []).map(n => `<option value="${escapeHtml(n)}"></option>`).join("");
+    }
+    function clearForm(){
+      state.selectedId = "";
+      $("proposal-date").value = todayIso();
+      $("proposer-name").value = canonicalMemberName(state.operatorDisplay || state.operator);
+      $("problem-text").value = "";
+      $("improvement-text").value = "";
+      $("manager-comment").value = "";
+      $("supervisor-decision").value = "";
+      $("implement-owner").value = "";
+      resetImageState();
+      applyRoleUi();
+    }
+    function fillForm(row){
+      state.selectedId = String(row.id || "");
+      $("proposal-date").value = String(row.proposalDate || "") || todayIso();
+      $("proposer-name").value = canonicalMemberName(String(row.proposerName || state.operator));
+      $("problem-text").value = String(row.problemText || "");
+      $("improvement-text").value = String(row.improvementText || "");
+      $("manager-comment").value = String(row.managerComment || "");
+      $("supervisor-decision").value = String(row.supervisorDecision || "");
+      $("implement-owner").value = String(row.implementOwner || "");
+      state.newImageDataUrl = "";
+      state.newImageFileName = "";
+      state.savedImageFileId = String(row.imageFileId || "");
+      state.savedImageFileName = String(row.imageFileName || "");
+      state.removeSavedImage = false;
+      renderImageState();
+      if(state.savedImageFileId) loadSavedImagePreview(state.selectedId);
+      applyRoleUi();
+    }
+    function applyRoleUi(){
+      const row = state.rows.find(r => String(r.id) === String(state.selectedId));
+      const isOwn = !row || normalizeName(row.proposerName) === normalizeName(state.operatorDisplay || state.operator);
+      const hasSupervisorInfo = !!String(
+        ((row && row.managerComment) || "") +
+        ((row && row.supervisorDecision) || "") +
+        ((row && row.implementOwner) || "")
+      ).trim();
+      $("proposal-date").readOnly = !!(state.isAdmin && row);
+      $("proposer-name").readOnly = true;
+      $("manager-comment").readOnly = !state.isAdmin;
+      $("supervisor-decision").disabled = !state.isAdmin;
+      $("implement-owner").readOnly = !state.isAdmin;
+      $("save-btn").disabled = !(isOwn || state.isAdmin);
+      $("comment-btn").style.display = state.isAdmin ? "inline-block" : "none";
+      $("copy-excel-btn").style.display = state.isAdmin ? "inline-block" : "none";
+      $("export-btn").style.display = state.isAdmin ? "inline-block" : "none";
+      const showSupervisorFields = state.isAdmin || hasSupervisorInfo;
+      $("supervisor-comment-field").style.display = showSupervisorFields ? "flex" : "none";
+      $("supervisor-decision-field").style.display = showSupervisorFields ? "flex" : "none";
+      $("implement-owner-field").style.display = showSupervisorFields ? "flex" : "none";
+      $("list-title").textContent = state.isAdmin ? "提案一覧（管理者）" : "自分の提案一覧";
+    }
+    function base64ToBytes(base64){
+      const bin = atob(String(base64 || ""));
+      const bytes = new Uint8Array(bin.length);
+      for(let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      return bytes;
+    }
+    async function saveExcelLocally(fileName, mimeType, base64){
+      const bytes = base64ToBytes(base64);
+      const type = mimeType || "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+      const blob = new Blob([bytes], { type });
+      if(window.showSaveFilePicker){
+        try{
+          const handle = await window.showSaveFilePicker({
+            suggestedName: fileName || "improvement.xlsx",
+            types: [{ description: "Excel", accept: { [type]: [".xlsx"] } }]
+          });
+          const writable = await handle.createWritable();
+          await writable.write(blob);
+          await writable.close();
+          return;
+        }catch(_e){
+          // picker失敗時は通常ダウンロードへフォールバック
+        }
+      }
+      const u = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = u;
+      a.download = fileName || "improvement.xlsx";
+      a.style.display = "none";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(u), 1500);
+    }
+    function renderList(){
+      const el = $("proposal-list");
+      if(!state.rows.length){
+        el.innerHTML = `<tr><td colspan="6" style="color:#64748b;">データがありません</td></tr>`;
+        return;
+      }
+      const statusLabelJa = (status) => {
+        const s = String(status || "").trim().toLowerCase();
+        if(!s) return "";
+        if(s === "submit" || s === "submitted") return "送信済み";
+        if(s === "new") return "新規";
+        if(s === "commented") return "コメント済み";
+        if(s === "exported") return "出力済み";
+        return String(status || "");
+      };
+      el.innerHTML = state.rows.map(r => {
+        const id = String(r.id || "");
+        return `<tr>
+          <td>${escapeHtml(r.proposalDate || "")}</td>
+          <td>${escapeHtml(canonicalMemberName(r.proposerName || ""))}</td>
+          <td>${escapeHtml(r.serialNo || "")}</td>
+          <td>${escapeHtml(String(r.problemText || "").slice(0, 80))}</td>
+          <td>${escapeHtml(statusLabelJa(r.status))}</td>
+          <td><button class="btn alt" type="button" style="padding:6px 10px;font-size:12px;" onclick="selectRow('${escapeHtml(id)}')">開く</button></td>
+        </tr>`;
+      }).join("");
+    }
+    window.selectRow = function(id){
+      const row = state.rows.find(r => String(r.id) === String(id));
+      if(!row) return;
+      fillForm(row);
+    };
+    async function saveProposal(){
+      const btn = $("save-btn");
+      const payload = {
+        sheet: "改善提案_SAVE",
+        id: state.selectedId || "",
+        operator: state.operator,
+        proposalDate: $("proposal-date").value,
+        proposerName: $("proposer-name").value,
+        problemText: $("problem-text").value,
+        improvementText: $("improvement-text").value,
+        imageDataUrl: state.newImageDataUrl || "",
+        imageFileName: state.newImageFileName || "",
+        removeImage: state.removeSavedImage ? 1 : 0
+      };
+      if(!payload.proposalDate || !payload.proposerName || !payload.problemText.trim() || !payload.improvementText.trim()){
+        showToast("必須項目を入力してください");
+        return;
+      }
+      const prevRows = state.rows.slice();
+      const prevId = state.selectedId;
+      setActionLoading(btn, true, "保存中");
+      try{
+        await gasPost(payload);
+        await new Promise(r => setTimeout(r, 700));
+        await fetchRows();
+        let ok = false;
+        if(prevId){
+          ok = state.rows.some(r => String(r.id) === String(prevId));
+        }else{
+          const p = payload;
+          const found = state.rows.find(r =>
+            String(r.proposerName || "").trim() === String(p.proposerName || "").trim() &&
+            String(r.proposalDate || "").trim() === String(p.proposalDate || "").trim() &&
+            String(r.problemText || "").trim() === String(p.problemText || "").trim() &&
+            String(r.improvementText || "").trim() === String(p.improvementText || "").trim()
+          );
+          if(found){
+            state.selectedId = String(found.id || "");
+            ok = true;
+          }
+        }
+        if(ok){
+          showToast("送信/保存しました");
+          const row = state.rows.find(r => String(r.id) === String(state.selectedId));
+          if(row) fillForm(row);
+        }else{
+          showToast("保存確認ができませんでした（GAS再デプロイ/権限を確認）");
+          state.rows = prevRows;
+          state.selectedId = prevId;
+          renderList();
+        }
+      }catch(e){
+        showToast("送信に失敗しました");
+      }finally{
+        setActionLoading(btn, false);
+      }
+    }
+    async function saveManagerComment(){
+      const btn = $("comment-btn");
+      if(!state.selectedId){
+        showToast("対象を選択してください");
+        return;
+      }
+      const id = state.selectedId;
+      const comment = $("manager-comment").value;
+      setActionLoading(btn, true, "保存中");
+      try{
+        await gasPost({
+          sheet: "改善提案_COMMENT",
+          id: state.selectedId,
+          operator: state.operator,
+          managerComment: $("manager-comment").value,
+          supervisorDecision: $("supervisor-decision").value,
+          implementOwner: $("implement-owner").value
+        });
+        await new Promise(r => setTimeout(r, 700));
+        await fetchRows();
+        const row = state.rows.find(r => String(r.id) === String(id));
+        if(row && String(row.managerComment || "") === String(comment || "")){
+          showToast("上司コメントを保存しました");
+          fillForm(row);
+        }else{
+          showToast("コメント保存の確認ができませんでした");
+        }
+      }catch(e){
+        showToast("保存に失敗しました");
+      }finally{
+        setActionLoading(btn, false);
+      }
+    }
+    async function exportExcel(){
+      const btn = $("export-btn");
+      if(!state.selectedId){
+        showToast("対象を選択してください");
+        return;
+      }
+      setActionLoading(btn, true, "出力中");
+      try{
+        const url = `${GAS_URL}?mode=proposal_export&id=${encodeURIComponent(state.selectedId)}&operator=${encodeURIComponent(state.operator)}&_=${Date.now()}`;
+        const r = await fetch(url, { mode: "cors" });
+        const d = await r.json();
+        if(d && d.status !== "error" && d.fileBase64){
+          await saveExcelLocally(d.fileName, d.mimeType, d.fileBase64);
+          if(String(d.warning || "").trim()){
+            showToast("Excel保存（画像はスキップ）: " + d.warning);
+          }else{
+            showToast("Excelをローカル保存しました");
+          }
+          setPageStatus(`最終出力: ${d.fileName}`);
+          setTimeout(fetchRows, 400);
+        }else{
+          showToast("Excel出力に失敗: " + String((d && d.error) || "不明なエラー"));
+        }
+      }catch(e){
+        showToast("Excel出力に失敗しました: " + String((e && e.message) || e || ""));
+      }finally{
+        setActionLoading(btn, false);
+      }
+    }
+    async function copyForExcel(btn){
+      if(!state.selectedId){
+        showToast("対象を選択してください");
+        return;
+      }
+      setActionLoading(btn, true, "コピー中");
+      const colA = "";
+      const colB = toMonthLabel($("proposal-date").value);
+      const colC = "製造課";
+      const colD = extractLastName($("proposer-name").value);
+      const colE = normalizeExcelCellText($("problem-text").value);
+      const colF = normalizeExcelCellText($("improvement-text").value);
+      const colG = normalizeExcelCellText($("supervisor-decision").value);
+      const colH = normalizeExcelCellText($("implement-owner").value);
+      const colI = "";
+      const colJ = normalizeExcelCellText($("manager-comment").value);
+      const tsv = [colA, colB, colC, colD, colE, colF, colG, colH, colI, colJ].join("\t");
+      try{
+        await copyTextToClipboard(tsv);
+        showToast("Excel貼付用データをコピーしました（A列起点で貼付）");
+        setActionLoading(btn, false);
+        markCopiedButton(btn);
+      }catch(e){
+        showToast("コピーに失敗しました");
+        setActionLoading(btn, false);
+      }
+    }
+    async function init(){
+      state.operator = canonicalMemberName(String(sessionStorage.getItem("portal_operator_name") || "").trim());
+      state.operatorDisplay = canonicalMemberName(String(sessionStorage.getItem("portal_operator_display") || "").trim() || state.operator);
+      state.isAdmin = false;
+      if(!state.operator){
+        alert("ログイン情報がありません。ポータルから開いてください。");
+        location.href = "portal.html";
+        return;
+      }
+      $("proposer-name").value = canonicalMemberName(state.operatorDisplay || state.operator);
+      $("proposal-date").value = todayIso();
+      resetImageState();
+      applyRoleUi();
+      setPageStatus(`ログイン: ${state.operatorDisplay}${state.isAdmin ? "（管理者）" : ""}`);
+      await fetchRows();
+    }
+    $("reload-btn").addEventListener("click", async (ev) => {
+      const btn = ev.currentTarget;
+      setActionLoading(btn, true, "再読込");
+      try{ await fetchRows(); }finally{ setActionLoading(btn, false); }
+    });
+    $("clear-btn").addEventListener("click", clearForm);
+    $("save-btn").addEventListener("click", saveProposal);
+    $("comment-btn").addEventListener("click", saveManagerComment);
+    $("copy-excel-btn").addEventListener("click", ev => copyForExcel(ev.currentTarget));
+    $("export-btn").addEventListener("click", exportExcel);
+    $("image-drop").addEventListener("click", () => $("image-file").click());
+    $("image-preview").addEventListener("error", () => {
+      const meta = $("image-meta");
+      if(state.savedImageFileId && !state.newImageDataUrl){
+        meta.textContent = `保存済み画像あり（プレビュー読込不可）: ${state.savedImageFileName || state.savedImageFileId}`;
+      }
+      $("image-preview").style.display = "none";
+    });
+    $("image-file").addEventListener("change", ev => {
+      const f = ev.target.files && ev.target.files[0];
+      setImageFromFile(f);
+      ev.target.value = "";
+    });
+    $("image-clear-btn").addEventListener("click", () => {
+      if(state.newImageDataUrl){
+        state.newImageDataUrl = "";
+        state.newImageFileName = "";
+      }else if(state.savedImageFileId){
+        state.removeSavedImage = true;
+      }
+      renderImageState();
+    });
+    $("image-drop").addEventListener("paste", ev => {
+      const items = (ev.clipboardData && ev.clipboardData.items) || [];
+      for(const item of items){
+        if(item.kind === "file"){
+          const f = item.getAsFile();
+          if(f && String(f.type || "").startsWith("image/")){
+            ev.preventDefault();
+            setImageFromFile(f);
+            return;
+          }
+        }
+      }
+    });
+    init().catch(() => setPageStatus("初期化エラー"));
+  </script>
+</body>
+</html>
