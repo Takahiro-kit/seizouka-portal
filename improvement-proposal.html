@@ -697,7 +697,6 @@
       state.operatorDisplay = canonicalMemberName(String(sessionStorage.getItem("portal_operator_display") || "").trim() || state.operator);
       state.isAdmin = false;
       if(!state.operator){
-        alert("ログイン情報がありません。ログイン後にこの画面へ戻ります。");
         const here = window.location.pathname + window.location.search + window.location.hash;
         location.href = "portal.html?afterLogin=" + encodeURIComponent(here);
         return;
