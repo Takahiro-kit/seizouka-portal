@@ -192,7 +192,7 @@
 <body>
   <div class="wrap">
     <div class="top">
-      <a class="back" href="portal.html" onclick="return goBackOrDefault('portal.html')">← ホームに戻る</a>
+      <a class="back" href="index.html" onclick="return goBackOrDefault('index.html')">← ホームに戻る</a>
       <div class="actions">
         <div class="search-inline">
           <label for="loadCaseNoQuery">案件番号</label>
@@ -462,7 +462,7 @@
           return false;
         }
       }catch(_e){}
-      window.location.href = fallbackUrl || "portal.html";
+      window.location.href = fallbackUrl || "index.html";
       return false;
     }
     const GAS_URL = "https://script.google.com/macros/s/AKfycbzueRIitHcmbZIjfS1iT7qsAY3awEHioinFms0NO6e9ieVtlJY-ekogHjzmwDhZjUfyBA/exec";
@@ -1229,7 +1229,7 @@
         return;
       }
       if(!_transportDbSpreadsheetId || !_transportDbGasUrl){
-        alert("運送手配表DBの連携設定が未完了です。portal.html の設定画面で保存してください。");
+        alert("運送手配表DBの連携設定が未完了です。index.html の設定画面で保存してください。");
         return;
       }
       setActionLoading(btn, true, "検索中");
@@ -1261,7 +1261,7 @@
     }
     async function loadTransportList(btn){
       if(!_transportDbSpreadsheetId || !_transportDbGasUrl){
-        alert("運送手配表DBの連携設定が未完了です。portal.html の設定画面で保存してください。");
+        alert("運送手配表DBの連携設定が未完了です。index.html の設定画面で保存してください。");
         return;
       }
       setActionLoading(btn, true, "取得中");

@@ -183,7 +183,7 @@
 <body>
   <div class="wrap">
     <div class="top">
-      <a class="back" href="portal.html" onclick="return goBackOrDefault('portal.html')">← ホームに戻る</a>
+      <a class="back" href="index.html" onclick="return goBackOrDefault('index.html')">← ホームに戻る</a>
       <div class="actions">
         <div class="search-inline">
           <label for="loadCaseNoQuery">案件番号</label>
@@ -346,7 +346,7 @@
           return false;
         }
       }catch(_e){}
-      window.location.href = fallbackUrl || "portal.html";
+      window.location.href = fallbackUrl || "index.html";
       return false;
     }
     const GAS_URL = "https://script.google.com/macros/s/AKfycbzueRIitHcmbZIjfS1iT7qsAY3awEHioinFms0NO6e9ieVtlJY-ekogHjzmwDhZjUfyBA/exec";
@@ -847,7 +847,7 @@
         return;
       }
       if(!_workorderDbSpreadsheetId || !_workorderDbGasUrl){
-        alert("作業指示書DBの連携設定が未完了です。portal.html の設定画面で保存してください。");
+        alert("作業指示書DBの連携設定が未完了です。index.html の設定画面で保存してください。");
         return;
       }
       setActionLoading(btn, true, "検索中");
@@ -878,7 +878,7 @@
     }
     async function loadWorkorderList(btn){
       if(!_workorderDbSpreadsheetId || !_workorderDbGasUrl){
-        alert("作業指示書DBの連携設定が未完了です。portal.html の設定画面で保存してください。");
+        alert("作業指示書DBの連携設定が未完了です。index.html の設定画面で保存してください。");
         return;
       }
       setActionLoading(btn, true, "取得中");
@@ -943,11 +943,11 @@
         return false;
       }
       if(!_workorderDbSpreadsheetId.trim()){
-        if(!silent) alert("作業指示専用のスプレッドシート連携先が未設定です。portal.html の設定画面で連携先を保存してください。");
+        if(!silent) alert("作業指示専用のスプレッドシート連携先が未設定です。index.html の設定画面で連携先を保存してください。");
         return false;
       }
       if(!_workorderDbGasUrl.trim()){
-        if(!silent) alert("作業指示専用のGAS URLが未設定です。portal.html の設定画面で連携先を保存してください。");
+        if(!silent) alert("作業指示専用のGAS URLが未設定です。index.html の設定画面で連携先を保存してください。");
         return false;
       }
       if(btn){
