@@ -1116,7 +1116,7 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
       <div class="nav-settings-head">設定カテゴリ</div>
       <button class="nav-item" onclick="showPage('admin')"><i class="ti ti-lock"></i><span class="nav-item-label">設定/管理ロック</span></button>
       <button class="nav-item" data-settings-target="sec-shukka-update" onclick="goSettingsSection('sec-shukka-update')"><i class="ti ti-file-upload"></i><span class="nav-item-label">出荷連絡表更新</span></button>
-      <button class="nav-item" data-settings-target="sec-schedule-update" onclick="goSettingsSection('sec-schedule-update')"><i class="ti ti-calendar-up"></i><span class="nav-item-label">スケジュール更新</span></button>
+      <button class="nav-item" data-settings-target="sec-schedule-update" onclick="goSettingsSection('sec-schedule-update')"><i class="ti ti-calendar-up"></i><span class="nav-item-label">がんすけ更新</span></button>
       <button class="nav-item" data-settings-target="sec-notice-manage" onclick="goSettingsSection('sec-notice-manage')"><i class="ti ti-speakerphone"></i><span class="nav-item-label">課内連絡管理</span></button>
       <button class="nav-item" data-settings-target="sec-todo-manage" onclick="goSettingsSection('sec-todo-manage')"><i class="ti ti-checkbox"></i><span class="nav-item-label">TODO管理</span></button>
       <button class="nav-item" data-settings-target="sec-holiday" onclick="goSettingsSection('sec-holiday')"><i class="ti ti-calendar-off"></i><span class="nav-item-label">休日管理</span></button>
@@ -1528,9 +1528,18 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
         </div>
       </div>
 
-      <!-- スケジュールビューア更新 -->
+      <!-- がんすけビューワ更新 -->
       <div class="s-sec" id="sec-schedule-update">
-        <div class="s-sec-hdr"><div class="s-sec-title">📅 スケジュールビューア更新</div></div>
+        <div class="s-sec-hdr"><div class="s-sec-title">📅 がんすけビューワ更新</div></div>
+        <div class="s-row">
+          <div class="s-row-icon"><i class="ti ti-file-upload"></i></div>
+          <div class="s-row-body" style="display:grid;gap:8px;">
+            <div class="s-row-title">XMLをアップして gansuke.xml を作成</div>
+            <div class="s-row-desc">変換なしでXMLをそのまま使います。生成後に gansuke.xml をGitHubへ上書きしてください。</div>
+            <input id="s-gansuke-xml-file" class="s-input" type="file" accept=".xml,text/xml">
+          </div>
+          <button class="s-btn" onclick="buildGansukeViewerFromUploadedXml(this)">gansuke.xml を生成</button>
+        </div>
         <div class="s-row">
           <div class="s-row-icon"><i class="ti ti-refresh"></i></div>
           <div class="s-row-body"><div class="s-row-title">ビューア生成ツールを開く</div><div class="s-row-desc">XMLをドロップするとgansuke-viewer.htmlを生成して配置します</div></div>
@@ -4713,6 +4722,40 @@ async function saveScheduleViewerLinks(btnEl){
     showToast('スケジュール関連URLを保存しました');
   }catch(e){
     showToast('エラー: ' + e.message);
+  }finally{
+    setAdminActionLoading(btnEl, false);
+  }
+}
+function readFileAsArrayBuffer(file){
+  return new Promise((resolve, reject) => {
+    const rd = new FileReader();
+    rd.onload = () => resolve(rd.result);
+    rd.onerror = () => reject(new Error('ファイル読込に失敗しました'));
+    rd.readAsArrayBuffer(file);
+  });
+}
+async function buildGansukeViewerFromUploadedXml(btnEl){
+  if(btnEl && btnEl.disabled) return;
+  const fileInput = document.getElementById('s-gansuke-xml-file');
+  const file = fileInput && fileInput.files ? fileInput.files[0] : null;
+  if(!file){
+    showToast('先にがんすけXMLファイルを選択してください');
+    return;
+  }
+  setAdminActionLoading(btnEl, true, '生成中...');
+  try{
+    const buf = await readFileAsArrayBuffer(file);
+    const bytes = new Uint8Array(buf);
+    if(!bytes.length) throw new Error('XML内容が空です');
+    const blob = new Blob([bytes], {type:'application/xml;charset=Shift_JIS'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'gansuke.xml';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    showToast('gansuke.xml を生成しました。GitHubへ上書きしてください。');
+  }catch(e){
+    showToast('エラー: ' + (e && e.message ? e.message : String(e)));
   }finally{
     setAdminActionLoading(btnEl, false);
   }
