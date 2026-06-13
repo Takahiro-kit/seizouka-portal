@@ -1,0 +1,9545 @@
+<?xml version="1.0" encoding="Shift_JIS" standalone="yes" ?>
+<?xml-stylesheet type="text/xsl" href="C:\Program Files (x86)\がんすけ\Gansuke.xsl"?>
+<schedule>
+<version>1.22</version>
+<title>HELIOS ｇ</title>
+<startdate>2026/06/10</startdate>
+<timescale>1</timescale>
+<calendarindex>3</calendarindex>
+<itempanel>338</itempanel>
+<papersize>8</papersize>
+<orientation>0</orientation>
+<topmargin>10</topmargin>
+<bottommargin>10</bottommargin>
+<leftmargin>10</leftmargin>
+<rightmargin>10</rightmargin>
+<frametop>1</frametop>
+<framebottom>1</framebottom>
+<frameleft>1</frameleft>
+<frameright>1</frameright>
+<framecolor>-16777208</framecolor>
+<framewidth>1</framewidth>
+<printmidashi>スケジュール表</printmidashi>
+<printtitle>1</printtitle>
+<printdate>1</printdate>
+<printhanko1>1</printhanko1>
+<printhanko2>1</printhanko2>
+<printhanko3>1</printhanko3>
+<printhanko4>1</printhanko4>
+<printkaishamei></printkaishamei>
+<groupname1></groupname1>
+<groupname2></groupname2>
+<groupname3></groupname3>
+<groupname4></groupname4>
+<groupname5></groupname5>
+<groupname6></groupname6>
+<groupname7></groupname7>
+<groupname8></groupname8>
+<groupname9></groupname9>
+<groupname10></groupname10>
+<groupname11></groupname11>
+<groupname12></groupname12>
+<groupcolor1>8454143</groupcolor1>
+<groupcolor2>8454016</groupcolor2>
+<groupcolor3>16777088</groupcolor3>
+<groupcolor4>16744448</groupcolor4>
+<groupcolor5>8421631</groupcolor5>
+<groupcolor6>12615935</groupcolor6>
+<groupcolor7>12615680</groupcolor7>
+<groupcolor8>4227327</groupcolor8>
+<groupcolor9>16744576</groupcolor9>
+<groupcolor10>32896</groupcolor10>
+<groupcolor11>16384</groupcolor11>
+<groupcolor12>8421376</groupcolor12>
+<itemlist>
+<item>
+<height>70</height>
+<text>FK・FS 案件　　出張状況確認
+製造課　対応一覧
+鬼頭、山下、山崎、喜多</text>
+<color>16777088</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2025/01/13</eventdate>
+<marker>◎</marker>
+<eventname>1/13 FK2141 徳倉　 山田、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>65280</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/01/14</eventdate>
+<marker>▲</marker>
+<eventname>1/14 FK2098 東レ据付　山田、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/01/15</eventdate>
+<marker>●</marker>
+<eventname>1/15 FK2072 ミヤリサン_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/01/16</eventdate>
+<marker>●</marker>
+<eventname>1/16 FK2124 筑波乳業　FAT ゼネラルパッカーにて_山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/01/17</eventdate>
+<marker>●</marker>
+<eventname>1/17 FK2125 田村薬品_山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/01/19</eventdate>
+<marker>▲</marker>
+<eventname>1/20-21   FK1978 ライオン 齋木、山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/01/21</eventdate>
+<marker>▲</marker>
+<eventname>1/21-22 FK2098 東レ 山田、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/01/23</eventdate>
+<marker>▲</marker>
+<eventname>1/23-24 FK2158 富士薬品_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/01/28</eventdate>
+<marker>▼</marker>
+<eventname>1/28 FK2111 ダイト　山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>33023</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/01/31</eventdate>
+<marker>●</marker>
+<eventname>1/31 FK1978 ライオン オペトレ_山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/02/04</eventdate>
+<marker>▲</marker>
+<eventname>2/4-5 FK2056 東洋カプセル_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/02/10</eventdate>
+<marker>▲</marker>
+<eventname>2/10移動 2/11-13 FK2124 筑波 山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/02/12</eventdate>
+<marker>▲</marker>
+<eventname>2/12-14 FK2135 イシダ様にてFAT準備_三好、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/02/13</eventdate>
+<marker>○</marker>
+<eventname>2/13-16 ベトナム面接_小阪、鬼頭</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/02/17</eventdate>
+<marker>▲</marker>
+<eventname>2/17 FK2046 東ソー四日市_現地下見_齋木、山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/02/18</eventdate>
+<marker>▲</marker>
+<eventname>2/18-19 EAファーマ 三好、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/02/19</eventdate>
+<marker>○</marker>
+<eventname>2/19-20 FX0112_和久利、山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/02/21</eventdate>
+<marker>▼</marker>
+<eventname>2/20-21 FX0111 喜多村_山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/02/25</eventdate>
+<marker>●</marker>
+<eventname>2/25-26 FK2155 パナソニック守口_MEINAN後藤、山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/02/25</eventdate>
+<marker>▲</marker>
+<eventname>2/25-26 FS1365 日本光研島根_</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/02/27</eventdate>
+<marker>◎</marker>
+<eventname>2/27 FK2161_物産フード 山下、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/02/27</eventdate>
+<marker>▲</marker>
+<eventname>2/26-7 ワタナベ、三菱ガス科学_鬼頭</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/02/27</eventdate>
+<marker>◎</marker>
+<eventname>2/27 FS1364 キョーリン滋賀工場 メンテナンス_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/03/03</eventdate>
+<marker>◎</marker>
+<eventname>2/28-3/9 DMN メンテナンス研修_山下、齋木、柴原</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/03/04</eventdate>
+<marker>●</marker>
+<eventname>3/4-7 EAファーマ_三好、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/03/08</eventdate>
+<marker>●</marker>
+<eventname>3/7-9 FS1358 大日本印刷メンテ_山崎、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/03/10</eventdate>
+<marker>●</marker>
+<eventname>3/10 FK2155 パナソニック守口_MEINAN後藤、山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/03/13</eventdate>
+<marker>▲</marker>
+<eventname>3/13 FK2046 東ソー四日市_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/03/14</eventdate>
+<marker>◎</marker>
+<eventname>3/14-15　FS1360 協成 千葉_鬼頭</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/03/14</eventdate>
+<marker>◎</marker>
+<eventname>3/15-16 FS1373 大峰堂メンテ_山下、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/03/18</eventdate>
+<marker>▼</marker>
+<eventname>3/18-19 FK2175 廣貫堂 _山崎、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>65280</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/03/19</eventdate>
+<marker>◎</marker>
+<eventname>3/19-21 FK1939 中外製薬_野田、鬼頭</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/03/19</eventdate>
+<marker>▲</marker>
+<eventname>3/19 FS1345 富士製薬 _山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/03/24</eventdate>
+<marker>▼</marker>
+<eventname>3/24-26 FK2152 住友ファーマ_野田、山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/03/24</eventdate>
+<marker>○</marker>
+<eventname>3/24-25 FK2196 パナソニック_据付SV_和久利、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4259584</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/03/24</eventdate>
+<marker>●</marker>
+<eventname>3/24 FK2179中外医薬_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/03/26</eventdate>
+<marker>●</marker>
+<eventname>3/26 FK2194SNリフラレクチュア 現地調査_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/03/27</eventdate>
+<marker>▲</marker>
+<eventname>3/27-28 FK2178アルフレッサ_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/03/27</eventdate>
+<marker>△</marker>
+<eventname>3/27 FX0116 日本モリマー_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/03/28</eventdate>
+<marker>◎</marker>
+<eventname>3/28 FK2144 エーザイ FAT_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8421376</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/03/31</eventdate>
+<marker>●</marker>
+<eventname>3/31 FX0115 丸山製茶ー_山崎、フン</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/04/02</eventdate>
+<marker>▼</marker>
+<eventname>4/2 FS1384A/B 富士化学工業滑川_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/04/07</eventdate>
+<marker>◎</marker>
+<eventname>4/7-9 FK1939 中外製薬_野田、鬼頭</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/04/08</eventdate>
+<marker>◎</marker>
+<eventname>4/9サンディク滋賀_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/04/08</eventdate>
+<marker>▲</marker>
+<eventname>3/13 FK2116 田中貴金属 現地_？</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/04/11</eventdate>
+<marker>▲</marker>
+<eventname>4/11 FK2144 エーザイ_齋木、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8421376</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/04/21</eventdate>
+<marker>●</marker>
+<eventname>4/21 FS1369 旭化成 富士医薬工場_鬼頭</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>33023</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/04/22</eventdate>
+<marker>▼</marker>
+<eventname>4/22-24 FK2153 あすか製薬_山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711935</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/04/30</eventdate>
+<marker>●</marker>
+<eventname>4/30-5/1 丸美屋_4名_山下、フン</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/05/08</eventdate>
+<marker>◎</marker>
+<eventname>5/9 FK2197 フクダ電子_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/05/11</eventdate>
+<marker>▼</marker>
+<eventname>5/11 FK2189 御所薬舗_和久利</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/05/12</eventdate>
+<marker>◎</marker>
+<eventname>5/12-17 FS1394 メンテ 武州製薬会津工場_山崎、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/05/21</eventdate>
+<marker>○</marker>
+<eventname>5/21 FK2165 旭化成鈴鹿 現地SV_</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/05/22</eventdate>
+<marker>◎</marker>
+<eventname>5/22-24 決起会</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/05/27</eventdate>
+<marker>●</marker>
+<eventname>5/27 FK2212 東和薬品 現地FAT 山口_和久利</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/05/28</eventdate>
+<marker>▲</marker>
+<eventname>5/28-29 FS1340 アステラス 焼津_</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/06/02</eventdate>
+<marker>●</marker>
+<eventname>6/3 FK2078 キョーリン_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711935</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/06/04</eventdate>
+<marker>●</marker>
+<eventname>6/4-5 FX0120 デザインフィル流山_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/06/11</eventdate>
+<marker>△</marker>
+<eventname>6/11内 1日 サンエイ糖化 本社_山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16744448</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/06/12</eventdate>
+<marker>◎</marker>
+<eventname>6/12-13 FS1406 日の本穀粉_山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/06/22</eventdate>
+<marker>●</marker>
+<eventname>6/22 8:15 FK2212 東和薬品 IOQ 山形_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/06/23</eventdate>
+<marker>●</marker>
+<eventname>6/23-24　FK2070 アドラゴス 山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/06/24</eventdate>
+<marker>◎</marker>
+<eventname>6/24 FK2208 剤盛堂_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/06/26</eventdate>
+<marker>▲</marker>
+<eventname>6/26-27 FK2136 ワタナベ ホッパー検査_池田、小川、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/07/01</eventdate>
+<marker>▲</marker>
+<eventname>7/1 東陽機械　FAT_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/07/02</eventdate>
+<marker>◎</marker>
+<eventname>2/上旬 FK2031 大塚 現地予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/07/08</eventdate>
+<marker>▼</marker>
+<eventname>7/8-10 FK2144エーザイ川島_齋木、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/07/09</eventdate>
+<marker>▼</marker>
+<eventname>7/9 FK2207 東洋ビューティー_今井</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/07/16</eventdate>
+<marker>▼</marker>
+<eventname>7/16-17 FK2144エーザイ川島_齋木、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/07/24</eventdate>
+<marker>◎</marker>
+<eventname>7/24-25 FK2181 沢井製薬　鹿島_三好、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/07/26</eventdate>
+<marker>○</marker>
+<eventname>FK2235 井村屋 26-27 搬入据付_小川 28 試運転調整_喜多 29予備日 30 生産立会_喜多</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/07/30</eventdate>
+<marker>▲</marker>
+<eventname>7/30-31 エーザイ川島_齋木、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/08/02</eventdate>
+<marker>◎</marker>
+<eventname>8/2-3 FK2244 三栄源_本田、山下、フン</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/08/04</eventdate>
+<marker>●</marker>
+<eventname>8/4-5 FK2193 日本新薬 現地対応_齋木、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/08/05</eventdate>
+<marker>◎</marker>
+<eventname>8/5 FK2244 三栄源 実運転立会_山下、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/08/07</eventdate>
+<marker>▲</marker>
+<eventname>8/7 OSG 豊橋 Vaculex 点検_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>65280</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/08/08</eventdate>
+<marker>▼</marker>
+<eventname>8/8 FS1296 ナガセ_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/08/15</eventdate>
+<marker>▲</marker>
+<eventname>8/15-17 FX0119 旭飲料_山田、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711935</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/08/18</eventdate>
+<marker>▼</marker>
+<eventname>8/18 FS1410ナガセ_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/08/19</eventdate>
+<marker>▲</marker>
+<eventname>8/19 住友　鈴鹿　試運転 山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/08/19</eventdate>
+<marker>▲</marker>
+<eventname>8/19 アサヒ飲料岡山_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/08/21</eventdate>
+<marker>●</marker>
+<eventname>8/21 東レ東海市_鬼頭、山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/08/27</eventdate>
+<marker>◎</marker>
+<eventname>8/27 FK2257 古河HELIOS設置_鬼頭、山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/09/08</eventdate>
+<marker>▼</marker>
+<eventname>9/8-12 FK2121 ダイキン_齋木、山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/09/10</eventdate>
+<marker>●</marker>
+<eventname>9/10 FK2259 つぼ市 FAT　GP様（北名古屋市）</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/09/12</eventdate>
+<marker>△</marker>
+<eventname>9/12 FS1457 東レ東海工場　メンテナンスSV作業_鬼頭</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/09/15</eventdate>
+<marker>●</marker>
+<eventname>9/15or16 うなぎパイメンテ_山崎、フン</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>32768</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/09/16</eventdate>
+<marker>◎</marker>
+<eventname>9/16-18 FK2136 太平洋_山下、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/09/22</eventdate>
+<marker>△</marker>
+<eventname>9/22 FK2259 つぼ市 現地（大阪）試運転_山下、今井、齋木</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/09/24</eventdate>
+<marker>●</marker>
+<eventname>9/24-26 FK2219 丸山製茶_山崎、山田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/09/25</eventdate>
+<marker>●</marker>
+<eventname>9/25-26 Fk2272 ハクゾウ現地_</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8421376</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/09/28</eventdate>
+<marker>▲</marker>
+<eventname>9/29-30 FK2236 宇部マクセル京都_本田、和久利、山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/10/01</eventdate>
+<marker>▼</marker>
+<eventname>10/1-2 FX0124 ニッセーデリカ_野尻、山崎、山田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16744448</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/10/04</eventdate>
+<marker>○</marker>
+<eventname>10/4 TOTO OctmatEco 移設_鬼頭、山下、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/10/07</eventdate>
+<marker>○</marker>
+<eventname>10/7-8 FK2173 新新薬品_今井、小川</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8421376</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/10/08</eventdate>
+<marker>▼</marker>
+<eventname>10/8 FK2293 クラシエ_山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8388863</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/10/10</eventdate>
+<marker>○</marker>
+<eventname>10/10-11 FS1437サニー_山下、沼倉</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/10/15</eventdate>
+<marker>▼</marker>
+<eventname>10/15-16 FK2236 宇部マクセル 現地試運転_山下、和久利、（津田）</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/10/23</eventdate>
+<marker>◎</marker>
+<eventname>10/23 FK2265 喜多村　現地_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/10/27</eventdate>
+<marker>◎</marker>
+<eventname>10/27-29 FK2247 クラシエ 本田、齋木、和久利、山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/10/29</eventdate>
+<marker>▼</marker>
+<eventname>10/15-16 FK2270 ジャパンテクノ_1名</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/11/10</eventdate>
+<marker>●</marker>
+<eventname>11/10-11 FS1408 造粒室 3  中外 藤枝_ 山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/11/12</eventdate>
+<marker>●</marker>
+<eventname>11/12-13 FS1407 造粒室 2 中外 藤枝_山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/11/16</eventdate>
+<marker>▲</marker>
+<eventname>11/17 FK2273 大峰堂薬品_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/11/27</eventdate>
+<marker>●</marker>
+<eventname>11/27-28 FK2271 アドゴラス川越_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/11/27</eventdate>
+<marker>●</marker>
+<eventname>11/27-28 FK2202 徳倉現地_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/12/02</eventdate>
+<marker>●</marker>
+<eventname>12/2以降　FK2243 共和薬品_</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8421376</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/12/04</eventdate>
+<marker>●</marker>
+<eventname>12/4-5 FK2202 徳倉現地_齋木、山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>128</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/12/09</eventdate>
+<marker>◎</marker>
+<eventname>12/9-10 FK2258 東和薬品-東洋機械（東京)_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/12/09</eventdate>
+<marker>●</marker>
+<eventname>12/9-10 FK2267 大塚製薬_本田、和久利、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/12/16</eventdate>
+<marker>▼</marker>
+<eventname>12/16 FK2295 旭陽化学_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/12/18</eventdate>
+<marker>◎</marker>
+<eventname>12/17-19 FK2258 東和薬品_齋木、山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/12/20</eventdate>
+<marker>●</marker>
+<eventname>12/20 アサヒ飲料　岡山_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4259584</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/12/23</eventdate>
+<marker>▼</marker>
+<eventname>12/23-24 FX0129 ナチュラルモード_開原、山田、山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/12/25</eventdate>
+<marker>▲</marker>
+<eventname>12/21FX0125 アサヒ飲料　明石工場_山埼</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>65280</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/01/08</eventdate>
+<marker>◎</marker>
+<eventname>1/8-9 FK2185 ミヤリサン製薬_山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/01/12</eventdate>
+<marker>▲</marker>
+<eventname>1/12-13 FK2258 東洋機械_齋木</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/01/14</eventdate>
+<marker>●</marker>
+<eventname>1/14-15 FK2202 徳倉_山田、野田、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/01/20</eventdate>
+<marker>▼</marker>
+<eventname>1/20-24 FK2258 東和薬品_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>32768</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/01/27</eventdate>
+<marker>●</marker>
+<eventname>1/27-29 2日 FK2326 東洋新薬_小川、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711935</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/01/29</eventdate>
+<marker>○</marker>
+<eventname>1/29 FK2269 クラシエ 現地_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/01/30</eventdate>
+<marker>◎</marker>
+<eventname>1/30 FK2172 富士薬品_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/02/02</eventdate>
+<marker>▲</marker>
+<eventname>2/2-4 FK2312 富士化学　山下、喜多、今井</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/02/03</eventdate>
+<marker>◎</marker>
+<eventname>2/3-4 FK2306 ニチレイ_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/02/06</eventdate>
+<marker>●</marker>
+<eventname>FK2269 クラシエ高岡 1月or2月 1日_製造 1名</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/02/08</eventdate>
+<marker>◎</marker>
+<eventname>2/8-9 FK2307 マルハニチロ_山下、小川</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/02/09</eventdate>
+<marker>▲</marker>
+<eventname>2/9-10 FK2308 吉字屋穀店_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/02/11</eventdate>
+<marker>◎</marker>
+<eventname>2/11-12 FK2290 カバヤ_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/02/12</eventdate>
+<marker>◎</marker>
+<eventname>2/12-13 FK2318 フジパン_和久利、喜多</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/02/16</eventdate>
+<marker>◎</marker>
+<eventname>2/16 FK2313 ハマダ_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>33023</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/02/18</eventdate>
+<marker>●</marker>
+<eventname>2/18 FA13769 泰食品　工場下見_齋木、山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/02/24</eventdate>
+<marker>△</marker>
+<eventname>2/24 FK2302 FAT2/25 日本ニューマチック 出荷立会検査_山下、和久利</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/02/28</eventdate>
+<marker>●</marker>
+<eventname>2/28-3/1 FA13769 泰食品 現地_山下、大林、齋木、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/02</eventdate>
+<marker>▼</marker>
+<eventname>3/2-4 FK2332 シオノギ_和久利、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/09</eventdate>
+<marker>◎</marker>
+<eventname>3/9-10 FK2321_日新製薬_沼倉、和久利</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/11</eventdate>
+<marker>◎</marker>
+<eventname>3/10 FK2328ファイザー_喜多</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/15</eventdate>
+<marker>●</marker>
+<eventname>3/15-16 FK2302 パナソニック_山下、和久利</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/17</eventdate>
+<marker>△</marker>
+<eventname>3/17仮 FK2302 鎌長_山下、和久利</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/19</eventdate>
+<marker>●</marker>
+<eventname>3/19 FS1530 ホテイフーズ_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194368</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/20</eventdate>
+<marker>△</marker>
+<eventname>FX0132丸山製茶_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/24</eventdate>
+<marker>◎</marker>
+<eventname>3/24-25 FK2358 沢井 鹿島_齋木</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/26</eventdate>
+<marker>◎</marker>
+<eventname>3/25-27 FK2297 クラシエ京都_山崎、喜多</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/30</eventdate>
+<marker>◎</marker>
+<eventname>3/29-31 FK2289 クラシエ京都_山崎、喜多</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/30</eventdate>
+<marker>◎</marker>
+<eventname>3/29-31 FK2275 クラシエ京都_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/04/04</eventdate>
+<marker>◎</marker>
+<eventname>4/4 FK2356 TOTO_山下、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8421440</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/04/09</eventdate>
+<marker>▲</marker>
+<eventname>4/9 FS1561 東レ 四日市_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/04/13</eventdate>
+<marker>●</marker>
+<eventname>4/13-14 FK2337 富士化学 郷柿沢_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/04/15</eventdate>
+<marker>◎</marker>
+<eventname>4/15 FK2361 中外ミドリヶ丘_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/04/16</eventdate>
+<marker>●</marker>
+<eventname>4/15-16 FX0134 中部バイエル_山下、山崎、山田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/04/19</eventdate>
+<marker>▼</marker>
+<eventname>4/18-20 FS1531 セフコフーズ　つくば_開原、喜多</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/04/23</eventdate>
+<marker>○</marker>
+<eventname>4/23 丸山製茶 無料メンテ_喜多</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16744448</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/04/28</eventdate>
+<marker>◎</marker>
+<eventname>4/28 FK2363 大峰堂_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/05/11</eventdate>
+<marker>◎</marker>
+<eventname>5/11-12　武州製薬 会津工場メンテ_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/05/12</eventdate>
+<marker>▼</marker>
+<eventname>5/12-15 FK2382 クラシエ高岡_今井、小川</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/05/15</eventdate>
+<marker>◎</marker>
+<eventname>5/15 FK2345 日新薬品_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711935</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/05/20</eventdate>
+<marker>●</marker>
+<eventname>5/20-22 東和薬品_齋木、山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/05/21</eventdate>
+<marker>▲</marker>
+<eventname>5/21-22 FK2304 日東薬品綾部_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/05/25</eventdate>
+<marker>●</marker>
+<eventname>5/25-27 FK2317 太陽ファルマテック高槻_山崎、喜多</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/06/02</eventdate>
+<marker>△</marker>
+<eventname>6/2-3 FK2379 トラスト矢地工場_喜多</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/06/02</eventdate>
+<marker>●</marker>
+<eventname>6/2 山崎有給休暇</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/06/04</eventdate>
+<marker>○</marker>
+<eventname>6/4-5 FK2404 MeijiSeika_和久利、佐藤</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/06/10</eventdate>
+<marker>◎</marker>
+<eventname>6/10-11 F2298 日東シンコー_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/06/11</eventdate>
+<marker>●</marker>
+<eventname>FS1589 住友ファーマ鈴鹿_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/16</eventdate>
+<marker>○</marker>
+<eventname>6/16 13:00 FK2360 大有リフタ事前確認_和久利、佐藤</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/17</eventdate>
+<marker>○</marker>
+<eventname>6/17 FK2404 MeijiSeika_和久利、佐藤</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/20</eventdate>
+<marker>○</marker>
+<eventname>2/12 FK2200 科学飼料_</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/06/22</eventdate>
+<marker>◎</marker>
+<eventname>6/22-25 大有-FK2360藤和薬品山形_和久利、山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/23</eventdate>
+<marker>▼</marker>
+<eventname>6/23 FK2392 キッツマイクロ茅野工場_開原、</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/25</eventdate>
+<marker>▲</marker>
+<eventname>6/25-26 FX0135 高周波熟練_山崎、喜多</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/09/01</eventdate>
+<marker>◎</marker>
+<eventname>9月に延期 6/25-26 FK2405 古河電気工業 _山下、山崎、喜多内2名</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/12/04</eventdate>
+<marker>●</marker>
+<eventname>12月に延期 8/11-14 FK2386 積水化学工業_</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/12/08</eventdate>
+<marker>●</marker>
+<eventname>12月に延期 8/11-12 FK2386 積水化学工業水口_鬼頭、山下、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>出張状況確認</text>
+<color>16777088</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2025/05/09</eventdate>
+<marker>◎</marker>
+<eventname>5/9 FX0117 旭鉱末_喜多、山下、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/05/11</eventdate>
+<marker>△</marker>
+<eventname>5/11 FK2194 SNリフテクチュア_三好、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/05/14</eventdate>
+<marker>▽</marker>
+<eventname>5/14 FK2094 日医工岐阜_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/05/20</eventdate>
+<marker>▲</marker>
+<eventname>5/19-20 FK2209 渡邊薬品_山下、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/05/22</eventdate>
+<marker>◎</marker>
+<eventname>5/22-24 決起会</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/05/27</eventdate>
+<marker>●</marker>
+<eventname>5/27 FK2176 アピ 現地設置_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/05/28</eventdate>
+<marker>●</marker>
+<eventname>5/28-29 FK2176 アピ 現地調整_山田、フン津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/06/13</eventdate>
+<marker>●</marker>
+<eventname>6/13 FS1417 ピュアテック　ポンプメンテナンス_鬼頭</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/06/25</eventdate>
+<marker>◎</marker>
+<eventname>6/25-26 FK2171 ENEOS_現地_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8421376</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/06/26</eventdate>
+<marker>▲</marker>
+<eventname>6/26-27 FK2175 広貫堂現地_三好、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/06/28</eventdate>
+<marker>◎</marker>
+<eventname>6/28-29FX0122 自動車精工現地_山田、</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/07/08</eventdate>
+<marker>▲</marker>
+<eventname>7/8-9 FS1418 辰巳科学_山下、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/07/11</eventdate>
+<marker>◎</marker>
+<eventname>7/11 ITF展示会_山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/07/22</eventdate>
+<marker>▲</marker>
+<eventname>7/22 FK2220 フジ日本_山埼</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/07/22</eventdate>
+<marker>●</marker>
+<eventname>7/22-23 FK2193 日本新薬 FAT_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/07/23</eventdate>
+<marker>◎</marker>
+<eventname>7/23 FS1433 ナガセヴィータ_ 鬼頭</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>32768</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/07/31</eventdate>
+<marker>●</marker>
+<eventname>7/31 FK2183 クラシエ_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8388863</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/08/13</eventdate>
+<marker>●</marker>
+<eventname>8/12-13 京セラ綾部 不具合対応_鬼頭</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/08/21</eventdate>
+<marker>●</marker>
+<eventname>8/21-22 FK2170 新新_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/09/02</eventdate>
+<marker>◎</marker>
+<eventname>9/2予定 春日井製菓　現地テスト</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/09/08</eventdate>
+<marker>▼</marker>
+<eventname>9/8-11 FK2248 日新酒類　_山崎、本田、和久利</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/09/08</eventdate>
+<marker>◎</marker>
+<eventname>9/8-12 FK2121 ダイキン_齋木、山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/09/22</eventdate>
+<marker>●</marker>
+<eventname>9/22-23 FS1447 持田製薬工場_現地対応_鬼頭</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/09/25</eventdate>
+<marker>◎</marker>
+<eventname>9/25-26 FK255 マルハチ_山田、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/09/29</eventdate>
+<marker>▲</marker>
+<eventname>9/29-30 FX0125 アサヒ飲料 明石_山崎、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/10/03</eventdate>
+<marker>●</marker>
+<eventname>10/3 FS1398 タマノイ酢_山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/10/06</eventdate>
+<marker>◎</marker>
+<eventname>10/6-7 FK2266中外医薬ミドリ_山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711935</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/10/09</eventdate>
+<marker>▼</marker>
+<eventname>10/9 FK2250 豊田化工_持込設置_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/10/14</eventdate>
+<marker>●</marker>
+<eventname>10/14 FS1467_三菱ケミカル SOS メンテ_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/10/14</eventdate>
+<marker>◎</marker>
+<eventname>10/14 トーカイパッケージ 厚木_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/10/22</eventdate>
+<marker>●</marker>
+<eventname>10/22 FS1396 旭陽科学_鬼頭、山下、本田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/11/08</eventdate>
+<marker>▼</marker>
+<eventname>11/8 京セラ綾部_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8388863</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/11/13</eventdate>
+<marker>◎</marker>
+<eventname>11/13 FS1450 小野薬品工業 フジヤマ工場_鬼頭</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/11/19</eventdate>
+<marker>◎</marker>
+<eventname>11/19 FS1479 トヨタ自動車　明知工場 HELIOSワイヤ_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/12/01</eventdate>
+<marker>◎</marker>
+<eventname>12/2-3　FK2280 ダイキン淀川_SD、齋木、山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/12/02</eventdate>
+<marker>○</marker>
+<eventname>12/2-3 FS1472 丸美屋パック メンテ_鬼頭、フン</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/12/10</eventdate>
+<marker>○</marker>
+<eventname>12/10PM-11 FS1483 日医工岐阜 メンテ_今井、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/01/16</eventdate>
+<marker>◎</marker>
+<eventname>1/16 FK2250 豊田_山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/01/19</eventdate>
+<marker>◎</marker>
+<eventname>1/19-20 FS1473 うなぎパイ_山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/02/08</eventdate>
+<marker>○</marker>
+<eventname>2/8-11 FK2326 東洋新薬_和久利、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/02/13</eventdate>
+<marker>●</marker>
+<eventname>2/13 FK2306 ニチレイフーズ生産立会_沼倉</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/02/19</eventdate>
+<marker>◎</marker>
+<eventname>2/19-20 FS1491 キョウリン滋賀_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/02/20</eventdate>
+<marker>▲</marker>
+<eventname>FS1510 喜多村 テスト_喜多、今井</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/02/27</eventdate>
+<marker>▲</marker>
+<eventname>2/27 FS1482 ニュートリーメンテ_鬼頭、喜多</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/04</eventdate>
+<marker>△</marker>
+<eventname>3/4 FX0126 東邦_製造 山下、喜多</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/11</eventdate>
+<marker>▲</marker>
+<eventname>3/11 FS1534 日本光研島根_野田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/11</eventdate>
+<marker>△</marker>
+<eventname>3/11-12 オシキリ_喜多</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8421631</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/12</eventdate>
+<marker>●</marker>
+<eventname>3/12 FS1496 ナガセヴィータ_野田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/17</eventdate>
+<marker>◎</marker>
+<eventname>3/17-18FK2321 日新製薬_和久利、喜多</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/17</eventdate>
+<marker>▽</marker>
+<eventname>3/17-19 FS1526 宇部マクセル_野田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8421376</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/17</eventdate>
+<marker>▲</marker>
+<eventname>3/17-18 FS1453 沢井製薬三田工場_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/21</eventdate>
+<marker>◎</marker>
+<eventname>3/21-22 FS1502 大日本印刷_山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/25</eventdate>
+<marker>●</marker>
+<eventname>3/25-26 FS1508 ライオン_鬼頭</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/25</eventdate>
+<marker>▼</marker>
+<eventname>3/25 FK2340 SNリフラテクチュア_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/03/25</eventdate>
+<marker>△</marker>
+<eventname>3/25 FK2328 ファイザーファーマ_沼倉、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/04/02</eventdate>
+<marker>▲</marker>
+<eventname>4/2-3 三菱ケミカルつくばメンテ_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/04/14</eventdate>
+<marker>◎</marker>
+<eventname>4/14 FK2324 滋賀県製薬_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/04/16</eventdate>
+<marker>●</marker>
+<eventname>4/16-17 FS1558 大峰堂メンテ_喜多、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8421376</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/04/22</eventdate>
+<marker>●</marker>
+<eventname>4/22-23 FS1560 旭化成ファーマ富士医薬工場_山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8421376</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/04/25</eventdate>
+<marker>▼</marker>
+<eventname>4/25-27 FS1532 セフコフーズ つくば_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/04/30</eventdate>
+<marker>●</marker>
+<eventname>4/30 FS1556 積水LB_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/05/13</eventdate>
+<marker>●</marker>
+<eventname>5/13-14 FS1518 アステラス　野田、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/05/17</eventdate>
+<marker>◎</marker>
+<eventname>5/17-18 FK2378 キョーリン井波工場_山崎、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/05/18</eventdate>
+<marker>○</marker>
+<eventname>5/18-19 FS1523 キリンホールディングス_山下、喜多</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8421376</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/05/29</eventdate>
+<marker>●</marker>
+<eventname>5/29 FS1519 大鵬北島_勉強会_山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/05/30</eventdate>
+<marker>○</marker>
+<eventname>5/30 FS1566_TOTOオクトマット移設2第__山下、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/06/03</eventdate>
+<marker>○</marker>
+<eventname>6/3  FS2407 ポッカサッポロフード 仙台工場_齋木、山下、佐藤</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/06/05</eventdate>
+<marker>●</marker>
+<eventname>6/5 FS1535 サンエイ糖化_山下、喜多</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/06/05</eventdate>
+<marker>○</marker>
+<eventname>5/25_FS1533 ユーシービージャパン　メンテ_鬼頭</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/06/08</eventdate>
+<marker>▼</marker>
+<eventname>6/8-9 FS1515 バイエル DMNオーバーホール_齋木、山下</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/06/11</eventdate>
+<marker>▲</marker>
+<eventname>6/10-11 FS1559 日本新薬小田原_喜多</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2026/06/15</eventdate>
+<marker>●</marker>
+<eventname>6/15-16 日の本穀粉_山下、山崎</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/20</eventdate>
+<marker>○</marker>
+<eventname>6/20-21 FK2408 磐田ポッカ_山下、齋木、佐藤</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>33023</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/25</eventdate>
+<marker>▼</marker>
+<eventname>6/25-26 FX0136 三井物流 現地設置_</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/27</eventdate>
+<marker>○</marker>
+<eventname>6/27-29 丸美屋パック_鬼頭、山崎、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/07/06</eventdate>
+<marker>○</marker>
+<eventname>7/6-8 FK2408 磐田ポッカ 7/6 単体確認_7/7-8 設備全体試運転_</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/10/09</eventdate>
+<marker>◎</marker>
+<eventname>10/9 FS1574 タマノイ酢_</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/10/13</eventdate>
+<marker>▽</marker>
+<eventname>10/13/14 FS1467 三菱ケミカル つくば工場</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8404992</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/10/20</eventdate>
+<marker>●</marker>
+<eventname>10/20-28 FS1571 東亞薬品富山_１名1日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2095 FC.P400.P4.51.3.CA　　　　 納期 2025/7/31　齋木
+日本アイリッヒ㈱九州事業所　　　納期変更 2025/8/25
+ヤンマーキャステクノ㈱松江事業部　現地有</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2025/06/23</startdate>
+<nissuu>33.00</nissuu>
+<jitsudounissuu>25.00</jitsudounissuu>
+<enddate>2025/07/26</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2025/08/04</startdate>
+<nissuu>5.00</nissuu>
+<jitsudounissuu>5.00</jitsudounissuu>
+<enddate>2025/08/09</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>8421631</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2025/08/22</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2025/08/23</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2025/08/25</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2025/08/26</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2024/07/19</eventdate>
+<marker>○</marker>
+<eventname>7/19 仕様書提出</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2024/08/02</eventdate>
+<marker>◎</marker>
+<eventname>8/2 仕様書承認</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>128</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>1</endflg>
+</event>
+<event>
+<eventdate>2025/06/11</eventdate>
+<marker>▼</marker>
+<eventname>7/11 購入品・加工品入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2025/06/20</eventdate>
+<marker>▼</marker>
+<eventname>6/20 Piab 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2025/08/25</eventdate>
+<marker>●</marker>
+<eventname>8/25 納品　</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>80</height>
+<text>FK2302 FC.P100.PR2.38.7.FA.0.ASS　納期2026/3/6　和久利
+第一実業㈱大阪支店/日本ﾆｭｳｰﾏﾁｯｸｽ工業㈱、鎌長製衝㈱　25T-148A　　　　FAT 2/中旬　　納品 2/末　現地有
+パナソニックインダストリー㈱ﾃﾞﾊﾞｲｽｿﾘｭｰｼｮﾝ事業部千歳
+FK2414 集塵フード作業架台(FK2303関連)納期 2026/6/15
+    26T-042A     パレット混載         </text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/02/16</startdate>
+<nissuu>7.00</nissuu>
+<jitsudounissuu>5.00</jitsudounissuu>
+<enddate>2026/02/23</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/02/24</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/02/25</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/02/25</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/02/26</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>8421631</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/03/13</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/03/14</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/03/16</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/03/17</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>作業予定
+アルミフレーム組立</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/05/28</startdate>
+<nissuu>3.00</nissuu>
+<jitsudounissuu>2.00</jitsudounissuu>
+<enddate>2026/05/31</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/25</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/26</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2025/10/10</eventdate>
+<marker>▲</marker>
+<eventname>10/10 納入仕様書提出</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2025/10/17</eventdate>
+<marker>▼</marker>
+<eventname>0/17 納入仕様書返却</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/01/16</eventdate>
+<marker>▼</marker>
+<eventname>1/16 振替</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/02/13</eventdate>
+<marker>▼</marker>
+<eventname>2/12-13 Piab 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/02/17</eventdate>
+<marker>▼</marker>
+<eventname>2/17 Piab入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/02/18</eventdate>
+<marker>▼</marker>
+<eventname>2/18 製作品入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/02/24</eventdate>
+<marker>◎</marker>
+<eventname>2/24 FAT</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/02/25</eventdate>
+<marker>◎</marker>
+<eventname>2/25 NPK 納品、立会</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>0</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/02/27</eventdate>
+<marker>●</marker>
+<eventname>2/末 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/03/16</eventdate>
+<marker>●</marker>
+<eventname>3/17 鎌長 納品</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/03/16</eventdate>
+<marker>◎</marker>
+<eventname>3/17　出荷前立会 鎌長予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/04/13</eventdate>
+<marker>◎</marker>
+<eventname>4月中旬　現地</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/04/14</eventdate>
+<marker>○</marker>
+<eventname>4/中旬 メーカー組付、試運転</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/25</eventdate>
+<marker>▼</marker>
+<eventname>5/25 購入品入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/25</eventdate>
+<marker>▼</marker>
+<eventname>5/25 アルミフレーム入荷</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/10</eventdate>
+<marker>◎</marker>
+<eventname>6/10 アルミフレーム組立完了日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/19</eventdate>
+<marker>▼</marker>
+<eventname>6/19 集塵フードワタナベ入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/25</eventdate>
+<marker>●</marker>
+<eventname>6/25 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2352 FC.P100.P2.51.3.CA　　　　納期 2026/3/20　小川
+㈱サナ　本社　25U-074A　　　　　現地有</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/03/16</startdate>
+<nissuu>2.00</nissuu>
+<jitsudounissuu>2.00</jitsudounissuu>
+<enddate>2026/03/18</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>8421631</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/03/18</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/03/19</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/03/19</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/03/20</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/02/20</eventdate>
+<marker>▼</marker>
+<eventname>2/20 振替　</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/03/06</eventdate>
+<marker>▼</marker>
+<eventname>3/6 製作品入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/03/06</eventdate>
+<marker>▼</marker>
+<eventname>3/6 制御盤納入予定 MEINAN</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/03/16</eventdate>
+<marker>▼</marker>
+<eventname>3/16 猪飼追加製作品</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/03/20</eventdate>
+<marker>●</marker>
+<eventname>3/20 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2360 ドラム反転リフタ及び排出ロート 納期 2026/4/30
+東和薬品㈱　本社　25D-082A　　　　　納期変更 6/中
+東和薬品㈱　山形工場　　　　　　　現地有　　　和久利</text>
+<color>16777215</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/04/18</startdate>
+<nissuu>14.00</nissuu>
+<jitsudounissuu>10.00</jitsudounissuu>
+<enddate>2026/05/02</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>8421631</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/10</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/11</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/25</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/26</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/26</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/27</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/01</eventdate>
+<marker>▽</marker>
+<eventname>4/1 仕様書返却</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/04/27</eventdate>
+<marker>▽</marker>
+<eventname>4/27 CLT蓋医客様より支給</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/15</eventdate>
+<marker>▼</marker>
+<eventname>5/15 短管入荷予定　猪飼</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/25</eventdate>
+<marker>▼</marker>
+<eventname>5/25 ロート入荷予定　猪飼</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/10</eventdate>
+<marker>●</marker>
+<eventname>事前発送品有り　大有へ</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/16</eventdate>
+<marker>◎</marker>
+<eventname>6/16 13:00-  大有　立会検査_和久利、佐藤</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/25</eventdate>
+<marker>▼</marker>
+<eventname>6月中 現地バリデーション実施</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/26</eventdate>
+<marker>●</marker>
+<eventname>6/中  納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2373 P.P200.SUS2.51T.3.CA　　　納期 2026/4/23　小川
+㈱キット　本社　26E-014B　　納期変更 5/12
+東和薬品㈱　山形工場　　　　　　現地有</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業過料　出荷待ち</text>
+<color>16744703</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/04/28</startdate>
+<nissuu>11.00</nissuu>
+<jitsudounissuu>5.00</jitsudounissuu>
+<enddate>2026/05/09</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>8421631</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/05/11</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/05/12</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/05/12</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/05/13</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/20</eventdate>
+<marker>▼</marker>
+<eventname>4/20 電気部品入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/04/27</eventdate>
+<marker>▼</marker>
+<eventname>4/27 Piab 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/12</eventdate>
+<marker>●</marker>
+<eventname>5/12 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2350 FC.P400.SUS4.51T.7.CA　　　納期 2026/5/22　齋木
+万善工機㈱　八潮工場 25E-248
+㈱MiRESSO 本社　　　　　　　　　出荷 6/8の週に</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/04</startdate>
+<nissuu>7.00</nissuu>
+<jitsudounissuu>5.00</jitsudounissuu>
+<enddate>2026/06/11</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>8421631</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/11</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/12</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/12</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/13</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/03/30</eventdate>
+<marker>▼</marker>
+<eventname>3/30 Piab 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/04/27</eventdate>
+<marker>▼</marker>
+<eventname>4/27 製作品入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/04/28</eventdate>
+<marker>▼</marker>
+<eventname>4/28 三方ボール弁（ａｉｓｉｎｎ)入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/22</eventdate>
+<marker>●</marker>
+<eventname>5/22 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/08</eventdate>
+<marker>△</marker>
+<eventname>6/8の週最短出荷希望</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/09</eventdate>
+<marker>▼</marker>
+<eventname>6/9 ガスケット等不足部品入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/22</eventdate>
+<marker>▼</marker>
+<eventname>排出ロート用　パッキン、ボルト 入荷次第後納</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2353 P.P64.SUS0.25T.2.CBA　　　　納期 2026/5/22 齋木
+第一実業㈱大阪支店 25T-087　　　　納期変更 6/初旬
+富士化学工業㈱　郷柿沢工場　現地有　再発注書待ち5/8</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/05/25</startdate>
+<nissuu>5.00</nissuu>
+<jitsudounissuu>5.00</jitsudounissuu>
+<enddate>2026/05/30</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/01</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/02</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/02</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/03</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/05/22</eventdate>
+<marker>●</marker>
+<eventname>5/22 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/02</eventdate>
+<marker>●</marker>
+<eventname>6/初旬へ納品変更</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2404 P.P64.SUS0.25T.2.CA　　　　納期2026/5/29 和久利
+東洋機械㈱　本社　26E-065A
+Meiji Seikaファルマテック㈱　本社工場</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業完了</text>
+<color>16777088</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/05/20</startdate>
+<nissuu>7.00</nissuu>
+<jitsudounissuu>6.00</jitsudounissuu>
+<enddate>2026/05/27</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>8421631</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/05/28</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/05/29</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/05/29</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/05/30</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/24</eventdate>
+<marker>▽</marker>
+<eventname>4/24 納入仕様書返却</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/29</eventdate>
+<marker>●</marker>
+<eventname>5/29 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/04</eventdate>
+<marker>◎</marker>
+<eventname>6/4-5 FAT 東京 和久利、佐藤</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/17</eventdate>
+<marker>○</marker>
+<eventname>6/17 現地_和久利、佐藤</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2376 P.P64.SUS0.25T.2.CBA　　　　納期 2026/6/1和久利
+三和生薬㈱　本社 25D-100　　
+　　　　　　　　現地無　東洋パック FAT立会有</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業完了</text>
+<color>16777088</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/05/22</startdate>
+<nissuu>7.00</nissuu>
+<jitsudounissuu>6.00</jitsudounissuu>
+<enddate>2026/05/29</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>8421631</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/05/29</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/05/30</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/01</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/02</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日連絡待ち</text>
+<color>16744703</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/15</startdate>
+<nissuu>4.00</nissuu>
+<jitsudounissuu>4.00</jitsudounissuu>
+<enddate>2026/06/19</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/01</eventdate>
+<marker>▽</marker>
+<eventname>4/1 仕様書返却</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/04/30</eventdate>
+<marker>○</marker>
+<eventname>先行支給品有り</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/18</eventdate>
+<marker>▼</marker>
+<eventname>5/18 制御盤入荷予定　SD</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/01</eventdate>
+<marker>●</marker>
+<eventname>6/1 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2392 P.P64.P0.25T.2.CBA　　　　　納期 2026/6/1　齋木
+㈱マブチ・エスアンドt本社 25T-196C　開原+1名
+㈱キッツマイクロフィルター　茅野工場　5/20出荷希望開原</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/05/12</startdate>
+<nissuu>7.00</nissuu>
+<jitsudounissuu>5.00</jitsudounissuu>
+<enddate>2026/05/19</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>8421631</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/05/20</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/05/21</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/05/21</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/05/22</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/17</eventdate>
+<marker>▽</marker>
+<eventname>4/17 納品仕様書返却</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/04/20</eventdate>
+<marker>▼</marker>
+<eventname>4/20 配管部材入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/11</eventdate>
+<marker>▼</marker>
+<eventname>5/11 フィードノズル入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/11</eventdate>
+<marker>○</marker>
+<eventname>P64 在庫振替済</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/20</eventdate>
+<marker>○</marker>
+<eventname>5/20開原課員　出荷希望</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711935</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/01</eventdate>
+<marker>●</marker>
+<eventname>6/1 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>57</height>
+<text>FK2379 P.P64.SUS0.25T.2.CA　　　　　納期 2026/6/3 齋木
+FK2395 シュート加工費 26-026
+沢井製薬㈱　本社　26D-006
+トラストファーマテック㈱　矢地工場</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>16777088</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/05/26</startdate>
+<nissuu>4.00</nissuu>
+<jitsudounissuu>4.00</jitsudounissuu>
+<enddate>2026/05/30</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>8421631</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/01</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/02</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/02</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/03</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/28</eventdate>
+<marker>▼</marker>
+<eventname>4/28 在庫振替</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/25</eventdate>
+<marker>▼</marker>
+<eventname>5/25 製作品及び振替予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/03</eventdate>
+<marker>●</marker>
+<eventname>6/3 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/03</eventdate>
+<marker>◎</marker>
+<eventname>6/3　現地_喜多</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2346(KFK0030)FC.VC3.0.76.14.CA　納期 2026/6/2 齋木
+ジェイピーネクスト九州 25KE-120C　納期変更 6/11
+コスモ食品㈱　　　　　　　現地有(九州)</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/05/17</startdate>
+<nissuu>3.00</nissuu>
+<jitsudounissuu>2.00</jitsudounissuu>
+<enddate>2026/05/20</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>8421631</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/05/26</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/05/27</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日
+第一陣</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/05/27</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/05/28</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>作業完了　出荷完了</text>
+<color>16777088</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/03</startdate>
+<nissuu>7.00</nissuu>
+<jitsudounissuu>5.00</jitsudounissuu>
+<enddate>2026/06/10</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>8421631</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/10</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/11</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/11</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/12</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/20</eventdate>
+<marker>▽</marker>
+<eventname>4/20 振替</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8388736</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/04/24</eventdate>
+<marker>▼</marker>
+<eventname>4/24 ブロワ入手予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/11</eventdate>
+<marker>▼</marker>
+<eventname>5/11 Piab入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/11</eventdate>
+<marker>▲</marker>
+<eventname>5/11 フィルタプレートPiab入荷後、猪飼支給</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/15</eventdate>
+<marker>▼</marker>
+<eventname>5/15 ソルバーグ フィルタ入手予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/20</eventdate>
+<marker>▼</marker>
+<eventname>5/20 ホッパ入荷予定（ワタナベ）5/20入荷済</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/20</eventdate>
+<marker>▼</marker>
+<eventname>5/20 リフタ入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/22</eventdate>
+<marker>▼</marker>
+<eventname>5/15 ブロア架台入手予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/25</eventdate>
+<marker>△</marker>
+<eventname>5/23 ホッパー出荷+2次エアー導入管</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/11</eventdate>
+<marker>●</marker>
+<eventname>6/11 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2383 F.BA20D.P2,51.6A.C.0.AAL　　納期 2026/6/19 齋木
+ダイドー㈱　北関東営業所 26T-016A　　納期短縮 6/15
+㈱高崎ベアリング商会/㈱祥和群馬　伊勢崎工場</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業完了</text>
+<color>16777088</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/12</startdate>
+<nissuu>4.00</nissuu>
+<jitsudounissuu>3.00</jitsudounissuu>
+<enddate>2026/06/16</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/16</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/17</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/17</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/18</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/17</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/07/18</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/20</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>0.00</jitsudounissuu>
+<enddate>2026/07/21</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/03</eventdate>
+<marker>●</marker>
+<eventname>4/3 仕様書返却</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/01</eventdate>
+<marker>▼</marker>
+<eventname>6/1 Piab 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/05</eventdate>
+<marker>▼</marker>
+<eventname>6/5部品入手</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/08</eventdate>
+<marker>▼</marker>
+<eventname>6/8 製作品入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/17</eventdate>
+<marker>△</marker>
+<eventname>6/15の週前半の出荷希望</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/19</eventdate>
+<marker>●</marker>
+<eventname>6/19 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2423　ピアブ排出斜めシュート 　　納期 2026/6/23
+東和薬品㈱　本社　26D-022
+東和薬品㈱　岡山工場</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/16</startdate>
+<nissuu>4.00</nissuu>
+<jitsudounissuu>4.00</jitsudounissuu>
+<enddate>2026/06/20</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/22</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/23</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/23</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/24</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/06/19</eventdate>
+<marker>▼</marker>
+<eventname>6/19 猪飼入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/23</eventdate>
+<marker>●</marker>
+<eventname>6/23 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FX0135 TAWI VM40　　　　　　　　　納期 2026/6/25
+高周波熟練㈱　本社 25U-087B
+高周波熟練㈱　赤穂工場　　　　　　納期変更</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<chartlist>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/25</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/07/26</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/05/20</eventdate>
+<marker>▼</marker>
+<eventname>5/20 アムンゼン入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/19</eventdate>
+<marker>▼</marker>
+<eventname>6/19 春日井電機入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/25</eventdate>
+<marker>◎</marker>
+<eventname>6/25 現地設置工事_山田、製造 1名</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/07/25</eventdate>
+<marker>●</marker>
+<eventname>6/25 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2368 FC.P400.SUS4.51.7.FA　　　納期2026/6/26 和久利
+㈱大川原製作所　25E-019　　　　　現地有</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/16</startdate>
+<nissuu>7.00</nissuu>
+<jitsudounissuu>5.00</jitsudounissuu>
+<enddate>2026/06/23</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/25</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/26</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/26</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/27</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/20</eventdate>
+<marker>▼</marker>
+<eventname>5/19 Piab 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/29</eventdate>
+<marker>▼</marker>
+<eventname>5/29 猪飼コネクション納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/26</eventdate>
+<marker>●</marker>
+<eventname>6/26 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2429 フィーディングアダプタ　　納期 2026/6/26
+スズテック㈱本社 白川事業所 25E-252A
+三和生薬㈱　本社</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/23</startdate>
+<nissuu>2.00</nissuu>
+<jitsudounissuu>2.00</jitsudounissuu>
+<enddate>2026/06/25</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/25</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/26</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/26</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/27</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/06/23</eventdate>
+<marker>▼</marker>
+<eventname>6/23 部品入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/26</eventdate>
+<marker>●</marker>
+<eventname>6/26 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2385AB P.p200.PR2.51T.3.CBA　　　納期 2026/6/29 小川
+ニップンエンジニアリング㈱　本社　26E-022　データPDF
+敷島製パン㈱　大阪豊中工場  現地有 B 納期8/17</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/24</startdate>
+<nissuu>2.00</nissuu>
+<jitsudounissuu>2.00</jitsudounissuu>
+<enddate>2026/06/26</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/26</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/27</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/29</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/30</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/10</eventdate>
+<marker>▽</marker>
+<eventname>4/10 納入仕様書返却</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/25</eventdate>
+<marker>▼</marker>
+<eventname>5/25 Piab 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/15</eventdate>
+<marker>▼</marker>
+<eventname>6/15 ホッパ入荷予定　猪飼</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/16</eventdate>
+<marker>▼</marker>
+<eventname>6/16 制御盤入荷予定 MEINAN</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/29</eventdate>
+<marker>●</marker>
+<eventname>6/29 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/08/17</eventdate>
+<marker>○</marker>
+<eventname>8/17 B 納期</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2403 FC.P100.P2.51.3.CBA　　　　納期 2026/6/30 齋木
+㈱栗本鐵工所　住吉工場 25E-303A　　現地無 納期6/26</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/17</startdate>
+<nissuu>3.00</nissuu>
+<jitsudounissuu>3.00</jitsudounissuu>
+<enddate>2026/06/20</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/25</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/26</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/26</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/27</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/05/15</eventdate>
+<marker>▼</marker>
+<eventname>5/15 振分</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/30</eventdate>
+<marker>●</marker>
+<eventname>6/30 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2417 流動化装置付排出シュート 　納期 2026/7/3　小川
+赤武エンジニアリング㈱　本社・工場
+北海道フーズ㈱本社7/3</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/25</startdate>
+<nissuu>6.00</nissuu>
+<jitsudounissuu>4.00</jitsudounissuu>
+<enddate>2026/07/01</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/01</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/07/02</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/03</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/07/04</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/06/25</eventdate>
+<marker>▼</marker>
+<eventname>6/25 猪飼入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/07/03</eventdate>
+<marker>●</marker>
+<eventname>7/3 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2396 FC.P200.TX2.51.7.CA　　　　納期 2026/7/6 和久利
+杉本商事㈱　淡路営業所 26T-027A　　納期 6/26
+㈱瑞光　本社工場</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/19</startdate>
+<nissuu>6.00</nissuu>
+<jitsudounissuu>4.00</jitsudounissuu>
+<enddate>2026/06/25</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/25</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/26</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/26</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/27</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/28</eventdate>
+<marker>▽</marker>
+<eventname>4/28 仕様書返却</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/15</eventdate>
+<marker>▼</marker>
+<eventname>6/25 Piab 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/19</eventdate>
+<marker>▼</marker>
+<eventname>6/30 コネクション加工 猪飼　予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/26</eventdate>
+<marker>●</marker>
+<eventname>7/6 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2397 FC.P200TX2.51.7.CA　　　　納期 2026/7/6  和久利
+杉本商事㈱　淡路営業所　26T-028A　納期 6/26
+㈱瑞光　本社工場</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/19</startdate>
+<nissuu>6.00</nissuu>
+<jitsudounissuu>4.00</jitsudounissuu>
+<enddate>2026/06/25</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/25</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/26</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/26</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/27</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/28</eventdate>
+<marker>▽</marker>
+<eventname>4/28 仕様書返却</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/15</eventdate>
+<marker>▼</marker>
+<eventname>6/325Piab 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/19</eventdate>
+<marker>▼</marker>
+<eventname>6/30 猪飼入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/26</eventdate>
+<marker>●</marker>
+<eventname>7/6 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2408 移設Piab 設置作業　　　　　納期 2026/7/7　齋木
+テクノリンク㈱ 26E-052
+磐田ポッカ食品　本社</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/22</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/06/23</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/06/20</eventdate>
+<marker>○</marker>
+<eventname>6/20-21 移設Piab設置作業　現地</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2426 制御プログラム構築費　　　納期 2026/7/7　　小川
+クラシエ㈱高岡工場　26D-034</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/07</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/07/08</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/07/07</eventdate>
+<marker>●</marker>
+<eventname>7/7 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2398ABC P.P64.SUS0.25T.CA 4台　納期 2026/7/10 小川
+㈱菊水製作所　本社 26E-049
+中外医薬生産㈱　ミドリヶ丘第三工場　　　現地有</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/29</startdate>
+<nissuu>9.00</nissuu>
+<jitsudounissuu>7.00</jitsudounissuu>
+<enddate>2026/07/08</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/09</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/07/10</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/10</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/07/11</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/10</eventdate>
+<marker>●</marker>
+<eventname>7/10 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/29</eventdate>
+<marker>▼</marker>
+<eventname>5/28 製作品入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FX0136 TAWI VM49/MPJC　　　　　納期 2026/7/21　齋木
+三井物産流通グループ㈱ 埼玉第一センター　25U-085A</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<chartlist>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/21</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/07/22</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/06/26</eventdate>
+<marker>▼</marker>
+<eventname>6/26 アムンゼン現地送り、現場</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/07/21</eventdate>
+<marker>●</marker>
+<eventname>7/21 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>70</height>
+<text>FK2354AB FC.P400.P4.51.7.FA　　　納期 2026/7/24 小川
+FK2406 ピアブ制御BOX 25E-358A,26E-016A
+㈱西村機械製作所　本社・研究所 25E-126E
+日本製鉄㈱九州製鉄所八幡地区　　　　　　　　　4台とも
+　　piab入荷開梱前後写真必要　シリアルと写真を合わす事</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/29</startdate>
+<nissuu>18.00</nissuu>
+<jitsudounissuu>14.00</jitsudounissuu>
+<enddate>2026/07/17</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/23</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/07/24</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/24</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/07/25</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/05/25</eventdate>
+<marker>▼</marker>
+<eventname>5/25 Piab 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/19</eventdate>
+<marker>▼</marker>
+<eventname>6/19 猪飼コネクション加工入荷</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/19</eventdate>
+<marker>▼</marker>
+<eventname>6/19 購入品入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/25</eventdate>
+<marker>▼</marker>
+<eventname>PPTS BOX x4 在庫振替（TC製作必要）</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/07/24</eventdate>
+<marker>●</marker>
+<eventname>7/24 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2366 FC.P400.SUS4.51.7.CA　　　納期 2026/7/24 齋木
+㈱MiRESSO 本社 25E-066
+㈱MiRESSO 八戸事業所</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/15</startdate>
+<nissuu>7.00</nissuu>
+<jitsudounissuu>4.00</jitsudounissuu>
+<enddate>2026/07/22</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/23</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/07/24</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/24</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/07/25</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/06/15</eventdate>
+<marker>▼</marker>
+<eventname>6/15 Piab入荷予定 3台</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/07/03</eventdate>
+<marker>▼</marker>
+<eventname>7/3 製作品、購入品入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/07/24</eventdate>
+<marker>●</marker>
+<eventname>7/24 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2413ABC P.P200.SUS2.51T.7.CA　　納期 2026/7/31 小川
+　　　　　P.P64.SUS0.25T.2.CA
+富士化学工業㈱　郷柿沢工場 26D-027C</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/22</startdate>
+<nissuu>7.00</nissuu>
+<jitsudounissuu>6.00</jitsudounissuu>
+<enddate>2026/07/29</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/30</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/07/31</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/31</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/08/01</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/05/21</eventdate>
+<marker>△</marker>
+<eventname>5/21 納入仕様書提出</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/05</eventdate>
+<marker>▽</marker>
+<eventname>6/5 納入仕様書返却</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/22</eventdate>
+<marker>▼</marker>
+<eventname>6/22 Piab入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/07/31</eventdate>
+<marker>▼</marker>
+<eventname>7/31 猪飼入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/07/31</eventdate>
+<marker>▼</marker>
+<eventname>7/31 購入品入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/07/31</eventdate>
+<marker>●</marker>
+<eventname>7/31 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/08/18</eventdate>
+<marker>▼</marker>
+<eventname>8/18 制御盤入荷予定 MEINAN</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/08/18</eventdate>
+<marker>▼</marker>
+<eventname>8/18 移動昇降リフタ　猪飼入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/08/18</eventdate>
+<marker>▼</marker>
+<eventname>8/18 ワタナベ入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2421 P.P64.SUS0.25T.2.CBA　2台　納期 2026/7/31 小川
+フロイント産業㈱　大阪事業所 24E-325B
+大原薬品工業㈱　市場工場</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/22</startdate>
+<nissuu>7.00</nissuu>
+<jitsudounissuu>6.00</jitsudounissuu>
+<enddate>2026/07/29</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/30</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/07/31</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/31</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/08/01</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/06/25</eventdate>
+<marker>▼</marker>
+<eventname>在庫振替</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/07/17</eventdate>
+<marker>▼</marker>
+<eventname>7/17 加工品、購入品、制御盤 SD入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/07/31</eventdate>
+<marker>●</marker>
+<eventname>7/31 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2419AB OKTMAT SUS INOX　　　　　　納期 2026/8/1 齋木
+㈱明治　本社 25F-098D
+㈱明治　十勝工場</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<chartlist>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/08/01</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>0.00</jitsudounissuu>
+<enddate>2026/08/02</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/07/10</eventdate>
+<marker>▼</marker>
+<eventname>7/10 Octmat 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/07/22</eventdate>
+<marker>▼</marker>
+<eventname>7/22 DMN 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/07/22</eventdate>
+<marker>▼</marker>
+<eventname>7/22 Piab入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/08/01</eventdate>
+<marker>●</marker>
+<eventname>8/1 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2351(KFK0031(FC.P400.P4.76.14.CBA　納期2026/8/5 齋木
+ジェイピーネクスト九州本社 25KE-22A
+㈱ベストアメニティファクトリー　玉名工場</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/24</startdate>
+<nissuu>7.00</nissuu>
+<jitsudounissuu>6.00</jitsudounissuu>
+<enddate>2026/07/31</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/08/03</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/08/04</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/08/05</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/08/06</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/08/20</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/08/21</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/08/22</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>0.00</jitsudounissuu>
+<enddate>2026/08/23</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/07/21</eventdate>
+<marker>▼</marker>
+<eventname>7/17 Piab ワタナベ　購入品 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/07/24</eventdate>
+<marker>▼</marker>
+<eventname>7/24 猪飼フェルール加工入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/08/05</eventdate>
+<marker>●</marker>
+<eventname>8/5 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>80</height>
+<text>FK2387ABC C2101-120 Q Textile AI φ32 1.0L　　和久利
+アンリツ㈱　さいたま営業チーム 25E-218B 納期2026/8/20
+㈱シンギ　静岡商品センター
+A.エーシンパック工業 25E-218B 2026/8/20
+B.㈱キョーワ         26E-059  2026/5/18
+C.㈱シンギ　静岡商品 26E-060A 2026/10/20</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/31</startdate>
+<nissuu>8.00</nissuu>
+<jitsudounissuu>6.00</jitsudounissuu>
+<enddate>2026/08/08</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/08/19</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/08/20</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/08/20</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/08/21</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/10/19</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/10/20</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/10/20</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/10/21</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/20</eventdate>
+<marker>▽</marker>
+<eventname>4/20 納品仕様書返却</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4210816</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/15</eventdate>
+<marker>△</marker>
+<eventname>5/15　先行支給品発送</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>8421376</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/18</eventdate>
+<marker>●</marker>
+<eventname>5/18 B　㈱キョーワ納品日.</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/08/20</eventdate>
+<marker>●</marker>
+<eventname>8/20 A. エーシンパック 納品日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/10/20</eventdate>
+<marker>●</marker>
+<eventname>10/20 C. ㈱シンギ　静岡商品センター納品日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2422 FC.P400.AP2.51.7.CBA　　　納期 2026/9/4 和久利
+㈱テクニカ　千葉工場 26E-055C
+高保製薬工業㈱　本社工場</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/08/25</startdate>
+<nissuu>7.00</nissuu>
+<jitsudounissuu>5.00</jitsudounissuu>
+<enddate>2026/09/01</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/09/03</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/09/04</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/09/04</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/09/05</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/08/21</eventdate>
+<marker>▼</marker>
+<eventname>8/21 Piab入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/08/28</eventdate>
+<marker>▼</marker>
+<eventname>8/28 ヘルール加工_猪飼</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/09/04</eventdate>
+<marker>●</marker>
+<eventname>9/4 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2420 P.P64.SUS4.25T.2.CA　　　　納期 2026/9/7 和久利
+㈱東陽機械製作所 本社・工場 25E-139D
+EAファーマ㈱　福島事業所</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/08/27</startdate>
+<nissuu>7.00</nissuu>
+<jitsudounissuu>5.00</jitsudounissuu>
+<enddate>2026/09/03</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/09/04</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/09/05</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/09/07</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/09/08</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/09/07</eventdate>
+<marker>●</marker>
+<eventname>9/7 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2405 OKTMAT ECO　4台　　　　　　納期 2026/6/30　小川
+古河電気工業㈱　三重事業所　25U-098B
+            　　　　　　　　　　　 現地　9月工事予定</text>
+<color>16777215</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定　　６月中の納品　工事は９月</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/17</startdate>
+<nissuu>3.00</nissuu>
+<jitsudounissuu>3.00</jitsudounissuu>
+<enddate>2026/06/20</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/06/30</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/07/01</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/24</eventdate>
+<marker>▽</marker>
+<eventname>4/24 仕様書返却</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/05</eventdate>
+<marker>▼</marker>
+<eventname>6/5 HELIOS 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/30</eventdate>
+<marker>●</marker>
+<eventname>6/30 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/09/02</eventdate>
+<marker>◎</marker>
+<eventname>6/25-26 現地据付予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2416 P.P64.SUS0.25T.2.CA　　　納期 2026/9/10 和久利
+㈱菊水製作所　本社 25E-301A
+剤盛堂製薬㈱本社工場</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/08/29</startdate>
+<nissuu>7.00</nissuu>
+<jitsudounissuu>5.00</jitsudounissuu>
+<enddate>2026/09/05</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/09/08</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/09/09</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/09/09</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/09/10</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/07/28</eventdate>
+<marker>▼</marker>
+<eventname>7/28 電気制御盤 SD 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/08/10</eventdate>
+<marker>▼</marker>
+<eventname>8/10 購入品入荷</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/08/17</eventdate>
+<marker>▼</marker>
+<eventname>8/17 猪飼、ワタナベ入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/09/09</eventdate>
+<marker>●</marker>
+<eventname>9/10 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2430 FC.P100.P2.51.3.CBA　　　納期 2026/9/11 小川
+ホソカワミクロン㈱本社・大阪工場 25E-291B
+㈱木長園　本社</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/06/09</eventdate>
+<marker>△</marker>
+<eventname>6/9 納入仕様書提出</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/19</eventdate>
+<marker>▽</marker>
+<eventname>6/19 納入仕様書返却</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/07/27</eventdate>
+<marker>▼</marker>
+<eventname>7/27 piab 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/09/11</eventdate>
+<marker>●</marker>
+<eventname>9/11 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FX0137 TAWI VM50　　　　　　　　　納期 2026/9/17
+カワサキ機工㈱ 26E-082
+堀口園</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/09/17</eventdate>
+<marker>●</marker>
+<eventname>9/17 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2111AB FC.P400.SUS4.51.7.CA　　　納期 2026/9/18 小川
+清水建設㈱　本社 26E-048A
+キョーリン製薬グループ工場㈱　高岡工場</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/09/08</startdate>
+<nissuu>7.00</nissuu>
+<jitsudounissuu>5.00</jitsudounissuu>
+<enddate>2026/09/15</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/09/17</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/09/18</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/09/18</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/09/19</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/09/18</eventdate>
+<marker>●</marker>
+<eventname>9/18 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2027/04/23</eventdate>
+<marker>●</marker>
+<eventname>4/23 B　売上予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>55</height>
+<text>FK2381 P.P200.PR2.51T.CA　　　　納期 2026/10/15 和久利
+FK2402 現地対応費 26E-060　　　納期 2026/12/15
+千代田エスクワンエンジニア㈱ 本社 25E-057E
+大原薬品工業㈱ 市場工場</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/10/05</startdate>
+<nissuu>7.00</nissuu>
+<jitsudounissuu>5.00</jitsudounissuu>
+<enddate>2026/10/12</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/10/14</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/10/15</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/10/15</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/10/16</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/30</eventdate>
+<marker>▽</marker>
+<eventname>4/30 納入仕様書返却</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/10/15</eventdate>
+<marker>●</marker>
+<eventname>10/15 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/12/15</eventdate>
+<marker>◎</marker>
+<eventname>12/15 現地</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2424AB FC.VC2.SUS4.51T.7.CBA　　納期 2026/10/15 齋木
+清水建設㈱本社 25E-319E
+池田糖化工業㈱　簑島工場</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/10/15</eventdate>
+<marker>●</marker>
+<eventname>10/15 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2364 ピアブOH点検作業費　　　　納期 2026/10/20　小川
+東亞薬品㈱　富山工場 24D-096A
+　　　　　　　　　　　　　　　　　現地有</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/10/07</startdate>
+<nissuu>7.00</nissuu>
+<jitsudounissuu>4.00</jitsudounissuu>
+<enddate>2026/10/14</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/10/19</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/10/20</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/10/20</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/10/21</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/10/20</eventdate>
+<marker>●</marker>
+<eventname>10/20 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2427 FC.P100.P2.38.FA　　　　納期 2026/10/23　和久利
+三菱ケミカル㈱　中日本事業所 26U-025C　　現地無し
+完成図書 4部</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/10/23</eventdate>
+<marker>●</marker>
+<eventname>10/23 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2412 P.P64.SUS0.25T.2.CA　　　　納期 2026/11/9　齋木
+㈱東陽機械製作所　本社 25E-363A
+至誠堂製薬　本社工場</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/10/28</startdate>
+<nissuu>10.00</nissuu>
+<jitsudounissuu>7.00</jitsudounissuu>
+<enddate>2026/11/07</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/28</eventdate>
+<marker>△</marker>
+<eventname>4/28 仕様書提出</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/08</eventdate>
+<marker>▽</marker>
+<eventname>5/29 仕様書返却予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/11/09</eventdate>
+<marker>●</marker>
+<eventname>11/9 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2386 OKTMAT SOS 2台　　　　　　　納期 2026/8/7 齋木
+㈱KIDA 本社 25T-077C
+積水化学工業㈱ 滋賀水口工場　　　現地 12月に延期</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<chartlist>
+<chart>
+<text>作業予定</text>
+<color>65280</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/07/28</startdate>
+<nissuu>7.00</nissuu>
+<jitsudounissuu>5.00</jitsudounissuu>
+<enddate>2026/08/04</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/08/06</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/08/07</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2026/08/07</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2026/08/08</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/24</eventdate>
+<marker>▽</marker>
+<eventname>4/24 仕様書返却</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4194432</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/06/10</eventdate>
+<marker>▼</marker>
+<eventname>6/10頃 HELIOS 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/08/07</eventdate>
+<marker>●</marker>
+<eventname>8/7  納品予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/08/11</eventdate>
+<marker>◎</marker>
+<eventname>8/11-12 設置工事予定_鬼頭、山下、津田</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/08/14</eventdate>
+<marker>◎</marker>
+<eventname>8/14 試運転_鬼頭</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2431 FC.P400.P4.51.7.CA　　　　納期 2026/12/4 齋木
+アクトシステムエンジニアリング㈱　本社 26E-057
+㈱カーリット　群馬工場　　現地無　データ</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/12/04</eventdate>
+<marker>●</marker>
+<eventname>12/4 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>55</height>
+<text>FK2400AB P.P64.SUS0.25T.2.CA　　納期 2026/12/15 和久利
+FK2401 現地試運転費用 25E-351B　  納期 2027/3/31
+㈱ダルトン　大阪イノベーションセンター 25E-149C
+同上/EAファーマ㈱福島事業所</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/12/15</eventdate>
+<marker>●</marker>
+<eventname>12/15 納入予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2027/03/31</eventdate>
+<marker>●</marker>
+<eventname>3/31 現地試運転</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>55</height>
+<text>FK2322 P.P100.SUS1.51T.4.CA 8台　納期2027/2/1　
+東レエンジニアリング㈱　関西本社 24E-246C
+㈱ツムラ　茨城工場
+FK2325 現地試運転費用 25E-311　現地 2027/8/25</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2027/01/29</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2027/01/30</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2027/02/01</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2027/02/02</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/04/20</eventdate>
+<marker>▼</marker>
+<eventname>4/20 Piab部品 入手予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/04/30</eventdate>
+<marker>▼</marker>
+<eventname>5/29 オサメバタ弁入荷予定 ワタナベ支給</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/29</eventdate>
+<marker>▼</marker>
+<eventname>5/29 Piab 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2027/02/01</eventdate>
+<marker>●</marker>
+<eventname>2/1 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2027/08/25</eventdate>
+<marker>▲</marker>
+<eventname>8/25 現地試運転</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>16711680</color>
+</font>
+<line>0</line>
+<position>1</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2324 P.P200.SUS1.51T.14.FO 4台　納期 2027/2/3
+東レエンジニアリングPフロンティア㈱ 24E-247C
+㈱ツムラ　茨城工場</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2027/02/02</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2027/02/03</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2027/02/03</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2027/02/04</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/05/07</eventdate>
+<marker>▼</marker>
+<eventname>5/7 Piab 部品入手予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2026/05/29</eventdate>
+<marker>▼</marker>
+<eventname>5/29 オサメ バタ弁入荷予定 ワタナベへ支給</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2027/02/03</eventdate>
+<marker>●</marker>
+<eventname>2/3 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>56</height>
+<text>FK2410ABC FC.P400.SUS4.76.33.CBA　　　　　　　和久利
+          FC.P400.SUS4.51.7.CBA　納期 2027/3/1
+東陽機械㈱　本社 25E-191C
+三菱商事ライフサイエンス㈱　堺工場</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2027/03/01</eventdate>
+<marker>●</marker>
+<eventname>3/1 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+<item>
+<height>50</height>
+<text>FK2357 P.P400.SUS4.51T.3.0.0　　　納期 2027/5/20　小川
+佐藤薬品工業㈱ 本社工場 25D-043D　　　現地有</text>
+<color>-16777211</color>
+<alignment>0</alignment>
+<chartcnt>1</chartcnt>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<chartlist>
+<chart>
+<text>出荷日</text>
+<color>65535</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2027/05/12</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2027/05/13</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+<chart>
+<text>納品日</text>
+<color>255</color>
+<alignment>2</alignment>
+<font>
+<name>ＭＳ ゴシック</name>
+<size>9</size>
+<color>-16777208</color>
+</font>
+<startdate>2027/05/13</startdate>
+<nissuu>1.00</nissuu>
+<jitsudounissuu>1.00</jitsudounissuu>
+<enddate>2027/05/14</enddate>
+<line>0</line>
+<yotei>0</yotei>
+<jisseki>0</jisseki>
+<ritsu>0</ritsu>
+<bikou></bikou>
+<group></group>
+</chart>
+</chartlist>
+<eventlist>
+<event>
+<eventdate>2026/12/11</eventdate>
+<marker>▼</marker>
+<eventname>12/11 MEINAN制御盤 入荷予定</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>4227327</color>
+</font>
+<line>0</line>
+<position>2</position>
+<endflg>0</endflg>
+</event>
+<event>
+<eventdate>2027/05/13</eventdate>
+<marker>●</marker>
+<eventname>5/20 納品予定日</eventname>
+<font>
+<name>ＭＳ Ｐゴシック</name>
+<size>9</size>
+<color>255</color>
+</font>
+<line>0</line>
+<position>0</position>
+<endflg>0</endflg>
+</event>
+</eventlist>
+</item>
+</itemlist>
+</schedule>
