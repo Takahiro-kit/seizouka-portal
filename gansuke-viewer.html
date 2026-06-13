@@ -16,7 +16,8 @@
   --cyan:#0e7490;--cyan-bg:#cffafe;
   --red:#b91c1c;--red-bg:#fee2e2;
   --blue:#1d4ed8;--blue-bg:#dbeafe;
-  --row-h:40px;--label-w:290px;--dh-h:52px;
+  --row-h:40px;--label-w:290px;--dh-h:104px;
+  --dh-top-h:48px;--dh-bot-h:56px;--dh-font:20px;--dh-month-font:22px;
   --bar-h:22px;--bar-top:9px;--bar-font:10px;
   --event-top:3px;--event-font:15px;
   --lrow-main-font:11px;--lrow-sub-font:9px;
@@ -66,13 +67,15 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
 .shell{display:flex;flex:1;overflow:hidden;}
 
 /* LEFT */
-.lcol{width:var(--label-w);min-width:var(--label-w);flex-shrink:0;border-right:2px solid var(--border2);background:var(--white);display:flex;flex-direction:column;z-index:10;}
+.lcol{width:var(--label-w);min-width:var(--label-w);flex-shrink:0;border-right:2px solid var(--border2);background:var(--white);display:flex;flex-direction:column;z-index:10;position:relative;}
+.lresize{position:absolute;top:0;right:-5px;width:10px;height:100%;cursor:col-resize;z-index:25;background:transparent;}
+.lresize:hover{background:rgba(29,78,216,.12);}
 .lhead{height:var(--dh-h);display:flex;align-items:center;padding:0 12px;background:var(--bg);border-bottom:1.5px solid var(--border2);font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.06em;text-transform:uppercase;flex-shrink:0;}
 .lbody{flex:1;overflow:hidden;}
 .lrow{height:var(--row-h);display:flex;flex-direction:column;justify-content:center;padding:0 12px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;}
 .lrow:hover{background:var(--acc-light);}
-.lrow-main{font-size:var(--lrow-main-font);font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:266px;}
-.lrow-sub{font-size:var(--lrow-sub-font);color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:266px;margin-top:1px;}
+.lrow-main{font-size:var(--lrow-main-font);font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(var(--label-w) - 24px);}
+.lrow-sub{font-size:var(--lrow-sub-font);color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(var(--label-w) - 24px);margin-top:1px;}
 
 /* RIGHT */
 .rcol{flex:1;overflow:hidden;display:flex;flex-direction:column;}
@@ -81,10 +84,10 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
 
 /* DATE HEADER */
 .dh{position:sticky;top:0;z-index:15;background:var(--white);border-bottom:2px solid var(--border2);}
-.dh-top{display:flex;height:24px;border-bottom:1px solid var(--border);}
-.dh-bot{display:flex;height:28px;}
-.dhc{display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--text2);border-right:1px solid var(--border);flex-shrink:0;overflow:hidden;white-space:nowrap;}
-.dhc.mth{background:var(--bg);font-size:11px;font-weight:700;color:var(--text);}
+.dh-top{display:flex;height:var(--dh-top-h);border-bottom:1px solid var(--border);}
+.dh-bot{display:flex;height:var(--dh-bot-h);}
+.dhc{display:flex;align-items:center;justify-content:center;font-size:var(--dh-font);font-weight:600;color:var(--text2);border-right:1px solid var(--border);flex-shrink:0;overflow:hidden;white-space:nowrap;}
+.dhc.mth{background:var(--bg);font-size:var(--dh-month-font);font-weight:700;color:var(--text);}
 .dhc.we{background:#fef9ef;color:#b45309;}
 .dhc.td{background:#fef2f2;color:var(--today);font-weight:800;}
 
@@ -169,10 +172,10 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
 <div id="up">
   <div class="up-card">
     <div style="font-size:46px;margin-bottom:16px" id="up-icon">⏳</div>
-    <div style="font-size:18px;font-weight:700;margin-bottom:8px" id="up-title">スケジュールデータを読み込み中...</div>
-    <div style="font-size:12px;color:var(--text2);line-height:1.8" id="up-msg">gansuke.xml を取得しています</div>
+    <div style="font-size:18px;font-weight:700;margin-bottom:8px" id="up-title">XMLファイルを選択してください</div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.8" id="up-msg">埋め込みデータが無い場合は手動でXMLを読み込みます</div>
     <div style="margin-top:20px;font-size:11px;color:var(--text3)" id="up-sub"></div>
-    <div style="margin-top:24px;display:none" id="up-manual">
+    <div style="margin-top:24px;display:block" id="up-manual">
       <div style="font-size:11px;color:var(--text2);margin-bottom:12px">または手動でXMLを選択：</div>
       <div class="dz" id="dz" onclick="document.getElementById('fi').click()">
         <div style="font-size:26px;margin-bottom:6px">📂</div>
@@ -193,11 +196,6 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
       <button class="vb" data-v="day">日</button>
       <button class="vb" data-v="week">週</button>
       <button class="vb on" data-v="month">月</button>
-      <button class="vb" data-v="2m">2ヶ月</button>
-      <button class="vb" data-v="3m">3ヶ月</button>
-      <button class="vb" data-v="6m">6ヶ月</button>
-      <button class="vb" data-v="1y">1年</button>
-      <button class="vb" data-v="custom">任意</button>
     </div>
     <button class="nav-btn" id="prev-btn">◀</button>
     <span class="period-label" id="period-label"></span>
@@ -218,13 +216,6 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
       </svg>
     </button>
     <button class="reset-btn" onclick="resetTimelineZoom()" title="標準倍率に戻す">100%</button>
-    <div id="custom-ui" style="display:none;align-items:center;gap:6px;">
-      <span style="font-size:11px;color:var(--text2);white-space:nowrap">開始</span>
-      <input type="date" id="custom-s" style="font-size:11px;padding:5px 7px;border:1.5px solid var(--border2);border-radius:6px;font-family:var(--sans);background:var(--white);color:var(--text);">
-      <span style="font-size:11px;color:var(--text2)">〜</span>
-      <input type="date" id="custom-e" style="font-size:11px;padding:5px 7px;border:1.5px solid var(--border2);border-radius:6px;font-family:var(--sans);background:var(--white);color:var(--text);">
-      <button onclick="applyCustom()" style="background:var(--accent);color:#fff;border:none;border-radius:6px;padding:6px 12px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--sans);">適用</button>
-    </div>
     <button class="today-btn" onclick="goToday()">今日</button>
     <button class="reset-btn" id="search-toggle-btn" onclick="toggleSearch()">🔍 検索・絞り込み</button>
     <button class="reset-btn" onclick="openManual()">📂 手動で開く</button>
@@ -235,6 +226,27 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
       <input type="text" class="sp-input" id="sp-input" placeholder="FK番号・FS番号・案件名・担当者など..." oninput="doSearch()">
       <button class="sp-btn clear" onclick="clearSearch()">クリア</button>
       <span class="sp-count" id="sp-count"></span>
+    </div>
+    <div class="spanel-row">
+      <span class="sp-label">並び替え</span>
+      <select class="sp-input" id="sort-select" onchange="setSortMode(this.value)" style="max-width:150px;">
+        <option value="original">元順</option>
+        <option value="due">納期順</option>
+        <option value="fk">FK番号順</option>
+      </select>
+      <span class="sp-label">出荷月</span>
+      <input type="month" class="sp-input" id="ship-month" onchange="applyFilterAndSort()" style="max-width:140px;">
+      <span class="sp-label">出荷範囲</span>
+      <input type="date" class="sp-input" id="ship-start" onchange="applyFilterAndSort()" style="max-width:140px;">
+      <span style="font-size:11px;color:var(--text2)">〜</span>
+      <input type="date" class="sp-input" id="ship-end" onchange="applyFilterAndSort()" style="max-width:140px;">
+      <span class="sp-label">件数</span>
+      <select class="sp-input" id="row-limit" onchange="applyFilterAndSort()" style="max-width:90px;">
+        <option value="all">全件</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="200">200</option>
+      </select>
     </div>
     <div id="sp-tags" style="display:flex;gap:4px;flex-wrap:wrap;min-height:0;"></div>
   </div>
@@ -256,6 +268,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
         <span>案件名</span><span class="sort-icon" id="sort-icon">⇅</span>
       </div>
       <div class="lbody" id="lbody"></div>
+      <div class="lresize" id="lresize" title="案件名欄の幅を調整"></div>
     </div>
     <div class="rcol">
       <div class="tl-sc" id="tlsc">
@@ -381,31 +394,16 @@ function stepPeriod(v, anchor, dir){
 }
 
 // ══════════════════════════════
-// AUTO LOAD & MANUAL UPLOAD
+// EMBEDDED XML & MANUAL UPLOAD
 // ══════════════════════════════
 
-// HTMLと同じフォルダの gansuke.xml を自動取得
-const XML_FILENAME = 'ガンすけ（製造課用）.xml';
-
-async function autoLoad(){
-  const url = XML_FILENAME + '?nocache=' + Date.now();
-  try{
-    const res = await fetch(url);
-    if(!res.ok) throw new Error(`HTTP ${res.status}`);
-    const buf = await res.arrayBuffer();
-    const text = new TextDecoder('shift_jis').decode(buf);
-    startApp(text, XML_FILENAME);
-  } catch(err){
-    // 自動読み込み失敗 → 手動選択を促す
-    document.getElementById('up-icon').textContent = '⚠️';
-    document.getElementById('up-title').textContent = 'XMLを読み込めませんでした';
-    document.getElementById('up-msg').textContent =
-      `「${XML_FILENAME}」がこのHTMLと同じフォルダにあるか確認してください。`;
-    document.getElementById('up-sub').textContent = `エラー: ${err.message}`;
-    document.getElementById('up-manual').style.display = 'block';
-    // ドロップ・ファイル選択を有効化
-    setupManualUpload();
-  }
+function showManualPrompt_(){
+  document.getElementById('up-icon').textContent = '📂';
+  document.getElementById('up-title').textContent = 'XMLファイルを選択してください';
+  document.getElementById('up-msg').textContent = '生成ツールで埋め込まれたXMLが無い場合は、手動でXMLを読み込めます';
+  document.getElementById('up-sub').textContent = '';
+  document.getElementById('up-manual').style.display = 'block';
+  setupManualUpload();
 }
 
 function setupManualUpload(){
@@ -439,8 +437,11 @@ function startApp(text, filename){
   ROWS=[...ALL];
   periodStart=new Date(TODAY);
   collectMarkers();
-  updateCount();
+  updateSortUi();
+  applyZoomVars();
+  initColumnResize();
   renderAll();
+  updateCount();
 }
 
 function openManual(){
@@ -455,7 +456,8 @@ function doReset(){
   document.getElementById('up').style.display='flex';
   document.getElementById('app').style.display='none';
   document.getElementById('fi').value='';
-  document.getElementById('srch').value='';
+  const sp=document.getElementById('sp-input');
+  if(sp)sp.value='';
 }
 
 // ページロード時に自動実行
@@ -463,7 +465,7 @@ window.addEventListener('DOMContentLoaded', function(){
   if(typeof EMBEDDED_XML === 'string' && EMBEDDED_XML.length > 0){
     startApp(EMBEDDED_XML, 'ガンすけ（製造課用）.xml');
   } else {
-    autoLoad();
+    showManualPrompt_();
   }
 });
 
@@ -492,7 +494,7 @@ function parseG(text){
       events.push({date:d,name:(ev.querySelector('eventname')?.textContent||'').replace(/\n/g,' ').trim(),
         marker:ev.querySelector('marker')?.textContent||'●'});
     });
-    ALL.push({item:txt,charts,events});
+    ALL.push({item:txt,charts,events,sourceIndex:ALL.length});
   });
 }
 
@@ -576,23 +578,96 @@ function bCls(l){if(l.includes('作業'))return'g';if(l.includes('出荷'))retur
 // ══════════════════════════════
 // SORT
 // ══════════════════════════════
-let sortMode=0; // 0=元順, 1=昇順, 2=降順
-const SORT_ICONS=['⇅','↑↑','↓↓'];
-const SORT_LABELS=['元の順番','案件名 昇順（A→Z）','案件名 降順（Z→A）'];
+let sortMode='original';
+const SORT_ICONS={original:'⇅',due:'納',fk:'FK'};
+const SORT_LABELS={original:'元の順番',due:'納期順',fk:'FK番号順'};
 
 function cycleSort(){
-  sortMode=(sortMode+1)%3;
-  document.getElementById('sort-icon').textContent=SORT_ICONS[sortMode];
-  document.getElementById('lhead').title=SORT_LABELS[sortMode];
+  const order=['original','due','fk'];
+  sortMode=order[(order.indexOf(sortMode)+1)%order.length];
+  const sel=document.getElementById('sort-select');
+  if(sel)sel.value=sortMode;
+  updateSortUi();
   applyFilterAndSort();
 }
 
+function setSortMode(v){
+  sortMode=v||'original';
+  updateSortUi();
+  applyFilterAndSort();
+}
+
+function updateSortUi(){
+  const icon=document.getElementById('sort-icon');
+  const head=document.getElementById('lhead');
+  if(icon)icon.textContent=SORT_ICONS[sortMode]||'⇅';
+  if(head)head.title=SORT_LABELS[sortMode]||'元の順番';
+}
+
 function getSorted(arr){
-  if(sortMode===0)return [...arr];
+  if(sortMode==='original')return [...arr].sort((a,b)=>(a.sourceIndex||0)-(b.sourceIndex||0));
   return [...arr].sort((a,b)=>{
-    const r=a.item.localeCompare(b.item,'ja');
-    return sortMode===1?r:-r;
+    if(sortMode==='due'){
+      const ad=getDueDate(a),bd=getDueDate(b);
+      if(ad&&bd&&ad.getTime()!==bd.getTime())return ad-bd;
+      if(ad&&!bd)return -1;
+      if(!ad&&bd)return 1;
+    }
+    if(sortMode==='fk'){
+      const af=getFkNumber(a),bf=getFkNumber(b);
+      if(af!==bf)return af-bf;
+    }
+    return (a.sourceIndex||0)-(b.sourceIndex||0);
   });
+}
+
+function rowText(row){
+  return [
+    row.item,
+    ...row.charts.flatMap(c=>[c.label,c.start,c.end,c.bikou,c.nissuu]),
+    ...row.events.flatMap(ev=>[ev.date,ev.name,ev.marker])
+  ].join(' ');
+}
+
+function getFkNumber(row){
+  const m=rowText(row).match(/FK\s*[-:：]?\s*0*([0-9]+)/i);
+  return m?Number(m[1]):Number.MAX_SAFE_INTEGER;
+}
+
+function getDueDate(row){
+  const priority=row.charts.filter(c=>/納期|納品/.test(c.label));
+  const candidates=(priority.length?priority:row.charts).map(c=>pd(c.end)).filter(Boolean);
+  if(!candidates.length)return null;
+  return candidates.sort((a,b)=>a-b)[0];
+}
+
+function getShipmentSpans(row){
+  return row.charts
+    .filter(c=>/出荷/.test(c.label))
+    .map(c=>({start:pd(c.start),end:pd(c.end)}))
+    .filter(s=>s.start||s.end);
+}
+
+function spanOverlaps(s,a,b){
+  const ss=s.start||s.end,ee=s.end||s.start;
+  if(!ss||!ee)return false;
+  return ss<=b&&ee>=a;
+}
+
+function matchesShipmentMonth(row,monthValue){
+  if(!monthValue)return true;
+  const [y,m]=monthValue.split('-').map(Number);
+  if(!y||!m)return true;
+  const a=new Date(y,m-1,1),b=new Date(y,m,0);
+  return getShipmentSpans(row).some(s=>spanOverlaps(s,a,b));
+}
+
+function matchesShipmentRange(row,startValue,endValue){
+  if(!startValue&&!endValue)return true;
+  const a=startValue?new Date(startValue):new Date(1900,0,1);
+  const b=endValue?new Date(endValue):new Date(2999,11,31);
+  a.setHours(0,0,0,0);b.setHours(0,0,0,0);
+  return getShipmentSpans(row).some(s=>spanOverlaps(s,a,b));
 }
 
 // ══════════════════════════════
@@ -645,24 +720,35 @@ function clearSearch(){
   searchTerms=[];
   document.getElementById('sp-input').value='';
   document.getElementById('sp-tags').innerHTML='';
-  ROWS=getSorted(ALL);
-  updateCount();
-  renderAll();
+  const sm=document.getElementById('ship-month');if(sm)sm.value='';
+  const ss=document.getElementById('ship-start');if(ss)ss.value='';
+  const se=document.getElementById('ship-end');if(se)se.value='';
+  const rl=document.getElementById('row-limit');if(rl)rl.value='all';
+  applyFilterAndSort();
 }
 
 function applyFilterAndSort(){
   const live=document.getElementById('sp-input').value.trim().toLowerCase();
   const allTerms=[...searchTerms.map(t=>t.toLowerCase()),(live?[live]:[])].flat();
-  if(allTerms.length===0){
-    ROWS=getSorted(ALL);
-  } else {
-    ROWS=getSorted(ALL.filter(r=>{
-      const hay=r.item.toLowerCase();
-      return allTerms.every(t=>hay.includes(t));
-    }));
-  }
+  const shipMonth=document.getElementById('ship-month')?.value||'';
+  const shipStart=document.getElementById('ship-start')?.value||'';
+  const shipEnd=document.getElementById('ship-end')?.value||'';
+  const rowLimit=document.getElementById('row-limit')?.value||'all';
+  let filtered=ALL.filter(r=>{
+    const hay=rowText(r).toLowerCase();
+    if(allTerms.length&& !allTerms.every(t=>hay.includes(t)))return false;
+    if(!matchesShipmentMonth(r,shipMonth))return false;
+    if(!matchesShipmentRange(r,shipStart,shipEnd))return false;
+    return true;
+  });
+  const totalAfterFilter=filtered.length;
+  filtered=getSorted(filtered);
+  if(rowLimit!=='all')filtered=filtered.slice(0,Number(rowLimit)||filtered.length);
+  ROWS=filtered;
   updateCount();
   renderAll();
+  const el=document.getElementById('sp-count');
+  if(el&&ROWS.length<totalAfterFilter)el.textContent+=`（${totalAfterFilter}件中）`;
 }
 
 function updateCount(){
@@ -679,7 +765,14 @@ function applyZoomVars(){
   const barTop = Math.max(2, Math.round((rowH - barH) / 2));
   const eventFont = Math.max(10, Math.min(rowH - 6, Math.round(15 * z)));
   const eventTop = Math.max(1, Math.round((rowH - eventFont) / 2));
+  const dhTopH = Math.max(32, Math.round(48 * z));
+  const dhBotH = Math.max(36, Math.round(56 * z));
   document.documentElement.style.setProperty('--row-h', rowH + 'px');
+  document.documentElement.style.setProperty('--dh-top-h', dhTopH + 'px');
+  document.documentElement.style.setProperty('--dh-bot-h', dhBotH + 'px');
+  document.documentElement.style.setProperty('--dh-h', (dhTopH + dhBotH) + 'px');
+  document.documentElement.style.setProperty('--dh-font', Math.max(14, Math.round(20 * z)) + 'px');
+  document.documentElement.style.setProperty('--dh-month-font', Math.max(15, Math.round(22 * z)) + 'px');
   document.documentElement.style.setProperty('--bar-h', barH + 'px');
   document.documentElement.style.setProperty('--bar-top', barTop + 'px');
   document.documentElement.style.setProperty('--bar-font', Math.max(8, Math.round(10 * z)) + 'px');
@@ -990,28 +1083,43 @@ document.getElementById('vbtns').addEventListener('click',e=>{
   document.querySelectorAll('.vb').forEach(x=>x.classList.remove('on'));
   b.classList.add('on');
   VIEW=b.dataset.v;
-  const cui=document.getElementById('custom-ui');
-  if(VIEW==='custom'){
-    cui.style.display='flex';
-    // 初期値: 今月
-    if(!customStart){
-      const s=new Date(TODAY.getFullYear(),TODAY.getMonth(),1);
-      const e=new Date(TODAY.getFullYear(),TODAY.getMonth()+1,0);
-      document.getElementById('custom-s').value=s.toISOString().slice(0,10);
-      document.getElementById('custom-e').value=e.toISOString().slice(0,10);
-    } else {
-      document.getElementById('custom-s').value=customStart.toISOString().slice(0,10);
-      document.getElementById('custom-e').value=customEnd.toISOString().slice(0,10);
-    }
-  } else {
-    cui.style.display='none';
-  }
   renderAll();
 });
 
 // ══════════════════════════════
 // RESIZE
 // ══════════════════════════════
+let labelResizeReady=false;
+function initColumnResize(){
+  if(labelResizeReady)return;
+  const handle=document.getElementById('lresize');
+  if(!handle)return;
+  labelResizeReady=true;
+  let startX=0,startW=0,dragging=false;
+  const setW=w=>{
+    const width=Math.max(180,Math.min(620,Math.round(w)));
+    document.documentElement.style.setProperty('--label-w',width+'px');
+  };
+  handle.addEventListener('mousedown',e=>{
+    dragging=true;
+    startX=e.clientX;
+    startW=document.querySelector('.lcol')?.getBoundingClientRect().width||290;
+    document.body.style.cursor='col-resize';
+    document.body.style.userSelect='none';
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove',e=>{
+    if(!dragging)return;
+    setW(startW+(e.clientX-startX));
+    renderTimeline();
+  });
+  window.addEventListener('mouseup',()=>{
+    if(!dragging)return;
+    dragging=false;
+    document.body.style.cursor='';
+    document.body.style.userSelect='';
+  });
+}
 window.addEventListener('resize',()=>renderTimeline());
 </script>
 </body>
