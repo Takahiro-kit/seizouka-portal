@@ -17,6 +17,9 @@
   --red:#b91c1c;--red-bg:#fee2e2;
   --blue:#1d4ed8;--blue-bg:#dbeafe;
   --row-h:40px;--label-w:290px;--dh-h:52px;
+  --bar-h:22px;--bar-top:9px;--bar-font:10px;
+  --event-top:3px;--event-font:15px;
+  --lrow-main-font:11px;--lrow-sub-font:9px;
   --sans:'Noto Sans JP',sans-serif;
 }
 body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh;overflow:hidden;display:flex;flex-direction:column;font-size:12px;}
@@ -43,6 +46,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
 .vb:hover:not(.on){background:var(--acc-light);}
 .nav-btn{background:var(--white);border:1.5px solid var(--border2);border-radius:6px;padding:5px 10px;font-size:13px;cursor:pointer;color:var(--text2);}
 .nav-btn:hover{background:var(--bg);}
+.zoom-btn{width:32px;height:30px;padding:3px;display:inline-flex;align-items:center;justify-content:center;}
+.zoom-icon{width:22px;height:22px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
 .period-label{font-size:12px;font-weight:600;color:var(--text);min-width:160px;text-align:center;}
 .today-btn{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--sans);}
 .today-btn:hover{background:#1840b0;}
@@ -66,8 +71,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
 .lbody{flex:1;overflow:hidden;}
 .lrow{height:var(--row-h);display:flex;flex-direction:column;justify-content:center;padding:0 12px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;}
 .lrow:hover{background:var(--acc-light);}
-.lrow-main{font-size:11px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:266px;}
-.lrow-sub{font-size:9px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:266px;margin-top:1px;}
+.lrow-main{font-size:var(--lrow-main-font);font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:266px;}
+.lrow-sub{font-size:var(--lrow-sub-font);color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:266px;margin-top:1px;}
 
 /* RIGHT */
 .rcol{flex:1;overflow:hidden;display:flex;flex-direction:column;}
@@ -92,13 +97,13 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
 .calbg.td-bg{background:rgba(220,38,38,.07);}
 .vl{position:absolute;top:0;bottom:0;width:1px;background:var(--border);pointer-events:none;}
 .vl.td-vl{background:var(--today);width:2px;z-index:4;opacity:.85;}
-.gbar{position:absolute;height:22px;top:9px;border-radius:4px;display:flex;align-items:center;padding:0 7px;font-size:10px;font-weight:700;color:#fff;cursor:pointer;z-index:3;overflow:hidden;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.18);transition:filter .1s;}
+.gbar{position:absolute;height:var(--bar-h);top:var(--bar-top);border-radius:4px;display:flex;align-items:center;padding:0 7px;font-size:var(--bar-font);font-weight:700;color:#fff;cursor:pointer;z-index:3;overflow:hidden;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.18);transition:filter .1s;}
 .gbar:hover{filter:brightness(.88);}
 .gbar.g{background:var(--green);}
 .gbar.c{background:var(--cyan);}
 .gbar.r{background:var(--red);}
 .gbar.b{background:var(--blue);}
-.gev{position:absolute;top:3px;font-size:15px;cursor:pointer;z-index:5;transform:translateX(-50%);transition:transform .1s;line-height:1;}
+.gev{position:absolute;top:var(--event-top);font-size:var(--event-font);cursor:pointer;z-index:5;transform:translateX(-50%);transition:transform .1s;line-height:1;}
 .gev:hover{transform:translateX(-50%) scale(1.2);}
 
 /* MODAL */
@@ -197,8 +202,21 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
     <button class="nav-btn" id="prev-btn">◀</button>
     <span class="period-label" id="period-label"></span>
     <button class="nav-btn" id="next-btn">▶</button>
-    <button class="nav-btn" onclick="zoomTimeline(-1)" title="縮小">🔍−</button>
-    <button class="nav-btn" onclick="zoomTimeline(1)" title="拡大">🔍＋</button>
+    <button class="nav-btn zoom-btn" onclick="zoomTimeline(-1)" title="縮小" aria-label="縮小">
+      <svg class="zoom-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="10" cy="10" r="6"></circle>
+        <line x1="14.5" y1="14.5" x2="20" y2="20"></line>
+        <line x1="7" y1="10" x2="13" y2="10"></line>
+      </svg>
+    </button>
+    <button class="nav-btn zoom-btn" onclick="zoomTimeline(1)" title="拡大" aria-label="拡大">
+      <svg class="zoom-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="10" cy="10" r="6"></circle>
+        <line x1="14.5" y1="14.5" x2="20" y2="20"></line>
+        <line x1="7" y1="10" x2="13" y2="10"></line>
+        <line x1="10" y1="7" x2="10" y2="13"></line>
+      </svg>
+    </button>
     <button class="reset-btn" onclick="resetTimelineZoom()" title="標準倍率に戻す">100%</button>
     <div id="custom-ui" style="display:none;align-items:center;gap:6px;">
       <span style="font-size:11px;color:var(--text2);white-space:nowrap">開始</span>
@@ -654,14 +672,32 @@ function updateCount(){
 
 function doFilter(){applyFilterAndSort();}  // 後方互換
 function goToday(){periodStart=new Date(TODAY);renderAll();}
+function applyZoomVars(){
+  const z = zoomLevel;
+  const rowH = Math.max(24, Math.min(160, Math.round(40 * z)));
+  const barH = Math.max(12, Math.min(rowH - 8, Math.round(22 * z)));
+  const barTop = Math.max(2, Math.round((rowH - barH) / 2));
+  const eventFont = Math.max(10, Math.min(rowH - 6, Math.round(15 * z)));
+  const eventTop = Math.max(1, Math.round((rowH - eventFont) / 2));
+  document.documentElement.style.setProperty('--row-h', rowH + 'px');
+  document.documentElement.style.setProperty('--bar-h', barH + 'px');
+  document.documentElement.style.setProperty('--bar-top', barTop + 'px');
+  document.documentElement.style.setProperty('--bar-font', Math.max(8, Math.round(10 * z)) + 'px');
+  document.documentElement.style.setProperty('--event-top', eventTop + 'px');
+  document.documentElement.style.setProperty('--event-font', eventFont + 'px');
+  document.documentElement.style.setProperty('--lrow-main-font', Math.max(9, Math.round(11 * z)) + 'px');
+  document.documentElement.style.setProperty('--lrow-sub-font', Math.max(8, Math.round(9 * z)) + 'px');
+}
 function zoomTimeline(dir){
   const factor = dir > 0 ? 1.25 : 0.8;
   zoomLevel = Math.max(0.35, Math.min(4, zoomLevel * factor));
-  renderTimeline();
+  applyZoomVars();
+  renderAll();
 }
 function resetTimelineZoom(){
   zoomLevel = 1;
-  renderTimeline();
+  applyZoomVars();
+  renderAll();
 }
 
 // ══════════════════════════════
