@@ -1570,7 +1570,7 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
           <div class="s-row-icon"><i class="ti ti-calendar-time"></i></div>
           <div class="s-row-body" style="display:grid;gap:8px;">
             <div class="s-row-title">ホーム表示の更新日</div>
-            <div class="s-row-desc">がんすけビューワーを更新した日時を保存します。時刻を空にすると現在時刻を使います。</div>
+            <div class="s-row-desc">「更新日を保存」を押すと現在の日時が保存されます。日付だけ変更した場合も、その日付＋現在時刻で保存します。</div>
             <div class="mgmt-updated-inputs">
               <input id="s-schedule-updated-date" class="s-input" type="date" aria-label="GansukeViewer更新日">
               <input id="s-schedule-updated-time" class="s-input mgmt-updated-time" type="time" aria-label="GansukeViewer更新時刻">
@@ -2108,16 +2108,38 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
 <script>
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbzueRIitHcmbZIjfS1iT7qsAY3awEHioinFms0NO6e9ieVtlJY-ekogHjzmwDhZjUfyBA/exec';
 /** GAS WebアプリへPOST（form-urlencoded の data= JSON が最も確実） */
-function gasPost(payload){
+function gasPost(payload, opts){
+  const options = Object.assign({ cors: false }, opts || {});
   const operatorName = getCurrentPortalOperatorName();
   const payloadObj = (payload && typeof payload === 'object')
     ? {...payload, operator: operatorName}
     : payload;
-  return fetch(GAS_URL,{
+  const body = 'data=' + encodeURIComponent(JSON.stringify(payloadObj));
+  if(!options.cors){
+    return fetch(GAS_URL, {
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body
+    });
+  }
+  return fetch(GAS_URL, {
     method:'POST',
-    mode:'no-cors',
+    mode:'cors',
     headers:{'Content-Type':'application/x-www-form-urlencoded'},
-    body:'data='+encodeURIComponent(JSON.stringify(payloadObj))
+    body
+  }).then(async (r)=>{
+    const text = await r.text();
+    let json;
+    try{
+      json = JSON.parse(text);
+    }catch(_e){
+      throw new Error('GAS応答の解析に失敗しました');
+    }
+    if(!r.ok || json.status === 'error'){
+      throw new Error(String(json.error || ('HTTP ' + r.status)));
+    }
+    return json;
   });
 }
 function postPortalAuditPayload(payloadObj, after){
@@ -4120,7 +4142,12 @@ function renameDownload(input){
   _shukkaUpdatedDate = getNowDateTimeStorage();
   renderManagementTileUpdatedDates();
   renderManagementUpdateDateSettings();
-  persistManagementUpdatedDate(SHUKKA_UPDATED_DATE_KEY, _shukkaUpdatedDate).catch(() => {
+  persistManagementUpdatedDate(SHUKKA_UPDATED_DATE_KEY, _shukkaUpdatedDate).then((saved)=>{
+    _shukkaUpdatedDate = saved;
+    patchPortalBootCacheSetting(SHUKKA_UPDATED_DATE_KEY, saved);
+    renderManagementTileUpdatedDates();
+    renderManagementUpdateDateSettings();
+  }).catch(() => {
     showToast('更新日の保存に失敗しました。設定画面で再保存してください');
   });
   logPortalAudit('ファイルリネーム', newName, { original: file.name, kind: 'shukka_rename' });
@@ -4595,6 +4622,16 @@ function writePortalBootCache(d){
     sessionStorage.setItem(PORTAL_BOOT_CACHE_KEY, JSON.stringify(d));
   }catch(_){}
 }
+function patchPortalBootCacheSetting(key, value){
+  try{
+    const cached = readPortalBootCache();
+    if(!cached) return;
+    cached.settings = cached.settings || {};
+    cached.settings[key] = value;
+    writePortalBootCache(cached);
+    _lastPortalPayloadJson = portalPayloadJson(cached);
+  }catch(_){}
+}
 async function loadData(opts){
   const options = opts || {};
   const force = !!options.force;
@@ -4758,15 +4795,12 @@ function readUpdatedDateTimeFromInputs(dateId, timeId){
   const time = timeInput && timeInput.value ? timeInput.value : nowTime;
   return `${date} ${time}`;
 }
-function readScheduleViewerUpdatedDateTimeFromInputs(){
+function buildScheduleViewerUpdatedDateTimeForSave(){
   const dateInput = document.getElementById('s-schedule-updated-date');
-  const timeInput = document.getElementById('s-schedule-updated-time');
-  const date = normalizePortalDateValue(dateInput ? dateInput.value : '');
+  const manualDate = normalizePortalDateValue(dateInput ? dateInput.value : '');
   const now = new Date();
-  const nowTime = `${p(now.getHours())}:${p(now.getMinutes())}`;
-  if(!date) return getNowDateTimeStorage();
-  const time = timeInput && timeInput.value ? timeInput.value : nowTime;
-  return `${date} ${time}`;
+  if(!manualDate) return getNowDateTimeStorage();
+  return `${manualDate} ${p(now.getHours())}:${p(now.getMinutes())}`;
 }
 function formatMgmtUpdatedDateTime(raw){
   const d = parsePortalDateTime(raw);
@@ -4802,16 +4836,22 @@ function applyManagementUpdateDatesFromData(d){
   renderManagementUpdateDateSettings();
 }
 async function persistManagementUpdatedDate(key, value){
-  await gasPost({sheet:'設定_UPDATE', key, value:normalizePortalDateTimeStorage(value)});
+  const normalized = normalizePortalDateTimeStorage(value);
+  await gasPost({sheet:'設定_UPDATE', key, value:normalized}, { cors: true });
+  return normalized;
 }
 async function saveShukkaUpdatedDate(btnEl){
   if(btnEl && btnEl.disabled) return;
   _shukkaUpdatedDate = readUpdatedDateTimeFromInputs('s-shukka-updated-date', 's-shukka-updated-time');
   renderManagementTileUpdatedDates();
+  renderManagementUpdateDateSettings();
   setAdminActionLoading(btnEl, true, '保存中...');
   try{
-    await persistManagementUpdatedDate(SHUKKA_UPDATED_DATE_KEY, _shukkaUpdatedDate);
-    await loadData({ force: true });
+    const saved = await persistManagementUpdatedDate(SHUKKA_UPDATED_DATE_KEY, _shukkaUpdatedDate);
+    _shukkaUpdatedDate = saved;
+    patchPortalBootCacheSetting(SHUKKA_UPDATED_DATE_KEY, saved);
+    renderManagementTileUpdatedDates();
+    renderManagementUpdateDateSettings();
     showToast('出荷連絡表の更新日を保存しました');
   }catch(e){
     showToast('エラー: ' + e.message);
@@ -4821,12 +4861,16 @@ async function saveShukkaUpdatedDate(btnEl){
 }
 async function saveScheduleViewerUpdatedDate(btnEl){
   if(btnEl && btnEl.disabled) return;
-  _scheduleViewerUpdatedDate = readScheduleViewerUpdatedDateTimeFromInputs();
+  _scheduleViewerUpdatedDate = buildScheduleViewerUpdatedDateTimeForSave();
   renderManagementTileUpdatedDates();
+  renderManagementUpdateDateSettings();
   setAdminActionLoading(btnEl, true, '保存中...');
   try{
-    await persistManagementUpdatedDate(SCHEDULE_VIEWER_UPDATED_DATE_KEY, _scheduleViewerUpdatedDate);
-    await loadData({ force: true });
+    const saved = await persistManagementUpdatedDate(SCHEDULE_VIEWER_UPDATED_DATE_KEY, _scheduleViewerUpdatedDate);
+    _scheduleViewerUpdatedDate = saved;
+    patchPortalBootCacheSetting(SCHEDULE_VIEWER_UPDATED_DATE_KEY, saved);
+    renderManagementTileUpdatedDates();
+    renderManagementUpdateDateSettings();
     showToast('GansukeViewerの更新日を保存しました');
   }catch(e){
     showToast('エラー: ' + e.message);
