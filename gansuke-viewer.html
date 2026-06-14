@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>製造課 スケジュールビューア（2026/06/15 00:59更新）</title>
+<title>製造課 スケジュールビューア（2026/06/12 22:51更新）</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -16,7 +16,7 @@
   --cyan:#0e7490;--cyan-bg:#cffafe;
   --red:#b91c1c;--red-bg:#fee2e2;
   --blue:#1d4ed8;--blue-bg:#dbeafe;
-  --row-h:48px;--label-w:290px;--dh-h:66px;
+  --row-h:48px;--label-w:330px;--dh-h:66px;
   --dh-top-h:32px;--dh-bot-h:34px;--dh-font:12px;--dh-month-font:15px;
   --bar-h:22px;--bar-top:9px;--bar-font:12px;
   --ui-font:12px;--ui-small-font:11px;
@@ -76,16 +76,15 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
 .lcol{width:var(--label-w);min-width:var(--label-w);flex-shrink:0;border-right:2px solid var(--border2);background:var(--white);display:flex;flex-direction:column;z-index:10;position:relative;}
 .lresize{position:absolute;top:0;right:-5px;width:10px;height:100%;cursor:col-resize;z-index:25;background:transparent;}
 .lresize:hover{background:rgba(29,78,216,.12);}
-.lhead{height:var(--dh-h);display:flex;align-items:center;padding:0 12px;background:var(--bg);border-bottom:1.5px solid var(--border2);font-size:var(--ui-small-font);font-weight:700;color:var(--text3);letter-spacing:.04em;flex-shrink:0;}
+.lhead{height:var(--dh-h);display:flex;align-items:center;padding:0 12px;background:var(--bg);border-bottom:1.5px solid var(--border2);font-size:var(--ui-small-font);font-weight:700;color:var(--text3);letter-spacing:.04em;flex-shrink:0;position:relative;}
 .lbody{flex:1;overflow-y:auto;overflow-x:hidden;}
 .lrow{height:var(--row-h);display:flex;flex-direction:column;justify-content:center;padding:0 12px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;position:relative;}
 .lrow:hover{background:var(--acc-light);}
 .lrow-main{font-size:var(--lrow-main-font);font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(var(--label-w) - 24px);}
 .lrow-sub{font-size:var(--lrow-sub-font);color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(var(--label-w) - 24px);margin-top:1px;}
-.lrow-meta{display:grid;grid-template-columns:minmax(50px,.55fr) minmax(136px,1.7fr);gap:9px;min-width:0;max-width:calc(var(--label-w) - 24px);}
+.lrow-meta{display:grid;grid-template-columns:minmax(84px,.62fr) minmax(120px,1.38fr);gap:9px;min-width:0;max-width:calc(var(--label-w) - 24px);}
 .lm-cell{display:grid;gap:2px;min-width:0;}
-.lm-field{display:flex;align-items:baseline;gap:3px;min-width:0;white-space:nowrap;overflow:hidden;}
-.lm-label{font-size:max(7px,calc(var(--lrow-sub-font) - 1px));color:var(--text3);font-weight:700;flex-shrink:0;}
+.lm-field{display:flex;align-items:baseline;min-width:0;white-space:nowrap;overflow:hidden;}
 .lm-value{font-size:var(--lrow-sub-font);color:var(--text2);overflow:hidden;text-overflow:ellipsis;min-width:0;}
 .lm-field.primary .lm-value{font-size:var(--lrow-main-font);color:var(--text);font-weight:600;}
 .row-resize{position:absolute;left:0;right:0;bottom:-4px;height:8px;cursor:row-resize;z-index:8;background:transparent;}
@@ -163,14 +162,17 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
 .mk-save:hover{background:#166534;}
 /* sort/filter header */
 .lhead{user-select:none;}
-.lh-grid{display:grid;grid-template-columns:minmax(50px,.55fr) minmax(136px,1.7fr);gap:9px;width:100%;min-width:0;}
+.lh-grid{display:grid;grid-template-columns:minmax(84px,.62fr) minmax(120px,1.38fr);gap:9px;width:calc(var(--label-w) - 24px);max-width:calc(var(--label-w) - 24px);min-width:0;flex:none;}
 .lh-cell{display:grid;gap:3px;min-width:0;}
 .lh-sort{appearance:none;border:none;background:transparent;color:var(--text3);font:inherit;font-weight:700;text-align:left;cursor:pointer;padding:1px 0;line-height:1.1;display:flex;align-items:center;gap:3px;min-width:0;}
 .lh-sort:hover,.lh-sort.active{color:var(--accent);}
 .lh-sort.filtered::after{content:'●';font-size:7px;color:var(--green);}
 .lh-ind{font-size:9px;color:var(--accent);min-width:9px;}
-.lh-quick-sort{border:1px solid var(--border);background:var(--white);color:var(--text2);border-radius:6px;padding:4px 7px;font-size:var(--ui-small-font);font-weight:700;cursor:pointer;font-family:var(--sans);white-space:nowrap;margin-left:7px;flex-shrink:0;}
+.lh-quick-sort{border:1px solid var(--border);background:var(--white);color:var(--text2);border-radius:6px;padding:4px 7px;font-size:var(--ui-small-font);font-weight:700;cursor:pointer;font-family:var(--sans);white-space:nowrap;flex-shrink:0;}
+.lh-actions{display:flex;align-items:center;gap:6px;position:absolute;right:8px;top:4px;}
 .lh-quick-sort:hover,.lh-quick-sort.active{border-color:var(--accent);color:var(--accent);background:var(--acc-light);}
+.lh-reset-btn{border-color:var(--border2);color:var(--text3);}
+.lh-reset-btn:hover{border-color:var(--text3);color:var(--text2);background:var(--white);}
 .sort-menu{position:fixed;display:none;z-index:1000;width:240px;background:var(--white);border:1px solid var(--border2);border-radius:10px;box-shadow:0 12px 32px rgba(0,0,0,.18);padding:10px;}
 .sort-menu.open{display:block;}
 .sort-menu-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;}
@@ -188,6 +190,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
 .spanel-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
 .sp-label{font-size:var(--ui-small-font);color:var(--text3);white-space:nowrap;}
 .sp-input{flex:1;min-width:160px;border:1.5px solid var(--border2);border-radius:6px;padding:5px 8px;font-size:var(--ui-font);font-family:var(--sans);color:var(--text);outline:none;}
+.portal-date-input{min-width:10.5em;max-width:140px;flex:0 1 140px;}
 .sp-input:focus{border-color:var(--accent);}
 .sp-btn{background:var(--accent);color:#fff;border:none;border-radius:6px;padding:5px 14px;font-size:11px;font-weight:600;cursor:pointer;font-family:var(--sans);white-space:nowrap;}
 .sp-btn.clear{background:var(--bg);color:var(--text2);border:1.5px solid var(--border);}
@@ -292,9 +295,9 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
       <input type="month" class="sp-input" id="ship-month" onchange="activateShipmentMonth()" style="max-width:140px;">
       <button class="sp-btn" onclick="setShipmentThisMonth()">今月出荷</button>
       <span class="sp-label">範囲指定（期間内の工数/予定確認）</span>
-      <input type="date" class="sp-input" id="ship-start" onchange="activateWorkRange()" style="max-width:140px;">
+      <input type="text" class="sp-input portal-date-input" id="ship-start" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" onchange="activateWorkRange()" style="max-width:140px;">
       <span style="font-size:11px;color:var(--text2)">〜</span>
-      <input type="date" class="sp-input" id="ship-end" onchange="activateWorkRange()" style="max-width:140px;">
+      <input type="text" class="sp-input portal-date-input" id="ship-end" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" onchange="activateWorkRange()" style="max-width:140px;">
       <span class="sp-label">件数</span>
       <select class="sp-input" id="row-limit" onchange="applyFilterAndSort()" style="max-width:90px;">
         <option value="all">全件</option>
@@ -312,9 +315,9 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
       <input type="month" class="sp-input" id="print-month" onchange="activatePrintMonth()" style="max-width:140px;">
       <button class="sp-btn" onclick="setPrintThisMonth()">今月</button>
       <span class="sp-label">範囲</span>
-      <input type="date" class="sp-input" id="print-start" onchange="activatePrintRange()" style="max-width:140px;">
+      <input type="text" class="sp-input portal-date-input" id="print-start" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" onchange="activatePrintRange()" style="max-width:140px;">
       <span style="font-size:11px;color:var(--text2)">〜</span>
-      <input type="date" class="sp-input" id="print-end" onchange="activatePrintRange()" style="max-width:140px;">
+      <input type="text" class="sp-input portal-date-input" id="print-end" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" onchange="activatePrintRange()" style="max-width:140px;">
       <button class="sp-btn clear" onclick="resetPrintPanel()">リセット</button>
     </div>
     <div class="spanel-row">
@@ -364,7 +367,10 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
             <button type="button" class="lh-sort" data-sort-field="model" onclick="openSortMenu('model',this)">型番<span class="lh-ind"></span></button>
           </div>
         </div>
-        <button type="button" class="lh-quick-sort" id="ship-sort-btn" onclick="setQuickSort('ship')">出荷順</button>
+        <div class="lh-actions">
+          <button type="button" class="lh-quick-sort" id="ship-sort-btn" onclick="setQuickSort('ship')">出荷順</button>
+          <button type="button" class="lh-quick-sort lh-reset-btn" id="column-reset-btn" onclick="resetColumnDisplay()" title="並び替えと絞り込みを初期状態に戻す">リセット</button>
+        </div>
       </div>
       <div class="lbody" id="lbody"></div>
       <div class="lresize" id="lresize" title="案件名欄の幅を調整"></div>
@@ -413,6 +419,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
 </div>
 <div id="print-list"></div>
 
+<script src="portal-date-utils.js"></script>
 <script>
 // ══════════════════════════════
 // STATE
@@ -422,7 +429,7 @@ let VIEW='month';
 let periodStart=null; // 表示期間の開始日（その期間の初日）
 let zoomLevel=1.15;
 let baseRowHeight=48;
-const APPEARANCE_KEY='gansuke_appearance';
+const APPEARANCE_KEY='gansuke_appearance_v2';
 const PRINT_TEMPLATE_KEY='gansuke_print_templates';
 const DEFAULT_PRINT_FIELDS=['no','projectNo','customer','owner','ship','due','model','item','orderNo','events'];
 const TODAY=new Date(); TODAY.setHours(0,0,0,0);
@@ -747,7 +754,7 @@ function getMkLabel(mk){
 // UTILS
 // ══════════════════════════════
 function pd(s){if(!s)return null;const[y,m,d]=s.split('/').map(Number);const r=new Date(y,m-1,d);r.setHours(0,0,0,0);return r;}
-function fd(d){if(!d)return'';return`${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}`;}
+function fd(d){if(!d)return'';return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
 function addD(d,n){const r=new Date(d);r.setDate(r.getDate()+n);return r;}
 function diffD(a,b){return Math.round((b-a)/864e5);}
 function isWE(d){return d.getDay()===0||d.getDay()===6;}
@@ -818,6 +825,15 @@ function setMenuSort(dir){
 function setQuickSort(field){
   sortField=field||'ship';
   sortDir='asc';
+  updateSortUi();
+  applyFilterAndSort();
+}
+
+function resetColumnDisplay(){
+  Object.keys(columnFilters).forEach(k=>{ columnFilters[k]=null; });
+  sortField='ship';
+  sortDir='asc';
+  closeSortMenu();
   updateSortUi();
   applyFilterAndSort();
 }
@@ -1310,12 +1326,12 @@ function renderLeft(){
     div.innerHTML=`
       <div class="lrow-meta" title="${esc(row.item)}">
         <div class="lm-cell">
-          <div class="lm-field primary"><span class="lm-label">案件</span><span class="lm-value">${esc(projectNo)}</span></div>
-          <div class="lm-field"><span class="lm-label">担当</span><span class="lm-value">${esc(owner)}</span></div>
+          <div class="lm-field primary"><span class="lm-value" title="${escA(projectNo)}">${esc(projectNo)}</span></div>
+          <div class="lm-field"><span class="lm-value" title="${escA(owner)}">${esc(owner)}</span></div>
         </div>
         <div class="lm-cell">
-          <div class="lm-field primary"><span class="lm-label">顧客</span><span class="lm-value">${esc(customer)}</span></div>
-          <div class="lm-field"><span class="lm-label">型番</span><span class="lm-value">${esc(model)}</span></div>
+          <div class="lm-field primary"><span class="lm-value" title="${escA(customer)}">${esc(customer)}</span></div>
+          <div class="lm-field"><span class="lm-value" title="${escA(model)}">${esc(model)}</span></div>
         </div>
       </div>
       <div class="row-resize" title="全案件の行高さを調整"></div>`;
@@ -1590,7 +1606,7 @@ document.getElementById('vbtns').addEventListener('click',e=>{
 // ══════════════════════════════
 function currentLabelWidth(){
   const raw=getComputedStyle(document.documentElement).getPropertyValue('--label-w').trim();
-  return Number(raw.replace('px',''))||290;
+  return Number(raw.replace('px',''))||330;
 }
 
 function setLabelWidth(w){
@@ -1634,7 +1650,7 @@ function saveAppearance(){
 function resetAppearance(){
   zoomLevel=1.15;
   baseRowHeight=48;
-  setLabelWidth(290);
+  setLabelWidth(330);
   try{localStorage.removeItem(APPEARANCE_KEY);}catch(e){}
   applyZoomVars();
   renderAll();
@@ -1917,7 +1933,7 @@ function initColumnResize(){
   handle.addEventListener('mousedown',e=>{
     dragging=true;
     startX=e.clientX;
-    startW=document.querySelector('.lcol')?.getBoundingClientRect().width||290;
+    startW=document.querySelector('.lcol')?.getBoundingClientRect().width||330;
     document.body.style.cursor='col-resize';
     document.body.style.userSelect='none';
     e.preventDefault();

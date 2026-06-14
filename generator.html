@@ -51,6 +51,8 @@ code{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:4px;padding:1px 5
 <script>
 const OUTPUT_FILENAME = 'gansuke-viewer.html';
 const TEMPLATE_URL = 'gansuke-viewer.html';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbzueRIitHcmbZIjfS1iT7qsAY3awEHioinFms0NO6e9ieVtlJY-ekogHjzmwDhZjUfyBA/exec';
+const SCHEDULE_VIEWER_UPDATED_DATE_KEY = 'schedule_viewer_updated_date';
 
 let xmlText = '';
 const drop = document.getElementById('drop');
@@ -110,6 +112,32 @@ function updateTitle(html, stamp){
   return html.replace(/<\/head>/i, '<title>' + title + '</title></head>');
 }
 
+async function saveScheduleViewerUpdatedDate(stamp){
+  const payload = {
+    sheet: '設定_UPDATE',
+    key: SCHEDULE_VIEWER_UPDATED_DATE_KEY,
+    value: stamp,
+    operator: 'GansukeViewer生成ツール'
+  };
+  const body = 'data=' + encodeURIComponent(JSON.stringify(payload));
+  const res = await fetch(GAS_URL, {
+    method: 'POST',
+    mode: 'cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body
+  });
+  const text = await res.text();
+  let json;
+  try{
+    json = JSON.parse(text);
+  }catch(_e){
+    throw new Error('更新日時保存のGAS応答を解析できませんでした');
+  }
+  if(!res.ok || json.status === 'error'){
+    throw new Error(json.error || ('更新日時保存に失敗しました: HTTP ' + res.status));
+  }
+}
+
 function readFile(file){
   const reader = new FileReader();
   reader.onload = (ev)=>{
@@ -156,7 +184,8 @@ generateBtn.addEventListener('click', async ()=>{
     a.download = OUTPUT_FILENAME;
     a.click();
     setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
-    setStatus('生成完了（' + stamp + '更新）\nGitHubへ gansuke-viewer.html を上書きアップしてください。', 'ok');
+    await saveScheduleViewerUpdatedDate(stamp);
+    setStatus('生成完了（' + stamp + '更新）\n更新日時を設定シートへ保存しました。\nGitHubへ gansuke-viewer.html を上書きアップしてください。', 'ok');
   }catch(err){
     setStatus('エラー: ' + (err && err.message ? err.message : err), 'err');
   }finally{
