@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>製造課 スケジュールビューア（2026/06/12 22:51更新）</title>
+<title>製造課 スケジュールビューア（2026/06/14 16:17更新）</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -597,7 +597,7 @@ function parseItemMeta(text){
   afterDue=afterDue.replace(/^[\s　/、,]+/,'');
   const orderMatch=afterDue.match(/\b\d{2}[A-Z]?-\d{3}[A-Z]?\b/);
   const customerBase=orderMatch?afterDue.slice(0,orderMatch.index).trim().replace(/[\s　/、,]+$/,''):afterDue;
-  const customer=extractCorporateCustomer(afterDue)||extractCorporateCustomer(customerBase)||customerBase;
+  const customer=extractCorporateCustomer(customerBase)||customerBase;
   const orderNo=orderMatch?.[0]||'';
   const destination=orderMatch?afterDue.slice(orderMatch.index+orderNo.length).trim().replace(/^[\s　/、,]+/,''):'';
   const confidence=[
@@ -624,7 +624,7 @@ function extractCorporateCustomer(text){
   if(!src)return '';
   const corporateRe=/(株式会社|有限会社|合同会社|合資会社|合名会社|㈱|㈲|（株）|（有）|\(株\)|\(有\)|株|有限)/;
   const parts=src.split(/[\s　/、,]+/).map(p=>p.trim()).filter(Boolean);
-  const idx=parts.map((p,i)=>corporateRe.test(p)?i:-1).filter(i=>i>=0).pop();
+  const idx=parts.findIndex(p=>corporateRe.test(p));
   if(idx<0)return '';
   let name=parts[idx];
   const markerOnly=/^(㈱|㈲|（株）|（有）|\(株\)|\(有\)|株|有限|株式会社|有限会社)$/;
