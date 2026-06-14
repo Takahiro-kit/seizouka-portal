@@ -82,10 +82,9 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
 .lrow:hover{background:var(--acc-light);}
 .lrow-main{font-size:var(--lrow-main-font);font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(var(--label-w) - 24px);}
 .lrow-sub{font-size:var(--lrow-sub-font);color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(var(--label-w) - 24px);margin-top:1px;}
-.lrow-meta{display:grid;grid-template-columns:minmax(50px,.55fr) minmax(136px,1.7fr);gap:9px;min-width:0;max-width:calc(var(--label-w) - 24px);}
+.lrow-meta{display:grid;grid-template-columns:minmax(84px,.62fr) minmax(120px,1.38fr);gap:9px;min-width:0;max-width:calc(var(--label-w) - 24px);}
 .lm-cell{display:grid;gap:2px;min-width:0;}
-.lm-field{display:flex;align-items:baseline;gap:3px;min-width:0;white-space:nowrap;overflow:hidden;}
-.lm-label{font-size:max(7px,calc(var(--lrow-sub-font) - 1px));color:var(--text3);font-weight:700;flex-shrink:0;}
+.lm-field{display:flex;align-items:baseline;min-width:0;white-space:nowrap;overflow:hidden;}
 .lm-value{font-size:var(--lrow-sub-font);color:var(--text2);overflow:hidden;text-overflow:ellipsis;min-width:0;}
 .lm-field.primary .lm-value{font-size:var(--lrow-main-font);color:var(--text);font-weight:600;}
 .row-resize{position:absolute;left:0;right:0;bottom:-4px;height:8px;cursor:row-resize;z-index:8;background:transparent;}
@@ -163,14 +162,17 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
 .mk-save:hover{background:#166534;}
 /* sort/filter header */
 .lhead{user-select:none;}
-.lh-grid{display:grid;grid-template-columns:minmax(50px,.55fr) minmax(136px,1.7fr);gap:9px;width:100%;min-width:0;}
+.lh-grid{display:grid;grid-template-columns:minmax(84px,.62fr) minmax(120px,1.38fr);gap:9px;width:100%;min-width:0;flex:1;}
 .lh-cell{display:grid;gap:3px;min-width:0;}
 .lh-sort{appearance:none;border:none;background:transparent;color:var(--text3);font:inherit;font-weight:700;text-align:left;cursor:pointer;padding:1px 0;line-height:1.1;display:flex;align-items:center;gap:3px;min-width:0;}
 .lh-sort:hover,.lh-sort.active{color:var(--accent);}
 .lh-sort.filtered::after{content:'●';font-size:7px;color:var(--green);}
 .lh-ind{font-size:9px;color:var(--accent);min-width:9px;}
-.lh-quick-sort{border:1px solid var(--border);background:var(--white);color:var(--text2);border-radius:6px;padding:4px 7px;font-size:var(--ui-small-font);font-weight:700;cursor:pointer;font-family:var(--sans);white-space:nowrap;margin-left:7px;flex-shrink:0;}
+.lh-quick-sort{border:1px solid var(--border);background:var(--white);color:var(--text2);border-radius:6px;padding:4px 7px;font-size:var(--ui-small-font);font-weight:700;cursor:pointer;font-family:var(--sans);white-space:nowrap;flex-shrink:0;}
+.lh-actions{display:flex;align-items:center;gap:6px;margin-left:7px;flex-shrink:0;}
 .lh-quick-sort:hover,.lh-quick-sort.active{border-color:var(--accent);color:var(--accent);background:var(--acc-light);}
+.lh-reset-btn{border-color:var(--border2);color:var(--text3);}
+.lh-reset-btn:hover{border-color:var(--text3);color:var(--text2);background:var(--white);}
 .sort-menu{position:fixed;display:none;z-index:1000;width:240px;background:var(--white);border:1px solid var(--border2);border-radius:10px;box-shadow:0 12px 32px rgba(0,0,0,.18);padding:10px;}
 .sort-menu.open{display:block;}
 .sort-menu-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;}
@@ -365,7 +367,10 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
             <button type="button" class="lh-sort" data-sort-field="model" onclick="openSortMenu('model',this)">型番<span class="lh-ind"></span></button>
           </div>
         </div>
-        <button type="button" class="lh-quick-sort" id="ship-sort-btn" onclick="setQuickSort('ship')">出荷順</button>
+        <div class="lh-actions">
+          <button type="button" class="lh-quick-sort" id="ship-sort-btn" onclick="setQuickSort('ship')">出荷順</button>
+          <button type="button" class="lh-quick-sort lh-reset-btn" id="column-reset-btn" onclick="resetColumnDisplay()" title="並び替えと絞り込みを初期状態に戻す">リセット</button>
+        </div>
       </div>
       <div class="lbody" id="lbody"></div>
       <div class="lresize" id="lresize" title="案件名欄の幅を調整"></div>
@@ -820,6 +825,15 @@ function setMenuSort(dir){
 function setQuickSort(field){
   sortField=field||'ship';
   sortDir='asc';
+  updateSortUi();
+  applyFilterAndSort();
+}
+
+function resetColumnDisplay(){
+  Object.keys(columnFilters).forEach(k=>{ columnFilters[k]=null; });
+  sortField='ship';
+  sortDir='asc';
+  closeSortMenu();
   updateSortUi();
   applyFilterAndSort();
 }
@@ -1312,12 +1326,12 @@ function renderLeft(){
     div.innerHTML=`
       <div class="lrow-meta" title="${esc(row.item)}">
         <div class="lm-cell">
-          <div class="lm-field primary"><span class="lm-label">案件</span><span class="lm-value">${esc(projectNo)}</span></div>
-          <div class="lm-field"><span class="lm-label">担当</span><span class="lm-value">${esc(owner)}</span></div>
+          <div class="lm-field primary"><span class="lm-value" title="${escA(projectNo)}">${esc(projectNo)}</span></div>
+          <div class="lm-field"><span class="lm-value" title="${escA(owner)}">${esc(owner)}</span></div>
         </div>
         <div class="lm-cell">
-          <div class="lm-field primary"><span class="lm-label">顧客</span><span class="lm-value">${esc(customer)}</span></div>
-          <div class="lm-field"><span class="lm-label">型番</span><span class="lm-value">${esc(model)}</span></div>
+          <div class="lm-field primary"><span class="lm-value" title="${escA(customer)}">${esc(customer)}</span></div>
+          <div class="lm-field"><span class="lm-value" title="${escA(model)}">${esc(model)}</span></div>
         </div>
       </div>
       <div class="row-resize" title="全案件の行高さを調整"></div>`;
