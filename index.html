@@ -1570,7 +1570,7 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
           <div class="s-row-icon"><i class="ti ti-calendar-time"></i></div>
           <div class="s-row-body" style="display:grid;gap:8px;">
             <div class="s-row-title">ホーム表示の更新日</div>
-            <div class="s-row-desc">がんすけビューワーを更新した日時を保存します。</div>
+            <div class="s-row-desc">がんすけビューワーを更新した日時を保存します。時刻を空にすると現在時刻を使います。</div>
             <div class="mgmt-updated-inputs">
               <input id="s-schedule-updated-date" class="s-input" type="date" aria-label="GansukeViewer更新日">
               <input id="s-schedule-updated-time" class="s-input mgmt-updated-time" type="time" aria-label="GansukeViewer更新時刻">
@@ -4745,6 +4745,7 @@ function normalizePortalDateValue(raw){
 function normalizePortalTimeValue(raw){
   const d = parsePortalDateTime(raw);
   if(!d) return '';
+  if(d.getHours() === 0 && d.getMinutes() === 0) return '';
   return `${p(d.getHours())}:${p(d.getMinutes())}`;
 }
 function readUpdatedDateTimeFromInputs(dateId, timeId){
@@ -4752,9 +4753,19 @@ function readUpdatedDateTimeFromInputs(dateId, timeId){
   const timeInput = document.getElementById(timeId);
   const date = normalizePortalDateValue(dateInput ? dateInput.value : '');
   if(!date) return '';
-  const time = timeInput && timeInput.value
-    ? timeInput.value
-    : `${p(new Date().getHours())}:${p(new Date().getMinutes())}`;
+  const now = new Date();
+  const nowTime = `${p(now.getHours())}:${p(now.getMinutes())}`;
+  const time = timeInput && timeInput.value ? timeInput.value : nowTime;
+  return `${date} ${time}`;
+}
+function readScheduleViewerUpdatedDateTimeFromInputs(){
+  const dateInput = document.getElementById('s-schedule-updated-date');
+  const timeInput = document.getElementById('s-schedule-updated-time');
+  const date = normalizePortalDateValue(dateInput ? dateInput.value : '');
+  const now = new Date();
+  const nowTime = `${p(now.getHours())}:${p(now.getMinutes())}`;
+  if(!date) return getNowDateTimeStorage();
+  const time = timeInput && timeInput.value ? timeInput.value : nowTime;
   return `${date} ${time}`;
 }
 function formatMgmtUpdatedDateTime(raw){
@@ -4810,7 +4821,7 @@ async function saveShukkaUpdatedDate(btnEl){
 }
 async function saveScheduleViewerUpdatedDate(btnEl){
   if(btnEl && btnEl.disabled) return;
-  _scheduleViewerUpdatedDate = readUpdatedDateTimeFromInputs('s-schedule-updated-date', 's-schedule-updated-time');
+  _scheduleViewerUpdatedDate = readScheduleViewerUpdatedDateTimeFromInputs();
   renderManagementTileUpdatedDates();
   setAdminActionLoading(btnEl, true, '保存中...');
   try{
