@@ -19,6 +19,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
 .btn{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:12px 0;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--sans);width:100%;transition:.15s;}
 .btn:hover{background:#1840b0;}
 .btn:disabled{background:var(--border);color:var(--text3);cursor:not-allowed;}
+.git-btn{display:block;margin-top:10px;background:var(--green);color:#fff;text-decoration:none;border-radius:8px;padding:12px 0;font-size:14px;font-weight:600;transition:.15s;}
+.git-btn:hover{background:#166534;}
 .status{margin-top:16px;font-size:12px;min-height:20px;}
 .ok{color:var(--green);font-weight:600;}
 .err{color:#dc2626;font-weight:600;}
@@ -34,7 +36,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
   <div class="steps">
     <div><span class="n">1</span><b>ガンすけ（製造課用）.xml</b> をドロップ</div>
     <div><span class="n">2</span>「ビューアを生成」ボタンをクリック</div>
-    <div><span class="n">3</span>ダウンロードされたHTMLをSharePointに上書き保存</div>
+    <div><span class="n">3</span>ダウンロードされたHTMLをGitHubへ上書きアップ</div>
   </div>
   <div class="dz" id="dz" onclick="document.getElementById('fi').click()">
     <div class="dz-icon" id="dz-icon">📂</div>
@@ -42,6 +44,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
   </div>
   <input type="file" id="fi" accept=".xml" style="display:none">
   <button class="btn" id="btn" onclick="generate()" disabled>XMLを読み込んでください</button>
+  <a class="git-btn" href="https://github.com/Takahiro-kit/seizouka-portal/upload/main" target="_blank" rel="noopener">GitHubへアップ</a>
   <div class="status" id="st"></div>
 </div>
 <script>
@@ -109,7 +112,7 @@ function generate(){
     a.click();
 
     st.className = 'status ok';
-    st.textContent = '✅ 生成完了（' + ts + '更新）　SharePointに上書き保存してください';
+    st.textContent = '✅ 生成完了（' + ts + '更新）　GitHubへ上書きアップしてください';
     btn.textContent = '📦 ビューアHTMLを生成';
   } catch(err){
     st.className = 'status err';

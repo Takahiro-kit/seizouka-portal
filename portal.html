@@ -1200,11 +1200,13 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
                 <select id="sf-quick-link" class="sf-shortcut-select" onchange="openSalesforceQuickLink()">
                   <option value="" selected>Salesforceリンクを選択</option>
                   <option value="https://jpnext.lightning.force.com/lightning/page/home">Salesforce ホーム</option>
+                  <option value="https://jpnext.lightning.force.com/lightning/o/Report/home">レポート</option>
                   <option value="https://jpnext.lightning.force.com/lightning/o/Specification__c/list?filterName=All">仕様確認書 全て</option>
                   <option value="https://jpnext.lightning.force.com/lightning/r/Report/00OIi000000FMvoMAG/view">FK案件一覧</option>
                   <option value="https://jpnext.lightning.force.com/lightning/r/Report/00OIi000000FMwrMAG/view">FX案件一覧</option>
                   <option value="https://jpnext.lightning.force.com/lightning/o/Sales__c/list?filterName=FA">FAの受注案件</option>
                   <option value="https://jpnext.lightning.force.com/lightning/o/InsideCompanyMaintenance__c/list?filterName=TEST">FS案件 社内メンテナンス(TEST以外)</option>
+                  <option value="https://jpnext.lightning.force.com/lightning/o/InsideCompanyMaintenance__c/list?filterName=All">社内メンテナンス</option>
                 </select>
               </div>
             </div>
@@ -1534,15 +1536,10 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
         <div class="s-row">
           <div class="s-row-icon"><i class="ti ti-info-circle"></i></div>
           <div class="s-row-body" style="display:grid;gap:8px;">
-            <div class="s-row-title">更新手順（従来方式）</div>
+            <div class="s-row-title">更新手順</div>
             <div class="s-row-desc">生成ツールに「ガンすけ（製造課用）.xml」を入力し、生成した gansuke-viewer.html をGitHubへ上書きしてください。</div>
           </div>
           <a class="s-btn" id="schedule-generator-link" href="https://takahiro-kit.github.io/seizouka-portal/generator.html" target="_blank">生成ツールを開く</a>
-        </div>
-        <div class="s-row">
-          <div class="s-row-icon"><i class="ti ti-upload"></i></div>
-          <div class="s-row-body"><div class="s-row-title">GitHubにアップロード</div></div>
-          <a class="s-btn" id="schedule-github-link" href="https://github.com/Takahiro-kit/seizouka-portal" target="_blank">GitHubを開く</a>
         </div>
         <div class="s-row">
           <div class="s-row-icon"><i class="ti ti-link"></i></div>
@@ -4677,9 +4674,7 @@ function applyScheduleViewerLinksFromData(d){
 }
 function renderScheduleViewerLinks(){
   const viewerEl = document.getElementById('schedule-banner');
-  const githubEl = document.getElementById('schedule-github-link');
   if(viewerEl) viewerEl.href = _scheduleViewerUrl || DEFAULT_SCHEDULE_VIEWER_URL;
-  if(githubEl) githubEl.href = _scheduleViewerGithubUrl || DEFAULT_SCHEDULE_VIEWER_GITHUB_URL;
 }
 function renderScheduleViewerSettings(){
   const viewerInput = document.getElementById('s-schedule-viewer-url');
