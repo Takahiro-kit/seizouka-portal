@@ -565,15 +565,16 @@ body.admin-mode .nav-admin-links{display:block;}
 .cal-leg-dot{width:8px;height:8px;border-radius:50%;}
 
 /* MEMBERS */
-.members-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:12px;}
+.members-grid{display:grid;grid-template-columns:1fr;gap:10px;padding:12px;}
 .mi{
   --member-color: var(--blue);
   position:relative;
   display:flex;
-  flex-direction:column;
+  flex-direction:row;
+  align-items:center;
   cursor:pointer;
   gap:10px;
-  padding:12px;
+  padding:12px 14px;
   border-radius:4px;
   text-decoration:none;
   background:color-mix(in srgb, var(--member-color) 14%, #fff 86%);
@@ -592,6 +593,7 @@ body.admin-mode .nav-admin-links{display:block;}
 .mav{width:44px;height:44px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;overflow:hidden;border:1px solid rgba(255,255,255,.75);box-shadow:0 1px 2px rgba(0,0,0,.08);}
 .mav img{width:100%;height:100%;object-fit:cover;}
 .mname{font-size:14px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mrole{font-size:12px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;}
 .m-open{margin-left:auto;color:color-mix(in srgb, var(--member-color) 60%, #1f2937 40%);font-size:18px;opacity:.75;}
 
 /* MEMBER PAGE */
@@ -1267,7 +1269,7 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
             </a>
             <a class="mgmt-tile" id="schedule-banner" href="https://takahiro-kit.github.io/seizouka-portal/gansuke-viewer.html" target="_blank">
               <img src="data:image/png;base64,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" style="width:48px;height:48px;object-fit:contain;flex-shrink:0;">
-              <div class="mgmt-tile-body"><div class="mgmt-tile-name">工程管理表 スケジュールビューア</div><div class="mgmt-tile-desc">がんすけのスケジュールをブラウザで確認できます</div><div class="mgmt-tile-updated" id="schedule-updated-label" aria-live="polite"></div></div>
+              <div class="mgmt-tile-body"><div class="mgmt-tile-name">工程管理表 がんすけビューア</div><div class="mgmt-tile-desc">がんすけのスケジュールをブラウザで確認できます</div><div class="mgmt-tile-updated" id="schedule-updated-label" aria-live="polite"></div></div>
               <i class="ti ti-arrow-right" style="margin-left:auto;font-size:20px;color:rgba(255,255,255,.8);flex-shrink:0;"></i>
             </a>
           </div>
@@ -1546,9 +1548,9 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
         </div>
       </div>
 
-      <!-- がんすけビューワ更新 -->
+      <!-- がんすけビューア更新 -->
       <div class="s-sec" id="sec-schedule-update">
-        <div class="s-sec-hdr"><div class="s-sec-title">📅 がんすけビューワ更新</div></div>
+        <div class="s-sec-hdr"><div class="s-sec-title">📅 がんすけビューア更新</div></div>
         <div class="s-row">
           <div class="s-row-icon"><i class="ti ti-info-circle"></i></div>
           <div class="s-row-body" style="display:grid;gap:8px;">
@@ -1561,7 +1563,7 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
           <div class="s-row-icon"><i class="ti ti-link"></i></div>
           <div class="s-row-body" style="display:grid;gap:8px;">
             <div class="s-row-title">スケジュール関連URL（設定シート管理）</div>
-            <input id="s-schedule-viewer-url" class="s-input" placeholder="スケジュールビューアURL">
+            <input id="s-schedule-viewer-url" class="s-input" placeholder="がんすけビューアURL">
             <input id="s-schedule-github-url" class="s-input" placeholder="GitHubURL">
           </div>
           <button class="s-btn" onclick="saveScheduleViewerLinks(this)">URLを保存</button>
@@ -1572,8 +1574,8 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
             <div class="s-row-title">ホーム表示の更新日</div>
             <div class="s-row-desc">「更新日を保存」を押すと現在の日時が保存されます。日付だけ変更した場合も、その日付＋現在時刻で保存します。</div>
             <div class="mgmt-updated-inputs">
-              <input id="s-schedule-updated-date" class="s-input" type="date" aria-label="GansukeViewer更新日">
-              <input id="s-schedule-updated-time" class="s-input mgmt-updated-time" type="time" aria-label="GansukeViewer更新時刻">
+              <input id="s-schedule-updated-date" class="s-input" type="date" aria-label="がんすけビューア更新日">
+              <input id="s-schedule-updated-time" class="s-input mgmt-updated-time" type="time" aria-label="がんすけビューア更新時刻">
             </div>
           </div>
           <button class="s-btn" onclick="saveScheduleViewerUpdatedDate(this)">更新日を保存</button>
@@ -2354,7 +2356,8 @@ function getMemberProfileForLogin(name){
   const loginEnabled = !masterLoginOff && !aliasMasterLoginOff && !loginOff(base) && (!aliasProf || !loginOff(aliasProf));
   const adminOn = !!(master && master.isAdmin) || !!(aliasMaster && aliasMaster.isAdmin) || !!(base && base.isAdmin) || !!(aliasProf && aliasProf.isAdmin);
   const email = String((master && master.email) || (aliasMaster && aliasMaster.email) || (base && base.email) || (aliasProf && aliasProf.email) || '').trim();
-  return normalizeMemberProfile({...base, password: pw, email, loginEnabled, isAdmin: adminOn});
+  const profileLockPassword = String((master && master.profileLockPassword) || (aliasMaster && aliasMaster.profileLockPassword) || base.profileLockPassword || (aliasProf && aliasProf.profileLockPassword) || '').trim();
+  return normalizeMemberProfile({...base, loginPassword: pw, profileLockPassword, email, loginEnabled, isAdmin: adminOn});
 }
 function getPortalLoginMembersList(){
   return getMembersList()
@@ -2362,7 +2365,23 @@ function getPortalLoginMembersList(){
     .map(m => ({ label: m.name, memberName: m.name }));
 }
 function getMembersList(){
-  return (_membersCache && _membersCache.length > 0) ? _membersCache : DEFAULT_MEMBERS;
+  return sortMembersForDisplay((_membersCache && _membersCache.length > 0) ? _membersCache : DEFAULT_MEMBERS);
+}
+function sortMembersForDisplay(list){
+  const src = Array.isArray(list) ? list : [];
+  return src.map((m, idx) => ({...m, _originalIndex: idx}))
+    .sort((a, b) => {
+      const ao = Number(a.displayOrder) || 0;
+      const bo = Number(b.displayOrder) || 0;
+      if(ao && bo && ao !== bo) return ao - bo;
+      if(ao && !bo) return -1;
+      if(!ao && bo) return 1;
+      return a._originalIndex - b._originalIndex;
+    })
+    .map(({_originalIndex, ...m}, idx) => ({...m, displayOrder: Number(m.displayOrder) || idx + 1}));
+}
+function normalizeMemberOrder(list){
+  return sortMembersForDisplay(list).map((m, idx) => ({...m, displayOrder: idx + 1}));
 }
 function memberTagHtml(name){
   if(!name) return '';
@@ -2535,6 +2554,9 @@ function canEditAsAuthor(storedAuthor){
   if(PORTAL_LOGIN_MEMBER_ALIAS[cur] === stored) return true;
   if(PORTAL_LOGIN_MEMBER_ALIAS[stored] === cur) return true;
   return false;
+}
+function isCurrentPortalMember(name){
+  return canEditAsAuthor(name);
 }
 function canEditNoticeItem(n){
   if(isGuestOperatorSession()) return false;
@@ -4888,7 +4910,7 @@ async function saveScheduleViewerUpdatedDate(btnEl){
     patchPortalBootCacheSetting(SCHEDULE_VIEWER_UPDATED_DATE_KEY, saved);
     renderManagementTileUpdatedDates();
     renderManagementUpdateDateSettings();
-    showToast('GansukeViewerの更新日を保存しました');
+    showToast('がんすけビューアの更新日を保存しました');
   }catch(e){
     showToast('エラー: ' + e.message);
   }finally{
@@ -5125,7 +5147,7 @@ function applyPortalConfig(d){
   applyWorkorderOptionsFromData(d || {});
   applyManagementUpdateDatesFromData(d || {});
   applyScheduleViewerLinksFromData(d || {});
-  if(d && d.members && d.members.length) _membersCache = d.members;
+  if(d && d.members && d.members.length) _membersCache = normalizeMemberOrder(d.members);
   applyNoticeTypesFromData(d || {});
   applyTodoTagsFromData(d || {});
   renderStorageLinks();
@@ -5156,6 +5178,8 @@ function normalizeMemberProfile(x){
     contact: String(p.contact || '').trim(),
     note: String(p.note || '').trim(),
     password: String(p.password || '').trim(),
+    loginPassword: String(p.loginPassword || '').trim(),
+    profileLockPassword: String(p.profileLockPassword || '').trim(),
     email: String(p.email || '').trim(),
     loginEnabled: !loginOff,
     isAdmin: !!adminOn,
@@ -5197,13 +5221,22 @@ function setMemberProfile(name, profile){
   if(!key) return;
   _memberProfileCache[key] = normalizeMemberProfile(profile || {});
 }
+function serializeMemberProfilesForSave(){
+  const out = {};
+  Object.keys(_memberProfileCache || {}).forEach(name => {
+    const p = normalizeMemberProfile(_memberProfileCache[name]);
+    const {password, loginPassword, profileLockPassword, email, loginEnabled, isAdmin, ...detail} = p;
+    out[name] = detail;
+  });
+  return out;
+}
 async function persistMemberProfiles(){
   try{
-    await gasPost({sheet:'設定_UPDATE', key:MEMBER_PROFILE_KEY, value:JSON.stringify(_memberProfileCache || {})});
+    await gasPost({sheet:'設定_UPDATE', key:MEMBER_PROFILE_KEY, value:JSON.stringify(serializeMemberProfilesForSave())});
   }catch(e){}
 }
 function profileHasContent(p){
-  return !!(p.headline || p.mission || p.strengths || p.contact || p.note || p.password || p.email || p.isAdmin || p.fullName || p.address || p.phone || p.birthDate || p.clothSize || p.shoeSize || p.workwearTop || p.workwearBottom || p.licenses);
+  return !!(p.headline || p.mission || p.strengths || p.contact || p.note || p.password || p.loginPassword || p.profileLockPassword || p.email || p.isAdmin || p.fullName || p.address || p.phone || p.birthDate || p.clothSize || p.shoeSize || p.workwearTop || p.workwearBottom || p.licenses);
 }
 
 // ── 課内連絡種別タグ（GAS / 設定画面で管理） ──
@@ -6164,17 +6197,17 @@ function resolveMemberColor(name, color){
 
 function renderMembers(members){
   if(members && members.length > 0){
-    _membersCache = members.map(m => ({...m, color: resolveMemberColor(m.name, m.color)}));
+    _membersCache = normalizeMemberOrder(members.map(m => ({...m, color: resolveMemberColor(m.name, m.color)})));
   }
   refreshMemberSelects();
   renderPortalLoginMembers();
   updateMembersCount();
-  const list = (_membersCache && _membersCache.length > 0) ? _membersCache : DEFAULT_MEMBERS;
+  const list = getMembersList();
   const el = document.getElementById('members-grid-wrap');
   if(!el) return;
   el.innerHTML = list.map(m => {
     const prof = getMemberProfileForLogin(m.name);
-    const locked = !!prof.password;
+    const locked = !!prof.profileLockPassword;
     const avatar = m.photoUrl
       ? `<div class="mav"><img src="${esc(m.photoUrl)}" alt="${esc(m.name)}"></div>`
       : `<div class="mav" style="background:${esc(m.color)}">${esc(m.initial||m.name.charAt(0))}</div>`;
@@ -6183,6 +6216,7 @@ function renderMembers(members){
         ${avatar}
         <div class="m-meta">
           <div class="mname">${esc(m.name)}${locked ? '<span class="member-lock-badge"><i class="ti ti-lock"></i>LOCK</span>' : ''}</div>
+          <div class="mrole">${esc(m.role || 'メンバーページ')}</div>
         </div>
         <i class="ti ti-chevron-right m-open"></i>
       </div>
@@ -6207,13 +6241,12 @@ const PRESET_COLORS = [
 function renderMemberSettings(){
   const el = document.getElementById('s-member-list');
   if(!el) return;
-  const list = (_membersCache && _membersCache.length)
-    ? _membersCache.map(m => ({...m, color: resolveMemberColor(m.name, m.color)}))
-    : DEFAULT_MEMBERS;
-  _membersCache = list;
+  const list = getMembersList().map(m => ({...m, color: resolveMemberColor(m.name, m.color)}));
+  _membersCache = normalizeMemberOrder(list);
   el.innerHTML = list.map((m,i) => {
     const profile = getMemberProfileForLogin(m.name);
-    const currentPw = String(profile.password || '').trim();
+    const currentPw = String(profile.loginPassword || '').trim();
+    const profileLockPw = String(profile.profileLockPassword || '').trim();
     const loginEnabled = profile.loginEnabled !== false;
     const isAdmin = !!profile.isAdmin;
     const avatar = m.photoUrl
@@ -6231,6 +6264,10 @@ function renderMemberSettings(){
             <input class="m-edit-input" id="mp-initial-${i}" value="${esc(m.initial||m.name.charAt(0))}" placeholder="アイコン文字" style="width:80px;" maxlength="3">
             
           </div>
+        </div>
+        <div style="display:flex;gap:4px;align-items:center;flex-shrink:0;">
+          <button type="button" class="s-btn alt" onclick="moveMemberOrder(${i}, -1)" ${i === 0 ? 'disabled' : ''} style="padding:5px 8px;font-size:12px;" title="上へ">↑</button>
+          <button type="button" class="s-btn alt" onclick="moveMemberOrder(${i}, 1)" ${i === list.length - 1 ? 'disabled' : ''} style="padding:5px 8px;font-size:12px;" title="下へ">↓</button>
         </div>
         <button type="button" class="icon-del-btn" id="mp-del-${i}" onclick="deleteMember(${i})" style="background:none;border:none;cursor:pointer;color:#dc2626;font-size:20px;padding:4px 8px;border-radius:4px;flex-shrink:0;min-width:32px;min-height:32px;display:inline-flex;align-items:center;justify-content:center;" title="削除">
           <i class="ti ti-trash"></i>
@@ -6274,12 +6311,69 @@ function renderMemberSettings(){
             管理者として扱う（設定/管理ロック解除）
           </label>
         </div>
+        <div class="m-edit-field">
+          <div class="m-edit-label">メンバーページロック</div>
+          <button type="button" class="s-btn alt" onclick="clearMemberProfileLock(${i}, this)" ${profileLockPw ? '' : 'disabled'} style="min-height:34px;">パスワード解除</button>
+        </div>
       </div>
       <div class="m-edit-save">
         <button class="s-btn" onclick="saveMember(${i})">保存</button>
       </div>
     </div>`;
   }).join('');
+}
+
+async function persistMemberOrder(){
+  const list = normalizeMemberOrder(_membersCache || []);
+  _membersCache = list;
+  await Promise.all(list.map((m, idx) => gasPost({
+    sheet:'メンバー_UPDATE',
+    oldName:m.name,
+    name:m.name,
+    displayOrder:idx + 1
+  })));
+}
+
+async function moveMemberOrder(i, dir){
+  const list = normalizeMemberOrder(_membersCache || getMembersList());
+  const nextIdx = i + dir;
+  if(nextIdx < 0 || nextIdx >= list.length) return;
+  const tmp = list[i];
+  list[i] = list[nextIdx];
+  list[nextIdx] = tmp;
+  _membersCache = list.map((m, idx) => ({...m, displayOrder: idx + 1}));
+  renderMembers(_membersCache);
+  renderMemberSettings();
+  try{
+    await persistMemberOrder();
+    showToast('メンバーの表示順を保存しました');
+  }catch(e){
+    showToast('表示順の保存でエラー: ' + e.message);
+  }
+}
+
+async function clearMemberProfileLock(i, btnEl){
+  const list = getMembersList();
+  const m = list[i];
+  if(!m) return;
+  if(!confirm(`${m.name}のメンバーページロックを解除しますか？`)) return;
+  if(btnEl){ btnEl.disabled = true; btnEl.innerHTML = '<span class="btn-spinner"></span>解除中...'; }
+  const profile = normalizeMemberProfile({...getMemberProfile(m.name), profileLockPassword:''});
+  setMemberProfile(m.name, profile);
+  _membersCache = (_membersCache || list).map(x => x.name === m.name ? {...x, profileLockPassword:''} : x);
+  try{
+    await gasPost({sheet:'メンバー_UPDATE', oldName:m.name, name:m.name, profileLockPassword:''});
+    await persistMemberProfiles();
+    renderMembers(_membersCache);
+    renderMemberSettings();
+    renderMemberProfileSettings();
+    if(_activeMemberName === m.name) renderMemberPage(m.name);
+    showToast(m.name + 'のページロックを解除しました');
+  }catch(e){
+    showToast('エラー: ' + e.message);
+  }finally{
+    if(btnEl){ btnEl.disabled = false; btnEl.innerHTML = 'パスワード解除'; }
+  }
 }
 
 function renderMemberProfileSettings(){
@@ -6294,7 +6388,7 @@ function renderMemberProfileSettings(){
   }
   el.innerHTML = list.map((m, i) => {
     const p = getMemberProfileForLogin(m.name);
-    const lockLabel = p.password ? '有効' : '未設定';
+    const lockLabel = p.profileLockPassword ? '有効' : '未設定';
     return `<div class="m-edit-row" id="mpf-row-${i}">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;">
         <div style="display:flex;align-items:center;gap:8px;font-weight:700;color:var(--text);font-size:14px;">
@@ -6322,11 +6416,11 @@ function openMemberPage(name){
   const list = (_membersCache && _membersCache.length) ? _membersCache : DEFAULT_MEMBERS;
   const m = list.find(x => x.name === name);
   if(!m){ showToast('メンバー情報が見つかりません'); return; }
-  const profile = getMemberProfile(m.name);
-  if(profile.password){
+  const profile = getMemberProfileForLogin(m.name);
+  if(profile.profileLockPassword && !isCurrentPortalMember(m.name)){
     const entered = prompt(`${m.name}ページのパスワードを入力してください`);
     if(entered == null) return;
-    if(entered !== profile.password){
+    if(entered !== profile.profileLockPassword){
       showToast('パスワードが違います');
       return;
     }
@@ -6353,6 +6447,10 @@ function openMemberEditPage(){
     showToast('対象メンバーが選択されていません');
     return;
   }
+  if(!isCurrentPortalMember(_activeMemberName)){
+    showToast('プロフィール編集は本人のみ利用できます');
+    return;
+  }
   const screen = document.getElementById('member-editor-screen');
   if(!screen){
     showToast('編集画面の読み込みに失敗しました');
@@ -6372,6 +6470,7 @@ function renderMemberPage(name){
     return;
   }
   const p = getMemberProfileForLogin(m.name);
+  const canEditProfile = isCurrentPortalMember(m.name);
   const avatar = m.photoUrl
     ? `<div class="member-avatar" style="background:${esc(m.color)};"><img src="${esc(m.photoUrl)}" alt="${esc(m.name)}"></div>`
     : `<div class="member-avatar" style="background:${esc(m.color)};">${esc(m.initial||m.name.charAt(0))}</div>`;
@@ -6380,7 +6479,7 @@ function renderMemberPage(name){
     <div class="member-hero" style="border-top-color:${esc(m.color)};">
       ${avatar}
       <div>
-        <div class="member-name">${esc(m.name)}${p.password ? '<span class="member-lock-badge"><i class="ti ti-lock"></i>LOCK</span>' : ''}</div>
+        <div class="member-name">${esc(m.name)}${p.profileLockPassword ? '<span class="member-lock-badge"><i class="ti ti-lock"></i>LOCK</span>' : ''}</div>
         <div class="member-headline">${esc(p.headline || 'プロフィール')}</div>
         <div class="member-mission">${esc(p.mission || '担当ミッションは未設定です')}</div>
       </div>
@@ -6403,9 +6502,9 @@ function renderMemberPage(name){
       <div class="member-panel-title"><i class="ti ti-notes"></i>得意領域・自由メモ</div>
       <div class="member-panel-body ${(p.strengths || p.note) ? '' : 'empty'}">${esc([p.strengths, p.note].filter(Boolean).join('\n\n') || '未設定')}</div>
     </div>
-    <div class="member-top-actions">
+    ${canEditProfile ? `<div class="member-top-actions">
       <button class="s-btn" type="button" onclick="openMemberEditPage()"><i class="ti ti-edit" style="margin-right:4px;"></i>プロフィール編集</button>
-    </div>
+    </div>` : ''}
   `;
 }
 
@@ -6443,7 +6542,7 @@ function renderMemberEditPage(name){
         <div class="member-field"><label>作業服サイズ（下）</label><input id="mpv-workwearBottom" class="member-input" value="${escAttr(p.workwearBottom)}" placeholder="例: L"></div>
         <div class="member-field full"><label>所持している資格</label><textarea id="mpv-licenses" class="member-input" style="min-height:70px;resize:vertical;">${esc(p.licenses)}</textarea></div>
         <div class="member-field"><label>連絡先（補足）</label><input id="mpv-contact" class="member-input" value="${escAttr(p.contact)}" placeholder="任意"></div>
-        <div class="member-field"><label>ページロック用パスワード</label><input id="mpv-password" type="password" class="member-input" value="${escAttr(p.password)}" placeholder="未入力でロック解除"></div>
+        <div class="member-field"><label>ページロック用パスワード</label><input id="mpv-profileLockPassword" type="password" class="member-input" value="${escAttr(p.profileLockPassword)}" placeholder="未入力でロック解除"></div>
         <div class="member-field full"><label>自由メモ</label><textarea id="mpv-note" class="member-input" style="min-height:80px;resize:vertical;">${esc(p.note)}</textarea></div>
       </div>
       <div class="member-form-actions">
@@ -6479,12 +6578,19 @@ async function saveActiveMemberProfile(){
     workwearBottom: v('mpv-workwearBottom'),
     licenses: v('mpv-licenses'),
     contact: v('mpv-contact'),
-    password: v('mpv-password'),
+    profileLockPassword: v('mpv-profileLockPassword'),
     note: v('mpv-note')
   });
   if(saveBtn){ saveBtn.disabled = true; saveBtn.innerHTML = '<span class="btn-spinner"></span>保存中...'; }
   setMemberProfile(_activeMemberName, profile);
   try{
+    _membersCache = (_membersCache || getMembersList()).map(m => m.name === _activeMemberName ? {...m, profileLockPassword: profile.profileLockPassword} : m);
+    await gasPost({
+      sheet:'メンバー_UPDATE',
+      oldName:_activeMemberName,
+      name:_activeMemberName,
+      profileLockPassword:profile.profileLockPassword
+    });
     await persistMemberProfiles();
     renderMembers(_membersCache);
     renderMemberSettings();
@@ -6533,13 +6639,14 @@ async function addMember(){
   if(!name){ showToast('名前を入力してください'); return; }
   const list = (_membersCache && _membersCache.length) ? [..._membersCache] : [...DEFAULT_MEMBERS];
   const initial = name.charAt(0);
-  list.push({name, color, initial, photoUrl:'', loginPassword, loginEnabled:true, isAdmin, email});
-  _membersCache = list;
+  const displayOrder = list.length + 1;
+  list.push({name, color, initial, photoUrl:'', loginPassword, loginEnabled:true, isAdmin, email, displayOrder, profileLockPassword:''});
+  _membersCache = normalizeMemberOrder(list);
   setMemberProfile(name, {...getMemberProfile(name)});
   const addBtn = document.querySelector('[onclick="addMember()"]');
   if(addBtn){ addBtn.disabled=true; addBtn.innerHTML='<span class="btn-spinner"></span>追加中...'; }
   try{
-    await gasPost({sheet:'メンバー_UPDATE', name, color, initial, photoUrl:'', loginPassword, loginEnabled:true, isAdmin, email});
+    await gasPost({sheet:'メンバー_UPDATE', name, color, initial, photoUrl:'', loginPassword, loginEnabled:true, isAdmin, email, displayOrder, profileLockPassword:''});
     await persistMemberProfiles();
     document.getElementById('new-member-name').value='';
     if(emailEl) emailEl.value = '';
@@ -6592,6 +6699,8 @@ async function saveMember(i){
   const email = String(document.getElementById('mp-email-'+i)?.value || '').trim();
   const loginEnabled = document.getElementById('mp-login-'+i)?.checked !== false;
   const isAdmin = !!document.getElementById('mp-admin-'+i)?.checked;
+  const displayOrder = Number(m.displayOrder) || i + 1;
+  const profileLockPassword = String(m.profileLockPassword || getMemberProfileForLogin(m.name).profileLockPassword || '').trim();
   const oldName = m.name;
   if(name !== oldName && _memberProfileCache && _memberProfileCache[oldName]){
     _memberProfileCache[name] = normalizeMemberProfile(_memberProfileCache[oldName]);
@@ -6605,14 +6714,14 @@ async function saveMember(i){
   if(!_memberProfileCache[name]) setMemberProfile(name, {});
   setMemberProfile(name, {...getMemberProfile(name)});
   // キャッシュ更新
-  list[i] = {...m, name, initial, color, photoUrl, loginPassword, loginEnabled, isAdmin, email};
-  _membersCache = list;
+  list[i] = {...m, name, initial, color, photoUrl, loginPassword, loginEnabled, isAdmin, email, displayOrder, profileLockPassword};
+  _membersCache = normalizeMemberOrder(list);
   const saveBtn = document.querySelector('#m-edit-'+i+' .s-btn');
   if(saveBtn){ saveBtn.disabled=true; saveBtn.innerHTML='<span class="btn-spinner"></span>保存中...'; }
   try{
     await gasPost({
       sheet:'メンバー_UPDATE',
-      oldName:m.name, name, color, initial, photoUrl, loginPassword, loginEnabled, isAdmin, email
+      oldName:m.name, name, color, initial, photoUrl, loginPassword, loginEnabled, isAdmin, email, displayOrder, profileLockPassword
     });
     await persistMemberProfiles();
     showToast(name+'の情報を保存しました');
