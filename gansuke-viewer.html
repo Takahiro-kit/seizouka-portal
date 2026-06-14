@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>製造課 スケジュールビューア（2026/06/14 14:44更新）</title>
+<title>製造課 スケジュールビューア（2026/06/12 22:51更新）</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -182,17 +182,19 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
   #print-list{display:block;}
   .print-title{font-size:14pt;font-weight:700;margin:0 0 2mm;}
   .print-sub{font-size:8pt;color:#444;margin:0 0 3mm;}
-  .print-table{width:100%;border-collapse:collapse;font-size:7pt;table-layout:fixed;}
-  .print-table th,.print-table td{border:1px solid #999;padding:1mm .9mm;vertical-align:top;word-break:break-word;overflow-wrap:anywhere;line-height:1.25;}
+  .print-table{width:100%;max-width:100%;border-collapse:collapse;font-size:6.6pt;table-layout:fixed;box-sizing:border-box;}
+  .print-table th,.print-table td{border:1px solid #999;padding:.8mm .7mm;vertical-align:top;word-break:break-word;overflow-wrap:anywhere;line-height:1.22;box-sizing:border-box;white-space:normal;}
   .print-table th{background:#eee;font-weight:700;text-align:left;}
-  .print-table .print-no{width:7mm;text-align:right;}
-  .print-table .print-code{width:18mm;}
-  .print-table .print-owner{width:16mm;}
-  .print-table .print-date{width:20mm;}
-  .print-table .print-range{width:28mm;white-space:pre-line;}
-  .print-table .print-model{width:40mm;}
-  .print-table .print-customer{width:45mm;}
-  .print-table .print-item{font-size:6.5pt;}
+  .print-table .print-no{width:6mm;text-align:right;}
+  .print-table .print-code{width:15mm;}
+  .print-table .print-owner{width:13mm;}
+  .print-table .print-date{width:16mm;}
+  .print-table .print-range{width:23mm;white-space:pre-line;}
+  .print-table .print-model{width:26mm;}
+  .print-table .print-customer{width:30mm;}
+  .print-table .print-detail{font-size:6.2pt;}
+  .print-table .print-summary{font-size:6.2pt;}
+  .print-table .print-item{font-size:6.1pt;}
   .print-table .print-days{width:12mm;text-align:right;}
   .print-table .print-marker{width:12mm;text-align:center;}
 }
@@ -290,8 +292,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
       <input type="date" class="sp-input" id="print-start" onchange="activatePrintRange()" style="max-width:140px;">
       <span style="font-size:11px;color:var(--text2)">〜</span>
       <input type="date" class="sp-input" id="print-end" onchange="activatePrintRange()" style="max-width:140px;">
-      <button class="print-btn" onclick="printDueList()">出力</button>
-      <button class="sp-btn clear" onclick="resetPrintPanel()">出力条件リセット</button>
+      <button class="sp-btn clear" onclick="resetPrintPanel()">リセット</button>
     </div>
     <div class="spanel-row">
       <span class="sp-label">出力テンプレート</span>
@@ -299,6 +300,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
       <button class="sp-btn" onclick="savePrintTemplate()">テンプレート保存</button>
       <button class="sp-btn clear" onclick="deletePrintTemplate()">削除</button>
       <span class="sp-label">出力項目</span>
+      <label class="sp-label"><input type="checkbox" class="print-field" value="no" checked> No.</label>
       <label class="sp-label"><input type="checkbox" class="print-field" value="projectNo" checked> 案件番号</label>
       <label class="sp-label"><input type="checkbox" class="print-field" value="customer" checked> 顧客名</label>
       <label class="sp-label"><input type="checkbox" class="print-field" value="owner" checked> 技術担当</label>
@@ -306,12 +308,12 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
       <label class="sp-label"><input type="checkbox" class="print-field" value="due" checked> 納期</label>
       <label class="sp-label"><input type="checkbox" class="print-field" value="model" checked> 型番</label>
       <label class="sp-label"><input type="checkbox" class="print-field" value="item" checked> 基本データ</label>
-      <label class="sp-label"><input type="checkbox" class="print-field" value="no"> No.</label>
       <label class="sp-label"><input type="checkbox" class="print-field" value="textDue"> 記載納期</label>
-      <label class="sp-label"><input type="checkbox" class="print-field" value="orderNo"> 見積番号</label>
+      <label class="sp-label"><input type="checkbox" class="print-field" value="orderNo" checked> 見積番号</label>
       <label class="sp-label"><input type="checkbox" class="print-field" value="summary"> 予定概要</label>
       <label class="sp-label"><input type="checkbox" class="print-field" value="charts"> チャート明細</label>
-      <label class="sp-label"><input type="checkbox" class="print-field" value="events"> イベント</label>
+      <label class="sp-label"><input type="checkbox" class="print-field" value="events" checked> イベント</label>
+      <button class="print-btn" onclick="printDueList()">出力</button>
     </div>
   </div>
   <div class="legend">
@@ -379,7 +381,7 @@ let zoomLevel=1;
 let baseRowHeight=40;
 const APPEARANCE_KEY='gansuke_appearance';
 const PRINT_TEMPLATE_KEY='gansuke_print_templates';
-const DEFAULT_PRINT_FIELDS=['projectNo','customer','owner','ship','due','model','item'];
+const DEFAULT_PRINT_FIELDS=['no','projectNo','customer','owner','ship','due','model','item','orderNo','events'];
 const TODAY=new Date(); TODAY.setHours(0,0,0,0);
 
 // ══════════════════════════════
