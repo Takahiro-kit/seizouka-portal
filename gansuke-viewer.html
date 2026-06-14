@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>製造課 スケジュールビューア（2026/06/12 22:51更新）</title>
+<title>製造課 スケジュールビューア（2026/06/14 19:52更新）</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -1323,12 +1323,9 @@ function renderTimeline(){
   // update label
   document.getElementById('period-label').innerHTML=periodLabelHtml(period);
 
-  // ── pxPerDayはフォーカス期間が画面内に収まる幅で決める ──
-  // zoomLevelは文字サイズ・行高の見た目拡大に使い、日幅には直接掛けない。
+  // ── pxPerDayはフォーカス期間の幅で決める（スケール固定） ──
   const availW=document.getElementById('tlsc').clientWidth||800;
-  const focusSidePad=12;
-  const fitW=Math.max(1,availW-focusSidePad*2);
-  const pxPerDay=Math.max(1.5,fitW/focusDays);
+  const pxPerDay=Math.max(1.5, (availW/focusDays) * zoomLevel);
 
   // ── 描画範囲: 前後に同スケールで拡張（スクロール用） ──
   // フォーカス期間の2倍分を前後に追加
@@ -1500,7 +1497,7 @@ function renderTimeline(){
   requestAnimationFrame(()=>{
     const sc=document.getElementById('tlsc');
     const focusX=diffD(S,focusS)*pxPerDay;
-    sc.scrollLeft=Math.max(0,focusX-focusSidePad);
+    sc.scrollLeft=Math.max(0,focusX-12);
   });
 }
 
