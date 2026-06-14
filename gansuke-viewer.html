@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>製造課 スケジュールビューア（2026/06/12 22:51更新）</title>
+<title>製造課 スケジュールビューア（2026/06/14 13:53更新）</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -50,10 +50,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
 .nav-btn:hover{background:var(--bg);}
 .zoom-btn{width:32px;height:30px;padding:3px;display:inline-flex;align-items:center;justify-content:center;}
 .zoom-icon{width:22px;height:22px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
-.period-label{font-size:var(--dh-month-font);font-weight:700;color:var(--text);min-width:160px;text-align:center;display:inline-flex;align-items:baseline;justify-content:center;gap:3px;}
-.period-label .period-year{font-size:.65em;font-weight:600;color:var(--text3);}
-.period-label .period-month{font-size:1em;font-weight:700;color:var(--text);}
-.period-label .period-extra{font-size:var(--dh-font);font-weight:600;color:var(--text2);}
+.period-label{font-size:var(--ui-font);font-weight:600;color:var(--text);min-width:160px;text-align:center;}
 .today-btn{background:var(--accent);color:#fff;border:none;border-radius:7px;padding:6px 14px;font-size:var(--ui-font);font-weight:600;cursor:pointer;font-family:var(--sans);}
 .today-btn:hover{background:#1840b0;}
 .srch{display:flex;align-items:center;gap:5px;background:var(--bg);border:1.5px solid var(--border);border-radius:7px;padding:4px 9px;}
@@ -281,12 +278,6 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
       <span class="sp-label">出力項目</span>
       <label class="sp-label"><input type="checkbox" class="print-field" value="no" checked> No.</label>
       <label class="sp-label"><input type="checkbox" class="print-field" value="item" checked> 案件名</label>
-      <label class="sp-label"><input type="checkbox" class="print-field" value="projectNo"> 案件番号</label>
-      <label class="sp-label"><input type="checkbox" class="print-field" value="model"> 機器/型番</label>
-      <label class="sp-label"><input type="checkbox" class="print-field" value="customer"> 顧客候補</label>
-      <label class="sp-label"><input type="checkbox" class="print-field" value="textDue"> 記載納期</label>
-      <label class="sp-label"><input type="checkbox" class="print-field" value="orderNo"> 見積り番号</label>
-      <label class="sp-label"><input type="checkbox" class="print-field" value="owner"> 担当</label>
       <label class="sp-label"><input type="checkbox" class="print-field" value="due" checked> 納期</label>
       <label class="sp-label"><input type="checkbox" class="print-field" value="ship" checked> 出荷期間</label>
       <label class="sp-label"><input type="checkbox" class="print-field" value="summary" checked> 予定概要</label>
@@ -553,48 +544,8 @@ function parseG(text){
       events.push({date:d,name:(ev.querySelector('eventname')?.textContent||'').replace(/\n/g,' ').trim(),
         marker:ev.querySelector('marker')?.textContent||'●'});
     });
-    ALL.push({item:txt,meta:parseItemMeta(txt),charts,events,sourceIndex:ALL.length});
+    ALL.push({item:txt,charts,events,sourceIndex:ALL.length});
   });
-}
-
-function parseItemMeta(text){
-  const src=(text||'').replace(/\s+/g,' ').trim();
-  const projectRe=/(?:FK|FS|FX)\d{4}[A-Z]*(?:\([^)]+\))?/gi;
-  const projects=[...src.matchAll(projectRe)].map(m=>m[0]);
-  const projectNo=projects[0]||'';
-  const dueRe=/納期\s*(?:変更\s*)?(\d{4}\/\d{1,2}\/\d{1,2}|\d{1,2}\/\d{1,2}|\d{1,2}\/(?:初旬|中旬|下旬|末|中)|\d{4}\/\d{1,2}\/(?:初旬|中旬|下旬|末|中)|\d{4}\/\d{1,2})/;
-  const dueMatch=src.match(dueRe);
-  const textDue=dueMatch?.[1]||'';
-  const start=projectNo?src.indexOf(projectNo)+projectNo.length:0;
-  const model=projectNo&&dueMatch
-    ? src.slice(start,dueMatch.index).trim()
-    : (projectNo?src.slice(start).trim():'');
-  let afterDue=dueMatch?src.slice(dueMatch.index+dueMatch[0].length).trim():'';
-  const ownerMatch=afterDue.match(/^(齋木|小川|和久利|鬼頭|山下|山崎|喜多|開原)/);
-  const owner=ownerMatch?.[1]||'';
-  if(owner)afterDue=afterDue.slice(owner.length).trim();
-  afterDue=afterDue.replace(/^[\s　/、,]+/,'');
-  const orderMatch=afterDue.match(/\b\d{2}[A-Z]?-\d{3}[A-Z]?\b/);
-  const customer=orderMatch?afterDue.slice(0,orderMatch.index).trim().replace(/[\s　/、,]+$/,''):afterDue;
-  const orderNo=orderMatch?.[0]||'';
-  const destination=orderMatch?afterDue.slice(orderMatch.index+orderNo.length).trim().replace(/^[\s　/、,]+/,''):'';
-  const confidence=[
-    projectNo?'案件番号':'',
-    model?'機器/型番':'',
-    textDue?'記載納期':'',
-    customer?'顧客候補':''
-  ].filter(Boolean).length;
-  return {
-    projectNo,
-    relatedProjectNos:projects.slice(1),
-    model,
-    textDue,
-    owner,
-    customer,
-    orderNo,
-    destination,
-    splitQuality:confidence>=4?'高':confidence>=2?'中':'低'
-  };
 }
 
 // ══════════════════════════════
@@ -723,14 +674,6 @@ function getSorted(arr){
 function rowText(row){
   return [
     row.item,
-    row.meta?.projectNo,
-    row.meta?.relatedProjectNos?.join(' '),
-    row.meta?.model,
-    row.meta?.textDue,
-    row.meta?.owner,
-    row.meta?.customer,
-    row.meta?.orderNo,
-    row.meta?.destination,
     ...row.charts.flatMap(c=>[c.label,c.start,c.end,c.bikou,c.nissuu]),
     ...row.events.flatMap(ev=>[ev.date,ev.name,ev.marker])
   ].join(' ');
@@ -987,23 +930,6 @@ function resetTimelineZoom(){
   renderAll();
 }
 
-function periodLabelHtml(period){
-  const s=period.start,e=period.end;
-  if(!s||!e)return esc(period.label||'');
-  if(VIEW==='month'){
-    return `<span class="period-year">${s.getFullYear()}年</span><span class="period-month">${s.getMonth()+1}月</span>`;
-  }
-  if(VIEW==='day'){
-    return `<span class="period-year">${s.getFullYear()}年</span><span class="period-month">${s.getMonth()+1}月</span><span class="period-extra">${s.getDate()}日（${['日','月','火','水','木','金','土'][s.getDay()]}）</span>`;
-  }
-  if(VIEW==='week'){
-    const sameYear=s.getFullYear()===e.getFullYear();
-    const endText=sameYear?`${e.getMonth()+1}月${e.getDate()}日`:`${e.getFullYear()}年${e.getMonth()+1}月${e.getDate()}日`;
-    return `<span class="period-year">${s.getFullYear()}年</span><span class="period-month">${s.getMonth()+1}月</span><span class="period-extra">${s.getDate()}日 〜 ${endText}</span>`;
-  }
-  return esc(period.label||'');
-}
-
 // ══════════════════════════════
 // NAV BUTTONS
 // ══════════════════════════════
@@ -1049,7 +975,7 @@ function renderTimeline(){
   const focusDays=diffD(focusS,addD(focusE,1));
 
   // update label
-  document.getElementById('period-label').innerHTML=periodLabelHtml(period);
+  document.getElementById('period-label').textContent=period.label;
 
   // ── pxPerDayはフォーカス期間の幅で決める（スケール固定） ──
   const availW=document.getElementById('tlsc').clientWidth||800;
@@ -1470,12 +1396,6 @@ function deletePrintTemplate(){
 const PRINT_FIELD_DEFS={
   no:{label:'No.',cls:'print-no',value:(row,i)=>String(i+1)},
   item:{label:'案件名',cls:'print-item',value:row=>row.item},
-  projectNo:{label:'案件番号',cls:'print-date',value:row=>row.meta?.projectNo||'-'},
-  model:{label:'機器/型番',cls:'print-detail',value:row=>row.meta?.model||'-'},
-  customer:{label:'顧客候補',cls:'print-detail',value:row=>row.meta?.customer||'-'},
-  textDue:{label:'記載納期',cls:'print-date',value:row=>row.meta?.textDue||'-'},
-  orderNo:{label:'見積り番号',cls:'print-date',value:row=>row.meta?.orderNo||'-'},
-  owner:{label:'担当',cls:'print-date',value:row=>row.meta?.owner||'-'},
   due:{label:'納期',cls:'print-date',value:row=>fd(getDueDate(row))||'-'},
   ship:{label:'出荷期間',cls:'print-date',value:row=>getShipmentText(row)||'-'},
   summary:{label:'予定概要',cls:'print-summary',value:row=>getChartSummary(row)||'-'},
