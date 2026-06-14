@@ -67,7 +67,6 @@
     .field label{font-size:13px;font-weight:800;color:var(--muted);white-space:nowrap}
     .inp{border:1px solid #cbd5e1;border-radius:6px;padding:9px 11px;font-size:15px;font-family:inherit;background:#fff;outline:none}
     .inp:focus{border-color:var(--blue)}
-    .portal-date-input{min-width:10.5em;}
     .inline-group{display:flex;gap:8px;align-items:center}
     .inline-group .short{max-width:120px}
     .inline-group .pick{max-width:210px}
@@ -214,7 +213,7 @@
       <div class="card">
         <div class="hdr">運送手配依頼書 入力</div>
         <div class="form">
-          <div class="field"><label>発信日</label><input id="sendDate" class="inp portal-date-input" type="text" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" oninput="renderPreview()"></div>
+          <div class="field"><label>発信日</label><input id="sendDate" class="inp" type="date" oninput="renderPreview()"></div>
           <div class="field"><label>送付枚数</label><input id="pages" class="inp" type="text" value="1" oninput="renderPreview()"></div>
           <div class="field"><label>連絡先TEL</label><input id="contactNo" class="inp" type="text" value="052-383-4622" oninput="renderPreview()"></div>
           <div class="field"><label>要件</label><input id="subject" class="inp" type="text" value="配車依頼" oninput="renderPreview()"></div>
@@ -288,7 +287,7 @@
           <div class="field">
             <label>集荷日時</label>
             <div class="inline-group">
-              <input id="loadDate" class="inp date-inp portal-date-input" type="text" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" onchange="onTimeRangeInput('load')">
+              <input id="loadDate" class="inp date-inp" type="date" onchange="onTimeRangeInput('load')">
               <select id="loadStartTime" class="inp time-inp" onchange="onTimeRangeInput('load')">
                 <option value="">時刻</option>
               </select>
@@ -312,7 +311,7 @@
           <div class="field">
             <label>配送日時</label>
             <div class="inline-group">
-              <input id="unloadDate" class="inp date-inp portal-date-input" type="text" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" onchange="onTimeRangeInput('unload')">
+              <input id="unloadDate" class="inp date-inp" type="date" onchange="onTimeRangeInput('unload')">
               <select id="unloadStartTime" class="inp time-inp" onchange="onTimeRangeInput('unload')">
                 <option value="">時刻</option>
               </select>

@@ -67,8 +67,6 @@
     .chk{width:16px;height:16px;accent-color:var(--blue)}
     .inp{border:1px solid #cbd5e1;border-radius:6px;padding:9px 11px;font-size:14px;font-family:inherit;background:#fff;outline:none}
     .inp:focus{border-color:var(--blue)}
-    .portal-date-input{min-width:10.5em;}
-    .portal-date-input{min-width:10.5em;}
     .items-grid{display:grid;grid-template-columns:1fr 170px;gap:6px}
     .items-head{font-size:12px;font-weight:900;color:#475569}
     .qty-with-unit{display:grid;grid-template-columns:1fr 58px;gap:6px}
@@ -261,7 +259,7 @@
       <div class="card">
         <div class="hdr">送状 入力</div>
         <div class="form">
-          <div class="field"><label>発送日</label><input id="requestDate" class="inp portal-date-input" type="text" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" oninput="renderPreview()"></div>
+          <div class="field"><label>発送日</label><input id="requestDate" class="inp" type="date" oninput="renderPreview()"></div>
           <div class="field"><label>案件番号</label><input id="caseNo" class="inp" type="text" oninput="renderPreview()"></div>
 
           <div class="field"><label>運送会社</label><input id="carrierCompany" class="inp" type="text" oninput="renderPreview()"></div>

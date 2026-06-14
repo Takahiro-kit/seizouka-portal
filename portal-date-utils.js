@@ -57,7 +57,7 @@
     return formatPortalDateTimeStorage(new Date());
   }
 
-  const PORTAL_DATE_INPUT_ATTRS = 'type="text" class="portal-date-input" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\\d{4}-\\d{2}-\\d{2}" title="YYYY-MM-DD"';
+  const PORTAL_DATE_INPUT_ATTRS = 'type="date"';
 
   global.PortalDate = {
     p,

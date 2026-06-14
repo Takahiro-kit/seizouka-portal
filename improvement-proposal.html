@@ -33,7 +33,6 @@
     .field.full{grid-column:1/span 2}
     .field label{font-size:13px;font-weight:800;color:var(--muted)}
     .inp{border:1px solid #cbd5e1;border-radius:6px;padding:9px 11px;font-size:14px;font-family:inherit;background:#fff;outline:none}
-    .portal-date-input{min-width:10.5em;}
     .inp:focus{border-color:var(--blue)}
     .inp[readonly]{background:#f8fafc;color:#334155}
     textarea.inp{min-height:180px;resize:vertical}
@@ -72,7 +71,7 @@
         <div class="form">
           <div class="field">
             <label for="proposal-date">日付</label>
-            <input id="proposal-date" class="inp portal-date-input" type="text" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD">
+            <input id="proposal-date" class="inp" type="date">
           </div>
           <div class="field">
             <label for="proposer-name">氏名（ログイン名）</label>

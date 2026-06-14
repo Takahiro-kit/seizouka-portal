@@ -226,7 +226,6 @@ body.admin-mode .nav-admin-links{display:block;}
 .mgmt-tile-updated{display:none;margin-top:6px;font-size:12px;font-weight:600;color:rgba(255,255,255,.78);letter-spacing:.02em;}
 .mgmt-updated-inputs{display:grid;grid-template-columns:minmax(0,1fr) 120px;gap:8px;align-items:center;}
 .mgmt-updated-time{width:120px;}
-.portal-date-input{min-width:10.5em;}
 .mgmt-tile-arr{margin-left:auto;font-size:8px;color:rgba(255,255,255,.7);flex-shrink:0;}
 
 /* CARD */
@@ -1311,7 +1310,7 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
                 </select>
                 <div class="todo-due-wrap">
                   <span class="todo-due-label">完了希望日</span>
-                  <input id="t-due-date" class="portal-date-input" type="text" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="完了希望日（YYYY-MM-DD）" aria-label="完了希望日">
+                  <input id="t-due-date" type="date" title="完了希望日" aria-label="完了希望日">
                 </div>
                 <button id="add-todo-btn" type="button" onclick="submitTodoForm()">追加</button>
                 <button id="cancel-todo-edit-btn" type="button" onclick="cancelTodoEdit()">キャンセル</button>
@@ -1364,10 +1363,10 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
             <div id="img-rule-workreport" style="display:none;grid-template-columns:1fr 1fr 180px;gap:8px;margin-bottom:8px;">
               <input type="text" id="img-report-number" placeholder="FKまたはFS番号（例: FK1234）" style="border:1px solid var(--border2);border-radius:4px;padding:8px 10px;font-size:13px;font-family:var(--sans);outline:none;">
               <input type="text" id="img-report-user" placeholder="ユーザー名（例: 山田）" style="border:1px solid var(--border2);border-radius:4px;padding:8px 10px;font-size:13px;font-family:var(--sans);outline:none;">
-              <input type="text" id="img-report-date" class="portal-date-input" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" style="border:1px solid var(--border2);border-radius:4px;padding:8px 10px;font-size:13px;font-family:var(--sans);outline:none;">
+              <input type="date" id="img-report-date" style="border:1px solid var(--border2);border-radius:4px;padding:8px 10px;font-size:13px;font-family:var(--sans);outline:none;">
             </div>
             <div id="img-rule-slip" style="display:none;grid-template-columns:180px 1fr 1fr;gap:8px;margin-bottom:8px;">
-              <input type="text" id="img-slip-date" class="portal-date-input" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" style="border:1px solid var(--border2);border-radius:4px;padding:8px 10px;font-size:13px;font-family:var(--sans);outline:none;">
+              <input type="date" id="img-slip-date" style="border:1px solid var(--border2);border-radius:4px;padding:8px 10px;font-size:13px;font-family:var(--sans);outline:none;">
               <input type="text" id="img-slip-company" placeholder="客先会社名（例: 株式会社〇〇）" style="border:1px solid var(--border2);border-radius:4px;padding:8px 10px;font-size:13px;font-family:var(--sans);outline:none;">
               <input type="text" id="img-slip-customer" placeholder="お客様名（例: 山田太郎）" style="border:1px solid var(--border2);border-radius:4px;padding:8px 10px;font-size:13px;font-family:var(--sans);outline:none;">
             </div>
@@ -1539,7 +1538,7 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
             <div class="s-row-title">ホーム表示の更新日</div>
             <div class="s-row-desc">ファイル選択時は自動で現在の日時を保存します。必要に応じて手入力でも修正できます。</div>
             <div class="mgmt-updated-inputs">
-              <input id="s-shukka-updated-date" class="s-input portal-date-input" type="text" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" aria-label="出荷連絡表更新日">
+              <input id="s-shukka-updated-date" class="s-input" type="date" aria-label="出荷連絡表更新日">
               <input id="s-shukka-updated-time" class="s-input mgmt-updated-time" type="time" aria-label="出荷連絡表更新時刻">
             </div>
           </div>
@@ -1573,7 +1572,7 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
             <div class="s-row-title">ホーム表示の更新日</div>
             <div class="s-row-desc">「更新日を保存」を押すと現在の日時が保存されます。日付だけ変更した場合も、その日付＋現在時刻で保存します。</div>
             <div class="mgmt-updated-inputs">
-              <input id="s-schedule-updated-date" class="s-input portal-date-input" type="text" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" aria-label="GansukeViewer更新日">
+              <input id="s-schedule-updated-date" class="s-input" type="date" aria-label="GansukeViewer更新日">
               <input id="s-schedule-updated-time" class="s-input mgmt-updated-time" type="time" aria-label="GansukeViewer更新時刻">
             </div>
           </div>
@@ -1620,7 +1619,7 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
         </div>
         <div style="padding:14px 18px;border-bottom:1px solid var(--border);">
           <div style="display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;">
-            <input type="text" id="hol-date" class="portal-date-input" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;">
+            <input type="date" id="hol-date" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;">
             <button class="s-btn" onclick="addHoliday(this)">追加</button>
           </div>
           <div style="display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:10px;">
@@ -1711,7 +1710,7 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
             <div style="display:flex;gap:8px;">
               <input type="text" id="doc-name" placeholder="ファイル名（例：出荷手順書 v3.2）" style="flex:1;border:1px solid var(--border2);border-radius:4px;padding:8px 12px;font-size:13px;font-family:var(--sans);outline:none;">
               <select id="doc-type" style="width:160px;border:1px solid var(--border2);border-radius:4px;padding:8px 10px;font-size:13px;font-family:var(--sans);background:#fff;outline:none;cursor:pointer;"></select>
-              <input type="text" id="doc-date" class="portal-date-input" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" style="width:200px;border:1px solid var(--border2);border-radius:4px;padding:8px 12px;font-size:13px;font-family:var(--sans);outline:none;">
+              <input type="date" id="doc-date" style="width:200px;border:1px solid var(--border2);border-radius:4px;padding:8px 12px;font-size:13px;font-family:var(--sans);outline:none;">
             </div>
             <div style="display:flex;gap:8px;">
               <input type="url" id="doc-url" placeholder="SharePointのURL（ファイルを右クリック→リンクのコピー）" style="flex:1;border:1px solid var(--border2);border-radius:4px;padding:8px 12px;font-size:13px;font-family:var(--sans);outline:none;">
@@ -1852,8 +1851,8 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
         </div>
         <div style="padding:14px 18px;border-bottom:1px solid var(--border);">
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:8px;align-items:center;">
-            <input type="text" id="ev-date" class="portal-date-input" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;">
-            <input type="text" id="ev-date-end" class="portal-date-input" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="期間登録する場合の終了日（YYYY-MM-DD・任意）" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;">
+            <input type="date" id="ev-date" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;">
+            <input type="date" id="ev-date-end" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;" title="期間登録する場合の終了日（任意）">
             <select id="ev-type" style="border:1px solid var(--border2);border-radius:4px;padding:7px 10px;font-size:13px;font-family:var(--sans);outline:none;background:#fff;">
               <option value="tenj">展示会</option>
               <option value="kekki">決起会</option>
@@ -3486,6 +3485,7 @@ function renderPortalLoginMembers(){
 }
 let _portalDataReady = false;
 let _portalDataLoadPromise = null;
+let _lastPortalAutoRefreshAt = 0;
 function startPortalDataLoad(){
   if(_portalDataReady) return Promise.resolve();
   if(_portalDataLoadPromise) return _portalDataLoadPromise;
@@ -3504,6 +3504,14 @@ function touchPortalDataLoad(){
 }
 function ensureInitialDataLoaded(){
   return startPortalDataLoad();
+}
+function refreshPortalDataOnReturn(){
+  if(document.visibilityState && document.visibilityState !== 'visible') return;
+  if(!_portalDataReady) return;
+  const now = Date.now();
+  if(now - _lastPortalAutoRefreshAt < 5000) return;
+  _lastPortalAutoRefreshAt = now;
+  loadData({ force: true }).catch((e)=>{ console.error(e); });
 }
 function openPortalLoginDialog(){
   const modal = document.getElementById('portal-login-modal');
@@ -6423,7 +6431,7 @@ function renderMemberEditPage(name){
       <div class="member-panel-title"><i class="ti ti-edit"></i>プロフィール情報を編集</div>
       <div class="member-form-grid">
         <div class="member-field"><label>氏名</label><input id="mpv-fullName" class="member-input" value="${escAttr(p.fullName || m.name)}"></div>
-        <div class="member-field"><label>生年月日</label><input id="mpv-birthDate" class="member-input portal-date-input" type="text" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" value="${escAttr(normalizePortalDateValue(p.birthDate))}"></div>
+        <div class="member-field"><label>生年月日</label><input id="mpv-birthDate" class="member-input" type="date" value="${escAttr(normalizePortalDateValue(p.birthDate))}"></div>
         <div class="member-field full"><label>住所</label><input id="mpv-address" class="member-input" value="${escAttr(p.address)}"></div>
         <div class="member-field"><label>電話番号</label><input id="mpv-phone" class="member-input" value="${escAttr(p.phone)}"></div>
         <div class="member-field"><label>肩書き・役割（見出し）</label><input id="mpv-headline" class="member-input" value="${escAttr(p.headline)}"></div>
@@ -7138,6 +7146,9 @@ function setupPortalNavPrefetch(){
   if(main) main.addEventListener('click', onNavClick, true);
 }
 setupPortalNavPrefetch();
+window.addEventListener('focus', refreshPortalDataOnReturn);
+window.addEventListener('pageshow', refreshPortalDataOnReturn);
+document.addEventListener('visibilitychange', refreshPortalDataOnReturn);
 setupPortalAuditCapture();
 updateGuestLoginUi();
 renderManagementTileUpdatedDates();

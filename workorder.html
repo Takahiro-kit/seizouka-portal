@@ -95,7 +95,6 @@
       font-size:14px;font-family:inherit;outline:none;background:#fff;
     }
     .inp:focus{border-color:var(--blue)}
-    .portal-date-input{min-width:10.5em;}
     .paper-wrap{padding:18px;background:#e2e8f0;overflow:auto;max-height:calc(100vh - 190px)}
     .paper{
       width:100%;max-width:198mm;min-height:297mm;background:#fff;margin:0 auto;
@@ -192,7 +191,7 @@
           <label for="loadCustomerQuery">顧客名</label>
           <input id="loadCustomerQuery" class="inp" type="text" placeholder="例: 〇〇ファーマ様">
           <label for="fileDate">出力日付</label>
-          <input id="fileDate" class="inp inp-date portal-date-input" type="text" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="PDFファイル名用（YYYY-MM-DD）">
+          <input id="fileDate" class="inp inp-date" type="date" title="PDFファイル名用">
         </div>
         <button class="btn alt" type="button" onclick="loadWorkorder(this)">案件呼び出し</button>
         <button class="btn alt" type="button" onclick="loadWorkorderList(this)">全件表示</button>
@@ -231,11 +230,11 @@
           </div>
           <div class="field">
             <label for="requestDate">依頼日</label>
-            <input id="requestDate" class="inp portal-date-input" type="text" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" oninput="renderPreview()">
+            <input id="requestDate" class="inp" type="date" oninput="renderPreview()">
           </div>
           <div class="field">
             <label for="deadline">作業期限</label>
-            <input id="deadline" class="inp portal-date-input" type="text" placeholder="YYYY-MM-DD" inputmode="numeric" pattern="\d{4}-\d{2}-\d{2}" title="YYYY-MM-DD" oninput="renderPreview()">
+            <input id="deadline" class="inp" type="date" oninput="renderPreview()">
           </div>
           <div class="field">
             <label for="docCaseNo">案件番号</label>
