@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>製造課 スケジュールビューア（2026/06/14 17:00更新）</title>
+<title>製造課 スケジュールビューア（2026/06/12 22:51更新）</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -1456,6 +1456,61 @@ function dateInRange(d,start,end){
   return d&&d>=start&&d<=end;
 }
 
+function parseRangeTextDate(token,range){
+  if(!token||!range)return null;
+  const s=String(token);
+  let m=s.match(/(\d{4})[\/.-](\d{1,2})(?:[\/.-](\d{1,2}))?/);
+  if(m){
+    const y=Number(m[1]),mo=Number(m[2]),da=Number(m[3]||1);
+    const d=new Date(y,mo-1,da);d.setHours(0,0,0,0);
+    return d;
+  }
+  m=s.match(/(?:^|[^\d])(\d{1,2})[\/月](\d{1,2}|初旬|中旬|下旬|末|中)(?:日)?/);
+  if(m){
+    const mo=Number(m[1]);
+    const rawDay=m[2];
+    const da=/^\d+$/.test(rawDay)?Number(rawDay):rawDay==='末'?28:rawDay==='下旬'?21:rawDay==='中旬'||rawDay==='中'?15:1;
+    const years=[range.start.getFullYear(),range.end.getFullYear()];
+    for(const y of [...new Set(years)]){
+      const d=new Date(y,mo-1,da);d.setHours(0,0,0,0);
+      if(d>=new Date(y,range.start.getMonth(),1)&&d<=new Date(y,range.end.getMonth()+1,0))return d;
+    }
+    const d=new Date(range.start.getFullYear(),mo-1,da);d.setHours(0,0,0,0);
+    return d;
+  }
+  m=s.match(/(?:^|[^\d])(\d{1,2})月/);
+  if(m){
+    const mo=Number(m[1]);
+    const d=new Date(range.start.getFullYear(),mo-1,1);d.setHours(0,0,0,0);
+    return d;
+  }
+  return null;
+}
+
+function tokenHasOutOfRangeDate(token,range){
+  const d=parseRangeTextDate(token,range);
+  return !!(d&& !dateInRange(d,range.start,range.end));
+}
+
+function getRangeItemText(row,range){
+  const text=row.item||'';
+  if(!range)return text;
+  const parts=text.split(/(\s+)/);
+  const kept=[];
+  for(let i=0;i<parts.length;i++){
+    const part=parts[i];
+    if(!part.trim()){
+      kept.push(part);
+      continue;
+    }
+    if(tokenHasOutOfRangeDate(part,range)){
+      continue;
+    }
+    kept.push(part);
+  }
+  return kept.join('').replace(/\s{2,}/g,' ').trim();
+}
+
 function rowMatchesPrintRange(row,range){
   const due=getDueDate(row);
   if(dateInRange(due,range.start,range.end))return true;
@@ -1576,14 +1631,23 @@ function deletePrintTemplate(){
 
 const PRINT_FIELD_DEFS={
   no:{label:'No.',cls:'print-no',value:(row,i)=>String(i+1)},
-  item:{label:'基本データ',cls:'print-item',value:row=>row.item},
+  item:{label:'基本データ',cls:'print-item',value:(row,i,range)=>getRangeItemText(row,range)||'-'},
   projectNo:{label:'案件番号',cls:'print-code',value:row=>row.meta?.projectNo||'-'},
   model:{label:'型番',cls:'print-model',value:row=>row.meta?.model||'-'},
   customer:{label:'顧客名',cls:'print-customer',value:row=>row.meta?.customer||'-'},
-  textDue:{label:'記載納期',cls:'print-date',value:row=>row.meta?.textDue||'-'},
+  textDue:{label:'記載納期',cls:'print-date',value:(row,i,range)=>{
+    const text=row.meta?.textDue||'';
+    if(!range||!text)return text||'-';
+    const d=parseRangeTextDate(text,range);
+    return !d||dateInRange(d,range.start,range.end)?text:'-';
+  }},
   orderNo:{label:'見積番号',cls:'print-code',value:row=>row.meta?.orderNo||'-'},
   owner:{label:'技術担当',cls:'print-owner',value:row=>row.meta?.owner||'-'},
-  due:{label:'納期',cls:'print-date',value:row=>fd(getDueDate(row))||'-'},
+  due:{label:'納期',cls:'print-date',value:(row,i,range)=>{
+    const due=getDueDate(row);
+    if(range&&!dateInRange(due,range.start,range.end))return '-';
+    return fd(due)||'-';
+  }},
   ship:{label:'出荷日',cls:'print-range',value:(row,i,range)=>getShipmentText(row,range)||'-'},
   summary:{label:'予定概要',cls:'print-summary',value:(row,i,range)=>getChartSummary(row,range)||'-'},
   charts:{label:'チャート明細',cls:'print-detail',value:(row,i,range)=>getRangeCharts(row,range).map(c=>`${c.label} ${chartDateText(c,range)}${c.nissuu?` (${c.nissuu}日)`:''}${c.bikou?` ${c.bikou}`:''}`).join(' / ')||'-'},
