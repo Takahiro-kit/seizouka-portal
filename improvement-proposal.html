@@ -112,6 +112,15 @@
               <option value="検討">検討</option>
             </select>
           </div>
+          <div class="field" id="implementation-status-field" style="display:none;">
+            <label for="implementation-status">状況</label>
+            <select id="implementation-status" class="inp">
+              <option value="">選択してください</option>
+              <option value="調査中">調査中</option>
+              <option value="実行中">実行中</option>
+              <option value="完了">完了</option>
+            </select>
+          </div>
           <div class="field" id="implement-owner-field" style="display:none;">
             <label for="implement-owner">実施担当（選択/手入力）</label>
             <input id="implement-owner" class="inp" list="implement-owner-options" placeholder="担当者（名字）を選択または入力">
@@ -445,6 +454,7 @@
       $("improvement-text").value = "";
       $("manager-comment").value = "";
       $("supervisor-decision").value = "";
+      $("implementation-status").value = "";
       $("implement-owner").value = "";
       resetImageState();
       applyRoleUi();
@@ -457,6 +467,7 @@
       $("improvement-text").value = String(row.improvementText || "");
       $("manager-comment").value = String(row.managerComment || "");
       $("supervisor-decision").value = String(row.supervisorDecision || "");
+      $("implementation-status").value = implementationStatusLabel(row);
       $("implement-owner").value = String(row.implementOwner || "");
       state.newImageDataUrl = "";
       state.newImageFileName = "";
@@ -473,12 +484,14 @@
       const hasSupervisorInfo = !!String(
         ((row && row.managerComment) || "") +
         ((row && row.supervisorDecision) || "") +
-        ((row && row.implementOwner) || "")
+        ((row && row.implementOwner) || "") +
+        implementationStatusLabel(row)
       ).trim();
       $("proposal-date").readOnly = !!(state.isAdmin && row);
       $("proposer-name").readOnly = true;
       $("manager-comment").readOnly = !state.isAdmin;
       $("supervisor-decision").disabled = !state.isAdmin;
+      $("implementation-status").disabled = !state.isAdmin;
       $("implement-owner").readOnly = !state.isAdmin;
       $("save-btn").disabled = !(isOwn || state.isAdmin);
       $("comment-btn").style.display = state.isAdmin ? "inline-block" : "none";
@@ -487,6 +500,7 @@
       const showSupervisorFields = state.isAdmin || hasSupervisorInfo;
       $("supervisor-comment-field").style.display = showSupervisorFields ? "flex" : "none";
       $("supervisor-decision-field").style.display = showSupervisorFields ? "flex" : "none";
+      $("implementation-status-field").style.display = showSupervisorFields ? "flex" : "none";
       $("implement-owner-field").style.display = showSupervisorFields ? "flex" : "none";
       $("list-title").textContent = state.activeTab === "completed"
         ? "採用・完了一覧"
@@ -494,9 +508,19 @@
     }
     function isAdoptedCompleted(row){
       const decision = String(row && row.supervisorDecision || "").trim();
+      return decision === "採用" && isImplementationCompleted(row);
+    }
+    function isImplementationCompleted(row){
       const status = String(row && row.status || "").trim().toLowerCase();
       const exportedAt = String(row && row.lastExportedAt || "").trim();
-      return decision === "採用" && (status === "exported" || !!exportedAt);
+      return status === "completed" || status === "exported" || !!exportedAt;
+    }
+    function implementationStatusLabel(row){
+      const status = String(row && row.status || "").trim().toLowerCase();
+      if(status === "completed" || status === "exported" || String(row && row.lastExportedAt || "").trim()) return "完了";
+      if(status === "executing") return "実行中";
+      if(status === "investigating") return "調査中";
+      return "";
     }
     function canShowInActiveTab(row){
       return !isAdoptedCompleted(row);
@@ -576,6 +600,9 @@
         if(s === "new") return "新規";
         if(s === "commented") return "コメント済み";
         if(s === "exported") return "出力済み";
+        if(s === "completed") return "完了";
+        if(s === "investigating") return "調査中";
+        if(s === "executing") return "実行中";
         return String(status || "");
       };
       const statusText = (row) => {
@@ -674,7 +701,9 @@
           operator: state.operator,
           managerComment: $("manager-comment").value,
           supervisorDecision: $("supervisor-decision").value,
-          implementOwner: $("implement-owner").value
+          implementationStatus: $("implementation-status").value,
+          implementOwner: $("implement-owner").value,
+          implementationCompleted: $("implementation-status").value === "完了" ? 1 : 0
         });
         await new Promise(r => setTimeout(r, 700));
         await fetchRows();
