@@ -42,6 +42,10 @@
     .img-preview{margin-top:8px;max-width:100%;max-height:180px;border:1px solid #cbd5e1;border-radius:6px;display:none}
     .img-actions{display:flex;gap:8px;margin-top:8px}
     .mini-btn{border:1px solid #94a3b8;background:#fff;border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer}
+    .list-tabs{display:flex;gap:6px;padding:10px 14px 0;background:#fff;border-bottom:1px solid var(--line)}
+    .list-tab{border:1px solid #cbd5e1;background:#f8fafc;color:#334155;border-radius:6px 6px 0 0;padding:8px 12px;font-size:13px;font-weight:900;cursor:pointer}
+    .list-tab.active{background:#0a5ec2;color:#fff;border-color:#0a5ec2}
+    .list-tab-count{font-size:11px;font-weight:800;opacity:.85;margin-left:4px}
     .list-wrap{padding:12px 14px;max-height:72vh;overflow:auto}
     .list-table{width:100%;border-collapse:collapse;font-size:13px}
     .list-table th,.list-table td{border:1px solid #dbe3ef;padding:7px 8px;text-align:left;vertical-align:top}
@@ -117,6 +121,10 @@
       </div>
       <div class="card">
         <div class="hdr" id="list-title">提案一覧</div>
+        <div class="list-tabs" role="tablist" aria-label="改善提案一覧切替">
+          <button class="list-tab active" type="button" id="tab-active" role="tab" aria-selected="true" onclick="setProposalTab('active')">受付中<span class="list-tab-count" id="tab-active-count"></span></button>
+          <button class="list-tab" type="button" id="tab-completed" role="tab" aria-selected="false" onclick="setProposalTab('completed')">採用・完了<span class="list-tab-count" id="tab-completed-count"></span></button>
+        </div>
         <div class="list-wrap">
           <table class="list-table">
             <thead>
@@ -170,7 +178,8 @@
       newImageFileName: "",
       savedImageFileId: "",
       savedImageFileName: "",
-      removeSavedImage: false
+      removeSavedImage: false,
+      activeTab: "active"
     };
     const MEMBER_ALIAS_TO_FULL = {
       "鬼頭(貴)": "鬼頭貴広",
@@ -479,8 +488,45 @@
       $("supervisor-comment-field").style.display = showSupervisorFields ? "flex" : "none";
       $("supervisor-decision-field").style.display = showSupervisorFields ? "flex" : "none";
       $("implement-owner-field").style.display = showSupervisorFields ? "flex" : "none";
-      $("list-title").textContent = state.isAdmin ? "提案一覧（管理者）" : "自分の提案一覧";
+      $("list-title").textContent = state.activeTab === "completed"
+        ? "採用・完了一覧"
+        : (state.isAdmin ? "提案一覧（管理者）" : "自分の提案一覧");
     }
+    function isAdoptedCompleted(row){
+      const decision = String(row && row.supervisorDecision || "").trim();
+      const status = String(row && row.status || "").trim().toLowerCase();
+      const exportedAt = String(row && row.lastExportedAt || "").trim();
+      return decision === "採用" && (status === "exported" || !!exportedAt);
+    }
+    function canShowInActiveTab(row){
+      return !isAdoptedCompleted(row);
+    }
+    function getVisibleRows(){
+      return (state.rows || []).filter(r => state.activeTab === "completed" ? isAdoptedCompleted(r) : canShowInActiveTab(r));
+    }
+    function renderProposalTabs(){
+      const activeRows = (state.rows || []).filter(canShowInActiveTab);
+      const completedRows = (state.rows || []).filter(isAdoptedCompleted);
+      const activeBtn = $("tab-active");
+      const completedBtn = $("tab-completed");
+      if(activeBtn){
+        activeBtn.classList.toggle("active", state.activeTab === "active");
+        activeBtn.setAttribute("aria-selected", state.activeTab === "active" ? "true" : "false");
+      }
+      if(completedBtn){
+        completedBtn.classList.toggle("active", state.activeTab === "completed");
+        completedBtn.setAttribute("aria-selected", state.activeTab === "completed" ? "true" : "false");
+      }
+      const ac = $("tab-active-count");
+      const cc = $("tab-completed-count");
+      if(ac) ac.textContent = `(${activeRows.length})`;
+      if(cc) cc.textContent = `(${completedRows.length})`;
+    }
+    window.setProposalTab = function(tab){
+      state.activeTab = tab === "completed" ? "completed" : "active";
+      renderList();
+      applyRoleUi();
+    };
     function base64ToBytes(base64){
       const bin = atob(String(base64 || ""));
       const bytes = new Uint8Array(bin.length);
@@ -517,7 +563,9 @@
     }
     function renderList(){
       const el = $("proposal-list");
-      if(!state.rows.length){
+      const rows = getVisibleRows();
+      renderProposalTabs();
+      if(!rows.length){
         el.innerHTML = `<tr><td colspan="6" style="color:#64748b;">データがありません</td></tr>`;
         return;
       }
@@ -530,14 +578,20 @@
         if(s === "exported") return "出力済み";
         return String(status || "");
       };
-      el.innerHTML = state.rows.map(r => {
+      const statusText = (row) => {
+        if(isAdoptedCompleted(row)) return "採用・完了";
+        const decision = String(row.supervisorDecision || "").trim();
+        const status = statusLabelJa(row.status);
+        return decision ? `${decision}${status ? ' / ' + status : ''}` : status;
+      };
+      el.innerHTML = rows.map(r => {
         const id = String(r.id || "");
         return `<tr>
           <td>${escapeHtml(r.proposalDate || "")}</td>
           <td>${escapeHtml(canonicalMemberName(r.proposerName || ""))}</td>
           <td>${escapeHtml(r.serialNo || "")}</td>
           <td>${escapeHtml(String(r.problemText || "").slice(0, 80))}</td>
-          <td>${escapeHtml(statusLabelJa(r.status))}</td>
+          <td>${escapeHtml(statusText(r))}</td>
           <td><button class="btn alt" type="button" style="padding:6px 10px;font-size:12px;" onclick="selectRow('${escapeHtml(id)}')">開く</button></td>
         </tr>`;
       }).join("");
