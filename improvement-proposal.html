@@ -63,7 +63,7 @@
         <button class="btn alt" type="button" id="reload-btn">再読込</button>
         <button class="btn alt" type="button" id="clear-btn">新規作成</button>
         <button class="btn" type="button" id="save-btn">送信/更新</button>
-        <button class="btn alt" type="button" id="comment-btn" style="display:none;">上司コメント保存</button>
+        <button class="btn alt" type="button" id="comment-btn" style="display:none;">上司コメント・判定を保存</button>
         <button class="btn alt" type="button" id="copy-excel-btn" style="display:none;">Excel貼付用コピー</button>
         <button class="btn alt" type="button" id="export-btn" style="display:none;">Excel出力</button>
       </div>
@@ -114,12 +114,13 @@
           </div>
           <div class="field" id="implementation-status-field" style="display:none;">
             <label for="implementation-status">状況</label>
-            <select id="implementation-status" class="inp">
+            <select id="implementation-status" class="inp" onchange="autoSaveImplementationStatus()">
               <option value="">選択してください</option>
               <option value="調査中">調査中</option>
               <option value="実行中">実行中</option>
               <option value="完了">完了</option>
             </select>
+            <div class="status" id="implementation-status-save-state" style="min-height:16px;"></div>
           </div>
           <div class="field" id="implement-owner-field" style="display:none;">
             <label for="implement-owner">実施担当（選択/手入力）</label>
@@ -685,6 +686,54 @@
         setActionLoading(btn, false);
       }
     }
+    function setImplementationStatusSaveState(text, isError){
+      const el = $("implementation-status-save-state");
+      if(!el) return;
+      el.textContent = text || "";
+      el.style.color = isError ? "#b91c1c" : "#475569";
+    }
+    async function autoSaveImplementationStatus(){
+      if(!state.isAdmin) return;
+      if(!state.selectedId){
+        showToast("対象を選択してください");
+        return;
+      }
+      const statusEl = $("implementation-status");
+      const currentStatus = statusEl ? statusEl.value : "";
+      statusEl.disabled = true;
+      setImplementationStatusSaveState("保存中...", false);
+      const id = state.selectedId;
+      try{
+        await gasPost({
+          sheet: "改善提案_COMMENT",
+          id,
+          operator: state.operator,
+          managerComment: $("manager-comment").value,
+          supervisorDecision: $("supervisor-decision").value,
+          implementationStatus: currentStatus,
+          implementOwner: $("implement-owner").value,
+          implementationCompleted: currentStatus === "完了" ? 1 : 0
+        });
+        await new Promise(r => setTimeout(r, 700));
+        await fetchRows();
+        const row = state.rows.find(r => String(r.id) === String(id));
+        if(row){
+          fillForm(row);
+          if(isAdoptedCompleted(row)) state.activeTab = "completed";
+          else if(state.activeTab === "completed") state.activeTab = "active";
+          renderList();
+          applyRoleUi();
+        }
+        setImplementationStatusSaveState("保存しました", false);
+        showToast("状況を保存しました");
+      }catch(e){
+        setImplementationStatusSaveState("保存に失敗しました", true);
+        showToast("状況の保存に失敗しました");
+      }finally{
+        if(statusEl) statusEl.disabled = !state.isAdmin;
+        setTimeout(()=>setImplementationStatusSaveState("", false), 2200);
+      }
+    }
     async function saveManagerComment(){
       const btn = $("comment-btn");
       if(!state.selectedId){
@@ -711,6 +760,10 @@
         if(row && String(row.managerComment || "") === String(comment || "")){
           showToast("上司コメントを保存しました");
           fillForm(row);
+          if(isAdoptedCompleted(row)) state.activeTab = "completed";
+          else if(state.activeTab === "completed") state.activeTab = "active";
+          renderList();
+          applyRoleUi();
         }else{
           showToast("コメント保存の確認ができませんでした");
         }
