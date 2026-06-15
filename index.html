@@ -593,7 +593,6 @@ body.admin-mode .nav-admin-links{display:block;}
 .mav{width:44px;height:44px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;overflow:hidden;border:1px solid rgba(255,255,255,.75);box-shadow:0 1px 2px rgba(0,0,0,.08);}
 .mav img{width:100%;height:100%;object-fit:cover;}
 .mname{font-size:14px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.mrole{font-size:12px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;}
 .m-open{margin-left:auto;color:color-mix(in srgb, var(--member-color) 60%, #1f2937 40%);font-size:18px;opacity:.75;}
 
 /* MEMBER PAGE */
@@ -6216,7 +6215,6 @@ function renderMembers(members){
         ${avatar}
         <div class="m-meta">
           <div class="mname">${esc(m.name)}${locked ? '<span class="member-lock-badge"><i class="ti ti-lock"></i>LOCK</span>' : ''}</div>
-          <div class="mrole">${esc(m.role || 'メンバーページ')}</div>
         </div>
         <i class="ti ti-chevron-right m-open"></i>
       </div>
