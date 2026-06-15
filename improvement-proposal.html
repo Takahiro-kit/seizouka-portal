@@ -23,6 +23,16 @@
       border-top-color:#fff;border-radius:50%;display:inline-block;vertical-align:-2px;
       margin-right:6px;animation:spin 1s linear infinite;
     }
+    .inline-spinner{
+      width:15px;height:15px;border:2px solid #bfdbfe;border-top-color:var(--blue);
+      border-radius:50%;display:inline-block;animation:spin 1s linear infinite;flex:0 0 auto;
+    }
+    .save-state{
+      min-height:26px;display:flex;align-items:center;gap:7px;
+      font-size:13px;font-weight:800;color:#475569;margin-top:2px;
+    }
+    .save-state.ok{color:#15803d}
+    .save-state.err{color:#b91c1c}
     @keyframes spin{to{transform:rotate(360deg)}}
     .status{font-size:12px;color:#475569}
     .grid{display:grid;grid-template-columns:minmax(520px,1fr) minmax(520px,1fr);gap:14px;align-items:start}
@@ -120,7 +130,7 @@
               <option value="実行中">実行中</option>
               <option value="完了">完了</option>
             </select>
-            <div class="status" id="implementation-status-save-state" style="min-height:16px;"></div>
+            <div class="save-state" id="implementation-status-save-state" aria-live="polite"></div>
           </div>
           <div class="field" id="implement-owner-field" style="display:none;">
             <label for="implement-owner">実施担当（選択/手入力）</label>
@@ -686,11 +696,18 @@
         setActionLoading(btn, false);
       }
     }
-    function setImplementationStatusSaveState(text, isError){
+    function setImplementationStatusSaveState(text, stateKind){
       const el = $("implementation-status-save-state");
       if(!el) return;
-      el.textContent = text || "";
-      el.style.color = isError ? "#b91c1c" : "#475569";
+      el.className = "save-state";
+      if(stateKind === "ok") el.classList.add("ok");
+      if(stateKind === "err") el.classList.add("err");
+      if(!text){
+        el.innerHTML = "";
+        return;
+      }
+      const spinner = stateKind === "saving" ? '<span class="inline-spinner" aria-hidden="true"></span>' : "";
+      el.innerHTML = `${spinner}<span>${escapeHtml(text)}</span>`;
     }
     async function autoSaveImplementationStatus(){
       if(!state.isAdmin) return;
@@ -701,7 +718,7 @@
       const statusEl = $("implementation-status");
       const currentStatus = statusEl ? statusEl.value : "";
       statusEl.disabled = true;
-      setImplementationStatusSaveState("保存中...", false);
+      setImplementationStatusSaveState("保存中...", "saving");
       const id = state.selectedId;
       try{
         await gasPost({
@@ -724,14 +741,14 @@
           renderList();
           applyRoleUi();
         }
-        setImplementationStatusSaveState("保存しました", false);
+        setImplementationStatusSaveState("保存しました", "ok");
         showToast("状況を保存しました");
       }catch(e){
-        setImplementationStatusSaveState("保存に失敗しました", true);
+        setImplementationStatusSaveState("保存に失敗しました", "err");
         showToast("状況の保存に失敗しました");
       }finally{
         if(statusEl) statusEl.disabled = !state.isAdmin;
-        setTimeout(()=>setImplementationStatusSaveState("", false), 2200);
+        setTimeout(()=>setImplementationStatusSaveState("", ""), 2200);
       }
     }
     async function saveManagerComment(){
