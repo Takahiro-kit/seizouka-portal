@@ -21,9 +21,12 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100vh
 .btn:disabled{background:var(--border);color:var(--text3);cursor:not-allowed;}
 .git-btn{display:block;margin-top:10px;background:var(--green);color:#fff;text-decoration:none;border-radius:8px;padding:12px 0;font-size:14px;font-weight:600;transition:.15s;}
 .git-btn:hover{background:#166534;}
-.status{margin-top:16px;font-size:12px;min-height:20px;white-space:pre-wrap;line-height:1.7;}
-.ok{color:var(--green);font-weight:600;}
-.err{color:#dc2626;font-weight:600;}
+.status{margin-top:16px;font-size:12px;min-height:20px;white-space:pre-wrap;line-height:1.7;font-weight:700;}
+.status:not(:empty){display:inline-flex;align-items:center;gap:6px;text-align:left;padding:7px 11px;border-radius:999px;border:1px solid #cbd5e1;background:#f8fafc;color:#475569;}
+.status:not(:empty)::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 0 3px rgba(100,116,139,.12);flex:0 0 auto}
+.ok{background:#ecfdf5!important;border-color:#86efac!important;color:var(--green);}
+.err{background:#fef2f2!important;border-color:#fecaca!important;color:#dc2626;}
+.loading{background:#eff6ff!important;border-color:#93c5fd!important;color:#1d4ed8;}
 .steps{text-align:left;background:var(--bg);border-radius:8px;padding:14px 16px;margin-bottom:20px;font-size:11px;color:var(--text2);line-height:2.2;}
 .n{display:inline-block;background:var(--accent);color:#fff;border-radius:50%;width:17px;height:17px;text-align:center;font-size:9px;font-weight:700;line-height:17px;margin-right:6px;}
 </style>
@@ -75,7 +78,8 @@ function nowStamp(){
 }
 function setStatus(cls, text){
   var st = document.getElementById('st');
-  st.className = 'status ' + (cls || '');
+  var autoCls = /生成中|読み込み|処理中/.test(String(text || '')) ? 'loading' : '';
+  st.className = 'status ' + (cls || autoCls || '');
   st.textContent = text || '';
 }
 function assertTemplateHtml(html){
