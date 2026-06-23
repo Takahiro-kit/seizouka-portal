@@ -501,8 +501,10 @@
       setVal("caseNo", row.caseNo || "");
       setVal("loadCaseNoQuery", row.caseNo || "");
       setVal("loadNameQuery", row.unloadName || row.unloadPlace || row.toCompany || "");
+      fillSlipFromRow(row);
+      setDbStatus(`DB状態: 送状呼び出し済み（${row.caseNo || ""}）`, false);
+      logPortalAudit("案件呼び出し", row.caseNo || "", { kind: "shipping_load", via: "search_modal" });
       closeSearchModal();
-      await loadShippingSlip();
     }
     function extractSpreadsheetId(raw){
       const s = String(raw || "").trim();
@@ -1064,25 +1066,26 @@
       window.print();
       logPortalAudit("PDF出力", val("caseNo"), { kind: "shipping_pdf" });
     }
+    async function fetchShippingSearchRows(caseNoQuery, unloadNameQuery){
+      const qs =
+        `mode=transport_search` +
+        `&targetSpreadsheetId=${encodeURIComponent(_transportDbSpreadsheetId)}` +
+        `&caseNoQuery=${encodeURIComponent(caseNoQuery || "")}` +
+        `&unloadNameQuery=${encodeURIComponent(unloadNameQuery || "")}` +
+        `&_=${Date.now()}`;
+      const r = await fetch(`${_transportDbGasUrl}?${qs}`, {mode:"cors"});
+      const j = await r.json();
+      return (j && (j.rows || j.data || j.list)) || [];
+    }
     async function loadShippingList(btn){
       if(!_transportDbSpreadsheetId || !_transportDbGasUrl){
         alert("DB連携設定が未完了です。");
         return;
       }
-      const caseNoQuery = val("loadCaseNoQuery");
-      const unloadNameQuery = val("loadNameQuery");
       setActionLoading(btn, true, "検索中...");
       setDbStatus("DB状態: 一覧を読み込み中...", false);
       try{
-        const qs =
-          `mode=transport_search` +
-          `&targetSpreadsheetId=${encodeURIComponent(_transportDbSpreadsheetId)}` +
-          `&caseNoQuery=${encodeURIComponent(caseNoQuery)}` +
-          `&unloadNameQuery=${encodeURIComponent(unloadNameQuery)}` +
-          `&_=${Date.now()}`;
-        const r = await fetch(`${_transportDbGasUrl}?${qs}`, {mode:"cors"});
-        const j = await r.json();
-        const rows = (j && (j.rows || j.data || j.list)) || [];
+        const rows = await fetchShippingSearchRows("", "");
         _searchCandidates = Array.isArray(rows) ? rows : [];
         openSearchModal(_searchCandidates, `全件表示: ${_searchCandidates.length}件`);
         logPortalAudit("全件表示", "送状", { kind: "shipping_list", count: _searchCandidates.length });
@@ -1093,16 +1096,9 @@
       }
     }
     async function loadShippingSlip(btn){
-      let caseNo = val("loadCaseNoQuery") || val("caseNo");
-      if(!val("caseNo") && caseNo){
-        setVal("caseNo", caseNo);
-      }
-      if(!caseNo){
-        const unloadNameQuery = val("loadNameQuery");
-        if(unloadNameQuery){
-          await loadShippingList();
-          return;
-        }
+      const caseNoQuery = val("loadCaseNoQuery") || val("caseNo");
+      const unloadNameQuery = val("loadNameQuery") || val("destinationCompany");
+      if(!caseNoQuery && !unloadNameQuery){
         alert("案件番号または発送先名を入力してください。");
         return;
       }
@@ -1113,20 +1109,23 @@
       setActionLoading(btn, true, "呼び出し中...");
       setDbStatus("DB状態: 呼び出し中...", false);
       try{
-        const url = `${_transportDbGasUrl}?mode=shipping_get&targetSpreadsheetId=${encodeURIComponent(_transportDbSpreadsheetId)}&caseNo=${encodeURIComponent(caseNo)}&_=${Date.now()}`;
-        const r = await fetch(url, {mode:"cors"});
-        const j = await r.json();
-        const row = (j && (j.row || j.data)) || null;
-        if(!row){
+        const rows = await fetchShippingSearchRows(caseNoQuery, unloadNameQuery);
+        if(!rows.length){
           alert("該当する送状データが見つかりませんでした。");
-          setDbStatus(`DB状態: 該当データなし（${caseNo}）`, true);
+          setDbStatus("DB状態: 該当データなし", true);
           return;
         }
-        fillSlipFromRow(row);
-        setVal("loadCaseNoQuery", caseNo);
-        setVal("loadNameQuery", row.destinationCompany || row.unloadName || "");
-        setDbStatus(`DB状態: 送状呼び出し済み（${caseNo}）`, false);
-        logPortalAudit("案件呼び出し", caseNo, { kind: "shipping_load" });
+        if(rows.length === 1){
+          const row = rows[0];
+          fillSlipFromRow(row);
+          setVal("loadCaseNoQuery", row.caseNo || caseNoQuery || "");
+          setVal("loadNameQuery", row.destinationCompany || row.unloadName || row.unloadPlace || row.toCompany || "");
+          setDbStatus(`DB状態: 送状呼び出し済み（${row.caseNo || caseNoQuery}）`, false);
+          logPortalAudit("案件呼び出し", row.caseNo || caseNoQuery, { kind: "shipping_load" });
+          return;
+        }
+        openSearchModal(rows, `${rows.length}件ヒットしました。案件を選択してください。`);
+        setDbStatus(`DB状態: 複数候補あり（${rows.length}件）`, false);
       }catch(e){
         setDbStatus("DB状態: 呼び出しエラー", true);
         alert("送状呼び出しでエラーが発生しました。");
@@ -1147,6 +1146,7 @@
     function resetSlip(){
       setVal("requestDate", PortalDate.getTodayIsoDate());
       [
+        "loadCaseNoQuery","loadNameQuery",
         "caseNo","carrierCompany","vehicleNo","driverName","driverMobile",
         "destinationCompany","destinationDept","destinationContact","destinationPostal","destinationAddress","destinationTel","arrivalDateTime",
         "itemName1","itemQty1","itemName2","itemQty2","itemName3","itemQty3","itemName4","itemQty4","itemName5","itemQty5",
