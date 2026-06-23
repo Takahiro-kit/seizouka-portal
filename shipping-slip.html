@@ -900,6 +900,13 @@
       }
       return lastRow;
     }
+    async function fetchShippingGetRow(caseNo){
+      if(!caseNo) return null;
+      const url = `${_transportDbGasUrl}?mode=shipping_get&targetSpreadsheetId=${encodeURIComponent(_transportDbSpreadsheetId)}&caseNo=${encodeURIComponent(caseNo)}&_=${Date.now()}`;
+      const r = await fetch(url, {mode:"cors"});
+      const j = await r.json();
+      return (j && (j.row || j.data)) || null;
+    }
     function fillSlipFromRow(row){
       if(!row) return;
       _slipRecordId = String(row.recordId || "").trim();
@@ -1097,10 +1104,7 @@
         const raw = sessionStorage.getItem("shippingSlipPrefill");
         if(!raw) return null;
         sessionStorage.removeItem("shippingSlipPrefill");
-        const p = JSON.parse(raw);
-        applyTransportPrefill(p);
-        if(p.senderCompany) setVal("senderCompany", p.senderCompany);
-        return p;
+        return JSON.parse(raw);
       }catch(e){ return null; }
     }
     function resetSlip(){
@@ -1125,20 +1129,36 @@
       setVal("caution", "現場入門前に必ず下記番号へ連絡してください");
       applyOperatorAutoFill();
     }
-    applyPrefill();
-    if(!valDate("requestDate")) setVal("requestDate", PortalDate.getTodayIsoDate());
-    if(!val("senderCompany")) setVal("senderCompany", "ジェイピーネクスト株式会社");
-    if(!val("senderAddress")) setVal("senderAddress", "名古屋市中川区万町302番地");
-    if(!val("senderTel")) setVal("senderTel", "052-353-3146");
-    if(!val("caution")) setVal("caution", "現場入門前に必ず下記番号へ連絡してください");
-    updateCautionReceiverLockState();
-    loadTransportDbSettings()
-      .finally(() => {
+    async function initPage(){
+      const initialPrefill = applyPrefill();
+      const initRevision = _viewRevision;
+      if(!valDate("requestDate")) setVal("requestDate", PortalDate.getTodayIsoDate());
+      if(!val("senderCompany")) setVal("senderCompany", "ジェイピーネクスト株式会社");
+      if(!val("senderAddress")) setVal("senderAddress", "名古屋市中川区万町302番地");
+      if(!val("senderTel")) setVal("senderTel", "052-353-3146");
+      if(!val("caution")) setVal("caution", "現場入門前に必ず下記番号へ連絡してください");
+      updateCautionReceiverLockState();
+      try{
+        await loadTransportDbSettings();
+        if(initRevision === _viewRevision && initialPrefill && initialPrefill.caseNo && _transportDbSpreadsheetId && _transportDbGasUrl){
+          setDbStatus("DB状態: 保存済み送状を確認中...", false);
+          const savedRow = await fetchShippingGetRow(initialPrefill.caseNo);
+          if(initRevision !== _viewRevision) return;
+          if(savedRow) fillSlipFromRow(savedRow);
+          applyTransportPrefill(initialPrefill);
+          if(initialPrefill.senderCompany) setVal("senderCompany", initialPrefill.senderCompany);
+          setVal("loadCaseNoQuery", initialPrefill.caseNo || "");
+          setVal("loadNameQuery", val("destinationCompany"));
+          setDbStatus(savedRow ? `DB状態: 保存済み送状を反映（${initialPrefill.caseNo}）` : `DB状態: 運送手配表から反映（${initialPrefill.caseNo}）`, false);
+        }
+      }finally{
         applyOperatorAutoFill();
         renderPreview();
-      });
-    logPortalAudit("ページ表示", "送状", { kind: "page_view" });
-    setupPortalAuditCapture();
+        logPortalAudit("ページ表示", "送状", { kind: "page_view" });
+        setupPortalAuditCapture();
+      }
+    }
+    initPage();
   </script>
 </body>
 </html>
