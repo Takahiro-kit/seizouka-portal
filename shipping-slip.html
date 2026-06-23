@@ -653,10 +653,14 @@
     function stripPersonSuffix(name){
       return String(name || "").replace(/\s*様宛$/, "").replace(/\s*様$/, "").replace(/\s*宛$/, "").trim();
     }
+    function formatPersonWithSama(name){
+      const n = stripPersonSuffix(name);
+      return n ? `${n} 様` : "";
+    }
     function formatDepartmentPerson(dept, name, addHonorific){
       const d = String(dept || "").trim();
       const n = stripPersonSuffix(name);
-      const displayName = n && addHonorific ? `${n}様` : n;
+      const displayName = n && addHonorific ? formatPersonWithSama(n) : n;
       if(d && displayName) return `${d} ${displayName}`;
       return d || displayName || "";
     }
@@ -729,7 +733,7 @@
       const caseNo = val("caseNo");
       const carrierCompany = val("carrierCompany");
       const vehicleNo = val("vehicleNo");
-      const driverName = val("driverName");
+      const driverName = formatPersonWithSama(val("driverName"));
       const driverMobile = val("driverMobile");
       const destinationCompany = val("destinationCompany");
       const destinationDept = val("destinationDept");
