@@ -895,6 +895,12 @@
       }
       return lastRow;
     }
+    async function fetchShippingRowByCaseNo(caseNo){
+      const url = `${_transportDbGasUrl}?mode=shipping_get&targetSpreadsheetId=${encodeURIComponent(_transportDbSpreadsheetId)}&caseNo=${encodeURIComponent(caseNo)}&_=${Date.now()}`;
+      const r = await fetch(url, {mode:"cors"});
+      const j = await r.json();
+      return (j && (j.row || j.data)) || null;
+    }
     function fillSlipFromRow(row){
       if(!row) return;
       _slipRecordId = String(row.recordId || "").trim();
@@ -932,6 +938,43 @@
       if(isChecked("cautionSameAsDestination")) syncCautionReceiverFromDestination();
       updateCautionReceiverLockState();
       renderPreview();
+    }
+    function applyTransportPrefill(p){
+      if(!p) return;
+      if(Object.prototype.hasOwnProperty.call(p, "requestDate") || Object.prototype.hasOwnProperty.call(p, "sendDate")){
+        setVal("requestDate", toDateInputValue(p.requestDate || p.sendDate || "") || PortalDate.getTodayIsoDate());
+      }
+      if(Object.prototype.hasOwnProperty.call(p, "caseNo")) setVal("caseNo", p.caseNo || "");
+      if(Object.prototype.hasOwnProperty.call(p, "destinationCompany")) setVal("destinationCompany", p.destinationCompany || "");
+      if(Object.prototype.hasOwnProperty.call(p, "destinationPostalAddress")) setVal("destinationAddress", p.destinationPostalAddress || "");
+      if(Object.prototype.hasOwnProperty.call(p, "destinationDept")) setVal("destinationDept", p.destinationDept || "");
+      if(Object.prototype.hasOwnProperty.call(p, "destinationContact")) setVal("destinationContact", p.destinationContact || "");
+      if(Object.prototype.hasOwnProperty.call(p, "destinationNoHonorific") || Object.prototype.hasOwnProperty.call(p, "unloadPersonNoHonorific")){
+        setChecked("destinationNoHonorific", parseBoolean(p.destinationNoHonorific || p.unloadPersonNoHonorific || ""));
+      }
+      if(Object.prototype.hasOwnProperty.call(p, "destinationTel")) setVal("destinationTel", p.destinationTel || "");
+      if(Object.prototype.hasOwnProperty.call(p, "arrivalDateTime")) setVal("arrivalDateTime", normalizeDateTimeText(p.arrivalDateTime || ""));
+      if(Object.prototype.hasOwnProperty.call(p, "senderName")) setVal("senderName", p.senderName || "");
+      if(Object.prototype.hasOwnProperty.call(p, "senderPostalAddress")) setVal("senderAddress", p.senderPostalAddress || "");
+      if(Object.prototype.hasOwnProperty.call(p, "senderTel")) setVal("senderTel", p.senderTel || "");
+      if(isChecked("cautionSameAsDestination")) syncCautionReceiverFromDestination();
+      updateCautionReceiverLockState();
+      renderPreview();
+    }
+    async function mergePrefillWithSavedShipping(p){
+      if(!p || !p.caseNo || !_transportDbSpreadsheetId || !_transportDbGasUrl) return;
+      setDbStatus("DB状態: 送状データ確認中...", false);
+      try{
+        const row = await fetchShippingRowByCaseNo(p.caseNo);
+        if(row) fillSlipFromRow(row);
+        applyTransportPrefill(p);
+        setVal("loadCaseNoQuery", p.caseNo || "");
+        setVal("loadNameQuery", val("destinationCompany"));
+        setDbStatus(row ? `DB状態: 送状データ反映済み（${p.caseNo}）` : `DB状態: 運送手配表から反映済み（${p.caseNo}）`, false);
+      }catch(e){
+        applyTransportPrefill(p);
+        setDbStatus("DB状態: 送状データ確認エラー（引き継ぎ内容を表示）", true);
+      }
     }
     async function loadTransportDbSettings(){
       setDbStatus("DB状態: 接続設定を読み込み中...", false);
@@ -1065,24 +1108,12 @@
     function applyPrefill(){
       try{
         const raw = sessionStorage.getItem("shippingSlipPrefill");
-        if(!raw) return;
+        if(!raw) return null;
         const p = JSON.parse(raw);
-        setVal("requestDate", toDateInputValue(p.requestDate || p.sendDate || "") || PortalDate.getTodayIsoDate());
-        setVal("caseNo", p.caseNo || "");
-        setVal("carrierCompany", p.carrierCompany || "");
-        setVal("destinationCompany", p.destinationCompany || "");
-        setVal("destinationAddress", p.destinationPostalAddress || "");
-        setVal("destinationDept", p.destinationDept || "");
-        setVal("destinationContact", p.destinationContact || "");
-        setChecked("destinationNoHonorific", parseBoolean(p.destinationNoHonorific || p.unloadPersonNoHonorific || ""));
-        setVal("destinationTel", p.destinationTel || "");
-        setVal("arrivalDateTime", normalizeDateTimeText(p.arrivalDateTime || ""));
-        setVal("senderCompany", p.senderCompany || "ジェイピーネクスト株式会社");
-        setVal("senderName", p.senderName || "");
-        setVal("senderAddress", p.senderPostalAddress || "名古屋市中川区万町302番地");
-        setVal("senderTel", p.senderTel || "052-353-3146");
-        setVal("remarks", p.remarks || "");
-      }catch(e){}
+        applyTransportPrefill(p);
+        if(p.senderCompany) setVal("senderCompany", p.senderCompany);
+        return p;
+      }catch(e){ return null; }
     }
     function resetSlip(){
       setVal("requestDate", PortalDate.getTodayIsoDate());
@@ -1102,15 +1133,19 @@
       setVal("caution", "現場入門前に必ず下記番号へ連絡してください");
       applyOperatorAutoFill();
     }
-    applyPrefill();
+    const initialPrefill = applyPrefill();
     if(!valDate("requestDate")) setVal("requestDate", PortalDate.getTodayIsoDate());
     if(!val("senderCompany")) setVal("senderCompany", "ジェイピーネクスト株式会社");
     if(!val("senderAddress")) setVal("senderAddress", "名古屋市中川区万町302番地");
     if(!val("senderTel")) setVal("senderTel", "052-353-3146");
     if(!val("caution")) setVal("caution", "現場入門前に必ず下記番号へ連絡してください");
     updateCautionReceiverLockState();
-    loadTransportDbSettings();
-    applyOperatorAutoFill();
+    loadTransportDbSettings()
+      .then(() => mergePrefillWithSavedShipping(initialPrefill))
+      .finally(() => {
+        applyOperatorAutoFill();
+        renderPreview();
+      });
     logPortalAudit("ページ表示", "送状", { kind: "page_view" });
     setupPortalAuditCapture();
   </script>
