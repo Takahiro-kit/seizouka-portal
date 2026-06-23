@@ -650,11 +650,15 @@
       const s = String(value == null ? "" : value).trim().toLowerCase();
       return s === "1" || s === "true" || s === "on" || s === "yes";
     }
-    function formatDepartmentPerson(dept, name){
+    function stripPersonSuffix(name){
+      return String(name || "").replace(/\s*様宛$/, "").replace(/\s*様$/, "").replace(/\s*宛$/, "").trim();
+    }
+    function formatDepartmentPerson(dept, name, addHonorific){
       const d = String(dept || "").trim();
-      const n = String(name || "").trim();
-      if(d && n) return `${d} ${n}`;
-      return d || n || "";
+      const n = stripPersonSuffix(name);
+      const displayName = n && addHonorific ? `${n}様` : n;
+      if(d && displayName) return `${d} ${displayName}`;
+      return d || displayName || "";
     }
     function formatDestinationDisplayName(dept, name, noHonorific){
       const d = String(dept || "").trim();
@@ -738,6 +742,7 @@
       const caution = val("caution");
       const cautionReceiverDept = val("cautionReceiverDept");
       const cautionReceiverName = val("cautionReceiverName");
+      const cautionReceiverAddHonorific = isChecked("cautionSameAsDestination") && !destinationNoHonorific;
       const cautionReceiverTel = val("cautionReceiverTel");
       const cautionNote = val("cautionNote");
       const senderName = val("senderName");
@@ -779,7 +784,7 @@
           <div class="caution-box">
             <div class="caution-title">注意事項</div>
             <div class="caution-body">${esc(caution)}</div>
-            <div class="caution-body">担当: ${esc(formatDepartmentPerson(cautionReceiverDept, cautionReceiverName))}</div>
+            <div class="caution-body">担当: ${esc(formatDepartmentPerson(cautionReceiverDept, cautionReceiverName, cautionReceiverAddHonorific))}</div>
             <div class="caution-body">連絡先: ${esc(cautionReceiverTel)}</div>
             <div class="caution-body">${esc(cautionNote)}</div>
             <div class="caution-body">備考: ${esc(remarks)}</div>
