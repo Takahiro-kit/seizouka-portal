@@ -900,36 +900,6 @@
       }
       return lastRow;
     }
-    async function fetchShippingRowByCaseNo(caseNo){
-      const qs =
-        `mode=transport_search` +
-        `&targetSpreadsheetId=${encodeURIComponent(_transportDbSpreadsheetId)}` +
-        `&caseNoQuery=${encodeURIComponent(caseNo)}` +
-        `&unloadNameQuery=` +
-        `&_=${Date.now()}`;
-      const searchRes = await fetch(`${_transportDbGasUrl}?${qs}`, {mode:"cors"});
-      const searchJson = await searchRes.json();
-      const rows = (searchJson && (searchJson.rows || searchJson.data || searchJson.list)) || [];
-      const exact = (Array.isArray(rows) ? rows : []).find(row => String(row.caseNo || "").trim() === String(caseNo || "").trim());
-      if(exact) return exact;
-      const url = `${_transportDbGasUrl}?mode=shipping_get&targetSpreadsheetId=${encodeURIComponent(_transportDbSpreadsheetId)}&caseNo=${encodeURIComponent(caseNo)}&_=${Date.now()}`;
-      const r = await fetch(url, {mode:"cors"});
-      const j = await r.json();
-      return (j && (j.row || j.data)) || null;
-    }
-    function rowHasSavedSlipData(row){
-      if(!row) return false;
-      return [
-        "slip_carrierCompany","carrierCompany",
-        "slip_vehicleNo","vehicleNo",
-        "slip_driverName","driverName",
-        "slip_driverMobile","driverMobile",
-        "slip_itemName1","itemName1",
-        "slip_caution","caution",
-        "slip_cautionReceiverName","cautionReceiverName",
-        "slip_remarks","remarks"
-      ].some(key => String(row[key] || "").trim());
-    }
     function fillSlipFromRow(row){
       if(!row) return;
       _slipRecordId = String(row.recordId || "").trim();
@@ -989,31 +959,6 @@
       if(isChecked("cautionSameAsDestination")) syncCautionReceiverFromDestination();
       updateCautionReceiverLockState();
       renderPreview();
-    }
-    async function mergePrefillWithSavedShipping(p, revision){
-      if(!p || !p.caseNo || !_transportDbSpreadsheetId || !_transportDbGasUrl) return;
-      if(revision !== _viewRevision) return;
-      setDbStatus("DB状態: 送状データ確認中...", false);
-      try{
-        let row = null;
-        for(let i=0; i<4; i++){
-          row = await fetchShippingRowByCaseNo(p.caseNo);
-          if(revision !== _viewRevision) return;
-          if(row && rowHasSavedSlipData(row)) break;
-          if(i < 3) await sleep(350);
-          if(revision !== _viewRevision) return;
-        }
-        if(revision !== _viewRevision) return;
-        if(row) fillSlipFromRow(row);
-        applyTransportPrefill(p);
-        setVal("loadCaseNoQuery", p.caseNo || "");
-        setVal("loadNameQuery", val("destinationCompany"));
-        setDbStatus(row && rowHasSavedSlipData(row) ? `DB状態: 保存済み送状＋運送手配表を反映（${p.caseNo}）` : `DB状態: 運送手配表から反映済み（${p.caseNo}）`, false);
-      }catch(e){
-        if(revision !== _viewRevision) return;
-        applyTransportPrefill(p);
-        setDbStatus("DB状態: 送状データ確認エラー（引き継ぎ内容を表示）", true);
-      }
     }
     async function loadTransportDbSettings(){
       setDbStatus("DB状態: 接続設定を読み込み中...", false);
@@ -1180,8 +1125,7 @@
       setVal("caution", "現場入門前に必ず下記番号へ連絡してください");
       applyOperatorAutoFill();
     }
-    const initialPrefill = applyPrefill();
-    const initialPrefillRevision = _viewRevision;
+    applyPrefill();
     if(!valDate("requestDate")) setVal("requestDate", PortalDate.getTodayIsoDate());
     if(!val("senderCompany")) setVal("senderCompany", "ジェイピーネクスト株式会社");
     if(!val("senderAddress")) setVal("senderAddress", "名古屋市中川区万町302番地");
@@ -1189,7 +1133,6 @@
     if(!val("caution")) setVal("caution", "現場入門前に必ず下記番号へ連絡してください");
     updateCautionReceiverLockState();
     loadTransportDbSettings()
-      .then(() => mergePrefillWithSavedShipping(initialPrefill, initialPrefillRevision))
       .finally(() => {
         applyOperatorAutoFill();
         renderPreview();
