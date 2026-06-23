@@ -505,6 +505,8 @@
       setVal("loadCaseNoQuery", row.caseNo || "");
       setVal("loadNameQuery", row.unloadName || row.unloadPlace || row.toCompany || "");
       fillSlipFromRow(row);
+      ensureSlipDefaults();
+      setTimeout(renderPreview, 0);
       setDbStatus(`DB状態: 送状呼び出し済み（${row.caseNo || ""}）`, false);
       logPortalAudit("案件呼び出し", row.caseNo || "", { kind: "shipping_load", via: "search_modal" });
       closeSearchModal();
@@ -835,6 +837,20 @@
       if(!el) return;
       el.value = value == null ? "" : String(value);
     }
+    function firstNonBlank(){
+      for(let i=0; i<arguments.length; i++){
+        const s = String(arguments[i] == null ? "" : arguments[i]).trim();
+        if(s) return s;
+      }
+      return "";
+    }
+    function ensureSlipDefaults(){
+      if(!valDate("requestDate")) setVal("requestDate", PortalDate.getTodayIsoDate());
+      if(!val("senderCompany")) setVal("senderCompany", "ジェイピーネクスト株式会社");
+      if(!val("senderAddress")) setVal("senderAddress", "名古屋市中川区万町302番地");
+      if(!val("senderTel")) setVal("senderTel", "052-353-3146");
+      if(!val("caution")) setVal("caution", "現場入門前に必ず下記番号へ連絡してください");
+    }
     function buildShippingPayload(){
       const caseNo = val("caseNo");
       return {
@@ -910,39 +926,40 @@
     function fillSlipFromRow(row){
       if(!row) return;
       _slipRecordId = String(row.recordId || "").trim();
-      setVal("requestDate", toDateInputValue(row.requestDate || row.sendDate || row.slip_requestDate || ""));
-      setVal("caseNo", row.caseNo || "");
-      setVal("carrierCompany", row.carrierCompany || row.slip_carrierCompany || "");
-      setVal("vehicleNo", row.vehicleNo || row.slip_vehicleNo || "");
-      setVal("driverName", row.driverName || row.slip_driverName || "");
-      setVal("driverMobile", row.driverMobile || row.slip_driverMobile || "");
-      setVal("destinationCompany", row.destinationCompany || row.slip_destinationCompany || row.unloadName || row.toCompany || "");
-      setVal("destinationDept", row.destinationDept || row.slip_destinationDept || "");
-      setVal("destinationContact", row.destinationContact || row.slip_destinationContact || row.unloadPerson || "");
+      setVal("requestDate", toDateInputValue(firstNonBlank(row.requestDate, row.sendDate, row.slip_requestDate)));
+      setVal("caseNo", firstNonBlank(row.caseNo));
+      setVal("carrierCompany", firstNonBlank(row.carrierCompany, row.slip_carrierCompany));
+      setVal("vehicleNo", firstNonBlank(row.vehicleNo, row.slip_vehicleNo));
+      setVal("driverName", firstNonBlank(row.driverName, row.slip_driverName));
+      setVal("driverMobile", firstNonBlank(row.driverMobile, row.slip_driverMobile));
+      setVal("destinationCompany", firstNonBlank(row.destinationCompany, row.slip_destinationCompany, row.unloadName, row.toCompany));
+      setVal("destinationDept", firstNonBlank(row.destinationDept, row.slip_destinationDept));
+      setVal("destinationContact", firstNonBlank(row.destinationContact, row.slip_destinationContact, row.unloadPerson));
       setChecked("destinationNoHonorific", parseBoolean(row.destinationNoHonorific || row.slip_destinationNoHonorific || row.unloadPersonNoHonorific || ""));
-      setVal("destinationPostal", row.destinationPostal || row.slip_destinationPostal || "");
-      setVal("destinationAddress", row.destinationAddress || row.slip_destinationAddress || row.unloadAddress || row.unloadPlace || "");
-      setVal("destinationTel", row.destinationTel || row.slip_destinationTel || row.unloadTel || "");
-      setVal("arrivalDateTime", normalizeDateTimeText(row.arrivalDateTime || row.slip_arrivalDateTime || row.unloadAt || ""));
+      setVal("destinationPostal", firstNonBlank(row.destinationPostal, row.slip_destinationPostal));
+      setVal("destinationAddress", firstNonBlank(row.destinationAddress, row.slip_destinationAddress, row.unloadAddress, row.unloadPlace));
+      setVal("destinationTel", firstNonBlank(row.destinationTel, row.slip_destinationTel, row.unloadTel));
+      setVal("arrivalDateTime", normalizeDateTimeText(firstNonBlank(row.arrivalDateTime, row.slip_arrivalDateTime, row.unloadAt)));
       for(let i=1;i<=5;i++){
-        setVal(`itemName${i}`, row[`itemName${i}`] || row[`slip_itemName${i}`] || "");
-        const pair = splitQtyAndUnit(row[`itemQty${i}`] || row[`slip_itemQty${i}`] || "");
+        setVal(`itemName${i}`, firstNonBlank(row[`itemName${i}`], row[`slip_itemName${i}`]));
+        const pair = splitQtyAndUnit(firstNonBlank(row[`itemQty${i}`], row[`slip_itemQty${i}`]));
         setVal(`itemQty${i}`, pair.qty);
         setVal(`itemQtyUnit${i}`, pair.unit === "式" ? "式" : "個");
       }
-      setVal("caution", row.caution || row.slip_caution || "");
-      setVal("cautionReceiverDept", row.cautionReceiverDept || row.slip_cautionReceiverDept || "");
-      setVal("cautionReceiverName", row.cautionReceiverName || row.slip_cautionReceiverName || "");
-      setVal("cautionReceiverTel", row.cautionReceiverTel || row.slip_cautionReceiverTel || row.cautionTel || row.slip_cautionTel || "");
+      setVal("caution", firstNonBlank(row.caution, row.slip_caution));
+      setVal("cautionReceiverDept", firstNonBlank(row.cautionReceiverDept, row.slip_cautionReceiverDept));
+      setVal("cautionReceiverName", firstNonBlank(row.cautionReceiverName, row.slip_cautionReceiverName));
+      setVal("cautionReceiverTel", firstNonBlank(row.cautionReceiverTel, row.slip_cautionReceiverTel, row.cautionTel, row.slip_cautionTel));
       setChecked("cautionSameAsDestination", parseBoolean(row.cautionSameAsDestination || row.slip_cautionSameAsDestination || ""));
-      setVal("cautionNote", row.cautionNote || row.slip_cautionNote || "");
-      setVal("senderCompany", row.senderCompany || row.slip_senderCompany || "ジェイピーネクスト株式会社");
-      setVal("senderName", row.senderName || row.slip_senderName || row.loadPerson || "");
-      setVal("senderAddress", row.senderAddress || row.slip_senderAddress || row.loadPlace || "名古屋市中川区万町302番地");
-      setVal("senderTel", row.senderTel || row.slip_senderTel || row.loadTel || "052-353-3146");
-      setVal("remarks", row.remarks || row.slip_remarks || "");
+      setVal("cautionNote", firstNonBlank(row.cautionNote, row.slip_cautionNote));
+      setVal("senderCompany", firstNonBlank(row.senderCompany, row.slip_senderCompany, "ジェイピーネクスト株式会社"));
+      setVal("senderName", firstNonBlank(row.senderName, row.slip_senderName, row.loadPerson));
+      setVal("senderAddress", firstNonBlank(row.senderAddress, row.slip_senderAddress, row.loadPlace, "名古屋市中川区万町302番地"));
+      setVal("senderTel", firstNonBlank(row.senderTel, row.slip_senderTel, row.loadTel, "052-353-3146"));
+      setVal("remarks", firstNonBlank(row.remarks, row.slip_remarks));
       if(isChecked("cautionSameAsDestination")) syncCautionReceiverFromDestination();
       updateCautionReceiverLockState();
+      ensureSlipDefaults();
       renderPreview();
     }
     function applyTransportPrefill(p){
@@ -1084,6 +1101,8 @@
           const row = rows[0];
           bumpViewRevision();
           fillSlipFromRow(row);
+          ensureSlipDefaults();
+          setTimeout(renderPreview, 0);
           setVal("loadCaseNoQuery", row.caseNo || caseNoQuery || "");
           setVal("loadNameQuery", row.destinationCompany || row.unloadName || row.unloadPlace || row.toCompany || "");
           setDbStatus(`DB状態: 送状呼び出し済み（${row.caseNo || caseNoQuery}）`, false);
@@ -1123,20 +1142,13 @@
       setChecked("destinationNoHonorific", false);
       setChecked("cautionSameAsDestination", false);
       updateCautionReceiverLockState();
-      setVal("senderCompany", "ジェイピーネクスト株式会社");
-      setVal("senderAddress", "名古屋市中川区万町302番地");
-      setVal("senderTel", "052-353-3146");
-      setVal("caution", "現場入門前に必ず下記番号へ連絡してください");
+      ensureSlipDefaults();
       applyOperatorAutoFill();
     }
     async function initPage(){
       const initialPrefill = applyPrefill();
       const initRevision = _viewRevision;
-      if(!valDate("requestDate")) setVal("requestDate", PortalDate.getTodayIsoDate());
-      if(!val("senderCompany")) setVal("senderCompany", "ジェイピーネクスト株式会社");
-      if(!val("senderAddress")) setVal("senderAddress", "名古屋市中川区万町302番地");
-      if(!val("senderTel")) setVal("senderTel", "052-353-3146");
-      if(!val("caution")) setVal("caution", "現場入門前に必ず下記番号へ連絡してください");
+      ensureSlipDefaults();
       updateCautionReceiverLockState();
       try{
         await loadTransportDbSettings();
