@@ -896,10 +896,34 @@
       return lastRow;
     }
     async function fetchShippingRowByCaseNo(caseNo){
+      const qs =
+        `mode=transport_search` +
+        `&targetSpreadsheetId=${encodeURIComponent(_transportDbSpreadsheetId)}` +
+        `&caseNoQuery=${encodeURIComponent(caseNo)}` +
+        `&unloadNameQuery=` +
+        `&_=${Date.now()}`;
+      const searchRes = await fetch(`${_transportDbGasUrl}?${qs}`, {mode:"cors"});
+      const searchJson = await searchRes.json();
+      const rows = (searchJson && (searchJson.rows || searchJson.data || searchJson.list)) || [];
+      const exact = (Array.isArray(rows) ? rows : []).find(row => String(row.caseNo || "").trim() === String(caseNo || "").trim());
+      if(exact) return exact;
       const url = `${_transportDbGasUrl}?mode=shipping_get&targetSpreadsheetId=${encodeURIComponent(_transportDbSpreadsheetId)}&caseNo=${encodeURIComponent(caseNo)}&_=${Date.now()}`;
       const r = await fetch(url, {mode:"cors"});
       const j = await r.json();
       return (j && (j.row || j.data)) || null;
+    }
+    function rowHasSavedSlipData(row){
+      if(!row) return false;
+      return [
+        "slip_carrierCompany","carrierCompany",
+        "slip_vehicleNo","vehicleNo",
+        "slip_driverName","driverName",
+        "slip_driverMobile","driverMobile",
+        "slip_itemName1","itemName1",
+        "slip_caution","caution",
+        "slip_cautionReceiverName","cautionReceiverName",
+        "slip_remarks","remarks"
+      ].some(key => String(row[key] || "").trim());
     }
     function fillSlipFromRow(row){
       if(!row) return;
@@ -965,12 +989,17 @@
       if(!p || !p.caseNo || !_transportDbSpreadsheetId || !_transportDbGasUrl) return;
       setDbStatus("DB状態: 送状データ確認中...", false);
       try{
-        const row = await fetchShippingRowByCaseNo(p.caseNo);
+        let row = null;
+        for(let i=0; i<4; i++){
+          row = await fetchShippingRowByCaseNo(p.caseNo);
+          if(row && rowHasSavedSlipData(row)) break;
+          if(i < 3) await sleep(350);
+        }
         if(row) fillSlipFromRow(row);
         applyTransportPrefill(p);
         setVal("loadCaseNoQuery", p.caseNo || "");
         setVal("loadNameQuery", val("destinationCompany"));
-        setDbStatus(row ? `DB状態: 送状データ反映済み（${p.caseNo}）` : `DB状態: 運送手配表から反映済み（${p.caseNo}）`, false);
+        setDbStatus(row && rowHasSavedSlipData(row) ? `DB状態: 保存済み送状＋運送手配表を反映（${p.caseNo}）` : `DB状態: 運送手配表から反映済み（${p.caseNo}）`, false);
       }catch(e){
         applyTransportPrefill(p);
         setDbStatus("DB状態: 送状データ確認エラー（引き継ぎ内容を表示）", true);
