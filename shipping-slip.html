@@ -1096,8 +1096,11 @@
       }
     }
     async function loadShippingSlip(btn){
-      const caseNoQuery = val("loadCaseNoQuery") || val("caseNo");
-      const unloadNameQuery = val("loadNameQuery") || val("destinationCompany");
+      const searchCaseNo = val("loadCaseNoQuery");
+      const searchName = val("loadNameQuery");
+      const hasSearchInput = !!(searchCaseNo || searchName);
+      const caseNoQuery = hasSearchInput ? searchCaseNo : val("caseNo");
+      const unloadNameQuery = hasSearchInput ? searchName : val("destinationCompany");
       if(!caseNoQuery && !unloadNameQuery){
         alert("案件番号または発送先名を入力してください。");
         return;
