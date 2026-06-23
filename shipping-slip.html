@@ -25,6 +25,12 @@
     .btn:hover{background:var(--blue-dk)}
     .btn.alt:hover{background:#475569}
     .btn:disabled{opacity:.6;cursor:not-allowed}
+    .status-pill{display:inline-flex;align-items:center;gap:6px;margin:-2px 0 10px;padding:7px 11px;border-radius:999px;border:1px solid #cbd5e1;background:#f8fafc;color:#475569;font-size:12px;font-weight:900;line-height:1.35}
+    .status-pill::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 0 3px rgba(100,116,139,.12)}
+    .status-pill.active{background:#ecfdf5;border-color:#86efac;color:#166534}
+    .status-pill.loading{background:#eff6ff;border-color:#93c5fd;color:#1d4ed8}
+    .status-pill.warn{background:#fffbeb;border-color:#fcd34d;color:#92400e}
+    .status-pill.err{background:#fef2f2;border-color:#fecaca;color:#b91c1c}
     .actions .search-inline{
       display:flex;align-items:center;gap:6px;
       padding:7px 8px;
@@ -253,7 +259,7 @@
         <button class="btn alt" onclick="resetSlip()">リセット</button>
       </div>
     </div>
-    <div id="db-status" style="margin:-2px 0 10px;font-size:12px;color:#475569;">DB状態: 未接続</div>
+    <div id="db-status" class="status-pill err">DB状態: 未接続</div>
 
     <div class="grid">
       <div class="card">
@@ -393,11 +399,20 @@
     const $ = id => document.getElementById(id);
     function val(id){ const el = $(id); return el ? String(el.value || "").trim() : ""; }
     function valDate(id){ return PortalDate.readPortalDateInputValue($(id)); }
+    function dbStatusKind(text, isError){
+      if(isError) return "err";
+      const s = String(text || "");
+      if(/読み込み|確認中|保存中|呼び出し中|検索中|処理中/.test(s)) return "loading";
+      if(/未完了|未確認|該当データなし|候補あり|新規入力/.test(s)) return "warn";
+      if(/OK|済み|保存済み|呼び出し済み|接続設定OK/.test(s)) return "active";
+      return "";
+    }
     function setDbStatus(text, isError){
       const el = $("db-status");
       if(!el) return;
       el.textContent = text;
-      el.style.color = isError ? "#b91c1c" : "#475569";
+      const kind = dbStatusKind(text, isError);
+      el.className = "status-pill" + (kind ? " " + kind : "");
     }
     function setActionLoading(btn, loading, loadingText){
       if(!btn) return;
@@ -599,6 +614,28 @@
       if(!p) return String(v || "").trim();
       return `${p.y}年${p.m}月${p.d}日`;
     }
+    function normalizeDateTimeText(raw){
+      const s = String(raw || "").trim();
+      if(!s) return "";
+      const p2 = n => String(Number(n || 0)).padStart(2, "0");
+      let m = s.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})(?:[ T](\d{1,2}):(\d{2}))?/);
+      if(m){
+        const date = `${m[1]}-${p2(m[2])}-${p2(m[3])}`;
+        return m[4] ? `${date} ${p2(m[4])}:${m[5]}` : date;
+      }
+      m = s.match(/^(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}\s+\d{4}\s+\d{2}:\d{2}:\d{2}/i);
+      if(m){
+        const d = new Date(s);
+        if(!Number.isNaN(d.getTime())){
+          return `${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())} ${p2(d.getHours())}:${p2(d.getMinutes())}`;
+        }
+      }
+      const d = new Date(s);
+      if(!Number.isNaN(d.getTime()) && /T|\d{2}:\d{2}|GMT|標準時/.test(s)){
+        return `${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())} ${p2(d.getHours())}:${p2(d.getMinutes())}`;
+      }
+      return s;
+    }
     function isChecked(id){
       const el = $(id);
       return !!(el && el.checked);
@@ -695,7 +732,7 @@
       const destinationPostal = val("destinationPostal");
       const destinationAddress = val("destinationAddress");
       const destinationTel = val("destinationTel");
-      const arrivalDateTime = val("arrivalDateTime");
+      const arrivalDateTime = normalizeDateTimeText(val("arrivalDateTime"));
       const caution = val("caution");
       const cautionReceiverDept = val("cautionReceiverDept");
       const cautionReceiverName = val("cautionReceiverName");
@@ -803,7 +840,7 @@
         destinationPostal: val("destinationPostal"),
         destinationAddress: val("destinationAddress"),
         destinationTel: val("destinationTel"),
-        arrivalDateTime: val("arrivalDateTime"),
+        arrivalDateTime: normalizeDateTimeText(val("arrivalDateTime")),
         itemName1: val("itemName1"), itemQty1: buildQtyWithUnit(val("itemQty1"), val("itemQtyUnit1")),
         itemName2: val("itemName2"), itemQty2: buildQtyWithUnit(val("itemQty2"), val("itemQtyUnit2")),
         itemName3: val("itemName3"), itemQty3: buildQtyWithUnit(val("itemQty3"), val("itemQtyUnit3")),
@@ -822,6 +859,31 @@
         remarks: val("remarks")
       };
     }
+    function sleep(ms){
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    function checkedPayloadValue(payload, key){
+      return !!String((payload && payload[key]) || "").trim();
+    }
+    function savedCheckboxesMatch(row, payload){
+      if(!row) return false;
+      const destinationSaved = parseBoolean(row.destinationNoHonorific || row.slip_destinationNoHonorific || row.unloadPersonNoHonorific || "");
+      const cautionSaved = parseBoolean(row.cautionSameAsDestination || row.slip_cautionSameAsDestination || "");
+      return destinationSaved === checkedPayloadValue(payload, "destinationNoHonorific")
+        && cautionSaved === checkedPayloadValue(payload, "cautionSameAsDestination");
+    }
+    async function fetchSavedShippingRow(caseNo, payload){
+      let lastRow = null;
+      for(let i=0; i<4; i++){
+        const url = `${_transportDbGasUrl}?mode=shipping_get&targetSpreadsheetId=${encodeURIComponent(_transportDbSpreadsheetId)}&caseNo=${encodeURIComponent(caseNo)}&_=${Date.now()}`;
+        const r = await fetch(url, {mode:"cors"});
+        const j = await r.json();
+        lastRow = (j && (j.row || j.data)) || null;
+        if(!lastRow || savedCheckboxesMatch(lastRow, payload)) return lastRow;
+        await sleep(350);
+      }
+      return lastRow;
+    }
     function fillSlipFromRow(row){
       if(!row) return;
       _slipRecordId = String(row.recordId || "").trim();
@@ -838,7 +900,7 @@
       setVal("destinationPostal", row.destinationPostal || row.slip_destinationPostal || "");
       setVal("destinationAddress", row.destinationAddress || row.slip_destinationAddress || "");
       setVal("destinationTel", row.destinationTel || row.slip_destinationTel || "");
-      setVal("arrivalDateTime", row.arrivalDateTime || row.slip_arrivalDateTime || "");
+      setVal("arrivalDateTime", normalizeDateTimeText(row.arrivalDateTime || row.slip_arrivalDateTime || ""));
       for(let i=1;i<=5;i++){
         setVal(`itemName${i}`, row[`itemName${i}`] || row[`slip_itemName${i}`] || "");
         const pair = splitQtyAndUnit(row[`itemQty${i}`] || row[`slip_itemQty${i}`] || "");
@@ -861,6 +923,7 @@
       renderPreview();
     }
     async function loadTransportDbSettings(){
+      setDbStatus("DB状態: 接続設定を読み込み中...", false);
       try{
         const r = await fetch(GAS_URL + "?t=" + Date.now(), {mode:"cors"});
         const d = await r.json();
@@ -893,10 +956,7 @@
         const payload = buildShippingPayload();
         const isUpdate = payload.mode === "shipping_update";
         await gasPost(_transportDbGasUrl, payload);
-        const url = `${_transportDbGasUrl}?mode=shipping_get&targetSpreadsheetId=${encodeURIComponent(_transportDbSpreadsheetId)}&caseNo=${encodeURIComponent(caseNo)}&_=${Date.now()}`;
-        const r = await fetch(url, {mode:"cors"});
-        const j = await r.json();
-        const row = (j && (j.row || j.data)) || null;
+        const row = await fetchSavedShippingRow(caseNo, payload);
         if(!row){
           setDbStatus("DB状態: 保存未確認", true);
           alert("保存確認ができませんでした。");
@@ -1002,7 +1062,7 @@
         setVal("destinationContact", p.destinationContact || "");
         setChecked("destinationNoHonorific", parseBoolean(p.destinationNoHonorific || p.unloadPersonNoHonorific || ""));
         setVal("destinationTel", p.destinationTel || "");
-        setVal("arrivalDateTime", p.arrivalDateTime || "");
+        setVal("arrivalDateTime", normalizeDateTimeText(p.arrivalDateTime || ""));
         setVal("senderCompany", p.senderCompany || "ジェイピーネクスト株式会社");
         setVal("senderName", p.senderName || "");
         setVal("senderAddress", p.senderPostalAddress || "名古屋市中川区万町302番地");

@@ -77,6 +77,12 @@
     .btn:hover{background:var(--blue-dk)}
     .btn.alt{background:#64748b}
     .btn.alt:hover{background:#475569}
+    .status-pill{display:inline-flex;align-items:center;gap:6px;margin:-2px 0 10px;padding:7px 11px;border-radius:999px;border:1px solid #cbd5e1;background:#f8fafc;color:#475569;font-size:12px;font-weight:900;line-height:1.35}
+    .status-pill::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 0 3px rgba(100,116,139,.12)}
+    .status-pill.active{background:#ecfdf5;border-color:#86efac;color:#166534}
+    .status-pill.loading{background:#eff6ff;border-color:#93c5fd;color:#1d4ed8}
+    .status-pill.warn{background:#fffbeb;border-color:#fcd34d;color:#92400e}
+    .status-pill.err{background:#fef2f2;border-color:#fecaca;color:#b91c1c}
     .btn-spinner{
       width:13px;height:13px;border:2px solid rgba(255,255,255,.45);
       border-top-color:#fff;border-radius:50%;display:inline-block;vertical-align:-2px;
@@ -200,7 +206,7 @@
         <button class="btn alt" type="button" onclick="resetForm()">リセット</button>
       </div>
     </div>
-    <div id="db-status" style="margin:-2px 0 10px;font-size:12px;color:#475569;">DB状態: 未接続</div>
+    <div id="db-status" class="status-pill err">DB状態: 未接続</div>
 
     <div class="grid">
       <div class="card">
@@ -294,8 +300,8 @@
               <div class="sec-row"><div class="sec-label">備考</div><div class="sec-body mid" id="pNote">　</div></div>
             </div>
             <div class="foot">
-              <div class="sign">依頼者 署名：</div>
-              <div class="sign">請負者 署名：</div>
+              <div class="sign">作業者：</div>
+              <div class="sign">確認者：</div>
             </div>
             <div class="sign-gap"></div>
             <div class="meta-extra">
@@ -678,6 +684,7 @@
       return s;
     }
     async function loadMasterOptions(){
+      setDbStatus("DB状態: 接続設定を読み込み中...", false);
       try{
         const r = await fetch(GAS_URL + "?t=" + Date.now(), {mode:"cors"});
         const d = await r.json();
@@ -716,11 +723,20 @@
       updateWorkorderDbStatus();
       applyOperatorAutoFill();
     }
+    function dbStatusKind(text, isError){
+      if(isError) return "err";
+      const s = String(text || "");
+      if(/読み込み|確認中|保存中|呼び出し中|検索中|処理中/.test(s)) return "loading";
+      if(/未完了|未確認|該当データなし|候補あり|新規入力/.test(s)) return "warn";
+      if(/OK|済み|保存済み|呼び出し済み|接続設定OK/.test(s)) return "active";
+      return "";
+    }
     function setDbStatus(text, isError){
       const el = $("db-status");
       if(!el) return;
       el.textContent = text;
-      el.style.color = isError ? "#b91c1c" : "#475569";
+      const kind = dbStatusKind(text, isError);
+      el.className = "status-pill" + (kind ? " " + kind : "");
     }
     function updateWorkorderDbStatus(){
       if(_workorderDbSpreadsheetId && _workorderDbGasUrl){

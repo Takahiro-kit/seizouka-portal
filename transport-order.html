@@ -26,6 +26,12 @@
     .btn:hover{background:var(--blue-dk)}
     .btn.alt:hover{background:#475569}
     .btn:disabled{opacity:.6;cursor:not-allowed}
+    .status-pill{display:inline-flex;align-items:center;gap:6px;margin:-2px 0 10px;padding:7px 11px;border-radius:999px;border:1px solid #cbd5e1;background:#f8fafc;color:#475569;font-size:12px;font-weight:900;line-height:1.35}
+    .status-pill::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 0 3px rgba(100,116,139,.12)}
+    .status-pill.active{background:#ecfdf5;border-color:#86efac;color:#166534}
+    .status-pill.loading{background:#eff6ff;border-color:#93c5fd;color:#1d4ed8}
+    .status-pill.warn{background:#fffbeb;border-color:#fcd34d;color:#92400e}
+    .status-pill.err{background:#fef2f2;border-color:#fecaca;color:#b91c1c}
     .btn-spinner{width:13px;height:13px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;display:inline-block;vertical-align:-2px;margin-right:6px;animation:spin 1s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
     .actions .search-inline{
@@ -208,7 +214,7 @@
         <button class="btn alt" onclick="resetForm()">リセット</button>
       </div>
     </div>
-    <div id="db-status" style="margin:-2px 0 10px;font-size:12px;color:#475569;">DB状態: 未接続</div>
+    <div id="db-status" class="status-pill err">DB状態: 未接続</div>
     <div class="grid">
       <div class="card">
         <div class="hdr">運送手配依頼書 入力</div>
@@ -803,11 +809,20 @@
       if(m && m[1]) return m[1];
       return s;
     }
+    function dbStatusKind(text, isError){
+      if(isError) return "err";
+      const s = String(text || "");
+      if(/読み込み|確認中|保存中|呼び出し中|検索中|処理中/.test(s)) return "loading";
+      if(/未完了|未確認|該当データなし|候補あり|新規入力/.test(s)) return "warn";
+      if(/OK|済み|保存済み|呼び出し済み|接続設定OK/.test(s)) return "active";
+      return "";
+    }
     function setDbStatus(text, isError){
       const el = $("db-status");
       if(!el) return;
       el.textContent = text;
-      el.style.color = isError ? "#b91c1c" : "#475569";
+      const kind = dbStatusKind(text, isError);
+      el.className = "status-pill" + (kind ? " " + kind : "");
     }
     function toDateInputValue(v){
       const raw = String(v || "").trim();
@@ -1045,6 +1060,7 @@
       }
     }
     async function loadTransportDbSettings(){
+      setDbStatus("DB状態: 接続設定を読み込み中...", false);
       try{
         const r = await fetch(GAS_URL + "?t=" + Date.now(), {mode:"cors"});
         const d = await r.json();
@@ -1069,12 +1085,19 @@
         applyOperatorAutoFill();
       }
     }
-    async function verifyTransportSaved(caseNo){
+    async function fetchTransportRowByCaseNo(caseNo){
       try{
         const url = `${_transportDbGasUrl}?mode=transport_get&targetSpreadsheetId=${encodeURIComponent(_transportDbSpreadsheetId)}&caseNo=${encodeURIComponent(caseNo)}&_=${Date.now()}`;
         const r = await fetch(url, {mode:"cors"});
         const j = await r.json();
-        return !!(j && (j.row || j.data));
+        return (j && (j.row || j.data)) || null;
+      }catch(e){
+        return null;
+      }
+    }
+    async function verifyTransportSaved(caseNo){
+      try{
+        return !!(await fetchTransportRowByCaseNo(caseNo));
       }catch(e){
         return false;
       }
@@ -1293,12 +1316,14 @@
       }
       const toPersons = getToPersonEntries();
       const toPersonCombined = toPersons.map(x => formatDisplayName(x.name, x.noHonorific)).join("\n");
-      const isUpdate = forceUpdate || !!_transportRecordId;
+      const existingRow = (!forceUpdate && !_transportRecordId) ? await fetchTransportRowByCaseNo(caseNo) : null;
+      const existingRecordId = String(existingRow && (existingRow.recordId || existingRow.id || existingRow.rowId || existingRow.savedAt) || "").trim();
+      const isUpdate = forceUpdate || !!_transportRecordId || !!existingRow;
       const payload = {
         sheet: isUpdate ? "運送手配表_DB_UPDATE" : "運送手配表_DB_ADD",
         mode: isUpdate ? "transport_update" : "transport_add",
         targetSpreadsheetId: _transportDbSpreadsheetId,
-        recordId: _transportRecordId || "",
+        recordId: _transportRecordId || existingRecordId || "",
         savedAt: nowStr(),
         caseNo,
         sendDate: valDate("sendDate"),
@@ -1336,7 +1361,7 @@
           return false;
         }
         _loadedCaseNo = caseNo;
-        if(!_transportRecordId) _transportRecordId = payload.savedAt;
+        if(!_transportRecordId) _transportRecordId = payload.recordId || payload.savedAt;
         setDbStatus(`DB状態: ${isUpdate ? "更新保存済み" : "新規保存済み"}（${caseNo}）`, false);
         logPortalAudit(isUpdate ? "更新保存" : "新規保存", caseNo, { kind: "transport_save", mode: isUpdate ? "update" : "add" });
         return true;
