@@ -80,8 +80,8 @@
     .status-pill{display:inline-flex;align-items:center;gap:6px;margin:-2px 0 10px;padding:7px 11px;border-radius:999px;border:1px solid #cbd5e1;background:#f8fafc;color:#475569;font-size:12px;font-weight:900;line-height:1.35}
     .status-pill::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 0 3px rgba(100,116,139,.12)}
     .status-pill.active{background:#ecfdf5;border-color:#86efac;color:#166534}
-    .status-pill.loading{background:#f8fbff;border-color:#bfdbfe;color:#3b82f6;opacity:.72}
-    .status-pill.loading::before{background:transparent;border:2px solid #bfdbfe;border-top-color:#3b82f6;box-shadow:none;animation:woSpin .8s linear infinite}
+    .status-pill.loading{background:#f8fbff;border-color:#bfdbfe;color:#2563eb;opacity:.68}
+    .status-pill.loading::before{width:14px;height:14px;background:transparent;border:2px solid #bfdbfe;border-top-color:#2563eb;box-shadow:none;animation:woSpin .75s linear infinite}
     .status-pill.warn{background:#fffbeb;border-color:#fcd34d;color:#92400e}
     .status-pill.err{background:#fef2f2;border-color:#fecaca;color:#b91c1c}
     .btn-spinner{
@@ -865,6 +865,7 @@
         return;
       }
       setActionLoading(btn, true, "検索中");
+      setDbStatus("DB状態: 呼び出し中...", false);
       try{
         const rows = await fetchWorkorderSearchRows(caseNoQuery, customerQuery);
         if(!rows.length){
@@ -896,6 +897,7 @@
         return;
       }
       setActionLoading(btn, true, "取得中");
+      setDbStatus("DB状態: 一覧を読み込み中...", false);
       try{
         const rows = await fetchWorkorderSearchRows("", "");
         if(!rows.length){
@@ -969,6 +971,7 @@
         btn.dataset.prevHtml = btn.innerHTML;
         btn.innerHTML = `<span class="btn-spinner"></span>保存中...`;
       }
+      setDbStatus("DB状態: 保存中...", false);
       const isUpdate = forceUpdate || !!_workorderRecordId;
       const payload = {
         sheet: isUpdate ? "作業指示書_DB_UPDATE" : "作業指示書_DB_ADD",
