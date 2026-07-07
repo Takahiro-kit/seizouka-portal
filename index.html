@@ -1023,6 +1023,7 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
 .page{display:none;}
 .page.active{display:block;}
 </style>
+<script src="analytics.js"></script>
 </head>
 <body class="prelogin">
 <script>
@@ -2108,6 +2109,55 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
 
 <script>
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbzueRIitHcmbZIjfS1iT7qsAY3awEHioinFms0NO6e9ieVtlJY-ekogHjzmwDhZjUfyBA/exec';
+
+// Analytics Platform（07_Implementation_Plan.md）。analyticsEnabled=false のため現状は一切送信しない。
+// apiBase/key は GitHub Pages公開・Vercel本番の確定後に設定する（07 §7 デプロイ手順）。
+const ANALYTICS_API_BASE = '';
+const ANALYTICS_INGEST_KEY = '';
+if (window.analytics) {
+  window.analytics.init({
+    apiBase: ANALYTICS_API_BASE,
+    app: 'portal',
+    domain: 'system',
+    environment: 'github-pages',
+    key: ANALYTICS_INGEST_KEY,
+    appVersion: null,
+    analyticsEnabled: false
+  });
+}
+
+// GAS書込コマンド → Analytics entity_type / record_*action 対応表（07 §2）
+const GAS_ENTITY_BY_SHEET = {
+  '課内連絡': { entity_type: 'notice', action: 'created' },
+  '課内連絡_UPDATE': { entity_type: 'notice', action: 'updated' },
+  '課内連絡_DELETE': { entity_type: 'notice', action: 'deleted' },
+  '課内連絡種別_UPDATE': { entity_type: 'notice', action: 'updated' },
+  '課内連絡種別_DELETE': { entity_type: 'notice', action: 'deleted' },
+  'TODO': { entity_type: 'todo', action: 'created' },
+  'TODO_UPDATE': { entity_type: 'todo', action: 'updated' },
+  'TODO_EDIT': { entity_type: 'todo', action: 'updated' },
+  'TODO_DELETE': { entity_type: 'todo', action: 'deleted' },
+  'カレンダー_ADD': { entity_type: 'calendar', action: 'created' },
+  'カレンダー_DELETE': { entity_type: 'calendar', action: 'deleted' },
+  'カレンダー_RESET_DEFAULT': { entity_type: 'calendar', action: 'updated' },
+  '手順書_ADD': { entity_type: 'document', action: 'created' },
+  '手順書_DELETE': { entity_type: 'document', action: 'deleted' },
+  'メンバー_UPDATE': { entity_type: 'member', action: 'updated' },
+  'メンバー_DELETE': { entity_type: 'member', action: 'deleted' },
+  '設定_UPDATE': { entity_type: 'setting', action: 'updated' }
+};
+/** gasPostの結果を record_created等/save_succeeded等としてAnalyticsへ送る（監査GAS送信・戻り値は不変。副作用の観測のみ） */
+function trackGasWriteOutcome(gasEntity, req){
+  if (!window.analytics || typeof window.analytics.track !== 'function') return;
+  const recordEvent = gasEntity.action === 'created' ? 'record_created'
+    : gasEntity.action === 'deleted' ? 'record_deleted' : 'record_updated';
+  window.analytics.track(recordEvent, { entity_type: gasEntity.entity_type });
+  req.then(() => {
+    window.analytics.track('save_succeeded', { entity_type: gasEntity.entity_type });
+  }).catch(() => {
+    window.analytics.track('save_failed', { entity_type: gasEntity.entity_type, error_type: 'network_error' });
+  });
+}
 /** GAS WebアプリへPOST（form-urlencoded の data= JSON が最も確実） */
 function gasPost(payload, opts){
   const options = Object.assign({ cors: false }, opts || {});
@@ -2116,32 +2166,37 @@ function gasPost(payload, opts){
     ? {...payload, operator: operatorName}
     : payload;
   const body = 'data=' + encodeURIComponent(JSON.stringify(payloadObj));
+  const gasEntity = (payloadObj && typeof payloadObj === 'object') ? GAS_ENTITY_BY_SHEET[payloadObj.sheet] : undefined;
+  let req;
   if(!options.cors){
-    return fetch(GAS_URL, {
+    req = fetch(GAS_URL, {
       method:'POST',
       mode:'no-cors',
       headers:{'Content-Type':'application/x-www-form-urlencoded'},
       body
     });
+  } else {
+    req = fetch(GAS_URL, {
+      method:'POST',
+      mode:'cors',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body
+    }).then(async (r)=>{
+      const text = await r.text();
+      let json;
+      try{
+        json = JSON.parse(text);
+      }catch(_e){
+        throw new Error('GAS応答の解析に失敗しました');
+      }
+      if(!r.ok || json.status === 'error'){
+        throw new Error(String(json.error || ('HTTP ' + r.status)));
+      }
+      return json;
+    });
   }
-  return fetch(GAS_URL, {
-    method:'POST',
-    mode:'cors',
-    headers:{'Content-Type':'application/x-www-form-urlencoded'},
-    body
-  }).then(async (r)=>{
-    const text = await r.text();
-    let json;
-    try{
-      json = JSON.parse(text);
-    }catch(_e){
-      throw new Error('GAS応答の解析に失敗しました');
-    }
-    if(!r.ok || json.status === 'error'){
-      throw new Error(String(json.error || ('HTTP ' + r.status)));
-    }
-    return json;
-  });
+  if (gasEntity) trackGasWriteOutcome(gasEntity, req);
+  return req;
 }
 function postPortalAuditPayload(payloadObj, after){
   const body = 'data=' + encodeURIComponent(JSON.stringify(payloadObj));
@@ -2161,6 +2216,43 @@ function postPortalAuditPayload(payloadObj, after){
   }
   if(typeof after === 'function') setTimeout(after, sent ? 0 : 80);
 }
+// logPortalAudit(§1の16箇所) の action → Analytics event 対応表（07 §2）
+const ANALYTICS_FEATURE_BY_ACTION = {
+  'パスコピー': 'path_copy',
+  'ファイルリネーム': 'file_rename',
+  'データ再読み込み': 'data_reload',
+  '画像保存': 'image_save'
+};
+const ANALYTICS_SCREEN_ACTIONS = new Set([
+  'ページ表示', 'ホーム移動', '単独表示', '設定画面移動', '管理画面移動', 'メンバーページ'
+]);
+/** 監査GAS送信(postPortalAuditPayload)とは別に、同じ呼び出しをAnalyticsへも送る（07 §2対応表） */
+function trackAnalyticsFromAudit(action, target, detailObj){
+  if (!window.analytics || typeof window.analytics.track !== 'function') return;
+  const detail = detailObj || {};
+  if (action === 'ログイン') {
+    window.analytics.track('login_succeeded', { method: detail.event === 'portal_guest_login' ? 'guest' : 'member' });
+    return;
+  }
+  if (action === 'ログアウト') {
+    window.analytics.track('logout', {});
+    return;
+  }
+  if (ANALYTICS_SCREEN_ACTIONS.has(action)) {
+    const screen = detail.page || detail.section || detail.targetId || String(target || action);
+    window.analytics.track('screen_viewed', { screen: screen });
+    return;
+  }
+  if (action === 'リンククリック') {
+    window.analytics.track('link_opened', { target: String(target || ''), category: detail.kind || 'link' });
+    return;
+  }
+  const feature = ANALYTICS_FEATURE_BY_ACTION[action];
+  if (feature) {
+    window.analytics.track('feature_used', { feature: feature });
+  }
+  // 07 §2対応表に定義のないactionはAnalytics送信対象外（監査GASのみ記録・現状維持）
+}
 function logPortalAudit(action, target, detail, after){
   const operator = getCurrentPortalOperatorName();
   if(!operator && action !== 'ログイン'){
@@ -2170,6 +2262,7 @@ function logPortalAudit(action, target, detail, after){
   const detailObj = detail && typeof detail === 'object'
     ? {...detail, page: detail.page || 'index.html'}
     : { message: String(detail || ''), page: 'index.html' };
+  trackAnalyticsFromAudit(action, target, detailObj);
   postPortalAuditPayload({
     sheet:'監査ログ',
     action: String(action || '操作'),
@@ -3614,6 +3707,9 @@ async function submitGuestLogin(){
     closePortalGuestLoginDialog();
     closePortalLoginDialog();
     logPortalAudit('ログイン', GUEST_OPERATOR_NAME, { event: 'portal_guest_login', label });
+    if (window.analytics && typeof window.analytics.identify === 'function') {
+      window.analytics.identify({ personToken: GUEST_OPERATOR_NAME });
+    }
     await ensureInitialDataLoaded();
     if(redirectAfterLoginIfNeeded()) return;
     applySingleViewFromQuery();
@@ -3672,6 +3768,9 @@ async function submitPortalLogin(){
     document.body.classList.remove('prelogin');
     closePortalLoginDialog();
     logPortalAudit('ログイン', memberName, { event: 'portal_login' });
+    if (window.analytics && typeof window.analytics.identify === 'function') {
+      window.analytics.identify({ personToken: memberName });
+    }
     await ensureInitialDataLoaded();
     if(redirectAfterLoginIfNeeded()) return;
     applySingleViewFromQuery();
