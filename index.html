@@ -2110,9 +2110,9 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
 <script>
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbzueRIitHcmbZIjfS1iT7qsAY3awEHioinFms0NO6e9ieVtlJY-ekogHjzmwDhZjUfyBA/exec';
 
-// Analytics Platform（07_Implementation_Plan.md）。analyticsEnabled=false のため現状は一切送信しない。
-// apiBase/key は GitHub Pages公開・Vercel本番の確定後に設定する（07 §7 デプロイ手順）。
-const ANALYTICS_API_BASE = '';
+// Analytics Platform（07_Implementation_Plan.md）。Vercel本番APIが確定したため有効化。
+// ANALYTICS_INGEST_KEY は未設定（空文字）。値を設定するまで送信は401で失敗する。
+const ANALYTICS_API_BASE = 'https://seizouka-portal-src.vercel.app';
 const ANALYTICS_INGEST_KEY = '';
 if (window.analytics) {
   window.analytics.init({
@@ -2122,7 +2122,7 @@ if (window.analytics) {
     environment: 'github-pages',
     key: ANALYTICS_INGEST_KEY,
     appVersion: null,
-    analyticsEnabled: false
+    analyticsEnabled: true
   });
 }
 
