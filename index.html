@@ -767,6 +767,13 @@ body.admin-mode .nav-admin-links{display:block;}
 /* TOAST */
 .toast{position:fixed;bottom:24px;right:24px;background:#222;color:#fff;border-radius:4px;padding:11px 20px;font-size:13px;z-index:10050;opacity:0;transition:opacity .3s;pointer-events:none;}
 .toast.show{opacity:1;}
+
+/* ログイン後のポータル初期データ読み込み状態(非ブロッキング・画面右上の小表示) */
+.portal-data-banner{position:fixed;top:8px;right:12px;z-index:10060;background:#111;color:#fff;font-size:12px;line-height:1.3;padding:7px 12px;border-radius:6px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(0,0,0,.18);}
+.portal-data-banner i{animation:spin 1s linear infinite;}
+.portal-data-banner.error{background:#b91c1c;}
+.portal-data-banner button{background:#fff;color:#b91c1c;border:none;border-radius:4px;padding:3px 10px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;}
+.portal-data-banner button:hover{background:#fee2e2;}
 .pw-modal{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:center;justify-content:center;z-index:1200;}
 .pw-modal.active{display:flex;}
 .pw-dialog{width:min(420px,92vw);background:#fff;border-radius:8px;box-shadow:0 20px 40px rgba(15,23,42,.28);padding:16px 16px 14px;}
@@ -1033,6 +1040,8 @@ body.single-view-mode #tlist{max-height:none !important;overflow:visible !import
 </script>
 
 <div class="toast" id="toast"></div>
+<div class="portal-data-banner" id="portal-data-loading-banner" style="display:none;"><i class="ti ti-loader-2"></i>データを読み込んでいます...</div>
+<div class="portal-data-banner error" id="portal-data-error-banner" style="display:none;"><span>データを取得できませんでした。再読み込みしてください。</span><button type="button" onclick="retryPortalDataLoad()">再読込</button></div>
 <div class="pw-modal" id="settings-pw-modal" aria-hidden="true">
   <div class="pw-dialog" role="dialog" aria-modal="true" aria-labelledby="settings-pw-title">
     <div class="pw-title" id="settings-pw-title">設定画面のパスワード</div>
@@ -3727,7 +3736,38 @@ async function submitGuestLogin(){
     }
   }
 }
+// ログイン処理の各段階をconsoleへ出す診断用ヘルパー（一時的な調査用）。
+function loginDiagLog(stage, extra){
+  console.log('[login] ' + stage, extra !== undefined ? extra : '');
+}
+// ensureInitialDataLoaded()（内部でGASへfetchする）は失敗・遅延時も内部で
+// 例外を握りつぶし常にresolveする設計のため、呼び出し側で待ち続けても
+// 「止まっているのか単に遅いのか」を区別できない。ログイン操作専用に、
+// この呼び出しだけタイムアウトを設ける（loadData()/startPortalDataLoad()
+// 自体の挙動は変更しない＝他の呼び出し箇所には影響しない）。
+function withLoginTimeout(promise, ms, label){
+  return new Promise(function(resolve, reject){
+    let settled = false;
+    const timer = setTimeout(function(){
+      if(settled) return;
+      settled = true;
+      reject(new Error(label + 'に時間がかかっています。もう一度お試しください。'));
+    }, ms);
+    Promise.resolve(promise).then(function(v){
+      if(settled) return;
+      settled = true;
+      clearTimeout(timer);
+      resolve(v);
+    }, function(e){
+      if(settled) return;
+      settled = true;
+      clearTimeout(timer);
+      reject(e);
+    });
+  });
+}
 async function submitPortalLogin(){
+  loginDiagLog('login:start');
   const memberSel = document.getElementById('portal-login-member');
   const pw = document.getElementById('portal-login-password');
   const loginBtn = document.getElementById('portal-login-submit-btn');
@@ -3737,24 +3777,28 @@ async function submitPortalLogin(){
   const entered = pw ? String(pw.value || '').trim() : '';
   clearPortalLoginError();
   if(!memberName){
+    loginDiagLog('login:error', 'member not selected');
     showPortalLoginError('メンバーを選択してください');
     setAdminActionLoading(loginBtn, false);
     return;
   }
   const loginMembers = getPortalLoginMembersList();
   if(!loginMembers.some(m => m.memberName === memberName)){
+    loginDiagLog('login:error', 'member not in login list: ' + memberName);
     showPortalLoginError('このユーザーはログインが無効です。管理者に「ログイン画面のユーザー一覧に表示」を確認してもらってください。');
     setAdminActionLoading(loginBtn, false);
     return;
   }
   const memberPw = getMemberLoginPassword(memberName);
   if(memberPw && !entered){
+    loginDiagLog('login:error', 'password empty');
     showPortalLoginError('パスワードを入力してください');
     if(pw) pw.focus();
     setAdminActionLoading(loginBtn, false);
     return;
   }
   if(memberPw && entered !== memberPw){
+    loginDiagLog('login:error', 'password mismatch');
     showPortalLoginError('パスワードが違います。管理画面のメンバー管理で設定したPCログイン用パスワードを確認してください。');
     if(pw){
       pw.focus();
@@ -3763,19 +3807,28 @@ async function submitPortalLogin(){
     setAdminActionLoading(loginBtn, false);
     return;
   }
+  loginDiagLog('login:auth-ok', memberName);
   try{
     persistPortalOperatorSession(memberName);
+    loginDiagLog('login:session-save');
     document.body.classList.remove('prelogin');
     closePortalLoginDialog();
     logPortalAudit('ログイン', memberName, { event: 'portal_login' });
     if (window.analytics && typeof window.analytics.identify === 'function') {
       window.analytics.identify({ personToken: memberName });
     }
-    await ensureInitialDataLoaded();
-    if(redirectAfterLoginIfNeeded()) return;
+    // ポータル本体の表示は、GAS初期データ取得(ensureInitialDataLoaded、
+    // 実測6〜11秒かかることがある)を待たない。パスワード照合成功後は
+    // 即座にポータルを表示し、データ取得は非ブロッキングでバックグラウンド
+    // 実行する（loadPortalDataAfterLogin）。GASが遅延・失敗してもログイン
+    // 画面へは戻さない（要件: ensureInitialDataLoadedをログイン成功条件にしない）。
+    if(redirectAfterLoginIfNeeded()){ loginDiagLog('login:portal-open', 'redirected'); return; }
     applySingleViewFromQuery();
     showToast(memberName + 'でログインしました');
+    loginDiagLog('login:portal-open');
+    loadPortalDataAfterLogin();
   }catch(e){
+    loginDiagLog('login:error', { name: e && e.name, message: e && e.message });
     clearPortalOperatorSession();
     document.body.classList.add('prelogin');
     openPortalLoginDialog();
@@ -3788,6 +3841,70 @@ async function submitPortalLogin(){
       setAdminActionLoading(loginBtn, false);
     }
   }
+}
+// ---- ログイン後のポータル初期データ読み込み(非ブロッキング) ----
+// ensureInitialDataLoaded()/loadData()自体は変更せず、そのまま再利用する。
+// GAS応答が遅延・失敗してもポータル表示は維持し、画面内の小さな表示のみで
+// 状態を伝える（全画面表示・ログイン画面への強制的な引き戻しはしない）。
+let _portalDataLoadingAfterLogin = false; // 二重取得防止
+function showPortalDataLoadingBanner(){
+  const el = document.getElementById('portal-data-loading-banner');
+  if(el) el.style.display = 'flex';
+  const errEl = document.getElementById('portal-data-error-banner');
+  if(errEl) errEl.style.display = 'none';
+}
+function hidePortalDataLoadingBanner(){
+  const el = document.getElementById('portal-data-loading-banner');
+  if(el) el.style.display = 'none';
+}
+function showPortalDataErrorBanner(){
+  const el = document.getElementById('portal-data-error-banner');
+  if(el) el.style.display = 'flex';
+}
+function hidePortalDataErrorBanner(){
+  const el = document.getElementById('portal-data-error-banner');
+  if(el) el.style.display = 'none';
+}
+async function loadPortalDataAfterLogin(){
+  if(_portalDataLoadingAfterLogin) return; // 二重取得防止
+  _portalDataLoadingAfterLogin = true;
+  loginDiagLog('login:members-load:start');
+  showPortalDataLoadingBanner();
+  try{
+    await withLoginTimeout(ensureInitialDataLoaded(), 18000, 'ポータルデータの取得');
+    loginDiagLog('login:members-load:ok');
+    hidePortalDataLoadingBanner();
+  }catch(e){
+    loginDiagLog('login:error', { name: e && e.name, message: e && e.message, stage: 'background-data-load' });
+    console.error(e);
+    hidePortalDataLoadingBanner();
+    showPortalDataErrorBanner();
+  }finally{
+    _portalDataLoadingAfterLogin = false;
+  }
+}
+// 再読込ボタン用。既存のloadData({force:true})をそのまま再利用する
+// （_portalDataReadyが既にtrueの場合でも強制的に再取得する既存の仕組み。
+// refreshPortalDataOnReturn()と同じ呼び出し方）。
+function retryPortalDataLoad(){
+  if(_portalDataLoadingAfterLogin) return; // 二重取得防止
+  _portalDataLoadingAfterLogin = true;
+  loginDiagLog('login:members-load:retry');
+  showPortalDataLoadingBanner();
+  withLoginTimeout(loadData({force:true}), 18000, 'ポータルデータの取得')
+    .then(function(){
+      loginDiagLog('login:members-load:ok');
+      hidePortalDataLoadingBanner();
+    })
+    .catch(function(e){
+      loginDiagLog('login:error', { name: e && e.name, message: e && e.message, stage: 'retry-data-load' });
+      console.error(e);
+      hidePortalDataLoadingBanner();
+      showPortalDataErrorBanner();
+    })
+    .finally(function(){
+      _portalDataLoadingAfterLogin = false;
+    });
 }
 function ensurePortalLogin(){
   const name = String(sessionStorage.getItem('portal_operator_name') || '').trim();
